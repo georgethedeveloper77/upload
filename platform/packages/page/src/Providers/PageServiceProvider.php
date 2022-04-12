@@ -11,7 +11,6 @@ use Botble\Page\Repositories\Interfaces\PageInterface;
 use Botble\Shortcode\View\View;
 use Event;
 use Illuminate\Routing\Events\RouteMatched;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -41,12 +40,12 @@ class PageServiceProvider extends ServiceProvider
 
         Event::listen(RouteMatched::class, function () {
             dashboard_menu()->registerItem([
-                'id'          => 'cms-core-page',
-                'priority'    => 2,
-                'parent_id'   => null,
-                'name'        => 'packages/page::pages.menu_name',
-                'icon'        => 'fa fa-book',
-                'url'         => route('pages.index'),
+                'id' => 'cms-core-page',
+                'priority' => 2,
+                'parent_id' => null,
+                'name' => 'packages/page::pages.menu_name',
+                'icon' => 'fa fa-book',
+                'url' => route('pages.index'),
                 'permissions' => ['pages.index'],
             ]);
 

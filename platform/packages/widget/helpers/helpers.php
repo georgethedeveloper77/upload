@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+
 if (!function_exists('register_widget')) {
     /**
      * @param string $widgetId
@@ -34,7 +36,7 @@ if (!function_exists('dynamic_sidebar')) {
     /**
      * @param string $sidebarId
      * @return string
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     function dynamic_sidebar(string $sidebarId)
     {

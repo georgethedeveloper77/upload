@@ -28,15 +28,15 @@ class AdminBar
     {
         $this->groups = [
             'appearance' => [
-                'link'  => 'javascript:;',
+                'link' => 'javascript:;',
                 'title' => trans('packages/theme::theme.appearance'),
                 'items' => [
                     trans('core/base::layouts.dashboard') => route('dashboard.index'),
-                    trans('core/setting::setting.title')  => route('settings.options'),
+                    trans('core/setting::setting.title') => route('settings.options'),
                 ],
             ],
-            'add-new'    => [
-                'link'  => 'javascript:;',
+            'add-new' => [
+                'link' => 'javascript:;',
                 'title' => trans('packages/theme::theme.add_new'),
                 'items' => [
                     trans('core/acl::users.users') => route('users.create'),
@@ -95,7 +95,7 @@ class AdminBar
 
         $this->groups[$slug] = [
             'title' => $title,
-            'link'  => $link,
+            'link' => $link,
             'items' => [],
         ];
 
@@ -112,7 +112,7 @@ class AdminBar
     {
         if ($group === null || !isset($this->groups[$group])) {
             $this->noGroupLinks[] = [
-                'link'  => $url,
+                'link' => $url,
                 'title' => $title,
             ];
         } else {

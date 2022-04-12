@@ -16,13 +16,13 @@ if (!function_exists('get_featured_brands')) {
             'condition' => [
                 'is_featured' => 1,
             ],
-            'order_by'  => [
-                'order'      => 'ASC',
+            'order_by' => [
+                'order' => 'ASC',
                 'created_at' => 'DESC',
             ],
-            'with'      => $with,
+            'with' => $with,
             'withCount' => $withCount,
-            'take'      => $limit,
+            'take' => $limit,
         ]);
     }
 }
@@ -38,11 +38,11 @@ if (!function_exists('get_all_brands')) {
     {
         return app(BrandInterface::class)->advancedGet([
             'condition' => $conditions,
-            'order_by'  => [
-                'order'      => 'ASC',
+            'order_by' => [
+                'order' => 'ASC',
                 'created_at' => 'DESC',
             ],
-            'with'      => $with,
+            'with' => $with,
             'withCount' => $withCount,
         ]);
     }

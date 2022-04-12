@@ -37,7 +37,8 @@ class CreateProductVariationsService
         ProductInterface $product,
         ProductAttributeInterface $productAttribute,
         ProductVariationInterface $productVariation
-    ) {
+    )
+    {
         $this->productRepository = $product;
 
         $this->productAttributeRepository = $productAttribute;

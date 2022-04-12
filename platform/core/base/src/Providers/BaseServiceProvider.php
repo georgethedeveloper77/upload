@@ -67,12 +67,12 @@ class BaseServiceProvider extends ServiceProvider
         });
 
         $this->app->make('config')->set([
-            'session.cookie'                                     => 'botble_session',
+            'session.cookie' => 'botble_session',
             'purifier.settings.default.AutoFormat.AutoParagraph' => false,
-            'purifier.settings.default.AutoFormat.RemoveEmpty'   => false,
-            'ziggy.except'                                       => ['debugbar.*'],
-            'app.debug_blacklist'                                => [
-                '_ENV'    => [
+            'purifier.settings.default.AutoFormat.RemoveEmpty' => false,
+            'ziggy.except' => ['debugbar.*'],
+            'app.debug_blacklist' => [
+                '_ENV' => [
                     'APP_KEY',
                     'ADMIN_DIR',
                     'DB_DATABASE',
@@ -94,12 +94,12 @@ class BaseServiceProvider extends ServiceProvider
                     'PUSHER_APP_KEY',
                     'PUSHER_APP_SECRET',
                 ],
-                '_POST'   => [
+                '_POST' => [
                     'password',
                 ],
             ],
-            'datatables-buttons.pdf_generator'                   => 'excel',
-            'excel.exports.csv.use_bom'                          => true,
+            'datatables-buttons.pdf_generator' => 'excel',
+            'excel.exports.csv.use_bom' => true,
         ]);
     }
 
@@ -133,7 +133,7 @@ class BaseServiceProvider extends ServiceProvider
             $locale = $setting->get('locale', $config->get('core.base.general.locale', $config->get('app.locale')));
 
             $config->set([
-                'app.locale'   => $locale,
+                'app.locale' => $locale,
                 'app.timezone' => $timezone,
             ]);
 
@@ -160,30 +160,30 @@ class BaseServiceProvider extends ServiceProvider
     {
         dashboard_menu()
             ->registerItem([
-                'id'          => 'cms-core-platform-administration',
-                'priority'    => 999,
-                'parent_id'   => null,
-                'name'        => 'core/base::layouts.platform_admin',
-                'icon'        => 'fa fa-user-shield',
-                'url'         => null,
+                'id' => 'cms-core-platform-administration',
+                'priority' => 999,
+                'parent_id' => null,
+                'name' => 'core/base::layouts.platform_admin',
+                'icon' => 'fa fa-user-shield',
+                'url' => null,
                 'permissions' => ['users.index'],
             ])
             ->registerItem([
-                'id'          => 'cms-core-system-information',
-                'priority'    => 5,
-                'parent_id'   => 'cms-core-platform-administration',
-                'name'        => 'core/base::system.info.title',
-                'icon'        => null,
-                'url'         => route('system.info'),
+                'id' => 'cms-core-system-information',
+                'priority' => 5,
+                'parent_id' => 'cms-core-platform-administration',
+                'name' => 'core/base::system.info.title',
+                'icon' => null,
+                'url' => route('system.info'),
                 'permissions' => [ACL_ROLE_SUPER_USER],
             ])
             ->registerItem([
-                'id'          => 'cms-core-system-cache',
-                'priority'    => 6,
-                'parent_id'   => 'cms-core-platform-administration',
-                'name'        => 'core/base::cache.cache_management',
-                'icon'        => null,
-                'url'         => route('system.cache'),
+                'id' => 'cms-core-system-cache',
+                'priority' => 6,
+                'parent_id' => 'cms-core-platform-administration',
+                'name' => 'core/base::cache.cache_management',
+                'icon' => null,
+                'url' => route('system.cache'),
                 'permissions' => [ACL_ROLE_SUPER_USER],
             ]);
     }

@@ -1,5 +1,7 @@
 <?php
 
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+
 if (!function_exists('plugin_path')) {
     /**
      * @return string
@@ -14,7 +16,7 @@ if (!function_exists('is_plugin_active')) {
     /**
      * @param string $alias
      * @return bool
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     function is_plugin_active($alias)
     {

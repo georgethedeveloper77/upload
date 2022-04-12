@@ -50,7 +50,8 @@ class ShipmentController extends BaseController
         ShipmentInterface $shipmentRepository,
         OrderHistoryInterface $orderHistoryRepository,
         ShipmentHistoryInterface $shipmentHistoryRepository
-    ) {
+    )
+    {
         $this->orderRepository = $orderRepository;
         $this->shipmentRepository = $shipmentRepository;
         $this->orderHistoryRepository = $orderHistoryRepository;
@@ -84,13 +85,13 @@ class ShipmentController extends BaseController
         $this->shipmentRepository->createOrUpdate(['status' => $request->input('status')], compact('id'));
 
         $this->shipmentHistoryRepository->createOrUpdate([
-            'action'      => 'update_status',
+            'action' => 'update_status',
             'description' => trans('plugins/ecommerce::shipping.changed_shipping_status', [
                 'status' => ShippingStatusEnum::getLabel($request->input('status')),
             ]),
             'shipment_id' => $id,
-            'order_id'    => $shipment->order_id,
-            'user_id'     => Auth::user()->getKey() ?? 0,
+            'order_id' => $shipment->order_id,
+            'user_id' => Auth::user()->getKey() ?? 0,
         ]);
 
         switch ($request->input('status')) {
@@ -99,18 +100,18 @@ class ShipmentController extends BaseController
                     ['id' => $shipment->order_id]);
 
                 $this->orderHistoryRepository->createOrUpdate([
-                    'action'      => 'update_status',
+                    'action' => 'update_status',
                     'description' => trans('plugins/ecommerce::shipping.order_confirmed_by'),
-                    'order_id'    => $shipment->order_id,
-                    'user_id'     => Auth::user()->getKey() ?? 0,
+                    'order_id' => $shipment->order_id,
+                    'user_id' => Auth::user()->getKey() ?? 0,
                 ]);
                 break;
             case ShippingStatusEnum::CANCELED:
                 $this->orderHistoryRepository->createOrUpdate([
-                    'action'      => 'cancel_shipment',
+                    'action' => 'cancel_shipment',
                     'description' => trans('plugins/ecommerce::shipping.shipping_canceled_by'),
-                    'order_id'    => $shipment->order_id,
-                    'user_id'     => Auth::user()->getKey(),
+                    'order_id' => $shipment->order_id,
+                    'user_id' => Auth::user()->getKey(),
                 ]);
                 break;
         }
@@ -130,13 +131,13 @@ class ShipmentController extends BaseController
         $this->shipmentRepository->createOrUpdate(['cod_status' => $request->input('status')], compact('id'));
 
         $this->shipmentHistoryRepository->createOrUpdate([
-            'action'      => 'update_cod_status',
+            'action' => 'update_cod_status',
             'description' => trans('plugins/ecommerce::shipping.updated_cod_status_by', [
                 'status' => ShippingCodStatusEnum::getLabel($request->input('status')),
             ]),
             'shipment_id' => $id,
-            'order_id'    => $shipment->order_id,
-            'user_id'     => Auth::user()->getKey() ?? 0,
+            'order_id' => $shipment->order_id,
+            'user_id' => Auth::user()->getKey() ?? 0,
         ]);
 
         return $response->setMessage(trans('plugins/ecommerce::shipping.update_cod_status_success'));

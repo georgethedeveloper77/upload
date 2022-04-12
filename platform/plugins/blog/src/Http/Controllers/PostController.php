@@ -56,7 +56,8 @@ class PostController extends BaseController
         PostInterface $postRepository,
         TagInterface $tagRepository,
         CategoryInterface $categoryRepository
-    ) {
+    )
+    {
         $this->postRepository = $postRepository;
         $this->tagRepository = $tagRepository;
         $this->categoryRepository = $categoryRepository;
@@ -97,12 +98,13 @@ class PostController extends BaseController
         StoreTagService $tagService,
         StoreCategoryService $categoryService,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         /**
          * @var Post $post
          */
         $post = $this->postRepository->createOrUpdate(array_merge($request->input(), [
-            'author_id'   => Auth::user()->getKey(),
+            'author_id' => Auth::user()->getKey(),
             'author_type' => User::class,
         ]));
 
@@ -149,7 +151,8 @@ class PostController extends BaseController
         StoreTagService $tagService,
         StoreCategoryService $categoryService,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $post = $this->postRepository->findOrFail($id);
 
         $post->fill($request->input());

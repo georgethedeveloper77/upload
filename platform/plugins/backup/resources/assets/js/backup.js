@@ -14,7 +14,7 @@ class BackupManagement {
             $('#restore-backup-modal').modal('show');
         });
 
-        $('.delete-crud-entry').on('click', event =>  {
+        $('.delete-crud-entry').on('click', event => {
             event.preventDefault();
             $('.modal-confirm-delete').modal('hide');
 

@@ -62,7 +62,8 @@ class MenuController extends BaseController
         MenuNodeInterface $menuNodeRepository,
         MenuLocationInterface $menuLocationRepository,
         CacheManager $cache
-    ) {
+    )
+    {
         $this->menuRepository = $menuRepository;
         $this->menuNodeRepository = $menuNodeRepository;
         $this->menuLocationRepository = $menuLocationRepository;
@@ -135,7 +136,7 @@ class MenuController extends BaseController
 
         foreach ($locations as $location) {
             $menuLocation = $this->menuLocationRepository->firstOrCreate([
-                'menu_id'  => $menu->id,
+                'menu_id' => $menu->id,
                 'location' => $location,
             ]);
 

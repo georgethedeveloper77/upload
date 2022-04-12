@@ -13,12 +13,12 @@
                                 <tr v-for="variant in child_products">
                                     <td class="width-60-px min-width-60-px">
                                         <div class="wrap-img vertical-align-m-i">
-                                            <img class="thumb-image" :src="variant.image_url"
-                                                 :alt="variant.product_name">
+                                            <img :alt="variant.product_name" :src="variant.image_url"
+                                                 class="thumb-image">
                                         </div>
                                     </td>
                                     <td class="pl5 p-r5 min-width-200-px">
-                                        <a class="hover-underline pre-line" :href="variant.product_link"
+                                        <a :href="variant.product_link" class="hover-underline pre-line"
                                            target="_blank">{{ variant.product_name }}</a>
                                         <p class="type-subdued"
                                            v-if="variant.variation_items && variant.variation_items.length">
@@ -37,17 +37,17 @@
                                     </td>
                                     <td class="pl5 p-r5 width-20-px min-width-20-px text-center"> x</td>
                                     <td class="pl5 p-r5 width-100-px min-width-100-px">
-                                        <input class="next-input p-none-r" v-model="variant.select_qty" type="number"
-                                               min="1" @change="handleChangeQuantity()">
+                                        <input @change="handleChangeQuantity()" class="next-input p-none-r" min="1"
+                                               type="number" v-model="variant.select_qty">
                                     </td>
                                     <td class="pl5 p-r5 width-100-px min-width-100-px text-center">{{ variant.price }}
                                         {{ currency }}
                                     </td>
                                     <td class="pl5 p-r5 text-right width-20-px min-width-20-px">
-                                        <a href="#" @click="handleRemoveVariant($event, variant)">
+                                        <a @click="handleRemoveVariant($event, variant)" href="#">
                                             <svg class="svg-next-icon svg-next-icon-size-12">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                     xlink:href="#next-remove"></use>
+                                                <use xlink:href="#next-remove"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                             </svg>
                                         </a>
                                     </td>
@@ -57,17 +57,18 @@
                         </div>
                         <div class="box-search-advance product">
                             <div>
-                                <input type="text" class="next-input textbox-advancesearch product"
+                                <input @click="loadListProductsAndVariations()" @keyup="handleSearchProduct($event.target.value)"
+                                       class="next-input textbox-advancesearch product"
                                        placeholder="Search or create a new product"
-                                       @click="loadListProductsAndVariations()"
-                                       @keyup="handleSearchProduct($event.target.value)">
+                                       type="text">
                             </div>
                             <div class="panel panel-default"
                                  v-bind:class="{ active: list_products, hidden : hidden_product_search_panel }">
                                 <div class="panel-body">
                                     <div class="box-search-advance-head" v-b-modal.add-product-item>
-                                        <img width="30"
-                                             src="//hstatic.net/0/0/global/design/imgs/next-create-custom-line-item.svg" alt="icon">
+                                        <img alt="icon"
+                                             src="//hstatic.net/0/0/global/design/imgs/next-create-custom-line-item.svg"
+                                             width="30">
                                         <span class="ml10"
                                               data-bind="text:CustomFieldName">{{ __('Create a new product') }}</span>
                                     </div>
@@ -76,37 +77,43 @@
                                             <i class="fa fa-spinner fa-spin"></i>
                                         </div>
                                         <ul class="clearfix" v-show="!loading">
-                                            <li v-for="product_item in list_products.data"
-                                                v-bind:class="{ 'item-selectable' : !product_item.variations.length, 'item-not-selectable' : product_item.variations.length }"
+                                            <li v-bind:class="{ 'item-selectable' : !product_item.variations.length, 'item-not-selectable' : product_item.variations.length }"
+                                                v-for="product_item in list_products.data"
                                                 v-on="!product_item.variations.length ? { click : () => selectProductVariant(product_item) } : {}">
                                                 <div class="wrap-img inline_block vertical-align-t float-left">
-                                                    <img class="thumb-image"
+                                                    <img :alt="product_item.name"
                                                          :src="product_item.image_url"
-                                                         :title="product_item.name" :alt="product_item.name">
+                                                         :title="product_item.name" class="thumb-image">
                                                 </div>
                                                 <label class="inline_block ml10 mt10 ws-nm"
                                                        style="width:calc(100% - 50px);">{{
                                                     product_item.name }}
                                                     <span v-if="!product_item.variations.length">
-                                                        <span v-if="product_item.is_out_of_stock" class="text-danger"><small>&nbsp;({{ __('Out of stock') }})</small></span>
-                                                        <span v-if="!product_item.is_out_of_stock && product_item.quantity > 0"><small>&nbsp;({{ product_item.quantity }} {{ __('product(s) available') }})</small></span>
+                                                        <span class="text-danger"
+                                                              v-if="product_item.is_out_of_stock"><small>&nbsp;({{ __('Out of stock') }})</small></span>
+                                                        <span
+                                                            v-if="!product_item.is_out_of_stock && product_item.quantity > 0"><small>&nbsp;({{ product_item.quantity }} {{ __('product(s) available') }})</small></span>
                                                     </span>
                                                 </label>
                                                 <div v-if="product_item.variations.length">
                                                     <div class="clear"></div>
                                                     <ul>
-                                                        <li class="clearfix product-variant"
+                                                        <li @click="selectProductVariant(product_item, variation)"
+                                                            class="clearfix product-variant"
                                                             v-for="variation in product_item.variations"
-                                                            @click="selectProductVariant(product_item, variation)"
                                                             v-if="variation.variation_items.length">
                                                             <a class="color_green float-left">
-                                                                    <span v-for="(productItem, index) in variation.variation_items">
+                                                                    <span
+                                                                        v-for="(productItem, index) in variation.variation_items">
                                                                         {{ productItem.attribute_title }}
-                                                                        <span v-if="index !== variation.variation_items.length - 1">/</span>
+                                                                        <span
+                                                                            v-if="index !== variation.variation_items.length - 1">/</span>
                                                                     </span>
                                                             </a>
-                                                            <span v-if="variation.is_out_of_stock" class="text-danger"><small>&nbsp;({{ __('Out of stock') }})</small></span>
-                                                            <span v-if="!variation.is_out_of_stock && variation.quantity > 0"><small>&nbsp;({{ variation.quantity }} {{ __('product(s) available') }})</small></span>
+                                                            <span class="text-danger"
+                                                                  v-if="variation.is_out_of_stock"><small>&nbsp;({{ __('Out of stock') }})</small></span>
+                                                            <span
+                                                                v-if="!variation.is_out_of_stock && variation.quantity > 0"><small>&nbsp;({{ variation.quantity }} {{ __('product(s) available') }})</small></span>
                                                         </li>
                                                     </ul>
                                                 </div>
@@ -121,23 +128,23 @@
                                 <div class="panel-footer"
                                      v-if="list_products.next_page_url || list_products.prev_page_url">
                                     <div class="btn-group float-right">
-                                        <button type="button"
+                                        <button :disabled="list_products.current_page === 1"
                                                 @click="loadListProductsAndVariations((list_products.prev_page_url ? list_products.current_page - 1 : list_products.current_page), true)"
-                                                v-bind:class="{ 'btn btn-secondary': list_products.current_page !== 1, 'btn btn-secondary disable': list_products.current_page === 1}"
-                                                :disabled="list_products.current_page === 1">
-                                            <svg role="img"
-                                                 class="svg-next-icon svg-next-icon-size-16 svg-next-icon-rotate-180">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                     xlink:href="#next-chevron"></use>
+                                                type="button"
+                                                v-bind:class="{ 'btn btn-secondary': list_products.current_page !== 1, 'btn btn-secondary disable': list_products.current_page === 1}">
+                                            <svg class="svg-next-icon svg-next-icon-size-16 svg-next-icon-rotate-180"
+                                                 role="img">
+                                                <use xlink:href="#next-chevron"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                             </svg>
                                         </button>
-                                        <button type="button"
+                                        <button :disabled="!list_products.next_page_url"
                                                 @click="loadListProductsAndVariations((list_products.next_page_url ? list_products.current_page + 1 : list_products.current_page), true)"
-                                                v-bind:class="{ 'btn btn-secondary': list_products.next_page_url, 'btn btn-secondary disable': !list_products.next_page_url }"
-                                                :disabled="!list_products.next_page_url">
-                                            <svg role="img" class="svg-next-icon svg-next-icon-size-16">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                     xlink:href="#next-chevron"></use>
+                                                type="button"
+                                                v-bind:class="{ 'btn btn-secondary': list_products.next_page_url, 'btn btn-secondary disable': !list_products.next_page_url }">
+                                            <svg class="svg-next-icon svg-next-icon-size-16" role="img">
+                                                <use xlink:href="#next-chevron"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                             </svg>
                                         </button>
                                     </div>
@@ -153,8 +160,8 @@
                         <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="text-title-field" for="txt-note">{{ __('Note') }}</label>
-                                <textarea class="ui-text-area textarea-auto-height" id="txt-note" rows="2"
-                                          placeholder="Note for order..." v-model="note"></textarea>
+                                <textarea class="ui-text-area textarea-auto-height" id="txt-note" placeholder="Note for order..."
+                                          rows="2" v-model="note"></textarea>
                             </div>
                         </div>
                         <div class="col-sm-6">
@@ -167,7 +174,7 @@
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="#" v-b-modal.add-discounts class="hover-underline">
+                                            <a class="hover-underline" href="#" v-b-modal.add-discounts>
                                                 <span v-if="!has_applied_discount"><i class="fa fa-plus-circle"></i> {{ __('Add discount') }}</span>
                                                 <span v-if="has_applied_discount">{{ __('Discount')}}</span>
                                             </a>
@@ -175,13 +182,15 @@
                                                v-if="child_discount_description && has_applied_discount">{{
                                                 child_discount_description }}</p>
                                         </td>
-                                        <td class="pl10">{{ has_applied_discount ? child_discount_amount : 0 | formatPrice }} {{ currency }}</td>
+                                        <td class="pl10">{{ has_applied_discount ? child_discount_amount : 0 |
+                                            formatPrice }} {{ currency }}
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>
-                                            <a href="#" v-b-modal.add-shipping class="hover-underline">
+                                            <a class="hover-underline" href="#" v-b-modal.add-shipping>
                                                 <span v-if="!child_is_selected_shipping"><i
-                                                        class="fa fa-plus-circle"></i> {{ __('Add shipping fee') }}</span>
+                                                    class="fa fa-plus-circle"></i> {{ __('Add shipping fee') }}</span>
                                                 <span v-if="child_is_selected_shipping">{{ __('Shipping') }}</span>
                                             </a>
                                             <p class="mb0 font-size-12px" v-if="child_shipping_method_name">{{
@@ -212,11 +221,12 @@
                             </div>
                         </div>
                         <div class="col-12 col-sm-6 col-md-12 col-lg-6 text-right">
-                            <button class="btn btn-primary" v-b-modal.make-paid
-                                    :disabled="!child_product_ids.length">{{ __('Paid') }}
+                            <button :disabled="!child_product_ids.length" class="btn btn-primary"
+                                    v-b-modal.make-paid>{{ __('Paid') }}
                             </button>
-                            <button class="btn btn-primary ml15" v-b-modal.make-pending
-                                    :disabled="!child_product_ids.length || child_total_amount === 0">{{ __('Pay later') }}
+                            <button :disabled="!child_product_ids.length || child_total_amount === 0" class="btn btn-primary ml15"
+                                    v-b-modal.make-pending>{{ __('Pay later')
+                                }}
                             </button>
                         </div>
                     </div>
@@ -235,10 +245,10 @@
                         <div class="findcustomer">
                             <div class="box-search-advance customer">
                                 <div>
-                                    <input type="text" class="next-input textbox-advancesearch customer"
-                                           @click="loadListCustomersForSearch()"
-                                           @keyup="loadListCustomersForSearch($event.target.value)"
-                                           placeholder="Search or create a new customer">
+                                    <input @click="loadListCustomersForSearch()" @keyup="loadListCustomersForSearch($event.target.value)"
+                                           class="next-input textbox-advancesearch customer"
+                                           placeholder="Search or create a new customer"
+                                           type="text">
                                 </div>
                                 <div class="panel panel-default"
                                      v-bind:class="{ active: customers, hidden : hidden_customer_search_panel }">
@@ -246,8 +256,9 @@
                                         <div class="box-search-advance-head" v-b-modal.add-customer>
                                             <div class="flexbox-grid-default flexbox-align-items-center">
                                                 <div class="flexbox-auto-40">
-                                                    <img width="30"
-                                                         src="//hstatic.net/0/0/global/design/imgs/next-create-customer.svg" alt="icon">
+                                                    <img alt="icon"
+                                                         src="//hstatic.net/0/0/global/design/imgs/next-create-customer.svg"
+                                                         width="30">
                                                 </div>
                                                 <div class="flexbox-auto-content-right">
                                                     <span>{{ __('Create new customer') }}</span>
@@ -259,13 +270,14 @@
                                                 <i class="fa fa-spinner fa-spin"></i>
                                             </div>
                                             <ul class="clearfix" v-show="!loading">
-                                                <li class="row" v-for="customer in customers.data"
-                                                    @click="selectCustomer(customer)">
+                                                <li @click="selectCustomer(customer)" class="row"
+                                                    v-for="customer in customers.data">
                                                     <div class="flexbox-grid-default flexbox-align-items-center">
                                                         <div class="flexbox-auto-40">
-                                                            <div class="wrap-img inline_block vertical-align-t radius-cycle">
-                                                                <img class="thumb-image radius-cycle"
-                                                                     :src="customer.avatar_url">
+                                                            <div
+                                                                class="wrap-img inline_block vertical-align-t radius-cycle">
+                                                                <img :src="customer.avatar_url"
+                                                                     class="thumb-image radius-cycle">
                                                             </div>
                                                         </div>
                                                         <div class="flexbox-auto-content-right">
@@ -288,23 +300,23 @@
                                     <div class="panel-footer"
                                          v-if="customers.next_page_url || customers.prev_page_url">
                                         <div class="btn-group float-right">
-                                            <button type="button"
+                                            <button :disabled="customers.current_page === 1"
                                                     @click="loadListCustomersForSearch((customers.prev_page_url ? customers.current_page - 1 : customers.current_page), true)"
-                                                    v-bind:class="{ 'btn btn-secondary': customers.current_page !== 1, 'btn btn-secondary disable': customers.current_page === 1}"
-                                                    :disabled="customers.current_page === 1">
-                                                <svg role="img"
-                                                     class="svg-next-icon svg-next-icon-size-16 svg-next-icon-rotate-180">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                         xlink:href="#next-chevron"></use>
+                                                    type="button"
+                                                    v-bind:class="{ 'btn btn-secondary': customers.current_page !== 1, 'btn btn-secondary disable': customers.current_page === 1}">
+                                                <svg class="svg-next-icon svg-next-icon-size-16 svg-next-icon-rotate-180"
+                                                     role="img">
+                                                    <use xlink:href="#next-chevron"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                                 </svg>
                                             </button>
-                                            <button type="button"
+                                            <button :disabled="!customers.next_page_url"
                                                     @click="loadListCustomersForSearch((customers.next_page_url ? customers.current_page + 1 : customers.current_page), true)"
-                                                    v-bind:class="{ 'btn btn-secondary': customers.next_page_url, 'btn btn-secondary disable': !customers.next_page_url }"
-                                                    :disabled="!customers.next_page_url">
-                                                <svg role="img" class="svg-next-icon svg-next-icon-size-16">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                         xlink:href="#next-chevron"></use>
+                                                    type="button"
+                                                    v-bind:class="{ 'btn btn-secondary': customers.next_page_url, 'btn btn-secondary disable': !customers.next_page_url }">
+                                                <svg class="svg-next-icon svg-next-icon-size-16" role="img">
+                                                    <use xlink:href="#next-chevron"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                                 </svg>
                                             </button>
                                         </div>
@@ -323,10 +335,10 @@
                                 <label class="title-product-main">{{ __('Customer') }}</label>
                             </div>
                             <div class="flexbox-auto-left">
-                                <a href="#" data-toggle="tooltip" data-placement="top" title="Xóa khách hàng"
-                                   @click="removeCustomer()">
+                                <a @click="removeCustomer()" data-placement="top" data-toggle="tooltip" href="#"
+                                   title="Xóa khách hàng">
                                     <svg class="svg-next-icon svg-next-icon-size-12">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#next-remove"></use>
+                                        <use xlink:href="#next-remove" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                     </svg>
                                 </a>
                             </div>
@@ -335,8 +347,9 @@
                     <div class="next-card-section border-none-t">
                         <ul class="ws-nm">
                             <li>
-                                <img v-if="child_customer.avatar_url" class="width-60-px radius-cycle" alt="User Picture"
-                                     :src="child_customer.avatar_url">
+                                <img :src="child_customer.avatar_url" alt="User Picture"
+                                     class="width-60-px radius-cycle"
+                                     v-if="child_customer.avatar_url">
                                 <div class="pull-right color_darkblue mt20">
                                     <i class="fas fa-inbox"></i>
                                     <span>
@@ -357,11 +370,11 @@
                                     </div>
                                     <div class="flexbox-auto-left">
                                         <a v-b-modal.edit-email>
-                                            <span data-placement="top" data-toggle="tooltip"
-                                                  data-original-title="Chỉnh sửa email">
+                                            <span data-original-title="Chỉnh sửa email" data-placement="top"
+                                                  data-toggle="tooltip">
                                                 <svg class="svg-next-icon svg-next-icon-size-12">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                         xlink:href="#next-edit"></use>
+                                                    <use xlink:href="#next-edit"
+                                                         xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                                 </svg>
                                             </span>
                                         </a>
@@ -379,11 +392,11 @@
                                     </div>
                                     <div class="flexbox-auto-left">
                                         <a v-b-modal.edit-address>
-                                                <span data-placement="top" title="Update address"
-                                                      data-toggle="tooltip">
+                                                <span data-placement="top" data-toggle="tooltip"
+                                                      title="Update address">
                                                     <svg class="svg-next-icon svg-next-icon-size-12">
-                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                             xlink:href="#next-edit"></use>
+                                                        <use xlink:href="#next-edit"
+                                                             xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                                     </svg>
                                                 </span>
                                         </a>
@@ -393,19 +406,19 @@
                             <li class="text-infor-subdued mt15">
                                 <div v-if="child_customer_addresses.length > 1">
                                     <div class="ui-select-wrapper">
-                                        <select class="ui-select" @change="selectCustomerAddress($event)">
-                                            <option v-for="address_item in child_customer_addresses"
+                                        <select @change="selectCustomerAddress($event)" class="ui-select">
+                                            <option :selected="parseInt(address_item.id) === parseInt(customer_address.email)"
                                                     :value="address_item.id"
-                                                    :selected="parseInt(address_item.id) === parseInt(customer_address.email)">
+                                                    v-for="address_item in child_customer_addresses">
                                                 {{ address_item.address + ', ' + address_item.city + ', ' +
                                                 address_item.state + ', ' +
                                                 address_item.country + (zip_code_enabled ? ', ' +
-                                            address_item.zip_code : '') }}
+                                                address_item.zip_code : '') }}
                                             </option>
                                         </select>
                                         <svg class="svg-next-icon svg-next-icon-size-16">
-                                            <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                 xlink:href="#select-chevron"></use>
+                                            <use xlink:href="#select-chevron"
+                                                 xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                         </svg>
                                     </div>
                                     <br>
@@ -421,8 +434,9 @@
                                 <div>{{ child_customer_address.country }}</div>
                                 <div v-if="zip_code_enabled">{{ child_customer_address.zip_code }}</div>
                                 <div>
-                                    <a target="_blank" class="hover-underline"
-                                       :href="'https://maps.google.com/?q=' + child_customer_address.address + ', ' + child_customer_address.city + ', ' + child_customer_address.state + ', ' + child_customer_address.country + (zip_code_enabled ? ', ' + child_customer_address.zip_code : '')">{{ __('See on maps') }}</a>
+                                    <a :href="'https://maps.google.com/?q=' + child_customer_address.address + ', ' + child_customer_address.city + ', ' + child_customer_address.state + ', ' + child_customer_address.country + (zip_code_enabled ? ', ' + child_customer_address.zip_code : '')" class="hover-underline"
+                                       target="_blank">{{
+                                        __('See on maps') }}</a>
                                 </div>
                             </li>
                         </ul>
@@ -432,40 +446,40 @@
             </div>
         </div>
 
-        <b-modal id="add-product-item" title="Add product" ok-title="Save" cancel-title="Cancel"
-                 @shown="resetProductData()"
-                 @ok="createProduct($event)">
+        <b-modal @ok="createProduct($event)" @shown="resetProductData()" cancel-title="Cancel" id="add-product-item"
+                 ok-title="Save"
+                 title="Add product">
             <div class="form-group mb15">
                 <label class="text-title-field">{{ __('Name') }}</label>
-                <input type="text" class="next-input" v-model="product.name">
+                <input class="next-input" type="text" v-model="product.name">
             </div>
             <div class="form-group mb15 row">
                 <div class="col-6">
                     <label class="text-title-field">{{ __('Price') }}</label>
-                    <input type="text" class="next-input" v-model="product.price">
+                    <input class="next-input" type="text" v-model="product.price">
                 </div>
                 <div class="col-6">
                     <label class="text-title-field">{{ __('SKU (optional)') }}</label>
-                    <input type="text" class="next-input" v-model="product.sku">
+                    <input class="next-input" type="text" v-model="product.sku">
                 </div>
             </div>
             <div class="form-group">
                 <label class="next-label">
-                    <input type="checkbox" class="hrv-checkbox" v-model="product.with_storehouse_management"
+                    <input class="hrv-checkbox" type="checkbox" v-model="product.with_storehouse_management"
                            value="1">
                     {{ __('With storehouse management?') }}
-                    </label>
+                </label>
             </div>
             <div class="row" v-show="product.with_storehouse_management">
                 <div class="col-8">
                     <div class="form-group">
                         <label class="text-title-field">{{ __('Quantity') }}</label>
-                        <input type="number" min="1" class="next-input"
+                        <input class="next-input" min="1" type="number"
                                v-model="product.quantity">
                     </div>
                     <div class="form-group">
                         <label class="next-label">
-                            <input type="checkbox" class="hrv-checkbox"
+                            <input class="hrv-checkbox" type="checkbox"
                                    v-model="product.allow_checkout_when_out_of_stock"
                                    value="1">
                             {{ __('Allow customer checkout when this product out of stock?') }}</label>
@@ -474,27 +488,27 @@
             </div>
         </b-modal>
 
-        <b-modal id="add-customer" title="Create a new customer" ok-title="Save" cancel-title="Cancel"
-                 @shown="loadCountries()" @ok="createNewCustomer($event)">
+        <b-modal @ok="createNewCustomer($event)" @shown="loadCountries()" cancel-title="Cancel" id="add-customer"
+                 ok-title="Save" title="Create a new customer">
             <div class="next-form-section">
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Name') }}</label>
-                        <input type="text" class="next-input" v-model="child_customer_address.name">
+                        <input class="next-input" type="text" v-model="child_customer_address.name">
                     </div>
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Phone') }}</label>
-                        <input type="text" class="next-input" v-model="child_customer_address.phone">
+                        <input class="next-input" type="text" v-model="child_customer_address.phone">
                     </div>
                 </div>
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Address') }}</label>
-                        <input type="text" class="next-input" v-model="child_customer_address.address">
+                        <input class="next-input" type="text" v-model="child_customer_address.address">
                     </div>
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Email') }}</label>
-                        <input type="text" class="next-input" v-model="child_customer_address.email">
+                        <input class="next-input" type="text" v-model="child_customer_address.email">
                     </div>
                 </div>
                 <div class="next-form-grid">
@@ -502,12 +516,12 @@
                         <label class="text-title-field">{{ __('Country') }}</label>
                         <div class="ui-select-wrapper">
                             <select class="ui-select" v-model="child_customer_address.country">
-                                <option v-for="(countryName, countryCode) in countries" :value="countryCode">
+                                <option :value="countryCode" v-for="(countryName, countryCode) in countries">
                                     {{ countryName }}
                                 </option>
                             </select>
                             <svg class="svg-next-icon svg-next-icon-size-16">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
+                                <use xlink:href="#select-chevron" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                             </svg>
                         </div>
                     </div>
@@ -515,24 +529,24 @@
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('State') }}</label>
-                        <input type="text" class="next-input" v-model="child_customer_address.state">
+                        <input class="next-input" type="text" v-model="child_customer_address.state">
                     </div>
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('City') }}</label>
-                        <input type="text" class="next-input" v-model="child_customer_address.city">
+                        <input class="next-input" type="text" v-model="child_customer_address.city">
                     </div>
                 </div>
                 <div class="next-form-grid" v-if="zip_code_enabled">
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Zip code') }}</label>
-                        <input type="text" class="next-input" v-model="child_customer_address.zip_code">
+                        <input class="next-input" type="text" v-model="child_customer_address.zip_code">
                     </div>
                 </div>
             </div>
         </b-modal>
 
-        <b-modal id="add-discounts" title="Add discount" ok-title="Add discount" cancel-title="Close"
-                 @ok="handleAddDiscount($event)">
+        <b-modal @ok="handleAddDiscount($event)" cancel-title="Close" id="add-discounts" ok-title="Add discount"
+                 title="Add discount">
             <div class="next-form-section">
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
@@ -540,15 +554,15 @@
                         <div class="flexbox-grid-default">
                             <div class="flexbox-auto-left">
                                 <div class="flexbox-input-group">
-                                    <button value="amount" class="item-group btn btn-secondary btn-active"
+                                    <button @click="changeDiscountType($event)" class="item-group btn btn-secondary btn-active"
                                             v-bind:class="{ active : discount_type === 'amount' }"
-                                            @click="changeDiscountType($event)">
+                                            value="amount">
                                         {{ currency ? currency : '$' }}
                                     </button>&nbsp;
-                                    <button value="percentage"
+                                    <button @click="changeDiscountType($event)"
                                             class="item-group border-radius-right-none btn btn-secondary btn-active"
                                             v-bind:class="{ active : discount_type === 'percentage' }"
-                                            @click="changeDiscountType($event)">
+                                            value="percentage">
                                         %
                                     </button>&nbsp;
                                 </div>
@@ -557,7 +571,8 @@
                                 <div class="next-input--stylized border-radius-left-none">
                                     <input class="next-input next-input--invisible"
                                            v-model="discount_custom_value">
-                                    <span class="next-input-add-on next-input__add-on--after">{{ discount_type_unit }}</span>
+                                    <span
+                                        class="next-input-add-on next-input__add-on--after">{{ discount_type_unit }}</span>
                                 </div>
                             </div>
                         </div>
@@ -574,26 +589,27 @@
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Description') }}</label>
-                        <input placeholder="Discount description" class="next-input"
+                        <input class="next-input" placeholder="Discount description"
                                v-model="child_discount_description">
                     </div>
                 </div>
             </div>
         </b-modal>
 
-        <b-modal id="add-shipping" title="Shipping fee" ok-title="Update" cancel-title="Close"
-                 @shown="loadAvailableShippingMethods()" @ok="selectShippingMethod($event)">
+        <b-modal @ok="selectShippingMethod($event)" @shown="loadAvailableShippingMethods()" cancel-title="Close" id="add-shipping"
+                 ok-title="Update" title="Shipping fee">
             <div class="next-form-section">
                 <div class="ui-layout__item mb15 p-none-important" v-if="!child_customer_id">
                     <div class="ui-banner ui-banner--status-info">
                         <div class="ui-banner__ribbon">
                             <svg class="svg-next-icon svg-next-icon-size-20">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#alert-circle"></use>
+                                <use xlink:href="#alert-circle" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                             </svg>
                         </div>
                         <div class="ui-banner__content">
                             <h2 class="ui-banner__title">{{ __('How to select configured shipping?') }}</h2>
-                            <div class="ws-nm">{{ __('Please add customer information with the complete shipping address to see the configured shipping rates') }}.
+                            <div class="ws-nm">{{ __('Please add customer information with the complete shipping address
+                                to see the configured shipping rates') }}.
                             </div>
                         </div>
                     </div>
@@ -602,16 +618,16 @@
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
                         <label class="next-label">
-                            <input type="radio" class=" hrv-radio" value="free-shipping" name="shipping_type"
-                                   v-model="shipping_type">
+                            <input class=" hrv-radio" name="shipping_type" type="radio" v-model="shipping_type"
+                                   value="free-shipping">
                             {{ __('Free shipping') }}</label>
                     </div>
                 </div>
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
                         <label class="next-label">
-                            <input type="radio" class=" hrv-radio" value="custom" name="shipping_type"
-                                   v-model="shipping_type" checked="checked">
+                            <input checked="checked" class=" hrv-radio" name="shipping_type" type="radio"
+                                   v-model="shipping_type" value="custom">
                             {{ __('Custom') }}</label>
                     </div>
                 </div>
@@ -619,14 +635,14 @@
                     <div class="next-form-grid-cell">
                         <div class="ui-select-wrapper">
                             <select class="ui-select">
-                                <option :value="shipping_method_key" :data-name="shipping_method.name"
-                                        v-for="(shipping_method, shipping_method_key) in shipping_methods"
-                                        :selected="shipping_method_key === (shipping_method + ';' + shipping_option + ';' + shipping_amount)">
+                                <option :data-name="shipping_method.name" :selected="shipping_method_key === (shipping_method + ';' + shipping_option + ';' + shipping_amount)"
+                                        :value="shipping_method_key"
+                                        v-for="(shipping_method, shipping_method_key) in shipping_methods">
                                     {{ shipping_method.name + ' - ' + shipping_method.price }}
                                 </option>
                             </select>
                             <svg class="svg-next-icon svg-next-icon-size-16">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
+                                <use xlink:href="#select-chevron" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                             </svg>
                         </div>
                     </div>
@@ -634,8 +650,8 @@
             </div>
         </b-modal>
 
-        <b-modal id="edit-email" title="Update email" ok-title="Update" cancel-title="Close"
-                 @ok="updateCustomerEmail($event)">
+        <b-modal @ok="updateCustomerEmail($event)" cancel-title="Close" id="edit-email" ok-title="Update"
+                 title="Update email">
             <div class="next-form-section">
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
@@ -646,31 +662,31 @@
             </div>
         </b-modal>
 
-        <b-modal id="edit-address" title="Update address" ok-title="Save" cancel-title="Cancel"
-                 @shown="loadCountries()" @ok="updateOrderAddress($event)">
+        <b-modal @ok="updateOrderAddress($event)" @shown="loadCountries()" cancel-title="Cancel" id="edit-address"
+                 ok-title="Save" title="Update address">
             <div class="next-form-section">
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Name') }}</label>
-                        <input type="text" class="next-input customer-address-name"
-                               :value="child_customer_address.name">
+                        <input :value="child_customer_address.name" class="next-input customer-address-name"
+                               type="text">
                     </div>
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Phone') }}</label>
-                        <input type="text" class="next-input customer-address-phone"
-                               :value="child_customer_address.phone">
+                        <input :value="child_customer_address.phone" class="next-input customer-address-phone"
+                               type="text">
                     </div>
                 </div>
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Address') }}</label>
-                        <input type="text" class="next-input customer-address-address"
-                               :value="child_customer_address.address">
+                        <input :value="child_customer_address.address" class="next-input customer-address-address"
+                               type="text">
                     </div>
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Email') }}</label>
-                        <input type="text" class="next-input customer-address-email"
-                               :value="child_customer_address.email">
+                        <input :value="child_customer_address.email" class="next-input customer-address-email"
+                               type="text">
                     </div>
                 </div>
                 <div class="next-form-grid">
@@ -678,12 +694,12 @@
                         <label class="text-title-field">{{ __('Country') }}</label>
                         <div class="ui-select-wrapper">
                             <select class="ui-select" v-model="child_customer_address.country">
-                                <option v-for="(countryName, countryCode) in countries" :value="countryCode">
+                                <option :value="countryCode" v-for="(countryName, countryCode) in countries">
                                     {{ countryName }}
                                 </option>
                             </select>
                             <svg class="svg-next-icon svg-next-icon-size-16">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
+                                <use xlink:href="#select-chevron" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                             </svg>
                         </div>
                     </div>
@@ -691,30 +707,31 @@
                 <div class="next-form-grid">
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('State')}}</label>
-                        <input type="text" class="next-input customer-address-state"
-                               :value="child_customer_address.state">
+                        <input :value="child_customer_address.state" class="next-input customer-address-state"
+                               type="text">
                     </div>
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('City/District') }}</label>
-                        <input type="text" class="next-input customer-address-city"
-                               :value="child_customer_address.city">
+                        <input :value="child_customer_address.city" class="next-input customer-address-city"
+                               type="text">
                     </div>
                 </div>
                 <div class="next-form-grid" v-if="zip_code_enabled">
                     <div class="next-form-grid-cell">
                         <label class="text-title-field">{{ __('Zip code')}}</label>
-                        <input type="text" class="next-input customer-address-zip-code"
-                               :value="child_customer_address.zip_code">
+                        <input :value="child_customer_address.zip_code" class="next-input customer-address-zip-code"
+                               type="text">
                     </div>
                 </div>
             </div>
         </b-modal>
 
-        <b-modal id="make-paid" title="Create a new order" ok-title="Create order" cancel-title="Close"
-                 @ok="createOrder($event, true)">
+        <b-modal @ok="createOrder($event, true)" cancel-title="Close" id="make-paid" ok-title="Create order"
+                 title="Create a new order">
             <label class="ws-nm">{{ __('Confirm payment is paid for this order') }}</label>
             <p>
-                {{ __('Payment status of the order is Paid. Once the order has been created, you cannot change the payment method or status') }}.
+                {{ __('Payment status of the order is Paid. Once the order has been created, you cannot change the
+                payment method or status') }}.
             </p>
             <p>{{ __('Select payment method') }}</p>
             <div class="ui-select-wrapper mb15 next-input--is-focused">
@@ -723,18 +740,19 @@
                     <option value="bank_transfer">{{ __('Bank transfer') }}</option>
                 </select>
                 <svg class="svg-next-icon svg-next-icon-size-16">
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
+                    <use xlink:href="#select-chevron" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                 </svg>
             </div>
             <br/>
             <p>{{ __('Paid amount') }} : <span>{{ child_total_amount | formatPrice }} {{ currency }}</span></p>
         </b-modal>
 
-        <b-modal id="make-pending" title="Create a new order" ok-title="Create order" cancel-title="Close"
-                 @ok="createOrder($event)">
+        <b-modal @ok="createOrder($event)" cancel-title="Close" id="make-pending" ok-title="Create order"
+                 title="Create a new order">
             <label class="ws-nm">{{ __('Confirm that payment for this order will be paid later') }}</label>
             <p>
-                {{ __('Payment status of the order is Pending. Once the order has been created, you cannot change the payment method or status') }}.
+                {{ __('Payment status of the order is Pending. Once the order has been created, you cannot change the
+                payment method or status') }}.
             </p>
             <div class="ui-select-wrapper mb15 next-input--is-focused">
                 <select class="ui-select" v-model="child_payment_method">
@@ -742,7 +760,7 @@
                     <option value="bank_transfer">{{ __('Bank transfer') }}</option>
                 </select>
                 <svg class="svg-next-icon svg-next-icon-size-16">
-                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
+                    <use xlink:href="#select-chevron" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                 </svg>
             </div>
             <br/>

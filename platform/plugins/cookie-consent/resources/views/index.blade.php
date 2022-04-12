@@ -1,6 +1,7 @@
 @if ($cookieConsentConfig['enabled'] && !$alreadyConsentedWithCookies)
 
-    <div class="js-cookie-consent cookie-consent" style="background-color: {{ theme_option('cookie_consent_background_color', '#000') }} !important; color: {{ theme_option('cookie_consent_text_color', '#fff') }} !important;">
+    <div class="js-cookie-consent cookie-consent"
+         style="background-color: {{ theme_option('cookie_consent_background_color', '#000') }} !important; color: {{ theme_option('cookie_consent_text_color', '#fff') }} !important;">
         <div class="cookie-consent-body" style="max-width: {{ theme_option('cookie_consent_max_width', 1170) }}px;">
             <span class="cookie-consent__message">
                 {{ theme_option('cookie_consent_message', trans('plugins/cookie-consent::cookie-consent.message')) }}
@@ -9,7 +10,8 @@
                 @endif
             </span>
 
-            <button class="js-cookie-consent-agree cookie-consent__agree" style="background-color: {{ theme_option('cookie_consent_background_color', '#000') }} !important; color: {{ theme_option('cookie_consent_text_color', '#fff') }} !important; border: 1px solid {{ theme_option('cookie_consent_text_color', '#fff') }} !important;">
+            <button class="js-cookie-consent-agree cookie-consent__agree"
+                    style="background-color: {{ theme_option('cookie_consent_background_color', '#000') }} !important; color: {{ theme_option('cookie_consent_text_color', '#fff') }} !important; border: 1px solid {{ theme_option('cookie_consent_text_color', '#fff') }} !important;">
                 {{ theme_option('cookie_consent_button_text', trans('plugins/cookie-consent::cookie-consent.button_text')) }}
             </button>
         </div>

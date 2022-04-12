@@ -39,26 +39,6 @@ abstract class AbstractHandler
     }
 
     /**
-     * Checks the current setup if session driver was booted - if not, it will generate random hash.
-     *
-     * @return bool
-     */
-    public static function canUseSession()
-    {
-        // Get the session driver and check if it was started - fully inited by laravel
-        $session = session();
-        $driver = $session->getDefaultDriver();
-        $drivers = $session->getDrivers();
-
-        // Check if the driver is valid and started - allow using session
-        if (isset($drivers[$driver]) && true === $drivers[$driver]->isStarted()) {
-            return true;
-        }
-
-        return false;
-    }
-
-    /**
      * Builds the chunk file name per session and the original name. You can
      * provide custom additional name at the end of the generated file name. All chunk
      * files has .part extension.
@@ -116,6 +96,26 @@ abstract class AbstractHandler
 
         // Build name
         return implode('.', $namesSeparatedByDot);
+    }
+
+    /**
+     * Checks the current setup if session driver was booted - if not, it will generate random hash.
+     *
+     * @return bool
+     */
+    public static function canUseSession()
+    {
+        // Get the session driver and check if it was started - fully inited by laravel
+        $session = session();
+        $driver = $session->getDefaultDriver();
+        $drivers = $session->getDrivers();
+
+        // Check if the driver is valid and started - allow using session
+        if (isset($drivers[$driver]) && true === $drivers[$driver]->isStarted()) {
+            return true;
+        }
+
+        return false;
     }
 
     /**

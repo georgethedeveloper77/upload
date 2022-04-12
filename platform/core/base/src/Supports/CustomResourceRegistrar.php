@@ -87,6 +87,6 @@ class CustomResourceRegistrar extends ResourceRegistrar
 
         $action = $this->getResourceAction($name, $controller, 'store', $options);
 
-        return $this->router->post($uri, $action)->name($name. '.store');
+        return $this->router->post($uri, $action)->name($name . '.store');
     }
 }

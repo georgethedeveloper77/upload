@@ -1,14 +1,16 @@
 @php
-    $isConfigurable = $product->variations()->count() > 0 ? true : false;
+    $isConfigurable = $product->variations()->count() > 0 ? true : false
 @endphp
 <div class="block2">
 
     <div class="block2-img wrap-pic-w of-hidden pos-relative
         @if ($product->front_sale_price != $product->price) block2-labelsale @endif">
-        <img src="{{ RvMedia::getImageUrl($product->image, 'product-thumbnail', false, RvMedia::getDefaultImage()) }}" alt="{{ $product->name }}">
+        <img src="{{ RvMedia::getImageUrl($product->image, 'product-thumbnail', false, RvMedia::getDefaultImage()) }}"
+             alt="{{ $product->name }}">
 
         <div class="block2-overlay trans-0-4">
-            <a href="{{ route('public.wishlist.add', $product->slug) }}" class="block2-btn-addwishlist hov-pointer trans-0-4">
+            <a href="{{ route('public.wishlist.add', $product->slug) }}"
+               class="block2-btn-addwishlist hov-pointer trans-0-4">
                 <i class="icon-wishlist icon_heart_alt" aria-hidden="true"></i>
                 <i class="icon-wishlist icon_heart dis-none" aria-hidden="true"></i>
             </a>

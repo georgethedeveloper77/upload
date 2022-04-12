@@ -31,7 +31,8 @@ class StoreAttributeSetService
     public function __construct(
         ProductAttributeSetInterface $productAttributeSet,
         ProductAttributeInterface $productAttribute
-    ) {
+    )
+    {
         $this->productAttributeSetRepository = $productAttributeSet;
         $this->productAttributeRepository = $productAttribute;
     }
@@ -68,7 +69,7 @@ class StoreAttributeSetService
         foreach ($attributeIds as $id) {
             $this->productAttributeRepository
                 ->deleteBy([
-                    'id'               => $id,
+                    'id' => $id,
                     'attribute_set_id' => $productAttributeSetId,
                 ]);
         }

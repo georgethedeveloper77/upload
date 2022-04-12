@@ -8,11 +8,13 @@
                     <p class="text-info-displayTmpl">{{ trans('plugins/ecommerce::customer.intro.description') }}</p>
                     <div class="empty-displayTmpl-pdtop">
                         <div class="empty-displayTmpl-image">
-                            <img src="{{ asset('vendor/core/plugins/ecommerce/images/empty-customer.png') }}" alt="image">
+                            <img src="{{ asset('vendor/core/plugins/ecommerce/images/empty-customer.png') }}"
+                                 alt="image">
                         </div>
                     </div>
                     <div class="empty-displayTmpl-btn">
-                        <a class="btn btn-primary btn-lg" href="{{ route('customer.create') }}">{{ trans('plugins/ecommerce::customer.intro.button_text') }}</a>
+                        <a class="btn btn-primary btn-lg"
+                           href="{{ route('customer.create') }}">{{ trans('plugins/ecommerce::customer.intro.button_text') }}</a>
                     </div>
                 </div>
             </div>

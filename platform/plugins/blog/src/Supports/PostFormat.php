@@ -8,18 +8,18 @@ class PostFormat
      * @var array
      */
     protected static $formats = [
-        ''        => [
-            'key'  => '',
+        '' => [
+            'key' => '',
             'icon' => null,
             'name' => 'Default',
         ],
         'gallery' => [
-            'key'  => 'gallery',
+            'key' => 'gallery',
             'icon' => 'fa fa-image',
             'name' => 'Gallery',
         ],
-        'video'   => [
-            'key'  => 'video',
+        'video' => [
+            'key' => 'video',
             'icon' => 'fa fa-camera',
             'name' => 'Video',
         ],

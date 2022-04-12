@@ -23,7 +23,8 @@ trait HasDeleteManyItemsTrait
         BaseHttpResponse $response,
         RepositoryInterface $repository,
         string $screen
-    ) {
+    )
+    {
         $ids = $request->input('ids');
         if (empty($ids)) {
             return $response

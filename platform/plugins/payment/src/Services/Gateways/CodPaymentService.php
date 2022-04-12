@@ -22,12 +22,12 @@ class CodPaymentService implements ProduceServiceInterface
         $chargeId = Str::upper(Str::random(10));
 
         $this->storeLocalPayment([
-            'amount'          => $request->input('amount'),
-            'currency'        => $request->input('currency'),
-            'charge_id'       => $chargeId,
-            'order_id'        => $request->input('order_id'),
+            'amount' => $request->input('amount'),
+            'currency' => $request->input('currency'),
+            'charge_id' => $chargeId,
+            'order_id' => $request->input('order_id'),
             'payment_channel' => PaymentMethodEnum::COD,
-            'status'          => PaymentStatusEnum::PENDING,
+            'status' => PaymentStatusEnum::PENDING,
         ]);
 
         return $chargeId;

@@ -69,8 +69,8 @@ class Assets extends BaseAssets
     }
 
     /**
-     * @deprecated since v5.13
      * @return array
+     * @deprecated since v5.13
      */
     public function getAdminLocales(): array
     {

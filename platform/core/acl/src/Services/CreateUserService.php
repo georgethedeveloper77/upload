@@ -38,7 +38,8 @@ class CreateUserService implements ProduceServiceInterface
         UserInterface $userRepository,
         RoleInterface $roleRepository,
         ActivateUserService $activateUserService
-    ) {
+    )
+    {
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->activateUserService = $activateUserService;

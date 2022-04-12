@@ -35,7 +35,8 @@ class NewsletterTable extends TableAbstract
         DataTables $table,
         UrlGenerator $urlGenerator,
         NewsletterInterface $newsletterRepository
-    ) {
+    )
+    {
         $this->repository = $newsletterRepository;
         $this->setOption('id', 'table-newsletters');
         parent::__construct($table, $urlGenerator);
@@ -99,28 +100,28 @@ class NewsletterTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'newsletters.id',
+            'id' => [
+                'name' => 'newsletters.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'email'      => [
-                'name'  => 'newsletters.email',
+            'email' => [
+                'name' => 'newsletters.email',
                 'title' => trans('core/base::tables.email'),
                 'class' => 'text-left',
             ],
-            'name'       => [
-                'name'  => 'newsletters.name',
+            'name' => [
+                'name' => 'newsletters.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
             'created_at' => [
-                'name'  => 'newsletters.created_at',
+                'name' => 'newsletters.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
-            'status'     => [
-                'name'  => 'newsletters.status',
+            'status' => [
+                'name' => 'newsletters.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
             ],
@@ -149,25 +150,25 @@ class NewsletterTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'newsletters.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'newsletters.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'newsletters.email'      => [
-                'title'    => trans('core/base::tables.email'),
-                'type'     => 'text',
+            'newsletters.email' => [
+                'title' => trans('core/base::tables.email'),
+                'type' => 'text',
                 'validate' => 'required|max:120|email',
             ],
-            'newsletters.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => NewsletterStatusEnum::labels(),
+            'newsletters.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => NewsletterStatusEnum::labels(),
                 'validate' => 'required|' . Rule::in(NewsletterStatusEnum::values()),
             ],
             'newsletters.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

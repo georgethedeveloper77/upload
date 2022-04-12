@@ -3,6 +3,7 @@
 namespace Botble\Contact\Http\Requests;
 
 use Botble\Support\Http\Requests\Request;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class ContactRequest extends Request
 {
@@ -11,21 +12,21 @@ class ContactRequest extends Request
      *
      * @return array
      *
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function rules()
     {
         if (setting('enable_captcha') && is_plugin_active('captcha')) {
             return [
-                'name'                 => 'required',
-                'email'                => 'required|email',
-                'content'              => 'required',
+                'name' => 'required',
+                'email' => 'required|email',
+                'content' => 'required',
                 'g-recaptcha-response' => 'required|captcha',
             ];
         }
         return [
-            'name'    => 'required',
-            'email'   => 'required|email',
+            'name' => 'required',
+            'email' => 'required|email',
             'content' => 'required',
         ];
     }
@@ -36,9 +37,9 @@ class ContactRequest extends Request
     public function messages()
     {
         return [
-            'name.required'    => trans('plugins/contact::contact.form.name.required'),
-            'email.required'   => trans('plugins/contact::contact.form.email.required'),
-            'email.email'      => trans('plugins/contact::contact.form.email.email'),
+            'name.required' => trans('plugins/contact::contact.form.name.required'),
+            'email.required' => trans('plugins/contact::contact.form.email.required'),
+            'email.email' => trans('plugins/contact::contact.form.email.email'),
             'content.required' => trans('plugins/contact::contact.form.content.required'),
         ];
     }

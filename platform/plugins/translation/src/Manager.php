@@ -2,6 +2,7 @@
 
 namespace Botble\Translation;
 
+use ArrayAccess;
 use Botble\Translation\Models\Translation;
 use Exception;
 use Illuminate\Events\Dispatcher;
@@ -13,6 +14,7 @@ use Lang;
 use League\Flysystem\Adapter\Local as LocalAdapter;
 use League\Flysystem\Filesystem as Flysystem;
 use League\Flysystem\MountManager;
+use Symfony\Component\VarExporter\Exception\ExceptionInterface;
 use Symfony\Component\VarExporter\VarExporter;
 
 class Manager
@@ -20,22 +22,22 @@ class Manager
     const JSON_GROUP = '_json';
 
     /**
-     * @var \Illuminate\Foundation\Application
+     * @var Application
      */
     protected $app;
 
     /**
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $files;
 
     /**
-     * @var \Illuminate\Events\Dispatcher
+     * @var Dispatcher
      */
     protected $events;
 
     /**
-     * @var array|\ArrayAccess
+     * @var array|ArrayAccess
      */
     protected $config;
 
@@ -62,8 +64,8 @@ class Manager
         if (!in_array($group, $this->config['exclude_groups'])) {
             Translation::firstOrCreate([
                 'locale' => $this->app['config']['app.locale'],
-                'group'  => $group,
-                'key'    => $key,
+                'group' => $group,
+                'key' => $key,
             ]);
         }
     }
@@ -128,6 +130,31 @@ class Manager
         return $counter;
     }
 
+    public function publishLocales()
+    {
+        $paths = ServiceProvider::pathsToPublish(null, 'cms-lang');
+
+        foreach ($paths as $from => $to) {
+            if ($this->files->isFile($from)) {
+                if (!$this->files->isDirectory(dirname($to))) {
+                    $this->files->makeDirectory(dirname($to), 0755, true);
+                }
+                $this->files->copy($from, $to);
+            } elseif ($this->files->isDirectory($from)) {
+                $manager = new MountManager([
+                    'from' => new Flysystem(new LocalAdapter($from)),
+                    'to' => new Flysystem(new LocalAdapter($to)),
+                ]);
+
+                foreach ($manager->listContents('from://', true) as $file) {
+                    if ($file['type'] === 'file') {
+                        $manager->put('to://' . $file['path'], $manager->read('from://' . $file['path']));
+                    }
+                }
+            }
+        }
+    }
+
     /**
      * @param string $key
      * @param string $value
@@ -145,8 +172,8 @@ class Manager
         $value = (string)$value;
         $translation = Translation::firstOrNew([
             'locale' => $locale,
-            'group'  => $group,
-            'key'    => $key,
+            'group' => $group,
+            'key' => $key,
         ]);
 
         // Check if the database is different then the files
@@ -165,35 +192,10 @@ class Manager
         return true;
     }
 
-    public function publishLocales()
-    {
-        $paths = ServiceProvider::pathsToPublish(null, 'cms-lang');
-
-        foreach ($paths as $from => $to) {
-            if ($this->files->isFile($from)) {
-                if (!$this->files->isDirectory(dirname($to))) {
-                    $this->files->makeDirectory(dirname($to), 0755, true);
-                }
-                $this->files->copy($from, $to);
-            } elseif ($this->files->isDirectory($from)) {
-                $manager = new MountManager([
-                    'from' => new Flysystem(new LocalAdapter($from)),
-                    'to'   => new Flysystem(new LocalAdapter($to)),
-                ]);
-
-                foreach ($manager->listContents('from://', true) as $file) {
-                    if ($file['type'] === 'file') {
-                        $manager->put('to://' . $file['path'], $manager->read('from://' . $file['path']));
-                    }
-                }
-            }
-        }
-    }
-
     /**
      * @param null $group
      * @param bool $json
-     * @throws \Symfony\Component\VarExporter\Exception\ExceptionInterface
+     * @throws ExceptionInterface
      */
     public function exportTranslations($group = null, $json = false)
     {
@@ -250,7 +252,7 @@ class Manager
 
     /**
      * @return bool
-     * @throws \Symfony\Component\VarExporter\Exception\ExceptionInterface
+     * @throws ExceptionInterface
      */
     public function exportAllTranslations()
     {

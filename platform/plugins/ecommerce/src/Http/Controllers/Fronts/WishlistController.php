@@ -48,9 +48,9 @@ class WishlistController extends Controller
             $wishlist = $this->wishListRepository->advancedGet(
                 [
                     'condition' => ['customer_id' => auth('customer')->user()->getAuthIdentifier()],
-                    'with'      => ['product'],
-                    'paginate'  => [
-                        'per_page'      => 10,
+                    'with' => ['product'],
+                    'paginate' => [
+                        'per_page' => 10,
                         'current_paged' => (int)$request->input('page'),
                     ],
                 ]);
@@ -97,7 +97,7 @@ class WishlistController extends Controller
                 ->setError(true);
         }
         $this->wishListRepository->createOrUpdate([
-            'product_id'  => $productId,
+            'product_id' => $productId,
             'customer_id' => auth('customer')->user()->getAuthIdentifier(),
         ]);
 
@@ -128,7 +128,7 @@ class WishlistController extends Controller
         }
 
         $this->wishListRepository->deleteBy([
-            'product_id'  => $productId,
+            'product_id' => $productId,
             'customer_id' => auth('customer')->user()->getAuthIdentifier(),
         ]);
 

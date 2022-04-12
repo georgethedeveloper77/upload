@@ -16,9 +16,11 @@
                         {{ trans('plugins/ecommerce::order.incomplete_order_description_2') }}
                     </h2>
                     <div class="ws-nm">
-                        <input type="text" class="next-input" onclick="this.focus(); this.select();" value="{{ route('public.checkout.recover', $order->token) }}">
+                        <input type="text" class="next-input" onclick="this.focus(); this.select();"
+                               value="{{ route('public.checkout.recover', $order->token) }}">
                         <br>
-                        <button class="btn btn-secondary btn-trigger-send-order-recover-modal" data-action="{{ route('orders.send-order-recover-email', $order->id) }}">{{ trans('plugins/ecommerce::order.send_an_email_to_recover_this_order') }}</button>
+                        <button class="btn btn-secondary btn-trigger-send-order-recover-modal"
+                                data-action="{{ route('orders.send-order-recover-email', $order->id) }}">{{ trans('plugins/ecommerce::order.send_an_email_to_recover_this_order') }}</button>
                     </div>
                 </div>
             </div>
@@ -27,69 +29,78 @@
             <div class="flexbox-content">
                 <div class="wrapper-content mb20">
                     <div class="pd-all-20">
-                        <label class="title-product-main text-no-bold">{{ trans('plugins/ecommerce::order.order_information') }}</label>
+                        <label
+                            class="title-product-main text-no-bold">{{ trans('plugins/ecommerce::order.order_information') }}</label>
                     </div>
                     <div class="pd-all-10-20 border-top-title-main">
                         <div class="clearfix">
                             <div class="table-wrapper p-none mb20 ps-relative">
                                 <table class="table-normal">
                                     <tbody>
-                                        @foreach ($order->products as $orderProduct)
-                                            @php
-                                                $product = get_products([
-                                                    'condition' => [
-                                                        'ec_products.status' => \Botble\Base\Enums\BaseStatusEnum::PUBLISHED,
-                                                        'ec_products.id' => $orderProduct->product_id,
-                                                    ],
-                                                    'take' => 1,
-                                                    'select' => [
-                                                        'ec_products.id',
-                                                        'ec_products.images',
-                                                        'ec_products.name',
-                                                        'ec_products.price',
-                                                        'ec_products.sale_price',
-                                                        'ec_products.sale_type',
-                                                        'ec_products.start_date',
-                                                        'ec_products.end_date',
-                                                        'ec_products.sku',
-                                                        'ec_products.is_variation',
-                                                    ],
-                                                ]);
-                                            @endphp
-                                            @if ($product)
-                                                <tr>
-                                                    <td class="width-60-px min-width-60-px">
-                                                        <div class="wrap-img"><img class="thumb-image thumb-image-cartorderlist" src="{{ RvMedia::getImageUrl($product->original_product->image, 'thumb', false, RvMedia::getDefaultImage()) }}" alt="{{ $product->name }}"></div>
-                                                    </td>
-                                                    <td class="pl5 p-r5">
-                                                        <a target="_blank" href="{{ route('products.edit', $product->original_product->id) }}" title="{{ $orderProduct->product_name }}">{{ $orderProduct->product_name }}</a>
-                                                        <p>
-                                                            @php $attributes = get_product_attributes($product->id) @endphp
-                                                            @if (!empty($attributes))
-                                                                @foreach ($attributes as $attr)
-                                                                    @if (!$loop->last)
-                                                                        {{ $attr->attribute_set_title }}: {{ $attr->title }} <br>
-                                                                    @else
-                                                                        {{ $attr->attribute_set_title }}: {{ $attr->title }}
-                                                                    @endif
-                                                                @endforeach
-                                                            @endif
-                                                        </p>
-                                                        @if ($product->sku)
-                                                            <p>{{ trans('plugins/ecommerce::order.sku') }} : <span>{{ $product->sku }}</span></p>
+                                    @foreach ($order->products as $orderProduct)
+                                        @php
+                                            use Botble\Base\Enums\BaseStatusEnum;$product = get_products([
+                                                'condition' => [
+                                                    'ec_products.status' => BaseStatusEnum::PUBLISHED,
+                                                    'ec_products.id' => $orderProduct->product_id,
+                                                ],
+                                                'take' => 1,
+                                                'select' => [
+                                                    'ec_products.id',
+                                                    'ec_products.images',
+                                                    'ec_products.name',
+                                                    'ec_products.price',
+                                                    'ec_products.sale_price',
+                                                    'ec_products.sale_type',
+                                                    'ec_products.start_date',
+                                                    'ec_products.end_date',
+                                                    'ec_products.sku',
+                                                    'ec_products.is_variation',
+                                                ],
+                                            ])
+                                        @endphp
+                                        @if ($product)
+                                            <tr>
+                                                <td class="width-60-px min-width-60-px">
+                                                    <div class="wrap-img"><img
+                                                            class="thumb-image thumb-image-cartorderlist"
+                                                            src="{{ RvMedia::getImageUrl($product->original_product->image, 'thumb', false, RvMedia::getDefaultImage()) }}"
+                                                            alt="{{ $product->name }}"></div>
+                                                </td>
+                                                <td class="pl5 p-r5">
+                                                    <a target="_blank"
+                                                       href="{{ route('products.edit', $product->original_product->id) }}"
+                                                       title="{{ $orderProduct->product_name }}">{{ $orderProduct->product_name }}</a>
+                                                    <p>
+                                                        @php $attributes = get_product_attributes($product->id) @endphp
+                                                        @if (!empty($attributes))
+                                                            @foreach ($attributes as $attr)
+                                                                @if (!$loop->last)
+                                                                    {{ $attr->attribute_set_title }}: {{ $attr->title }}
+                                                                    <br>
+                                                                @else
+                                                                    {{ $attr->attribute_set_title }}: {{ $attr->title }}
+                                                                @endif
+                                                            @endforeach
                                                         @endif
-                                                    </td>
-                                                    <td class="pl5 p-r5 width-100-px min-width-100-px text-right">
-                                                        <span>{{ format_price($orderProduct->price) }}</span>
-                                                    </td>
-                                                    <td class="pl5 p-r5 width-20-px min-width-20-px text-center"> x</td>
-                                                    <td class="pl5 p-r5 width-30-px min-width-30-px text-left">
-                                                        <span class="item-quantity text-right">{{ $orderProduct->qty }}</span>
-                                                    </td>
-                                                    <td class="pl5 p-r5 width-100-px min-width-130-px text-right">{{ format_price($orderProduct->price * $orderProduct->qty) }}</td>
-                                                </tr>
-                                            @endif
-                                        @endforeach
+                                                    </p>
+                                                    @if ($product->sku)
+                                                        <p>{{ trans('plugins/ecommerce::order.sku') }} :
+                                                            <span>{{ $product->sku }}</span></p>
+                                                    @endif
+                                                </td>
+                                                <td class="pl5 p-r5 width-100-px min-width-100-px text-right">
+                                                    <span>{{ format_price($orderProduct->price) }}</span>
+                                                </td>
+                                                <td class="pl5 p-r5 width-20-px min-width-20-px text-center"> x</td>
+                                                <td class="pl5 p-r5 width-30-px min-width-30-px text-left">
+                                                    <span
+                                                        class="item-quantity text-right">{{ $orderProduct->qty }}</span>
+                                                </td>
+                                                <td class="pl5 p-r5 width-100-px min-width-130-px text-right">{{ format_price($orderProduct->price * $orderProduct->qty) }}</td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
                                     </tbody>
                                 </table>
                             </div>
@@ -123,14 +134,18 @@
                 </div>
                 <div class="wrapper-content mb20">
                     <div class="pd-all-20 p-none-b">
-                        <label class="title-product-main text-no-bold">{{ trans('plugins/ecommerce::order.additional_information') }}</label>
+                        <label
+                            class="title-product-main text-no-bold">{{ trans('plugins/ecommerce::order.additional_information') }}</label>
                     </div>
                     <div class="pd-all-10-20">
                         <form action="{{ route('orders.edit', $order->id) }}">
                             <label class="text-title-field">{{ trans('plugins/ecommerce::order.order_note') }}</label>
-                            <textarea class="ui-text-area textarea-auto-height" name="description" placeholder="{{ trans('plugins/ecommerce::order.order_note_placeholder') }}" rows="2">{{ $order->description }}</textarea>
+                            <textarea class="ui-text-area textarea-auto-height" name="description"
+                                      placeholder="{{ trans('plugins/ecommerce::order.order_note_placeholder') }}"
+                                      rows="2">{{ $order->description }}</textarea>
                             <div class="mt15 mb15 text-right">
-                                <button type="button" class="btn btn-primary btn-update-order">{{ trans('plugins/ecommerce::order.save_note') }}</button>
+                                <button type="button"
+                                        class="btn btn-primary btn-update-order">{{ trans('plugins/ecommerce::order.save_note') }}</button>
                             </div>
                         </form>
                     </div>
@@ -142,10 +157,13 @@
                     <div class="next-card-section p-none-b">
                         <div class="flexbox-grid-default">
                             <div class="flexbox-auto-content">
-                                <label class="title-product-main"><strong>{{ trans('plugins/ecommerce::order.customer_label') }}</strong></label>
+                                <label
+                                    class="title-product-main"><strong>{{ trans('plugins/ecommerce::order.customer_label') }}</strong></label>
                             </div>
                             <div class="flexbox-auto-left">
-                                <img class="width-30-px radius-cycle" width="40" src="{{ $order->user->id ? $order->user->avatar_url : $order->address->avatar_url }}" alt="{{ $order->address->name }}">
+                                <img class="width-30-px radius-cycle" width="40"
+                                     src="{{ $order->user->id ? $order->user->avatar_url : $order->address->avatar_url }}"
+                                     alt="{{ $order->address->name }}">
                             </div>
                         </div>
                     </div>
@@ -153,17 +171,26 @@
                         <ul class="ws-nm">
                             <li class="overflow-ellipsis">
                                 <div class="mb5">
-                                    <a class="hover-underline text-capitalize" href="#">{{ $order->user->name ? $order->user->name : $order->address->name }}</a>
+                                    <a class="hover-underline text-capitalize"
+                                       href="#">{{ $order->user->name ? $order->user->name : $order->address->name }}</a>
                                 </div>
                                 @if ($order->user->id)
-                                    <div><i class="fas fa-inbox mr5"></i><span>{{ $order->user->orders()->count() }}</span> {{ trans('plugins/ecommerce::order.orders') }}</div>
+                                    <div>
+                                        <i class="fas fa-inbox mr5"></i><span>{{ $order->user->orders()->count() }}</span> {{ trans('plugins/ecommerce::order.orders') }}
+                                    </div>
                                 @endif
                                 <ul class="ws-nm text-infor-subdued">
-                                    <li class="overflow-ellipsis"><a class="hover-underline" href="mailto:{{ $order->user->email ? $order->user->email : $order->address->email }}">{{ $order->user->email ? $order->user->email : $order->address->email }}</a></li>
+                                    <li class="overflow-ellipsis"><a class="hover-underline"
+                                                                     href="mailto:{{ $order->user->email ? $order->user->email : $order->address->email }}">{{ $order->user->email ? $order->user->email : $order->address->email }}</a>
+                                    </li>
                                     @if ($order->user->id)
-                                        <li><div>{{ trans('plugins/ecommerce::order.have_an_account_already') }}</div></li>
+                                        <li>
+                                            <div>{{ trans('plugins/ecommerce::order.have_an_account_already') }}</div>
+                                        </li>
                                     @else
-                                        <li><div>{{ trans('plugins/ecommerce::order.dont_have_an_account_yet') }}</div></li>
+                                        <li>
+                                            <div>{{ trans('plugins/ecommerce::order.dont_have_an_account_yet') }}</div>
+                                        </li>
                                     @endif
                                 </ul>
                             </li>
@@ -174,7 +201,8 @@
                             <li class="clearfix">
                                 <div class="flexbox-grid-default">
                                     <div class="flexbox-auto-content">
-                                        <label class="title-text-second"><strong>{{ trans('plugins/ecommerce::order.shipping_address') }}</strong></label>
+                                        <label
+                                            class="title-text-second"><strong>{{ trans('plugins/ecommerce::order.shipping_address') }}</strong></label>
                                     </div>
                                 </div>
                             </li>
@@ -192,7 +220,8 @@
                                     <div>{{ $order->address->state }}</div>
                                     <div>{{ $order->address->country_name }}</div>
                                     <div>
-                                        <a target="_blank" class="hover-underline" href="https://maps.google.com/?q={{ $order->address->address }}, {{ $order->address->city }}, {{ $order->address->state }}, {{ $order->address->country_name }}">{{ trans('plugins/ecommerce::order.see_maps') }}</a>
+                                        <a target="_blank" class="hover-underline"
+                                           href="https://maps.google.com/?q={{ $order->address->address }}, {{ $order->address->city }}, {{ $order->address->state }}, {{ $order->address->country_name }}">{{ trans('plugins/ecommerce::order.see_maps') }}</a>
                                     </div>
                                 </div>
                             </li>

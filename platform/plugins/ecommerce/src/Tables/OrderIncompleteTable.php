@@ -51,14 +51,6 @@ class OrderIncompleteTable extends OrderTable
     /**
      * {@inheritDoc}
      */
-    protected function tableActions($item)
-    {
-        return $this->getOperations('orders.view-incomplete-order', null, $item);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function query()
     {
         $model = $this->repository->getModel();
@@ -99,24 +91,24 @@ class OrderIncompleteTable extends OrderTable
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'ec_orders.id',
+            'id' => [
+                'name' => 'ec_orders.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
                 'class' => 'text-left',
             ],
-            'user_id'    => [
-                'name'  => 'ec_orders.user_id',
+            'user_id' => [
+                'name' => 'ec_orders.user_id',
                 'title' => trans('plugins/ecommerce::order.customer_label'),
                 'class' => 'text-left',
             ],
-            'amount'     => [
-                'name'  => 'ec_orders.amount',
+            'amount' => [
+                'name' => 'ec_orders.amount',
                 'title' => trans('plugins/ecommerce::order.amount'),
                 'class' => 'text-center',
             ],
             'created_at' => [
-                'name'  => 'ec_orders.created_at',
+                'name' => 'ec_orders.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-left',
@@ -146,5 +138,13 @@ class OrderIncompleteTable extends OrderTable
     public function buttons()
     {
         return [];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function tableActions($item)
+    {
+        return $this->getOperations('orders.view-incomplete-order', null, $item);
     }
 }

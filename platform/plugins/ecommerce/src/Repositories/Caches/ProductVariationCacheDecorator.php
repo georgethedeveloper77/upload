@@ -10,14 +10,6 @@ class ProductVariationCacheDecorator extends CacheAbstractDecorator implements P
     /**
      * {@inheritDoc}
      */
-    public function getVariationByAttributes($configurableProductId, array $attributes)
-    {
-        return $this->getDataIfExistCache(__FUNCTION__, func_get_args());
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function getVariationByAttributesOrCreate($configurableProductId, array $attributes)
     {
         if ($this->getVariationByAttributes($configurableProductId, $attributes)) {
@@ -25,6 +17,14 @@ class ProductVariationCacheDecorator extends CacheAbstractDecorator implements P
         }
 
         return $this->flushCacheAndUpdateData(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getVariationByAttributes($configurableProductId, array $attributes)
+    {
+        return $this->getDataIfExistCache(__FUNCTION__, func_get_args());
     }
 
     /**

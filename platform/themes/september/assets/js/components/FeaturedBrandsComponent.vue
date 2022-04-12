@@ -6,7 +6,9 @@
                 <div class="circle circle-2"></div>
             </div>
         </div>
-        <div v-if="!isLoading" v-carousel class="client_logo carousel_slider owl-carousel owl-theme nav_style3" data-dots="false" data-nav="true" data-margin="30" data-loop="true" data-autoplay="true" data-responsive='{"0":{"items": "2"}, "480":{"items": "3"}, "767":{"items": "4"}, "991":{"items": "5"}, "1199":{"items": "6"}}'>
+        <div class="client_logo carousel_slider owl-carousel owl-theme nav_style3" data-autoplay="true" data-dots="false"
+             data-loop="true" data-margin="30" data-nav="true" data-responsive='{"0":{"items": "2"}, "480":{"items": "3"}, "767":{"items": "4"}, "991":{"items": "5"}, "1199":{"items": "6"}}' v-carousel
+             v-if="!isLoading">
             <div class="item" v-for="item in data">
                 <div class="cl_logo">
                     <img :src="item.logo" alt=":item.name"/>
@@ -18,7 +20,7 @@
 
 <script>
     export default {
-        data: function() {
+        data: function () {
             return {
                 isLoading: true,
                 data: []
@@ -32,7 +34,7 @@
             },
         },
         mounted() {
-          this.getData();
+            this.getData();
         },
         methods: {
             getData() {

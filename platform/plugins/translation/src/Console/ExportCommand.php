@@ -6,6 +6,7 @@ use Botble\Translation\Manager;
 use Illuminate\Console\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\VarExporter\Exception\ExceptionInterface;
 
 class ExportCommand extends Command
 {
@@ -43,7 +44,7 @@ class ExportCommand extends Command
      * Execute the console command.
      *
      * @return void
-     * @throws \Symfony\Component\VarExporter\Exception\ExceptionInterface
+     * @throws ExceptionInterface
      */
     public function handle()
     {

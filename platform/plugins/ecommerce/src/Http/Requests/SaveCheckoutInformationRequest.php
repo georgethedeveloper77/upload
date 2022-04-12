@@ -43,12 +43,12 @@ class SaveCheckoutInformationRequest extends Request
     public function messages()
     {
         $messages = [
-            'address.name.required'    => trans('plugins/ecommerce::order.address_name_required'),
-            'address.phone.required'   => trans('plugins/ecommerce::order.address_phone_required'),
-            'address.email.required'   => trans('plugins/ecommerce::order.address_email_required'),
-            'address.email.unique'     => trans('plugins/ecommerce::order.address_email_unique'),
-            'address.state.required'   => trans('plugins/ecommerce::order.address_state_required'),
-            'address.city.required'    => trans('plugins/ecommerce::order.address_city_required'),
+            'address.name.required' => trans('plugins/ecommerce::order.address_name_required'),
+            'address.phone.required' => trans('plugins/ecommerce::order.address_phone_required'),
+            'address.email.required' => trans('plugins/ecommerce::order.address_email_required'),
+            'address.email.unique' => trans('plugins/ecommerce::order.address_email_unique'),
+            'address.state.required' => trans('plugins/ecommerce::order.address_state_required'),
+            'address.city.required' => trans('plugins/ecommerce::order.address_city_required'),
             'address.address.required' => trans('plugins/ecommerce::order.address_address_required'),
         ];
 

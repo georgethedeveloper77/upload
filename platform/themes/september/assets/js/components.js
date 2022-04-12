@@ -43,14 +43,14 @@ Vue.prototype.__ = key => {
 
 Vue.prototype.themeUrl = url => {
     return window.themeUrl + '/' + url;
-}
+};
 
 Vue.directive('carousel', {
     inserted: function (el) {
         $(el).owlCarousel({
             rtl: $('body').prop('dir') === 'rtl',
-            dots : $(el).data('dots'),
-            loop : $(el).data('loop'),
+            dots: $(el).data('dots'),
+            loop: $(el).data('loop'),
             items: $(el).data('items'),
             margin: $(el).data('margin'),
             mouseDrag: $(el).data('mouse-drag'),
@@ -60,10 +60,10 @@ Vue.directive('carousel', {
             nav: $(el).data('nav'),
             rewind: $(el).data('rewind'),
             navText: ['<i class="ion-ios-arrow-left"></i>', '<i class="ion-ios-arrow-right"></i>'],
-            autoplay : $(el).data('autoplay'),
-            animateIn : $(el).data('animate-in'),
+            autoplay: $(el).data('autoplay'),
+            animateIn: $(el).data('animate-in'),
             animateOut: $(el).data('animate-out'),
-            autoplayTimeout : $(el).data('autoplay-timeout'),
+            autoplayTimeout: $(el).data('autoplay-timeout'),
             smartSpeed: $(el).data('smart-speed'),
             responsive: $(el).data('responsive')
         })

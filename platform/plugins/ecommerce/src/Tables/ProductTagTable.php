@@ -35,7 +35,8 @@ class ProductTagTable extends TableAbstract
         DataTables $table,
         UrlGenerator $urlGenerator,
         ProductTagInterface $productTagRepository
-    ) {
+    )
+    {
         $this->repository = $productTagRepository;
         $this->setOption('id', 'table-plugins-product-tag');
         parent::__construct($table, $urlGenerator);
@@ -101,24 +102,24 @@ class ProductTagTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'ec_product_tags.id',
+            'id' => [
+                'name' => 'ec_product_tags.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'name'       => [
-                'name'  => 'ec_product_tags.name',
+            'name' => [
+                'name' => 'ec_product_tags.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
             'created_at' => [
-                'name'  => 'ec_product_tags.created_at',
+                'name' => 'ec_product_tags.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-center',
             ],
-            'status'     => [
-                'name'  => 'ec_product_tags.status',
+            'status' => [
+                'name' => 'ec_product_tags.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
                 'class' => 'text-center',
@@ -150,20 +151,20 @@ class ProductTagTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'ec_product_tags.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'ec_product_tags.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'ec_product_tags.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'ec_product_tags.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'ec_product_tags.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

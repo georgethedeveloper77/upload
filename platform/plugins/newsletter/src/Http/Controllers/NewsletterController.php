@@ -9,7 +9,10 @@ use Botble\Base\Traits\HasDeleteManyItemsTrait;
 use Botble\Newsletter\Repositories\Interfaces\NewsletterInterface;
 use Botble\Newsletter\Tables\NewsletterTable;
 use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Throwable;
 
 class NewsletterController extends BaseController
 {
@@ -31,8 +34,8 @@ class NewsletterController extends BaseController
 
     /**
      * @param NewsletterTable $dataTable
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Throwable
+     * @return Factory|View
+     * @throws Throwable
      */
     public function index(NewsletterTable $dataTable)
     {

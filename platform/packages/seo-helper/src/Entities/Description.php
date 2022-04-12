@@ -42,13 +42,65 @@ class Description implements DescriptionContract
     }
 
     /**
-     * Get raw description content.
+     * Set description content.
+     *
+     * @param string $content
+     *
+     * @return $this
+     */
+    public function set($content)
+    {
+        $this->content = trim(strip_tags($content));
+
+        return $this;
+    }
+
+    /**
+     * Make a description instance.
+     *
+     * @param string $content
+     * @param int $max
+     *
+     * @return $this
+     * @throws InvalidArgumentException
+     */
+    public static function make($content, $max = 386)
+    {
+        return new self();
+    }
+
+    /**
+     * Render the tag.
      *
      * @return string
      */
-    public function getContent()
+    public function __toString()
     {
-        return $this->content;
+        return $this->render();
+    }
+
+    /**
+     * Render the tag.
+     *
+     * @return string
+     */
+    public function render()
+    {
+        if (!$this->hasContent()) {
+            return '';
+        }
+
+        return Meta::make($this->name, $this->get())->render();
+    }
+
+    /**
+     * Check if description has content.
+     *
+     * @return bool
+     */
+    protected function hasContent()
+    {
+        return !empty($this->get());
     }
 
     /**
@@ -62,17 +114,13 @@ class Description implements DescriptionContract
     }
 
     /**
-     * Set description content.
+     * Get raw description content.
      *
-     * @param string $content
-     *
-     * @return $this
+     * @return string
      */
-    public function set($content)
+    public function getContent()
     {
-        $this->content = trim(strip_tags($content));
-
-        return $this;
+        return $this->content;
     }
 
     /**
@@ -100,54 +148,6 @@ class Description implements DescriptionContract
         $this->max = $max;
 
         return $this;
-    }
-
-    /**
-     * Make a description instance.
-     *
-     * @param string $content
-     * @param int $max
-     *
-     * @return $this
-     * @throws InvalidArgumentException
-     */
-    public static function make($content, $max = 386)
-    {
-        return new self();
-    }
-
-    /**
-     * Render the tag.
-     *
-     * @return string
-     */
-    public function render()
-    {
-        if (!$this->hasContent()) {
-            return '';
-        }
-
-        return Meta::make($this->name, $this->get())->render();
-    }
-
-    /**
-     * Render the tag.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render();
-    }
-
-    /**
-     * Check if description has content.
-     *
-     * @return bool
-     */
-    protected function hasContent()
-    {
-        return !empty($this->get());
     }
 
     /**

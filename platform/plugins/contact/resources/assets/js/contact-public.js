@@ -1,11 +1,11 @@
 $(document).ready(function () {
     var showError = function (message) {
         $('.contact-error-message').html(message).show();
-    }
+    };
 
     var showSuccess = function (message) {
         $('.contact-success-message').html(message).show();
-    }
+    };
 
     var handleError = function (data) {
         if (typeof (data.errors) !== 'undefined' && data.errors.length) {
@@ -29,7 +29,7 @@ $(document).ready(function () {
                 showError(data.statusText);
             }
         }
-    }
+    };
 
     var handleValidationError = function (errors) {
         let message = '';
@@ -40,7 +40,7 @@ $(document).ready(function () {
             message += item;
         });
         showError(message);
-    }
+    };
 
     $(document).on('click', '.contact-form button[type=submit]', function (event) {
         event.preventDefault();

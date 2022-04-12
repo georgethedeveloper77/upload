@@ -7,11 +7,11 @@ use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Blog\Http\Resources\CategoryResource;
 use Botble\Blog\Http\Resources\ListCategoryResource;
+use Botble\Blog\Models\Category;
 use Botble\Blog\Repositories\Interfaces\CategoryInterface;
 use Botble\Blog\Supports\FilterCategory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Botble\Blog\Models\Category;
 use SlugHelper;
 
 class CategoryController extends Controller

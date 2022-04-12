@@ -5,11 +5,11 @@ namespace Botble\Blog\Tables;
 use BaseHelper;
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Blog\Models\Tag;
-use Html;
-use Illuminate\Support\Facades\Auth;
 use Botble\Blog\Repositories\Interfaces\TagInterface;
 use Botble\Table\Abstracts\TableAbstract;
+use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class TagTable extends TableAbstract
@@ -102,23 +102,23 @@ class TagTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'tags.id',
+            'id' => [
+                'name' => 'tags.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'name'       => [
-                'name'  => 'tags.name',
+            'name' => [
+                'name' => 'tags.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
-            'status'     => [
-                'name'  => 'tags.status',
+            'status' => [
+                'name' => 'tags.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
             ],
             'created_at' => [
-                'name'  => 'tags.created_at',
+                'name' => 'tags.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
@@ -149,20 +149,20 @@ class TagTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'tags.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'tags.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'tags.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'tags.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'tags.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

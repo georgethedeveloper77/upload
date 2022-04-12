@@ -154,51 +154,51 @@ class ProductTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'ec_products.id',
+            'id' => [
+                'name' => 'ec_products.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'image'      => [
-                'name'  => 'ec_products.images',
+            'image' => [
+                'name' => 'ec_products.images',
                 'title' => trans('plugins/ecommerce::products.image'),
                 'width' => '100px',
                 'class' => 'text-center',
             ],
-            'name'       => [
-                'name'  => 'ec_products.name',
+            'name' => [
+                'name' => 'ec_products.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
-            'price'        => [
-                'name'  => 'ec_products.price',
+            'price' => [
+                'name' => 'ec_products.price',
                 'title' => trans('plugins/ecommerce::products.price'),
                 'class' => 'text-left',
             ],
-            'quantity'        => [
-                'name'  => 'ec_products.quantity',
+            'quantity' => [
+                'name' => 'ec_products.quantity',
                 'title' => trans('plugins/ecommerce::products.quantity'),
                 'class' => 'text-left',
             ],
-            'sku'        => [
-                'name'  => 'ec_products.sku',
+            'sku' => [
+                'name' => 'ec_products.sku',
                 'title' => trans('plugins/ecommerce::products.sku'),
                 'class' => 'text-left',
             ],
-            'order'      => [
-                'name'  => 'ec_products.order',
+            'order' => [
+                'name' => 'ec_products.order',
                 'title' => trans('core/base::tables.order'),
                 'width' => '50px',
                 'class' => 'text-center',
             ],
             'created_at' => [
-                'name'  => 'ec_products.created_at',
+                'name' => 'ec_products.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-center',
             ],
-            'status'     => [
-                'name'  => 'ec_products.status',
+            'status' => [
+                'name' => 'ec_products.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
                 'class' => 'text-center',
@@ -230,25 +230,25 @@ class ProductTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'ec_products.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'ec_products.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'ec_products.order'      => [
-                'title'    => trans('core/base::tables.order'),
-                'type'     => 'number',
+            'ec_products.order' => [
+                'title' => trans('core/base::tables.order'),
+                'type' => 'number',
                 'validate' => 'required|min:0',
             ],
-            'ec_products.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'ec_products.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'ec_products.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

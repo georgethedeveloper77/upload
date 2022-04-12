@@ -9,7 +9,9 @@ use Botble\Ecommerce\Repositories\Interfaces\ProductInterface;
 use Botble\Ecommerce\Repositories\Interfaces\ReviewInterface;
 use Botble\Theme\Http\Controllers\PublicController;
 use Cart;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\JsonResource;
 use Theme;
 use Theme\September\Http\Resources\BrandResource;
 use Theme\September\Http\Resources\PostResource;
@@ -31,7 +33,7 @@ class SeptemberController extends PublicController
 
         return $response->setData([
             'count' => Cart::instance('cart')->count(),
-            'html'  => Theme::partial('cart-panel'),
+            'html' => Theme::partial('cart-panel'),
         ]);
     }
 
@@ -69,7 +71,7 @@ class SeptemberController extends PublicController
      * @param Request $request
      * @param BaseHttpResponse $response
      * @param PostInterface $postRepository
-     * @return BaseHttpResponse|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Resources\Json\JsonResource
+     * @return BaseHttpResponse|RedirectResponse|JsonResource
      */
     public function ajaxGetPosts(Request $request, BaseHttpResponse $response, PostInterface $postRepository)
     {
@@ -162,13 +164,13 @@ class SeptemberController extends PublicController
 
         $reviews = $reviewRepository->advancedGet([
             'condition' => [
-                'status'     => BaseStatusEnum::PUBLISHED,
+                'status' => BaseStatusEnum::PUBLISHED,
                 'product_id' => $id,
             ],
             'order_by' => ['created_at' => 'desc'],
-            'paginate'  => [
-                'per_page'      => (int) $request->input('per_page', 10),
-                'current_paged' => (int) $request->input('page', 1),
+            'paginate' => [
+                'per_page' => (int)$request->input('per_page', 10),
+                'current_paged' => (int)$request->input('page', 1),
             ],
         ]);
 

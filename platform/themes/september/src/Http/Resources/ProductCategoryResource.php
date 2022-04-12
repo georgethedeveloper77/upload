@@ -17,9 +17,9 @@ class ProductCategoryResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'    => $this->id,
-            'name'  => $this->name,
-            'url'   => $this->url,
+            'id' => $this->id,
+            'name' => $this->name,
+            'url' => $this->url,
             'image' => RvMedia::getImageUrl($this->image, null, false, RvMedia::getDefaultImage()),
         ];
     }

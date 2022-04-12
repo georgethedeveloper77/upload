@@ -68,44 +68,44 @@ class HookServiceProvider extends ServiceProvider
 
         theme_option()
             ->setSection([
-                'title'      => 'Blog',
-                'desc'       => 'Theme options for Blog',
-                'id'         => 'opt-text-subsection-blog',
+                'title' => 'Blog',
+                'desc' => 'Theme options for Blog',
+                'id' => 'opt-text-subsection-blog',
                 'subsection' => true,
-                'icon'       => 'fa fa-edit',
-                'fields'     => [
+                'icon' => 'fa fa-edit',
+                'fields' => [
                     [
-                        'id'         => 'blog_page_id',
-                        'type'       => 'select',
-                        'label'      => trans('plugins/blog::base.blog_page_id'),
+                        'id' => 'blog_page_id',
+                        'type' => 'select',
+                        'label' => trans('plugins/blog::base.blog_page_id'),
                         'attributes' => [
-                            'name'    => 'blog_page_id',
-                            'list'    => ['' => trans('plugins/blog::base.select')] + $pages,
-                            'value'   => '',
+                            'name' => 'blog_page_id',
+                            'list' => ['' => trans('plugins/blog::base.select')] + $pages,
+                            'value' => '',
                             'options' => [
                                 'class' => 'form-control',
                             ],
                         ],
                     ],
                     [
-                        'id'         => 'number_of_posts_in_a_category',
-                        'type'       => 'number',
-                        'label'      => trans('plugins/blog::base.number_posts_per_page_in_category'),
+                        'id' => 'number_of_posts_in_a_category',
+                        'type' => 'number',
+                        'label' => trans('plugins/blog::base.number_posts_per_page_in_category'),
                         'attributes' => [
-                            'name'    => 'number_of_posts_in_a_category',
-                            'value'   => 12,
+                            'name' => 'number_of_posts_in_a_category',
+                            'value' => 12,
                             'options' => [
                                 'class' => 'form-control',
                             ],
                         ],
                     ],
                     [
-                        'id'         => 'number_of_posts_in_a_tag',
-                        'type'       => 'number',
-                        'label'      => trans('plugins/blog::base.number_posts_per_page_in_tag'),
+                        'id' => 'number_of_posts_in_a_tag',
+                        'type' => 'number',
+                        'label' => trans('plugins/blog::base.number_posts_per_page_in_tag'),
                         'attributes' => [
-                            'name'    => 'number_of_posts_in_a_tag',
-                            'value'   => 12,
+                            'name' => 'number_of_posts_in_a_tag',
+                            'value' => 12,
                             'options' => [
                                 'class' => 'form-control',
                             ],

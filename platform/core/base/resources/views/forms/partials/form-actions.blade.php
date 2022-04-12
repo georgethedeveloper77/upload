@@ -15,9 +15,9 @@
             </button>
             @if (!isset($only_save) || $only_save == false)
                 &nbsp;
-            <button type="submit" name="submit" value="apply" class="btn btn-success">
-                <i class="fa fa-check-circle"></i> {{ trans('core/base::forms.save_and_continue') }}
-            </button>
+                <button type="submit" name="submit" value="apply" class="btn btn-success">
+                    <i class="fa fa-check-circle"></i> {{ trans('core/base::forms.save_and_continue') }}
+                </button>
             @endif
         </div>
     </div>

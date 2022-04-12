@@ -18,12 +18,14 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 col-sm-12 widget_item" id="revenue-report" data-url="{{ route('ecommerce.report.revenue') }}">
+        <div class="col-md-6 col-sm-12 widget_item" id="revenue-report"
+             data-url="{{ route('ecommerce.report.revenue') }}">
             <div class="portlet light bordered portlet-no-padding">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject font-dark">{{ trans('plugins/ecommerce::reports.revenue_statistics')  }}</span>
+                        <span
+                            class="caption-subject font-dark">{{ trans('plugins/ecommerce::reports.revenue_statistics')  }}</span>
                     </div>
                     @include('plugins/ecommerce::reports.tools')
                 </div>
@@ -33,12 +35,14 @@
             </div>
         </div>
 
-        <div class="col-md-6 col-sm-12 widget_item" id="top-selling-products-report" data-url="{{ route('ecommerce.report.top-selling-products') }}">
+        <div class="col-md-6 col-sm-12 widget_item" id="top-selling-products-report"
+             data-url="{{ route('ecommerce.report.top-selling-products') }}">
             <div class="portlet light bordered portlet-no-padding">
                 <div class="portlet-title">
                     <div class="caption">
                         <i class="icon-settings font-dark"></i>
-                        <span class="caption-subject font-dark">{{ trans('plugins/ecommerce::reports.top_selling_products')  }}</span>
+                        <span
+                            class="caption-subject font-dark">{{ trans('plugins/ecommerce::reports.top_selling_products')  }}</span>
                     </div>
                     @include('plugins/ecommerce::reports.tools')
                 </div>

@@ -108,13 +108,13 @@ abstract class AbstractWidget
         if (!$this->isCore) {
             return Theme::loadPartial($this->frontendTemplate,
                 Theme::getThemeNamespace('/../widgets/' . $this->widgetDirectory . '/templates'), [
-                    'config'  => $this->config,
+                    'config' => $this->config,
                     'sidebar' => $args[0],
                 ]);
         }
 
         return view($this->frontendTemplate, [
-            'config'  => $this->config,
+            'config' => $this->config,
             'sidebar' => $args[0],
         ]);
     }

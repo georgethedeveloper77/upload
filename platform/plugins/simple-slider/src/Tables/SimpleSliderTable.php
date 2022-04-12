@@ -36,7 +36,8 @@ class SimpleSliderTable extends TableAbstract
         DataTables $table,
         UrlGenerator $urlGenerator,
         SimpleSliderInterface $simpleSliderRepository
-    ) {
+    )
+    {
         $this->repository = $simpleSliderRepository;
         $this->setOption('id', 'simple-sliders-table');
         parent::__construct($table, $urlGenerator);
@@ -110,15 +111,15 @@ class SimpleSliderTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
+            'id' => [
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'name'       => [
+            'name' => [
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
-            'key'        => [
+            'key' => [
                 'title' => trans('plugins/simple-slider::simple-slider.key'),
                 'class' => 'text-left',
             ],
@@ -126,7 +127,7 @@ class SimpleSliderTable extends TableAbstract
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
-            'status'     => [
+            'status' => [
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
             ],
@@ -157,25 +158,25 @@ class SimpleSliderTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'simple_sliders.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'simple_sliders.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'simple_sliders.key'        => [
-                'title'    => trans('plugins/simple-slider::simple-slider.key'),
-                'type'     => 'text',
+            'simple_sliders.key' => [
+                'title' => trans('plugins/simple-slider::simple-slider.key'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'simple_sliders.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'simple_sliders.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|' . Rule::in(BaseStatusEnum::values()),
             ],
             'simple_sliders.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

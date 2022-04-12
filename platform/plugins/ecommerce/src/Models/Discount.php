@@ -43,16 +43,15 @@ class Discount extends BaseModel
         'updated_at',
     ];
 
-    /**
-     * @return bool
-     */
-    public function isExpired()
+    protected static function boot()
     {
-        if ($this->end_date && strtotime($this->end_date) < strtotime(now()->toDateTimeString())) {
-            return true;
-        }
+        parent::boot();
 
-        return false;
+        static::deleting(function (Discount $discount) {
+            $discount->productCollections()->detach();
+            $discount->customers()->detach();
+            $discount->products()->detach();
+        });
     }
 
     /**
@@ -84,14 +83,15 @@ class Discount extends BaseModel
         return $this->belongsToMany(Product::class, 'ec_discount_products', 'discount_id', 'product_id');
     }
 
-    protected static function boot()
+    /**
+     * @return bool
+     */
+    public function isExpired()
     {
-        parent::boot();
+        if ($this->end_date && strtotime($this->end_date) < strtotime(now()->toDateTimeString())) {
+            return true;
+        }
 
-        static::deleting(function (Discount $discount) {
-            $discount->productCollections()->detach();
-            $discount->customers()->detach();
-            $discount->products()->detach();
-        });
+        return false;
     }
 }

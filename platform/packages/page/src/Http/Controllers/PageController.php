@@ -2,22 +2,22 @@
 
 namespace Botble\Page\Http\Controllers;
 
-use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
 use Botble\Base\Events\BeforeEditContentEvent;
 use Botble\Base\Events\CreatedContentEvent;
 use Botble\Base\Events\DeletedContentEvent;
 use Botble\Base\Events\UpdatedContentEvent;
+use Botble\Base\Forms\FormBuilder;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Base\Traits\HasDeleteManyItemsTrait;
 use Botble\Page\Forms\PageForm;
-use Botble\Page\Tables\PageTable;
 use Botble\Page\Http\Requests\PageRequest;
 use Botble\Page\Repositories\Interfaces\PageInterface;
+use Botble\Page\Tables\PageTable;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Botble\Base\Forms\FormBuilder;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Throwable;
 

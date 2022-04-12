@@ -2,9 +2,9 @@
 
 namespace Botble\Payment\Services\Abstracts;
 
+use Botble\Payment\Services\Traits\PaymentErrorTrait;
 use Botble\Payment\Supports\StripeHelper;
 use Botble\Support\Services\ProduceServiceInterface;
-use Botble\Payment\Services\Traits\PaymentErrorTrait;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -52,25 +52,6 @@ abstract class StripePaymentAbstract implements ProduceServiceInterface
     protected $chargeId;
 
     /**
-     * Make a payment
-     *
-     * @param Request $request
-     *
-     * @return mixed
-     */
-    abstract public function makePayment(Request $request);
-
-    /**
-     * Use this function to perform more logic after user has made a payment
-     *
-     * @param string $chargeId
-     * @param Request $request
-     *
-     * @return mixed
-     */
-    abstract public function afterMakePayment($chargeId, Request $request);
-
-    /**
      * Execute main service
      *
      * @param Request $request
@@ -86,12 +67,12 @@ abstract class StripePaymentAbstract implements ProduceServiceInterface
                 trans('plugins/payment::payment.could_not_get_stripe_token'),
                 StripeHelper::formatLog(
                     [
-                        'error'         => 'missing Stripe token',
+                        'error' => 'missing Stripe token',
                         'last_4_digits' => $request->input('last4Digits'),
-                        'name'          => $request->input('name'),
-                        'client_IP'     => $request->input('clientIP'),
-                        'time_created'  => $request->input('timeCreated'),
-                        'live_mode'     => $request->input('liveMode'),
+                        'name' => $request->input('name'),
+                        'client_IP' => $request->input('clientIP'),
+                        'time_created' => $request->input('timeCreated'),
+                        'live_mode' => $request->input('liveMode'),
                     ],
                     __LINE__,
                     __FUNCTION__,
@@ -128,6 +109,25 @@ abstract class StripePaymentAbstract implements ProduceServiceInterface
 
         return $chargeId;
     }
+
+    /**
+     * Make a payment
+     *
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    abstract public function makePayment(Request $request);
+
+    /**
+     * Use this function to perform more logic after user has made a payment
+     *
+     * @param string $chargeId
+     * @param Request $request
+     *
+     * @return mixed
+     */
+    abstract public function afterMakePayment($chargeId, Request $request);
 
     /**
      * Get payment details

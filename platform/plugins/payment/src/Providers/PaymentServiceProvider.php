@@ -6,14 +6,14 @@ use Botble\Base\Supports\Helper;
 use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Botble\Payment\Enums\PaymentMethodEnum;
 use Botble\Payment\Models\Payment;
+use Botble\Payment\Repositories\Caches\PaymentCacheDecorator;
+use Botble\Payment\Repositories\Eloquent\PaymentRepository;
+use Botble\Payment\Repositories\Interfaces\PaymentInterface;
 use Botble\Payment\Services\Gateways\PayPalPaymentService;
 use Botble\Payment\Services\Gateways\StripePaymentService;
 use Event;
 use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\ServiceProvider;
-use Botble\Payment\Repositories\Caches\PaymentCacheDecorator;
-use Botble\Payment\Repositories\Eloquent\PaymentRepository;
-use Botble\Payment\Repositories\Interfaces\PaymentInterface;
 use Laravel\Cashier\Cashier;
 
 class PaymentServiceProvider extends ServiceProvider
@@ -46,40 +46,40 @@ class PaymentServiceProvider extends ServiceProvider
         Event::listen(RouteMatched::class, function () {
             dashboard_menu()
                 ->registerItem([
-                    'id'          => 'cms-plugins-payments',
-                    'priority'    => 800,
-                    'parent_id'   => null,
-                    'name'        => 'plugins/payment::payment.name',
-                    'icon'        => 'fas fa-credit-card',
-                    'url'         => route('payment.index'),
+                    'id' => 'cms-plugins-payments',
+                    'priority' => 800,
+                    'parent_id' => null,
+                    'name' => 'plugins/payment::payment.name',
+                    'icon' => 'fas fa-credit-card',
+                    'url' => route('payment.index'),
                     'permissions' => ['payment.index'],
                 ])
                 ->registerItem([
-                    'id'          => 'cms-plugins-payments-all',
-                    'priority'    => 0,
-                    'parent_id'   => 'cms-plugins-payments',
-                    'name'        => 'plugins/payment::payment.transactions',
-                    'icon'        => null,
-                    'url'         => route('payment.index'),
+                    'id' => 'cms-plugins-payments-all',
+                    'priority' => 0,
+                    'parent_id' => 'cms-plugins-payments',
+                    'name' => 'plugins/payment::payment.transactions',
+                    'icon' => null,
+                    'url' => route('payment.index'),
                     'permissions' => ['payment.index'],
                 ])
                 ->registerItem([
-                    'id'          => 'cms-plugins-payment-methods',
-                    'priority'    => 1,
-                    'parent_id'   => 'cms-plugins-payments',
-                    'name'        => 'plugins/payment::payment.payment_methods',
-                    'icon'        => null,
-                    'url'         => route('payments.methods'),
+                    'id' => 'cms-plugins-payment-methods',
+                    'priority' => 1,
+                    'parent_id' => 'cms-plugins-payments',
+                    'name' => 'plugins/payment::payment.payment_methods',
+                    'icon' => null,
+                    'url' => route('payments.methods'),
                     'permissions' => ['payments.methods'],
                 ]);
         });
 
         add_shortcode('payment-form', 'Payment form', 'Payment form', function ($shortCode) {
             $data = [
-                'name'        => $shortCode->name,
-                'currency'    => $shortCode->currency,
-                'amount'      => $shortCode->amount,
-                'returnUrl'   => $shortCode->return_url,
+                'name' => $shortCode->name,
+                'currency' => $shortCode->currency,
+                'amount' => $shortCode->amount,
+                'returnUrl' => $shortCode->return_url,
                 'callbackUrl' => $shortCode->callback_url,
             ];
 

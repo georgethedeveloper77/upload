@@ -18,14 +18,6 @@ class EcommerceHelper
     /**
      * @return bool
      */
-    public function isTaxEnabled(): bool
-    {
-        return get_ecommerce_setting('ecommerce_tax_enabled', '1') == '1';
-    }
-
-    /**
-     * @return bool
-     */
     public function isReviewEnabled(): bool
     {
         return get_ecommerce_setting('review_enabled', '1') == '1';
@@ -65,6 +57,14 @@ class EcommerceHelper
         }
 
         return get_ecommerce_setting('display_product_price_including_taxes', '0') == '1';
+    }
+
+    /**
+     * @return bool
+     */
+    public function isTaxEnabled(): bool
+    {
+        return get_ecommerce_setting('ecommerce_tax_enabled', '1') == '1';
     }
 
     /**

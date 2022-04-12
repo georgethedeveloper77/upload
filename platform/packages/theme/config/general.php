@@ -60,10 +60,10 @@ return [
     */
 
     'containerDir' => [
-        'layout'  => 'layouts',
-        'asset'   => '',
+        'layout' => 'layouts',
+        'asset' => '',
         'partial' => 'partials',
-        'view'    => 'views',
+        'view' => 'views',
     ],
 
     /*
@@ -76,57 +76,57 @@ return [
     |
     */
 
-    'events'        => [
+    'events' => [
 
     ],
     'theme-options' => [
-        'opt_name'              => 'theme-options',
-        'use_cdn'               => true,
-        'display_name'          => 'Theme Options',
-        'display_version'       => '1.0.0',
-        'page_title'            => 'Theme Options',
-        'update_notice'         => true,
-        'admin_bar'             => true,
-        'menu_type'             => 'menu',
-        'menu_title'            => 'Sample Options',
-        'allow_sub_menu'        => true,
+        'opt_name' => 'theme-options',
+        'use_cdn' => true,
+        'display_name' => 'Theme Options',
+        'display_version' => '1.0.0',
+        'page_title' => 'Theme Options',
+        'update_notice' => true,
+        'admin_bar' => true,
+        'menu_type' => 'menu',
+        'menu_title' => 'Sample Options',
+        'allow_sub_menu' => true,
         'page_parent_post_type' => 'your_post_type',
-        'customizer'            => true,
-        'default_mark'          => '*',
-        'hints'                 => [
+        'customizer' => true,
+        'default_mark' => '*',
+        'hints' => [
             'icon_position' => 'right',
-            'icon_color'    => 'lightgray',
-            'icon_size'     => 'normal',
-            'tip_style'     => [
+            'icon_color' => 'lightgray',
+            'icon_size' => 'normal',
+            'tip_style' => [
                 'color' => 'light',
             ],
-            'tip_position'  => [
+            'tip_position' => [
                 'my' => 'top left',
                 'at' => 'bottom right',
             ],
-            'tip_effect'    => [
+            'tip_effect' => [
                 'show' => [
                     'duration' => '500',
-                    'event'    => 'mouseover',
+                    'event' => 'mouseover',
                 ],
                 'hide' => [
                     'duration' => '500',
-                    'event'    => 'mouseleave unfocus',
+                    'event' => 'mouseleave unfocus',
                 ],
             ],
         ],
-        'output'                => true,
-        'output_tag'            => true,
-        'settings_api'          => true,
-        'cdn_check_time'        => '1440',
-        'compiler'              => true,
-        'page_permissions'      => 'manage_options',
-        'save_defaults'         => true,
-        'show_import_export'    => true,
-        'show_options_object'   => false,
-        'database'              => 'options',
-        'transient_time'        => '3600',
-        'network_sites'         => true,
+        'output' => true,
+        'output_tag' => true,
+        'settings_api' => true,
+        'cdn_check_time' => '1440',
+        'compiler' => true,
+        'page_permissions' => 'manage_options',
+        'save_defaults' => true,
+        'show_import_export' => true,
+        'show_options_object' => false,
+        'database' => 'options',
+        'transient_time' => '3600',
+        'network_sites' => true,
     ],
 
     'enable_custom_js' => env('CMS_THEME_ENABLE_CUSTOM_JS', true),

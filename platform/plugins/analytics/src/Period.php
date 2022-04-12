@@ -2,9 +2,9 @@
 
 namespace Botble\Analytics;
 
+use Botble\Analytics\Exceptions\InvalidPeriod;
 use Carbon\Carbon;
 use DateTime;
-use Botble\Analytics\Exceptions\InvalidPeriod;
 
 class Period
 {
@@ -17,6 +17,23 @@ class Period
      * @var DateTime
      */
     public $endDate;
+
+    /**
+     * Period constructor.
+     * @param DateTime $startDate
+     * @param DateTime $endDate
+     * @throws InvalidPeriod
+     */
+    public function __construct(DateTime $startDate, DateTime $endDate)
+    {
+        if ($startDate > $endDate) {
+            throw InvalidPeriod::startDateCannotBeAfterEndDate($startDate, $endDate);
+        }
+
+        $this->startDate = $startDate;
+
+        $this->endDate = $endDate;
+    }
 
     /**
      * @param DateTime $startDate
@@ -52,7 +69,7 @@ class Period
     {
         $endDate = Carbon::today();
 
-            $startDate = Carbon::today()->subMonths($numberOfMonths)->startOfDay();
+        $startDate = Carbon::today()->subMonths($numberOfMonths)->startOfDay();
 
         return new static($startDate, $endDate);
     }
@@ -69,22 +86,5 @@ class Period
         $startDate = Carbon::today()->subYears($numberOfYears)->startOfDay();
 
         return new static($startDate, $endDate);
-    }
-
-    /**
-     * Period constructor.
-     * @param DateTime $startDate
-     * @param DateTime $endDate
-     * @throws InvalidPeriod
-     */
-    public function __construct(DateTime $startDate, DateTime $endDate)
-    {
-        if ($startDate > $endDate) {
-            throw InvalidPeriod::startDateCannotBeAfterEndDate($startDate, $endDate);
-        }
-
-        $this->startDate = $startDate;
-
-        $this->endDate = $endDate;
     }
 }

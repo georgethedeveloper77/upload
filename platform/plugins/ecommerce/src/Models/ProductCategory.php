@@ -40,6 +40,15 @@ class ProductCategory extends BaseModel
         'status' => BaseStatusEnum::class,
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function (ProductCategory $productCategory) {
+            $productCategory->products()->detach();
+        });
+    }
+
     /**
      * @return BelongsToMany
      */
@@ -64,14 +73,5 @@ class ProductCategory extends BaseModel
     public function children(): HasMany
     {
         return $this->hasMany(ProductCategory::class, 'parent_id');
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::deleting(function (ProductCategory $productCategory) {
-            $productCategory->products()->detach();
-        });
     }
 }

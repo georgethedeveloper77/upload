@@ -5,7 +5,8 @@
             <p>{!! clean($description) !!}</p>
         </div>
         <div class="section__content row align-items-center">
-            <featured-product-categories-component url="{{ route('public.ajax.featured-product-categories') }}"></featured-product-categories-component>
+            <featured-product-categories-component
+                url="{{ route('public.ajax.featured-product-categories') }}"></featured-product-categories-component>
         </div>
     </div>
 </section>

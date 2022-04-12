@@ -13,21 +13,23 @@
                 <th>{{ __('Payment method') }}</th>
                 <th>{{ __('Status') }}</th>
                 <th></th>
-            </tr></thead>
+            </tr>
+            </thead>
             <tbody>
-                @foreach ($orders as $order)
-                    <tr>
+            @foreach ($orders as $order)
+                <tr>
 
-                        <td>#{{ config('plugins.ecommerce.order.order_code_prefix') }}{{ $order->id }}</td>
-                        <td>{{ $order->created_at->format('h:m d/m/Y') }}</td>
-                        <td>{{ $order->payment->payment_channel->label() }}</td>
-                        <td>{{ $order->status->label() }}</td>
+                    <td>#{{ config('plugins.ecommerce.order.order_code_prefix') }}{{ $order->id }}</td>
+                    <td>{{ $order->created_at->format('h:m d/m/Y') }}</td>
+                    <td>{{ $order->payment->payment_channel->label() }}</td>
+                    <td>{{ $order->status->label() }}</td>
 
-                        <td>
-                            <a class="btn btn-info btn-order-detail" href="{{ route('customer.orders.view', $order->id) }}">{{ __('View') }}</a>
-                        </td>
-                    </tr>
-                @endforeach
+                    <td>
+                        <a class="btn btn-info btn-order-detail"
+                           href="{{ route('customer.orders.view', $order->id) }}">{{ __('View') }}</a>
+                    </td>
+                </tr>
+            @endforeach
             </tbody>
         </table>
 

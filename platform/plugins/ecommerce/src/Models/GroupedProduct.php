@@ -7,12 +7,15 @@ use Botble\Base\Models\BaseModel;
 class GroupedProduct extends BaseModel
 {
     /**
+     * @var bool
+     */
+    public $timestamps = false;
+    /**
      * The database table used by the model.
      *
      * @var string
      */
     protected $table = 'ec_grouped_products';
-
     /**
      * @var array
      */
@@ -21,9 +24,4 @@ class GroupedProduct extends BaseModel
         'product_id',
         'fixed_qty',
     ];
-
-    /**
-     * @var bool
-     */
-    public $timestamps = false;
 }

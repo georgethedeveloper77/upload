@@ -11,25 +11,33 @@
                         @foreach(ThemeManager::getThemes() as $key =>  $theme)
                             <div class="col-sm-6 col-md-4 col-lg-3">
                                 <div class="thumbnail">
-                                    <div class="img-thumbnail-wrap" style="background-image: url('{{ url(config('packages.theme.general.themeDir')) }}/{{ $key }}/screenshot.png')"></div>
+                                    <div class="img-thumbnail-wrap"
+                                         style="background-image: url('{{ url(config('packages.theme.general.themeDir')) }}/{{ $key }}/screenshot.png')"></div>
                                     <div class="caption">
                                         <div class="col-12" style="background: #eee; padding: 15px;">
                                             <div style="word-break: break-all">
                                                 <h4>{{ $theme['name'] }}</h4>
-                                                <p>{{ trans('packages/theme::theme.author') }}: {{ Arr::get($theme, 'author') }}</p>
-                                                <p>{{ trans('packages/theme::theme.version') }}: {{ Arr::get($theme, 'version') }}</p>
-                                                <p>{{ trans('packages/theme::theme.description') }}: {{ Arr::get($theme, 'description') }}</p>
+                                                <p>{{ trans('packages/theme::theme.author') }}
+                                                    : {{ Arr::get($theme, 'author') }}</p>
+                                                <p>{{ trans('packages/theme::theme.version') }}
+                                                    : {{ Arr::get($theme, 'version') }}</p>
+                                                <p>{{ trans('packages/theme::theme.description') }}
+                                                    : {{ Arr::get($theme, 'description') }}</p>
                                             </div>
                                             <div class="clearfix"></div>
                                             <div>
                                                 @if (Theme::getThemeName() == $key)
-                                                    <a href="#" class="btn btn-info" disabled="disabled"><i class="fa fa-check"></i> {{ trans('packages/theme::theme.activated') }}</a>
+                                                    <a href="#" class="btn btn-info" disabled="disabled"><i
+                                                            class="fa fa-check"></i> {{ trans('packages/theme::theme.activated') }}
+                                                    </a>
                                                 @else
                                                     @if (Auth::user()->hasPermission('theme.activate'))
-                                                        <a href="#" class="btn btn-primary btn-trigger-active-theme" data-theme="{{ $key }}">{{ trans('packages/theme::theme.active') }}</a>
+                                                        <a href="#" class="btn btn-primary btn-trigger-active-theme"
+                                                           data-theme="{{ $key }}">{{ trans('packages/theme::theme.active') }}</a>
                                                     @endif
                                                     @if (Auth::user()->hasPermission('theme.remove'))
-                                                        <a href="#" class="btn btn-danger btn-trigger-remove-theme" data-theme="{{ $key }}">{{ trans('packages/theme::theme.remove') }}</a>
+                                                        <a href="#" class="btn btn-danger btn-trigger-remove-theme"
+                                                           data-theme="{{ $key }}">{{ trans('packages/theme::theme.remove') }}</a>
                                                     @endif
                                                 @endif
                                             </div>

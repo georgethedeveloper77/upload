@@ -36,22 +36,6 @@ class MediaFolder extends BaseModel
         'user_id',
     ];
 
-    /**
-     * @return HasMany
-     */
-    public function files(): HasMany
-    {
-        return $this->hasMany(MediaFile::class, 'folder_id', 'id');
-    }
-
-    /**
-     * @return HasOne
-     */
-    public function parentFolder(): HasOne
-    {
-        return $this->hasOne(MediaFolder::class, 'id', 'parent');
-    }
-
     protected static function boot()
     {
         parent::boot();
@@ -78,5 +62,21 @@ class MediaFolder extends BaseModel
         static::restoring(function ($folder) {
             MediaFile::where('folder_id', $folder->id)->restore();
         });
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function files(): HasMany
+    {
+        return $this->hasMany(MediaFile::class, 'folder_id', 'id');
+    }
+
+    /**
+     * @return HasOne
+     */
+    public function parentFolder(): HasOne
+    {
+        return $this->hasOne(MediaFolder::class, 'id', 'parent');
     }
 }

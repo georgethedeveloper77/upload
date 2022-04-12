@@ -2,8 +2,8 @@
 
 namespace Botble\Payment\Forms;
 
-use Botble\Base\Forms\FormAbstract;
 use Botble\Base\Enums\BaseStatusEnum;
+use Botble\Base\Forms\FormAbstract;
 use Botble\Payment\Http\Requests\PaymentRequest;
 use Botble\Payment\Models\Payment;
 
@@ -20,20 +20,20 @@ class PaymentForm extends FormAbstract
             ->setValidatorClass(PaymentRequest::class)
             ->withCustomFields()
             ->add('name', 'text', [
-                'label'      => trans('core/base::forms.name'),
+                'label' => trans('core/base::forms.name'),
                 'label_attr' => ['class' => 'control-label required'],
-                'attr'       => [
-                    'placeholder'  => trans('core/base::forms.name_placeholder'),
+                'attr' => [
+                    'placeholder' => trans('core/base::forms.name_placeholder'),
                     'data-counter' => 120,
                 ],
             ])
             ->add('status', 'customSelect', [
-                'label'      => trans('core/base::tables.status'),
+                'label' => trans('core/base::tables.status'),
                 'label_attr' => ['class' => 'control-label required'],
-                'attr'       => [
+                'attr' => [
                     'class' => 'form-control select-full',
                 ],
-                'choices'    => BaseStatusEnum::labels(),
+                'choices' => BaseStatusEnum::labels(),
             ])
             ->setBreakFieldPoint('status');
     }

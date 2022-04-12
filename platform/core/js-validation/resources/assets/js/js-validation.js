@@ -1,7 +1,7 @@
 var laravelValidation;
 laravelValidation = {
 
-    implicitRules: ['Required','Confirmed'],
+    implicitRules: ['Required', 'Confirmed'],
 
     /**
      * Initialize laravel validations.
@@ -20,30 +20,30 @@ laravelValidation = {
         this.setupValidations();
     },
 
-    arrayRules: function(element) {
+    arrayRules: function (element) {
 
         var rules = {},
-            validator = $.data( element.form, "validator"),
+            validator = $.data(element.form, "validator"),
             cache = validator.arrayRulesCache;
 
         // Is not an Array
-        if (element.name.indexOf('[') === -1 ) {
+        if (element.name.indexOf('[') === -1) {
             return rules;
         }
 
-        if (! (element.name in cache) ) {
-            cache[element.name]={};
+        if (!(element.name in cache)) {
+            cache[element.name] = {};
         }
 
-        $.each(validator.settings.rules, function(name, tmpRules){
+        $.each(validator.settings.rules, function (name, tmpRules) {
             if (name in cache[element.name]) {
                 $.extend(rules, cache[element.name][name]);
             } else {
-                cache[element.name][name]={};
+                cache[element.name][name] = {};
                 var nameRegExp = laravelValidation.helpers.regexFromWildcard(name);
                 if (element.name.match(nameRegExp)) {
-                    var newRules = $.validator.normalizeRule( tmpRules ) || {};
-                    cache[element.name][name]=newRules;
+                    var newRules = $.validator.normalizeRule(tmpRules) || {};
+                    cache[element.name][name] = newRules;
                     $.extend(rules, newRules);
                 }
             }
@@ -61,12 +61,12 @@ laravelValidation = {
         $.validator.addMethod("laravelValidation", function (value, element, params) {
             var validator = this;
             var validated = true;
-            var previous = this.previousValue( element );
+            var previous = this.previousValue(element);
 
             // put Implicit rules in front
-            var rules=[];
+            var rules = [];
             $.each(params, function (i, param) {
-                if (param[3] || laravelValidation.implicitRules.indexOf(param[0])!== -1) {
+                if (param[3] || laravelValidation.implicitRules.indexOf(param[0]) !== -1) {
                     rules.unshift(param);
                 } else {
                     rules.push(param);
@@ -74,43 +74,43 @@ laravelValidation = {
             });
 
             $.each(rules, function (i, param) {
-                var implicit = param[3] || laravelValidation.implicitRules.indexOf(param[0])!== -1;
+                var implicit = param[3] || laravelValidation.implicitRules.indexOf(param[0]) !== -1;
                 var rule = param[0];
                 var message = param[2];
 
-                if ( !implicit && validator.optional( element ) ) {
-                    validated="dependency-mismatch";
+                if (!implicit && validator.optional(element)) {
+                    validated = "dependency-mismatch";
                     return false;
                 }
 
-                if (laravelValidation.methods[rule]!==undefined) {
-                    validated = laravelValidation.methods[rule].call(validator, value, element, param[1], function(valid) {
-                        validator.settings.messages[ element.name ].laravelValidationRemote = previous.originalMessage;
-                        if ( valid ) {
+                if (laravelValidation.methods[rule] !== undefined) {
+                    validated = laravelValidation.methods[rule].call(validator, value, element, param[1], function (valid) {
+                        validator.settings.messages[element.name].laravelValidationRemote = previous.originalMessage;
+                        if (valid) {
                             var submitted = validator.formSubmitted;
-                            validator.prepareElement( element );
+                            validator.prepareElement(element);
                             validator.formSubmitted = submitted;
-                            validator.successList.push( element );
-                            delete validator.invalid[ element.name ];
+                            validator.successList.push(element);
+                            delete validator.invalid[element.name];
                             validator.showErrors();
                         } else {
                             var errors = {};
-                            errors[ element.name ] = previous.message = $.isFunction( message ) ? message( value ) : message;
-                            validator.invalid[ element.name ] = true;
-                            validator.showErrors( errors );
+                            errors[element.name] = previous.message = $.isFunction(message) ? message(value) : message;
+                            validator.invalid[element.name] = true;
+                            validator.showErrors(errors);
                         }
                         validator.showErrors(validator.errorMap);
                         previous.valid = valid;
                     });
                 } else {
-                    validated=false;
+                    validated = false;
                 }
 
                 if (validated !== true) {
-                    if (!validator.settings.messages[ element.name ] ) {
-                        validator.settings.messages[ element.name ] = {};
+                    if (!validator.settings.messages[element.name]) {
+                        validator.settings.messages[element.name] = {};
                     }
-                    validator.settings.messages[element.name].laravelValidation= message;
+                    validator.settings.messages[element.name].laravelValidation = message;
                     return false;
                 }
 
@@ -136,20 +136,20 @@ laravelValidation = {
             });
 
 
-            if ( !implicit && this.optional( element ) ) {
+            if (!implicit && this.optional(element)) {
                 return "dependency-mismatch";
             }
 
-            var previous = this.previousValue( element ),
+            var previous = this.previousValue(element),
                 validator, data;
 
-            if (!this.settings.messages[ element.name ] ) {
-                this.settings.messages[ element.name ] = {};
+            if (!this.settings.messages[element.name]) {
+                this.settings.messages[element.name] = {};
             }
-            previous.originalMessage = this.settings.messages[ element.name ].laravelValidationRemote;
-            this.settings.messages[ element.name ].laravelValidationRemote = previous.message;
+            previous.originalMessage = this.settings.messages[element.name].laravelValidationRemote;
+            this.settings.messages[element.name].laravelValidationRemote = previous.message;
 
-            var param = typeof param === "string" && { url: param } || param;
+            var param = typeof param === "string" && {url: param} || param;
 
             if (laravelValidation.helpers.arrayEquals(previous.old, value) || previous.old === value) {
                 return previous.valid;
@@ -157,7 +157,7 @@ laravelValidation = {
 
             previous.old = value;
             validator = this;
-            this.startRequest( element );
+            this.startRequest(element);
 
             data = $(validator.currentForm).serializeArray();
 
@@ -172,26 +172,26 @@ laravelValidation = {
             });
 
             var formMethod = $(validator.currentForm).attr('method');
-            if($(validator.currentForm).find('input[name="_method"]').length) {
+            if ($(validator.currentForm).find('input[name="_method"]').length) {
                 formMethod = $(validator.currentForm).find('input[name="_method"]').val();
             }
 
-            $.ajax( $.extend( true, {
-                mode: "abort",
-                port: "validate" + element.name,
-                dataType: "json",
-                data: data,
-                context: validator.currentForm,
-                url: $(validator.currentForm).attr('action'),
-                type: formMethod,
+            $.ajax($.extend(true, {
+                    mode: "abort",
+                    port: "validate" + element.name,
+                    dataType: "json",
+                    data: data,
+                    context: validator.currentForm,
+                    url: $(validator.currentForm).attr('action'),
+                    type: formMethod,
 
-                beforeSend: function (xhr) {
-                    if ($(validator.currentForm).attr('method').toLowerCase() !== 'get' && token) {
-                        return xhr.setRequestHeader('X-XSRF-TOKEN', token);
+                    beforeSend: function (xhr) {
+                        if ($(validator.currentForm).attr('method').toLowerCase() !== 'get' && token) {
+                            return xhr.setRequestHeader('X-XSRF-TOKEN', token);
+                        }
                     }
-                }
-            }, param )
-            ).always(function( response, textStatus ) {
+                }, param)
+            ).always(function (response, textStatus) {
                     var errors, message, submitted, valid;
 
                     if (textStatus === 'error') {
@@ -203,25 +203,25 @@ laravelValidation = {
                         return;
                     }
 
-                    validator.settings.messages[ element.name ].laravelValidationRemote = previous.originalMessage;
+                    validator.settings.messages[element.name].laravelValidationRemote = previous.originalMessage;
 
-                    if ( valid ) {
+                    if (valid) {
                         submitted = validator.formSubmitted;
-                        validator.prepareElement( element );
+                        validator.prepareElement(element);
                         validator.formSubmitted = submitted;
-                        validator.successList.push( element );
-                        delete validator.invalid[ element.name ];
+                        validator.successList.push(element);
+                        delete validator.invalid[element.name];
                         validator.showErrors();
                     } else {
                         errors = {};
-                        message = response || validator.defaultMessage( element, "remote" );
-                        errors[ element.name ] = previous.message = $.isFunction( message ) ? message( value ) : message[0];
-                        validator.invalid[ element.name ] = true;
-                        validator.showErrors( errors );
+                        message = response || validator.defaultMessage(element, "remote");
+                        errors[element.name] = previous.message = $.isFunction(message) ? message(value) : message[0];
+                        validator.invalid[element.name] = true;
+                        validator.showErrors(errors);
                     }
                     validator.showErrors(validator.errorMap);
                     previous.valid = valid;
-                    validator.stopRequest( element, valid );
+                    validator.stopRequest(element, valid);
                 }
             );
             return "pending";
@@ -229,6 +229,6 @@ laravelValidation = {
     }
 };
 
-$(function() {
+$(function () {
     laravelValidation.init();
 });

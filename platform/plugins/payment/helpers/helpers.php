@@ -1,11 +1,12 @@
 <?php
 
 use Botble\Payment\Supports\StripeHelper;
+use Illuminate\Database\Eloquent\Model;
 
 if (!function_exists('convert_stripe_amount_from_api')) {
     /**
      * @param int|float $amount
-     * @param \Illuminate\Database\Eloquent\Model $currency
+     * @param Model $currency
      * @return float|int
      */
     function convert_stripe_amount_from_api($amount, $currency)

@@ -61,7 +61,8 @@ class MediaController extends Controller
         MediaFolderInterface $folderRepository,
         MediaSettingInterface $mediaSettingRepository,
         UploadsManager $uploadManager
-    ) {
+    )
+    {
         $this->fileRepository = $fileRepository;
         $this->folderRepository = $folderRepository;
         $this->uploadManager = $uploadManager;
@@ -115,16 +116,16 @@ class MediaController extends Controller
         $paramsFolder = [];
 
         $paramsFile = [
-            'order_by'         => [
+            'order_by' => [
                 'is_folder' => 'DESC',
             ],
-            'paginate'         => [
-                'per_page'      => $request->input('posts_per_page', 30),
+            'paginate' => [
+                'per_page' => $request->input('posts_per_page', 30),
                 'current_paged' => $request->input('paged', 1),
             ],
             'selected_file_id' => $request->input('selected_file_id'),
-            'is_popup'         => $request->input('is_popup'),
-            'filter'           => $request->input('filter'),
+            'is_popup' => $request->input('is_popup'),
+            'filter' => $request->input('filter'),
         ];
 
         $orderBy = $this->transformOrderBy($request->input('sort_by'));
@@ -147,7 +148,7 @@ class MediaController extends Controller
             case 'all_media':
                 $breadcrumbs = [
                     [
-                        'id'   => 0,
+                        'id' => 0,
                         'name' => trans('core/media::media.all_media'),
                         'icon' => 'fa fa-user-secret',
                     ],
@@ -165,7 +166,7 @@ class MediaController extends Controller
             case 'trash':
                 $breadcrumbs = [
                     [
-                        'id'   => 0,
+                        'id' => 0,
                         'name' => trans('core/media::media.trash'),
                         'icon' => 'fa fa-trash',
                     ],
@@ -183,7 +184,7 @@ class MediaController extends Controller
             case 'recent':
                 $breadcrumbs = [
                     [
-                        'id'   => 0,
+                        'id' => 0,
                         'name' => trans('core/media::media.recent'),
                         'icon' => 'fa fa-clock',
                     ],
@@ -204,7 +205,7 @@ class MediaController extends Controller
             case 'favorites':
                 $breadcrumbs = [
                     [
-                        'id'   => 0,
+                        'id' => 0,
                         'name' => trans('core/media::media.favorites'),
                         'icon' => 'fa fa-star',
                     ],
@@ -212,7 +213,7 @@ class MediaController extends Controller
 
                 $favoriteItems = $this->mediaSettingRepository
                     ->getFirstBy([
-                        'key'     => 'favorites',
+                        'key' => 'favorites',
                         'user_id' => Auth::user()->getKey(),
                     ]);
 
@@ -254,9 +255,9 @@ class MediaController extends Controller
         $selectedFileId = $request->input('selected_file_id');
 
         return RvMedia::responseSuccess([
-            'files'            => $files,
-            'folders'          => $folders,
-            'breadcrumbs'      => $breadcrumbs,
+            'files' => $files,
+            'folders' => $folders,
+            'breadcrumbs' => $breadcrumbs,
             'selected_file_id' => $selectedFileId,
         ]);
     }
@@ -299,7 +300,7 @@ class MediaController extends Controller
             $breadcrumbs = [
                 [
                     'name' => $folder->name,
-                    'id'   => $folder->id,
+                    'id' => $folder->id,
                 ],
             ];
         }
@@ -462,7 +463,7 @@ class MediaController extends Controller
 
             case 'favorite':
                 $meta = $this->mediaSettingRepository->firstOrCreate([
-                    'key'     => 'favorites',
+                    'key' => 'favorites',
                     'user_id' => Auth::user()->getKey(),
                 ]);
 
@@ -479,7 +480,7 @@ class MediaController extends Controller
 
             case 'remove_favorite':
                 $meta = $this->mediaSettingRepository->firstOrCreate([
-                    'key'     => 'favorites',
+                    'key' => 'favorites',
                     'user_id' => Auth::user()->getKey(),
                 ]);
 
@@ -615,7 +616,7 @@ class MediaController extends Controller
                 }
 
                 return response()->make(file_get_contents(str_replace('https://', 'http://', $filePath)), 200, [
-                    'Content-type'        => $file->mime_type,
+                    'Content-type' => $file->mime_type,
                     'Content-Disposition' => 'attachment; filename="' . $file->name . '.' . File::extension($file->url) . '"',
                 ]);
             }

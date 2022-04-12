@@ -129,7 +129,7 @@ class Handler extends ExceptionHandler
     /**
      * Get the view used to render HTTP exceptions.
      *
-     * @param \Symfony\Component\HttpKernel\Exception\HttpExceptionInterface $exception
+     * @param HttpExceptionInterface $exception
      * @return string
      */
     protected function getHttpExceptionView(HttpExceptionInterface $exception)

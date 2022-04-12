@@ -10,10 +10,13 @@ class OrderAddress extends BaseModel
 {
 
     /**
+     * @var bool
+     */
+    public $timestamps = false;
+    /**
      * @var string
      */
     protected $table = 'ec_order_addresses';
-
     /**
      * @var array
      */
@@ -28,11 +31,6 @@ class OrderAddress extends BaseModel
         'zip_code',
         'order_id',
     ];
-
-    /**
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * @return string

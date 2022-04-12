@@ -1,5 +1,9 @@
 <?php
 
+use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\UploadedFile;
+
 if (!function_exists('is_image')) {
     /**
      * Is the mime type an image
@@ -34,7 +38,7 @@ if (!function_exists('get_object_image')) {
      * @param string $image
      * @param null $size
      * @param bool $relativePath
-     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     * @return UrlGenerator|string
      * @deprecated since 5.7
      */
     function get_object_image($image, $size = null, $relativePath = false)
@@ -45,10 +49,10 @@ if (!function_exists('get_object_image')) {
 
 if (!function_exists('rv_media_handle_upload')) {
     /**
-     * @param \Illuminate\Http\UploadedFile $fileUpload
+     * @param UploadedFile $fileUpload
      * @param int $folderId
      * @param string $path
-     * @return array|\Illuminate\Http\JsonResponse
+     * @return array|JsonResponse
      * @deprecated since 5.7
      */
     function rv_media_handle_upload($fileUpload, $folderId = 0, $path = '')

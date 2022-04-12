@@ -3,7 +3,8 @@
         <div class="col-md-3">
             <div class="profile-sidebar">
 
-                <form id="avatar-upload-form" enctype="multipart/form-data" action="javascript:void(0)" onsubmit="return false">
+                <form id="avatar-upload-form" enctype="multipart/form-data" action="javascript:void(0)"
+                      onsubmit="return false">
                     <div class="avatar-upload-container">
                         <div class="form-group">
                             <div id="account-avatar">
@@ -82,9 +83,11 @@
          aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form class="avatar-form" method="post" action="{{ route('customer.avatar') }}" enctype="multipart/form-data">
+                <form class="avatar-form" method="post" action="{{ route('customer.avatar') }}"
+                      enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="avatar-modal-label"><i class="til_img"></i><strong>{{ __('Profile Image') }}</strong></h4>
+                        <h4 class="modal-title" id="avatar-modal-label"><i
+                                class="til_img"></i><strong>{{ __('Profile Image') }}</strong></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -117,8 +120,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn--custom btn--rounded btn--outline btn--sm" type="button" data-dismiss="modal">{{ __('Close') }}</button>
-                        <button class="btn--custom btn--rounded btn--outline btn--sm avatar-save" type="submit">{{ __('Save') }}</button>
+                        <button class="btn--custom btn--rounded btn--outline btn--sm" type="button"
+                                data-dismiss="modal">{{ __('Close') }}</button>
+                        <button class="btn--custom btn--rounded btn--outline btn--sm avatar-save"
+                                type="submit">{{ __('Save') }}</button>
                     </div>
                 </form>
             </div>

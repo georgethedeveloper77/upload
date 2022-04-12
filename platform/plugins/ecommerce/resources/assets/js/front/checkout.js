@@ -68,7 +68,7 @@ class MainCheckout {
                     $('.payment-info-loading').hide();
                 });
             }
-        }
+        };
 
         loadShippingFeeAtTheFirstTime();
 

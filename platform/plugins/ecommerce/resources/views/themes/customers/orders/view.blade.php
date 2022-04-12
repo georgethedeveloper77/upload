@@ -100,9 +100,9 @@
                         <tbody>
                         @foreach($order->products as $key => $orderProduct)
                             @php
-                                $product = get_products([
+                                use Botble\Base\Enums\BaseStatusEnum;$product = get_products([
                                     'condition' => [
-                                        'ec_products.status' => \Botble\Base\Enums\BaseStatusEnum::PUBLISHED,
+                                        'ec_products.status' => BaseStatusEnum::PUBLISHED,
                                         'ec_products.id' => $orderProduct->product_id,
                                     ],
                                     'take' => 1,
@@ -118,13 +118,15 @@
                                         'ec_products.sku',
                                         'ec_products.is_variation',
                                     ],
-                                ]);
+                                ])
 
                             @endphp
                             <tr>
                                 <td class="text-center">{{ $key + 1 }}</td>
                                 <td class="text-center">
-                                    <img src="{{ RvMedia::getImageUrl($product->image, 'thumb', false, RvMedia::getDefaultImage()) }}" alt="{{ $product->name }}" width="50">
+                                    <img
+                                        src="{{ RvMedia::getImageUrl($product->image, 'thumb', false, RvMedia::getDefaultImage()) }}"
+                                        alt="{{ $product->name }}" width="50">
                                 </td>
                                 <td>
                                     {{ $product->name }} @if ($product->sku) ({{ $product->sku }}) @endif
@@ -134,7 +136,8 @@
                                                 @php $attributes = get_product_attributes($product->id) @endphp
                                                 @if (!empty($attributes))
                                                     @foreach ($attributes as $attribute)
-                                                        {{ $attribute->attribute_set_title }}: {{ $attribute->title }}@if (!$loop->last), @endif
+                                                        {{ $attribute->attribute_set_title }}
+                                                        : {{ $attribute->title }}@if (!$loop->last), @endif
                                                     @endforeach
                                                 @endif
                                             </small>
@@ -144,7 +147,8 @@
                                     @if (!empty($orderProduct->options) && is_array($orderProduct->options))
                                         @foreach($orderProduct->options as $option)
                                             @if (!empty($option['key']) && !empty($option['value']))
-                                                <p class="mb-0"><small>{{ $option['key'] }}: <strong> {{ $option['value'] }}</strong></small></p>
+                                                <p class="mb-0"><small>{{ $option['key'] }}:
+                                                        <strong> {{ $option['value'] }}</strong></small></p>
                                             @endif
                                         @endforeach
                                     @endif

@@ -2,8 +2,8 @@
 
 namespace Botble\Translation\Console;
 
-use Illuminate\Console\Command;
 use Botble\Translation\Manager;
+use Illuminate\Console\Command;
 
 class ResetCommand extends Command
 {

@@ -4,7 +4,6 @@ namespace Botble\Ecommerce\Providers;
 
 use Assets;
 use Botble\Base\Enums\BaseStatusEnum;
-use Botble\Blog\Repositories\Interfaces\PostInterface;
 use Botble\Dashboard\Supports\DashboardWidgetInstance;
 use Botble\Ecommerce\Models\Brand;
 use Botble\Ecommerce\Models\ProductCategory;
@@ -124,31 +123,31 @@ class HookServiceProvider extends ServiceProvider
     {
         theme_option()
             ->setSection([
-                'title'      => trans('plugins/ecommerce::ecommerce.theme_options.name'),
-                'desc'       => trans('plugins/ecommerce::ecommerce.theme_options.description'),
-                'id'         => 'opt-text-subsection-ecommerce',
+                'title' => trans('plugins/ecommerce::ecommerce.theme_options.name'),
+                'desc' => trans('plugins/ecommerce::ecommerce.theme_options.description'),
+                'id' => 'opt-text-subsection-ecommerce',
                 'subsection' => true,
-                'icon'       => 'fa fa-shopping-cart',
-                'fields'     => [
+                'icon' => 'fa fa-shopping-cart',
+                'fields' => [
                     [
-                        'id'         => 'number_of_products_per_page',
-                        'type'       => 'number',
-                        'label'      => trans('plugins/ecommerce::ecommerce.theme_options.number_products_per_page'),
+                        'id' => 'number_of_products_per_page',
+                        'type' => 'number',
+                        'label' => trans('plugins/ecommerce::ecommerce.theme_options.number_products_per_page'),
                         'attributes' => [
-                            'name'    => 'number_of_products_per_page',
-                            'value'   => 12,
+                            'name' => 'number_of_products_per_page',
+                            'value' => 12,
                             'options' => [
                                 'class' => 'form-control',
                             ],
                         ],
                     ],
                     [
-                        'id'         => 'max_filter_price',
-                        'type'       => 'number',
-                        'label'      => trans('plugins/ecommerce::ecommerce.theme_options.max_price_filter'),
+                        'id' => 'max_filter_price',
+                        'type' => 'number',
+                        'label' => trans('plugins/ecommerce::ecommerce.theme_options.max_price_filter'),
                         'attributes' => [
-                            'name'    => 'max_filter_price',
-                            'value'   => 100000,
+                            'name' => 'max_filter_price',
+                            'value' => 100000,
                             'options' => [
                                 'class' => 'form-control',
                             ],
@@ -253,7 +252,7 @@ class HookServiceProvider extends ServiceProvider
     {
         if (!$this->pendingOrders) {
             $this->pendingOrders = $this->app->make(OrderInterface::class)->allBy([
-                'status'                => BaseStatusEnum::PENDING,
+                'status' => BaseStatusEnum::PENDING,
                 'ec_orders.is_finished' => 1,
             ], ['address']);
         }

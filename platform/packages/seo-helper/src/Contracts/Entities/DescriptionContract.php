@@ -7,6 +7,15 @@ use Botble\SeoHelper\Contracts\RenderableContract;
 interface DescriptionContract extends RenderableContract
 {
     /**
+     * Make a description instance.
+     *
+     * @param string $content
+     * @param int $max
+     * @return $this
+     */
+    public static function make($content, $max = 155);
+
+    /**
      * Get raw description content.
      *
      * @return string
@@ -42,13 +51,4 @@ interface DescriptionContract extends RenderableContract
      * @return $this
      */
     public function setMax($max);
-
-    /**
-     * Make a description instance.
-     *
-     * @param string $content
-     * @param int $max
-     * @return $this
-     */
-    public static function make($content, $max = 155);
 }

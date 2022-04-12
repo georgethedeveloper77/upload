@@ -1,6 +1,6 @@
 class SocialLoginManagement {
     init() {
-        $('#social_login_enable').on('change', event =>  {
+        $('#social_login_enable').on('change', event => {
             if ($(event.currentTarget).prop('checked')) {
                 $('.wrapper-list-social-login-options').show();
             } else {
@@ -8,7 +8,7 @@ class SocialLoginManagement {
             }
         });
 
-        $('.enable-social-login-option').on('change', event =>  {
+        $('.enable-social-login-option').on('change', event => {
             let _self = $(event.currentTarget);
             if (_self.prop('checked')) {
                 _self.closest('.wrapper-content').find('.enable-social-login-option-wrapper').show();

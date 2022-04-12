@@ -3,8 +3,8 @@
 namespace Botble\Blog\Repositories\Eloquent;
 
 use Botble\Base\Enums\BaseStatusEnum;
-use Botble\Support\Repositories\Eloquent\RepositoriesAbstract;
 use Botble\Blog\Repositories\Interfaces\TagInterface;
+use Botble\Support\Repositories\Eloquent\RepositoriesAbstract;
 
 class TagRepository extends RepositoriesAbstract implements TagInterface
 {

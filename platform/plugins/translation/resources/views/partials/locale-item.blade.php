@@ -9,8 +9,10 @@
     <td class="text-center">
         <span>
             @if ($item['locale'] != 'en')
-                <a href="#" class="delete-locale-button text-danger" data-toggle="tooltip" data-url="{{ route('translations.locales.delete', $item['locale']) }}" role="button" data-original-title="{{ trans('plugins/translation::translation.delete') }}">{{ trans('plugins/translation::translation.delete') }}</a>
-            @else
+                <a href="#" class="delete-locale-button text-danger" data-toggle="tooltip"
+                   data-url="{{ route('translations.locales.delete', $item['locale']) }}" role="button"
+                   data-original-title="{{ trans('plugins/translation::translation.delete') }}">{{ trans('plugins/translation::translation.delete') }}</a>
+                @else
                 &mdash;
             @endif
         </span>

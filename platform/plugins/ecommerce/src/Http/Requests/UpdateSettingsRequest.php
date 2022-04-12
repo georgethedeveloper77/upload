@@ -14,11 +14,11 @@ class UpdateSettingsRequest extends Request
     public function rules()
     {
         return [
-            'store_name'    => 'required',
+            'store_name' => 'required',
             'store_address' => 'required',
-            'store_phone'   => 'required',
-            'store_state'   => 'required',
-            'store_city'    => 'required',
+            'store_phone' => 'required',
+            'store_state' => 'required',
+            'store_city' => 'required',
         ];
     }
 }

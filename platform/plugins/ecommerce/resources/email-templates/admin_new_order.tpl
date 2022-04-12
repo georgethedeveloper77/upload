@@ -4,9 +4,10 @@
 
 <p>Hi, {{ customer_name }} has just ordered on your site</p>
 
-<a href="{{ site_url }}/orders/tracking?order_id={{ order_id }}&email={{ customer_email }}" class="button button-blue">View order</a>
+<a href="{{ site_url }}/orders/tracking?order_id={{ order_id }}&email={{ customer_email }}" class="button button-blue">View
+    order</a>
 
-<br />
+<br/>
 
 <h3>Order information: </h3>
 

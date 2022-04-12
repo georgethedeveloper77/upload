@@ -7,7 +7,7 @@ let directory = path.basename(path.resolve(__dirname));
 const source = 'platform/themes/' + directory;
 const dist = 'public/themes/' + directory;
 
-mix.js(source + '/assets/js/components.js', dist + '/js').vue({ version: 2 });
+mix.js(source + '/assets/js/components.js', dist + '/js').vue({version: 2});
 
 mix
     .sass(

@@ -41,73 +41,6 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     }
 
     /**
-     * @param string $function
-     * @param array $args
-     * @return mixed
-     */
-    public function getDataIfExistCache($function, array $args)
-    {
-        if (!setting('enable_cache', false)) {
-            return call_user_func_array([$this->repository, $function], $args);
-        }
-
-        try {
-            $cacheKey = md5(
-                get_class($this) .
-                $function .
-                serialize(request()->input()) . serialize(url()->current()) .
-                serialize(func_get_args())
-            );
-
-            if ($this->cache->has($cacheKey)) {
-                return $this->cache->get($cacheKey);
-            }
-
-            $cacheData = call_user_func_array([$this->repository, $function], $args);
-
-            // Store in cache for next request
-            $this->cache->put($cacheKey, $cacheData);
-
-            return $cacheData;
-        } catch (Exception $ex) {
-            info($ex->getMessage());
-            return call_user_func_array([$this->repository, $function], $args);
-        } catch (InvalidArgumentException $ex) {
-            info($ex->getMessage());
-            return call_user_func_array([$this->repository, $function], $args);
-        }
-    }
-
-    /**
-     * @param string $function
-     * @param array $args
-     * @return mixed
-     */
-    public function getDataWithoutCache($function, array $args)
-    {
-        return call_user_func_array([$this->repository, $function], $args);
-    }
-
-    /**
-     * @param string $function
-     * @param array $args
-     * @param boolean $flushCache
-     * @return mixed
-     */
-    public function flushCacheAndUpdateData($function, $args, $flushCache = true)
-    {
-        if ($flushCache) {
-            try {
-                $this->cache->flush();
-            } catch (FileNotFoundException $exception) {
-                info($exception->getMessage());
-            }
-        }
-
-        return call_user_func_array([$this->repository, $function], $args);
-    }
-
-    /**
      * {@inheritDoc}
      */
     public function getModel()
@@ -153,6 +86,44 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function findById($id, array $with = [])
     {
         return $this->getDataIfExistCache(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * @param string $function
+     * @param array $args
+     * @return mixed
+     */
+    public function getDataIfExistCache($function, array $args)
+    {
+        if (!setting('enable_cache', false)) {
+            return call_user_func_array([$this->repository, $function], $args);
+        }
+
+        try {
+            $cacheKey = md5(
+                get_class($this) .
+                $function .
+                serialize(request()->input()) . serialize(url()->current()) .
+                serialize(func_get_args())
+            );
+
+            if ($this->cache->has($cacheKey)) {
+                return $this->cache->get($cacheKey);
+            }
+
+            $cacheData = call_user_func_array([$this->repository, $function], $args);
+
+            // Store in cache for next request
+            $this->cache->put($cacheKey, $cacheData);
+
+            return $cacheData;
+        } catch (Exception $ex) {
+            info($ex->getMessage());
+            return call_user_func_array([$this->repository, $function], $args);
+        } catch (InvalidArgumentException $ex) {
+            info($ex->getMessage());
+            return call_user_func_array([$this->repository, $function], $args);
+        }
     }
 
     /**
@@ -204,6 +175,25 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     }
 
     /**
+     * @param string $function
+     * @param array $args
+     * @param boolean $flushCache
+     * @return mixed
+     */
+    public function flushCacheAndUpdateData($function, $args, $flushCache = true)
+    {
+        if ($flushCache) {
+            try {
+                $this->cache->flush();
+            } catch (FileNotFoundException $exception) {
+                info($exception->getMessage());
+            }
+        }
+
+        return call_user_func_array([$this->repository, $function], $args);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function createOrUpdate($data, array $condition = [])
@@ -241,6 +231,16 @@ abstract class CacheAbstractDecorator implements RepositoryInterface
     public function select(array $select = ['*'], array $condition = [])
     {
         return $this->getDataWithoutCache(__FUNCTION__, func_get_args());
+    }
+
+    /**
+     * @param string $function
+     * @param array $args
+     * @return mixed
+     */
+    public function getDataWithoutCache($function, array $args)
+    {
+        return call_user_func_array([$this->repository, $function], $args);
     }
 
     /**

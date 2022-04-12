@@ -6,11 +6,14 @@
                 <div class="circle circle-2"></div>
             </div>
         </div>
-        <div v-if="!isLoading" v-carousel class="cat_slider cat_style1 mt-4 mt-md-0 carousel_slider owl-carousel owl-theme nav_style5" data-loop="true" data-dots="false" data-nav="true" data-margin="30" data-responsive='{"0":{"items": "2"}, "480":{"items": "3"}, "576":{"items": "4"}, "768":{"items": "5"}, "991":{"items": "6"}, "1199":{"items": "7"}}'>
+        <div class="cat_slider cat_style1 mt-4 mt-md-0 carousel_slider owl-carousel owl-theme nav_style5" data-dots="false"
+             data-loop="true"
+             data-margin="30" data-nav="true" data-responsive='{"0":{"items": "2"}, "480":{"items": "3"}, "576":{"items": "4"}, "768":{"items": "5"}, "991":{"items": "6"}, "1199":{"items": "7"}}' v-carousel
+             v-if="!isLoading">
             <div class="item" v-for="item in data">
                 <div class="categories_box">
                     <a :href="item.url">
-                        <img :src="item.image" :alt="item.name"/>
+                        <img :alt="item.name" :src="item.image"/>
                         <span class="d-block text-center">{{ item.name }}</span>
                     </a>
                 </div>
@@ -21,7 +24,7 @@
 
 <script>
     export default {
-        data: function() {
+        data: function () {
             return {
                 isLoading: true,
                 data: []
@@ -35,7 +38,7 @@
             },
         },
         mounted() {
-          this.getData();
+            this.getData();
         },
         methods: {
             getData() {

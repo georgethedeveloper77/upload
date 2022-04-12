@@ -44,6 +44,21 @@ class WidgetController extends BaseController
     }
 
     /**
+     * @return null|string
+     * @throws FileNotFoundException
+     */
+    protected function getCurrentLocaleCode()
+    {
+        $languageCode = null;
+        if (is_plugin_active('language')) {
+            $currentLocale = is_in_admin() ? Language::getCurrentAdminLocaleCode() : Language::getCurrentLocaleCode();
+            $languageCode = $currentLocale && $currentLocale != Language::getDefaultLocaleCode() ? '-' . $currentLocale : null;
+        }
+
+        return $languageCode;
+    }
+
+    /**
      * @return Factory|View
      *
      * @throws FileNotFoundException
@@ -79,7 +94,7 @@ class WidgetController extends BaseController
             $sidebarId = $request->input('sidebar_id');
             $this->widgetRepository->deleteBy([
                 'sidebar_id' => $sidebarId,
-                'theme'      => $this->theme,
+                'theme' => $this->theme,
             ]);
             foreach ($request->input('items', []) as $key => $item) {
                 parse_str($item, $data);
@@ -89,17 +104,17 @@ class WidgetController extends BaseController
 
                 $args = [
                     'sidebar_id' => $sidebarId,
-                    'widget_id'  => $data['id'],
-                    'theme'      => $this->theme,
-                    'position'   => $key,
-                    'data'       => $data,
+                    'widget_id' => $data['id'],
+                    'theme' => $this->theme,
+                    'position' => $key,
+                    'data' => $data,
                 ];
                 $this->widgetRepository->createOrUpdate($args);
             }
 
             $widgetAreas = $this->widgetRepository->allBy([
                 'sidebar_id' => $sidebarId,
-                'theme'      => $this->theme,
+                'theme' => $this->theme,
             ]);
 
             return $response
@@ -121,10 +136,10 @@ class WidgetController extends BaseController
     {
         try {
             $this->widgetRepository->deleteBy([
-                'theme'      => $this->theme,
+                'theme' => $this->theme,
                 'sidebar_id' => $request->get('sidebar_id'),
-                'position'   => $request->get('position'),
-                'widget_id'  => $request->get('widget_id'),
+                'position' => $request->get('position'),
+                'widget_id' => $request->get('widget_id'),
             ]);
             return $response->setMessage(trans('packages/widget::widget.delete_success'));
         } catch (Exception $exception) {
@@ -163,20 +178,5 @@ class WidgetController extends BaseController
     {
         WidgetId::set($request->input('id', 1) - 1);
         AbstractWidgetFactory::$skipWidgetContainer = true;
-    }
-
-    /**
-     * @return null|string
-     * @throws FileNotFoundException
-     */
-    protected function getCurrentLocaleCode()
-    {
-        $languageCode = null;
-        if (is_plugin_active('language')) {
-            $currentLocale = is_in_admin() ? Language::getCurrentAdminLocaleCode() : Language::getCurrentLocaleCode();
-            $languageCode = $currentLocale && $currentLocale != Language::getDefaultLocaleCode() ? '-' . $currentLocale : null;
-        }
-
-        return $languageCode;
     }
 }

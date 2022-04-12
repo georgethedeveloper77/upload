@@ -59,6 +59,7 @@
     .shop__header {
         display: block;
         height: 40px;
+
         &:after {
             clear: both;
         }
@@ -234,6 +235,7 @@
         margin: 0 auto 100px;
         padding: 30px;
         background-color: #f7f7f7;
+
         .form-control, button.btn--custom.btn--outline {
             background-color: #fff;
         }

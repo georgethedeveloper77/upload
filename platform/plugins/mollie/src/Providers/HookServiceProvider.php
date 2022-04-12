@@ -76,14 +76,14 @@ class HookServiceProvider extends ServiceProvider
     {
         if ($request->input('payment_method') == MOLLIE_PAYMENT_METHOD_NAME) {
             $response = Mollie::api()->payments->create([
-                'amount'      => [
+                'amount' => [
                     'currency' => $request->input('currency'),
-                    'value'    => number_format($request->input('amount'), 2, '.', ''),
+                    'value' => number_format($request->input('amount'), 2, '.', ''),
                 ],
                 'description' => 'Order #' . $request->input('order_id'),
                 'redirectUrl' => route('public.checkout.success', OrderHelper::getOrderSessionToken()),
-                'webhookUrl'  => route('mollie.payment.callback'),
-                'metadata'    => ['order_id' => $request->input('order_id')],
+                'webhookUrl' => route('mollie.payment.callback'),
+                'metadata' => ['order_id' => $request->input('order_id')],
             ]);
 
             header('Location: ' . $response->getCheckoutUrl());

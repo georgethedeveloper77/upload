@@ -6,6 +6,7 @@ use Botble\ACL\Notifications\ResetPasswordNotification;
 use Botble\ACL\Traits\PermissionTrait;
 use Botble\Base\Supports\Avatar;
 use Botble\Media\Models\MediaFile;
+use Eloquent;
 use Exception;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -16,7 +17,7 @@ use Illuminate\Notifications\Notifiable;
 use RvMedia;
 
 /**
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class User extends Authenticatable
 {
@@ -91,14 +92,6 @@ class User extends Authenticatable
     }
 
     /**
-     * @return string
-     */
-    public function getFullName()
-    {
-        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
-    }
-
-    /**
      * @return BelongsTo
      */
     public function avatar()
@@ -112,6 +105,14 @@ class User extends Authenticatable
     public function getAvatarUrlAttribute()
     {
         return $this->avatar->url ? RvMedia::url($this->avatar->url) : (new Avatar)->create($this->getFullName())->toBase64();
+    }
+
+    /**
+     * @return string
+     */
+    public function getFullName()
+    {
+        return ucfirst($this->first_name) . ' ' . ucfirst($this->last_name);
     }
 
     /**
@@ -139,22 +140,6 @@ class User extends Authenticatable
     }
 
     /**
-     * @return BelongsToMany
-     */
-    public function roles()
-    {
-        return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id')->withTimestamps();
-    }
-
-    /**
-     * @return boolean
-     */
-    public function isSuperUser()
-    {
-        return $this->super_user || $this->hasAccess(ACL_ROLE_SUPER_USER);
-    }
-
-    /**
      * @param string $permission
      * @return boolean
      */
@@ -165,6 +150,14 @@ class User extends Authenticatable
         }
 
         return $this->hasAccess($permission);
+    }
+
+    /**
+     * @return boolean
+     */
+    public function isSuperUser()
+    {
+        return $this->super_user || $this->hasAccess(ACL_ROLE_SUPER_USER);
     }
 
     /**
@@ -186,8 +179,8 @@ class User extends Authenticatable
     public function authorAttributes()
     {
         return [
-            'name'   => $this->getFullName(),
-            'email'  => $this->email,
+            'name' => $this->getFullName(),
+            'email' => $this->email,
             'avatar' => $this->avatar_url,
         ];
     }
@@ -201,16 +194,6 @@ class User extends Authenticatable
     public function sendPasswordResetNotification($token)
     {
         $this->notify(new ResetPasswordNotification($token));
-    }
-
-    /**
-     * Returns the activations relationship.
-     *
-     * @return HasMany
-     */
-    public function activations()
-    {
-        return $this->hasMany(Activation::class, 'user_id');
     }
 
     /**
@@ -250,5 +233,23 @@ class User extends Authenticatable
         }
 
         return parent::delete();
+    }
+
+    /**
+     * Returns the activations relationship.
+     *
+     * @return HasMany
+     */
+    public function activations()
+    {
+        return $this->hasMany(Activation::class, 'user_id');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_users', 'user_id', 'role_id')->withTimestamps();
     }
 }

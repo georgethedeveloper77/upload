@@ -1,6 +1,6 @@
 class ContactPluginManagement {
     init() {
-        $(document).on('click', '.answer-trigger-button', event =>  {
+        $(document).on('click', '.answer-trigger-button', event => {
             event.preventDefault();
             event.stopPropagation();
 
@@ -12,7 +12,7 @@ class ContactPluginManagement {
             }
         });
 
-        $(document).on('click', '.answer-send-button', event =>  {
+        $(document).on('click', '.answer-send-button', event => {
             event.preventDefault();
             event.stopPropagation();
 
@@ -32,7 +32,7 @@ class ContactPluginManagement {
                 data: {
                     message: message
                 },
-                success: res =>  {
+                success: res => {
                     if (!res.error) {
                         $('.answer-wrapper').fadeOut();
                         if (typeof tinymce != 'undefined') {
@@ -46,7 +46,7 @@ class ContactPluginManagement {
 
                     $(event.currentTarget).removeClass('button-loading');
                 },
-                error: res =>  {
+                error: res => {
                     $(event.currentTarget).removeClass('button-loading');
                     Botble.handleError(res);
                 }

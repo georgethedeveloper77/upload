@@ -81,10 +81,10 @@ class Core
     public function activateLicense($license, $client, $createLicense = true)
     {
         $data = [
-            'product_id'   => $this->productId,
+            'product_id' => $this->productId,
             'license_code' => $license,
-            'client_name'  => $client,
-            'verify_type'  => $this->verifyType,
+            'client_name' => $client,
+            'verify_type' => $this->verifyType,
         ];
 
         $response = $this->callApi($this->apiUrl . 'api/activate_license', $data);
@@ -117,24 +117,24 @@ class Core
             $result = $client->post($url, [
                 'headers' => [
                     'Content-Type' => 'application/json',
-                    'Accept'       => 'application/json',
-                    'LB-API-KEY'   => $this->apiKey,
-                    'LB-URL'       => rtrim(url('/'), '/'),
-                    'LB-IP'        => Helper::getIpFromThirdParty(),
-                    'LB-LANG'      => 'english',
+                    'Accept' => 'application/json',
+                    'LB-API-KEY' => $this->apiKey,
+                    'LB-URL' => rtrim(url('/'), '/'),
+                    'LB-IP' => Helper::getIpFromThirdParty(),
+                    'LB-LANG' => 'english',
                 ],
-                'json'    => $data,
+                'json' => $data,
             ]);
         } catch (Exception $exception) {
             return [
-                'status'  => false,
+                'status' => false,
                 'message' => $exception->getMessage(),
             ];
         }
 
         if (!$result && config('app.debug')) {
             return [
-                'status'  => false,
+                'status' => false,
                 'message' => 'Server is unavailable at the moment, please try again.',
             ];
         }
@@ -147,7 +147,7 @@ class Core
             }
 
             return [
-                'status'  => false,
+                'status' => false,
                 'message' => 'Server returned an invalid response, please contact support.',
             ];
         }
@@ -164,30 +164,30 @@ class Core
     public function verifyLicense($timeBasedCheck = false, $license = false, $client = false)
     {
         $data = [
-            'product_id'   => $this->productId,
+            'product_id' => $this->productId,
             'license_file' => null,
             'license_code' => null,
-            'client_name'  => null,
+            'client_name' => null,
         ];
 
         if (!empty($license) && !empty($client)) {
             $data = [
-                'product_id'   => $this->productId,
+                'product_id' => $this->productId,
                 'license_file' => null,
                 'license_code' => $license,
-                'client_name'  => $client,
+                'client_name' => $client,
             ];
         } elseif ($this->checkLocalLicenseExist()) {
             $data = [
-                'product_id'   => $this->productId,
+                'product_id' => $this->productId,
                 'license_file' => file_get_contents($this->licenseFile),
                 'license_code' => null,
-                'client_name'  => null,
+                'client_name' => null,
             ];
         }
 
         $response = [
-            'status'  => true,
+            'status' => true,
             'message' => 'Verified! Thanks for purchasing our product.',
         ];
 
@@ -240,17 +240,17 @@ class Core
 
         if (!empty($license) && !empty($client)) {
             $data = [
-                'product_id'   => $this->productId,
+                'product_id' => $this->productId,
                 'license_file' => null,
                 'license_code' => $license,
-                'client_name'  => $client,
+                'client_name' => $client,
             ];
         } elseif (is_file($this->licenseFile)) {
             $data = [
-                'product_id'   => $this->productId,
+                'product_id' => $this->productId,
                 'license_file' => file_get_contents($this->licenseFile),
                 'license_code' => null,
-                'client_name'  => null,
+                'client_name' => null,
             ];
         }
 

@@ -10,25 +10,25 @@ Route::group(['namespace' => 'Botble\Payment\Http\Controllers', 'middleware' => 
     Route::group(['prefix' => BaseHelper::getAdminPrefix(), 'middleware' => 'auth'], function () {
         Route::group(['prefix' => 'payments/methods', 'permission' => 'payment.settings'], function () {
             Route::get('', [
-                'as'   => 'payments.methods',
+                'as' => 'payments.methods',
                 'uses' => 'PaymentController@methods',
             ]);
 
             Route::post('settings', [
-                'as'         => 'payments.settings',
-                'uses'       => 'PaymentController@updateSettings',
+                'as' => 'payments.settings',
+                'uses' => 'PaymentController@updateSettings',
                 'middleware' => 'preventDemo',
             ]);
 
             Route::post('', [
-                'as'         => 'payments.methods.post',
-                'uses'       => 'PaymentController@updateMethods',
+                'as' => 'payments.methods.post',
+                'uses' => 'PaymentController@updateMethods',
                 'middleware' => 'preventDemo',
             ]);
 
             Route::post('update-status', [
-                'as'         => 'payments.methods.update.status',
-                'uses'       => 'PaymentController@updateMethodStatus',
+                'as' => 'payments.methods.update.status',
+                'uses' => 'PaymentController@updateMethodStatus',
                 'middleware' => 'preventDemo',
             ]);
         });
@@ -37,20 +37,20 @@ Route::group(['namespace' => 'Botble\Payment\Http\Controllers', 'middleware' => 
             Route::resource('', 'PaymentController')->parameters(['' => 'payment'])->only(['index', 'destroy']);
 
             Route::get('{chargeId}', [
-                'as'         => 'show',
-                'uses'       => 'PaymentController@show',
+                'as' => 'show',
+                'uses' => 'PaymentController@show',
                 'permission' => 'payment.index',
             ]);
 
             Route::put('{chargeId}', [
-                'as'         => 'update',
-                'uses'       => 'PaymentController@update',
+                'as' => 'update',
+                'uses' => 'PaymentController@update',
                 'permission' => 'payment.index',
             ]);
 
             Route::delete('items/destroy', [
-                'as'         => 'deletes',
-                'uses'       => 'PaymentController@deletes',
+                'as' => 'deletes',
+                'uses' => 'PaymentController@deletes',
                 'permission' => 'payment.destroy',
             ]);
         });

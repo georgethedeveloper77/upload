@@ -71,12 +71,12 @@ class OrderHelper
         session(['order_id' => $order->id]);
 
         app(OrderHistoryInterface::class)->createOrUpdate([
-            'action'      => 'create_order',
+            'action' => 'create_order',
             'description' => trans('plugins/ecommerce::order.new_order_from', [
                 'order_id' => get_order_code($order->id),
                 'customer' => $order->user->name ? $order->user->name : $order->address->name,
             ]),
-            'order_id'    => $order->id,
+            'order_id' => $order->id,
         ]);
 
         $this->sendOrderConfirmationEmail($order, true);
@@ -92,9 +92,9 @@ class OrderHelper
             $flashSale->products()->detach([$product->id]);
             $flashSale->products()->attach([
                 $product->id => [
-                    'price'    => $flashSale->pivot->price,
+                    'price' => $flashSale->pivot->price,
                     'quantity' => (int)$flashSale->pivot->quantity,
-                    'sold'     => (int)$flashSale->pivot->sold + 1,
+                    'sold' => (int)$flashSale->pivot->sold + 1,
                 ],
             ]);
         }
@@ -111,18 +111,18 @@ class OrderHelper
     {
         return EmailHandler::setModule(ECOMMERCE_MODULE_SCREEN_NAME)
             ->setVariableValues([
-                'store_address'    => get_ecommerce_setting('store_address'),
-                'store_phone'      => get_ecommerce_setting('store_phone'),
-                'order_id'         => str_replace('#', '', get_order_code($order->id)),
-                'order_token'      => $order->token,
-                'customer_name'    => $order->user->name ? $order->user->name : $order->address->name,
-                'customer_email'   => $order->user->email ? $order->user->email : $order->address->email,
-                'customer_phone'   => $order->user->phone ? $order->user->phone : $order->address->phone,
+                'store_address' => get_ecommerce_setting('store_address'),
+                'store_phone' => get_ecommerce_setting('store_phone'),
+                'order_id' => str_replace('#', '', get_order_code($order->id)),
+                'order_token' => $order->token,
+                'customer_name' => $order->user->name ? $order->user->name : $order->address->name,
+                'customer_email' => $order->user->email ? $order->user->email : $order->address->email,
+                'customer_phone' => $order->user->phone ? $order->user->phone : $order->address->phone,
                 'customer_address' => $order->address->address . ', ' . $order->address->city . ', ' . $order->address->country_name . (EcommerceHelperFacade::isZipCodeEnabled() ? ', ' . $order->address->zip_code : ''),
-                'product_list'     => view('plugins/ecommerce::emails.partials.order-detail',
+                'product_list' => view('plugins/ecommerce::emails.partials.order-detail',
                     compact('order'))->render(),
-                'shipping_method'  => $order->shipping_method_name,
-                'payment_method'   => $order->payment->payment_channel->label(),
+                'shipping_method' => $order->shipping_method_name,
+                'payment_method' => $order->payment->payment_channel->label(),
             ]);
     }
 
@@ -147,9 +147,9 @@ class OrderHelper
 
                 if ($saveHistory) {
                     app(OrderHistoryInterface::class)->createOrUpdate([
-                        'action'      => 'send_order_confirmation_email',
+                        'action' => 'send_order_confirmation_email',
                         'description' => trans('plugins/ecommerce::order.confirmation_email_was_sent_to_customer'),
-                        'order_id'    => $order->id,
+                        'order_id' => $order->id,
                     ]);
                 }
             }
@@ -222,7 +222,7 @@ class OrderHelper
         }
 
         $variables = [
-            'order_id'  => Html::link(route('orders.edit', $history->order->id), get_order_code($history->order->id))
+            'order_id' => Html::link(route('orders.edit', $history->order->id), get_order_code($history->order->id))
                 ->toHtml(),
             'user_name' => $history->user_id === 0 ? trans('plugins/ecommerce::order.system') :
                 ($history->user ? $history->user->getFullName() : ($history->order->user->name ?
@@ -348,10 +348,10 @@ class OrderHelper
             $request->input('qty', 1),
             $product->original_price,
             [
-                'image'      => RvMedia::getImageUrl($image, 'thumb', false, RvMedia::getDefaultImage()),
+                'image' => RvMedia::getImageUrl($image, 'thumb', false, RvMedia::getDefaultImage()),
                 'attributes' => $productAttributesString,
-                'taxRate'    => $parentProduct->tax->percentage,
-                'extras'     => $request->input('extras', []),
+                'taxRate' => $parentProduct->tax->percentage,
+                'extras' => $request->input('extras', []),
             ]
         );
 

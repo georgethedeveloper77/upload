@@ -57,6 +57,13 @@ abstract class ActionHookEvent
     }
 
     /**
+     * Fires a new action
+     * @param string $action Name of action
+     * @param array $args Arguments passed to the action
+     */
+    abstract public function fire($action, $args);
+
+    /**
      * Gets the function
      * @param mixed $callback Callback
      * @return mixed A closure, an array if "class@method" or a string if "function_name"
@@ -78,11 +85,4 @@ abstract class ActionHookEvent
 
         return false;
     }
-
-    /**
-     * Fires a new action
-     * @param string $action Name of action
-     * @param array $args Arguments passed to the action
-     */
-    abstract public function fire($action, $args);
 }

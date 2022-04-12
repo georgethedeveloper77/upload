@@ -47,7 +47,8 @@ class ReportController extends BaseController
         OrderInterface $order,
         ProductInterface $product,
         CustomerInterface $customer
-    ) {
+    )
+    {
         $this->orderRepository = $order;
         $this->productRepository = $product;
         $this->customerRepository = $customer;
@@ -82,7 +83,7 @@ class ReportController extends BaseController
             ->count();
 
         $count['products'] = $this->productRepository->count([
-            'status'       => BaseStatusEnum::PUBLISHED,
+            'status' => BaseStatusEnum::PUBLISHED,
             'is_variation' => false,
         ]);
         $count['customers'] = $this->customerRepository->count();

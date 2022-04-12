@@ -4,6 +4,7 @@ namespace Botble\Base\Supports;
 
 use Botble\Base\Repositories\Interfaces\MetaBoxInterface;
 use Exception;
+use Illuminate\Database\Eloquent\Model;
 use Throwable;
 
 class MetaBox
@@ -44,7 +45,8 @@ class MetaBox
         $context = 'advanced',
         $priority = 'default',
         $callbackArgs = null
-    ) {
+    )
+    {
         if (!isset($this->metaBoxes[$reference])) {
             $this->metaBoxes[$reference] = [];
         }
@@ -103,10 +105,10 @@ class MetaBox
         }
 
         $this->metaBoxes[$reference][$context][$priority][$id] = [
-            'id'       => $id,
-            'title'    => $title,
+            'id' => $id,
+            'title' => $title,
             'callback' => $callback,
-            'args'     => $callbackArgs,
+            'args' => $callbackArgs,
         ];
     }
 
@@ -136,7 +138,7 @@ class MetaBox
                     }
                     $index++;
                     $data .= view('core/base::elements.meta-box-wrap', [
-                        'box'      => $box,
+                        'box' => $box,
                         'callback' => call_user_func_array($box['callback'], [$object, $reference, $box]),
                     ])->render();
                 }
@@ -171,7 +173,7 @@ class MetaBox
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model $object
+     * @param Model $object
      * @param string $key
      * @param $value
      * @param $options
@@ -182,8 +184,8 @@ class MetaBox
     {
         try {
             $fieldMeta = $this->metaBoxRepository->getFirstBy([
-                'meta_key'       => $key,
-                'reference_id'   => $object->id,
+                'meta_key' => $key,
+                'reference_id' => $object->id,
                 'reference_type' => get_class($object),
             ]);
             if (!$fieldMeta) {
@@ -206,7 +208,7 @@ class MetaBox
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model $object
+     * @param Model $object
      * @param string $key
      * @param boolean $single
      * @param array $select
@@ -226,7 +228,7 @@ class MetaBox
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model $object
+     * @param Model $object
      * @param string $key
      * @param array $select
      * @return mixed
@@ -234,14 +236,14 @@ class MetaBox
     public function getMeta($object, string $key, $select = ['meta_value'])
     {
         return $this->metaBoxRepository->getFirstBy([
-            'meta_key'       => $key,
-            'reference_id'   => $object->id,
+            'meta_key' => $key,
+            'reference_id' => $object->id,
             'reference_type' => get_class($object),
         ], $select);
     }
 
     /**
-     * @param \Illuminate\Database\Eloquent\Model $object
+     * @param Model $object
      * @param string $key
      * @return mixed
      * @throws Exception
@@ -249,8 +251,8 @@ class MetaBox
     public function deleteMetaData($object, string $key)
     {
         return $this->metaBoxRepository->deleteBy([
-            'meta_key'       => $key,
-            'reference_id'   => $object->id,
+            'meta_key' => $key,
+            'reference_id' => $object->id,
             'reference_type' => get_class($object),
         ]);
     }

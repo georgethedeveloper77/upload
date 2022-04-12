@@ -5,7 +5,8 @@
                 <div class="panel-heading">{{ __('Reset Password') }}</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('customer.password.email') }}">
+                    <form class="form-horizontal" role="form" method="POST"
+                          action="{{ route('customer.password.email') }}">
                         {{ csrf_field() }}
 
                         <input type="hidden" name="token" value="{{ $token }}">
@@ -13,7 +14,8 @@
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">{{ __('E-Mail Address') }}</label>
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email ?? old('email') }}" autofocus>
+                                <input id="email" type="email" class="form-control" name="email"
+                                       value="{{ $email ?? old('email') }}" autofocus>
                                 {!! Form::error('email', $errors) !!}
                             </div>
                         </div>
@@ -27,9 +29,11 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-                            <label for="password-confirm" class="col-md-4 control-label">{{ __('Confirm Password') }}</label>
+                            <label for="password-confirm"
+                                   class="col-md-4 control-label">{{ __('Confirm Password') }}</label>
                             <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation">
+                                <input id="password-confirm" type="password" class="form-control"
+                                       name="password_confirmation">
                                 {!! Form::error('password_confirmation', $errors) !!}
                             </div>
                         </div>

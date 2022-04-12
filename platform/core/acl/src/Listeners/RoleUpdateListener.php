@@ -2,9 +2,9 @@
 
 namespace Botble\ACL\Listeners;
 
+use Botble\ACL\Events\RoleUpdateEvent;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Botble\ACL\Events\RoleUpdateEvent;
 
 class RoleUpdateListener
 {

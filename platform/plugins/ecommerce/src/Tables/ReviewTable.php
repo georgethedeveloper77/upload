@@ -109,39 +109,39 @@ class ReviewTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'          => [
-                'name'  => 'ec_reviews.id',
+            'id' => [
+                'name' => 'ec_reviews.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
                 'class' => 'text-left',
             ],
-            'product_id'  => [
-                'name'  => 'ec_reviews.product_id',
+            'product_id' => [
+                'name' => 'ec_reviews.product_id',
                 'title' => trans('plugins/ecommerce::review.product'),
                 'class' => 'text-left',
             ],
             'customer_id' => [
-                'name'  => 'ec_reviews.customer_id',
+                'name' => 'ec_reviews.customer_id',
                 'title' => trans('plugins/ecommerce::review.user'),
                 'class' => 'text-left',
             ],
-            'star'        => [
-                'name'  => 'ec_reviews.star',
+            'star' => [
+                'name' => 'ec_reviews.star',
                 'title' => trans('plugins/ecommerce::review.star'),
                 'class' => 'text-center',
             ],
-            'comment'     => [
-                'name'  => 'ec_reviews.comment',
+            'comment' => [
+                'name' => 'ec_reviews.comment',
                 'title' => trans('plugins/ecommerce::review.comment'),
                 'class' => 'text-left',
             ],
-            'status'      => [
-                'name'  => 'ec_reviews.status',
+            'status' => [
+                'name' => 'ec_reviews.status',
                 'title' => trans('plugins/ecommerce::review.status'),
                 'class' => 'text-center',
             ],
-            'created_at'  => [
-                'name'  => 'ec_reviews.created_at',
+            'created_at' => [
+                'name' => 'ec_reviews.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-left',
@@ -171,15 +171,15 @@ class ReviewTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'ec_reviews.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'ec_reviews.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'ec_reviews.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

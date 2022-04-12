@@ -29,7 +29,8 @@ class StoreAttributesOfProductService
     public function __construct(
         ProductAttributeInterface $productAttributeRepository,
         ProductVariationInterface $productVariationRepository
-    ) {
+    )
+    {
         $this->productAttributeRepository = $productAttributeRepository;
 
         $this->productVariationRepository = $productVariationRepository;

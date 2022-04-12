@@ -1,5 +1,5 @@
 @php
-Theme::layout('homepage')
+    Theme::layout('homepage')
 @endphp
 
 {!! do_shortcode('[simple-slider key="home-slider"][/simple-slider]') !!}

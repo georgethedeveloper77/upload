@@ -7,14 +7,17 @@ use Botble\Base\Events\CreatedContentEvent;
 use Botble\Base\Events\DeletedContentEvent;
 use Botble\Base\Events\UpdatedContentEvent;
 use Botble\Base\Forms\FormBuilder;
+use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\SimpleSlider\Forms\SimpleSliderItemForm;
 use Botble\SimpleSlider\Http\Requests\SimpleSliderItemRequest;
 use Botble\SimpleSlider\Repositories\Interfaces\SimpleSliderItemInterface;
-use Botble\Base\Http\Controllers\BaseController;
-use Illuminate\Http\Request;
-use Exception;
 use Botble\SimpleSlider\Tables\SimpleSliderItemTable;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Throwable;
 
 class SimpleSliderItemController extends BaseController
 {
@@ -34,8 +37,8 @@ class SimpleSliderItemController extends BaseController
 
     /**
      * @param SimpleSliderItemTable $dataTable
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Throwable
+     * @return Factory|View
+     * @throws Throwable
      */
     public function index(SimpleSliderItemTable $dataTable)
     {
@@ -106,7 +109,7 @@ class SimpleSliderItemController extends BaseController
 
     /**
      * @return string
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function destroy($id)
     {

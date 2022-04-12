@@ -54,6 +54,18 @@ abstract class MetaCollection extends Collection implements MetaCollectionContra
     }
 
     /**
+     * Refresh meta collection items.
+     *
+     * @return MetaCollection
+     */
+    protected function refresh()
+    {
+        return $this->map(function (MetaContract $meta) {
+            return $meta->setPrefix($this->prefix);
+        });
+    }
+
+    /**
      * Add many meta tags.
      *
      * @param array $meta
@@ -118,39 +130,17 @@ abstract class MetaCollection extends Collection implements MetaCollectionContra
     }
 
     /**
-     * Render the tag.
+     * Prepare names.
      *
-     * @return string
+     * @param array|string $names
+     *
+     * @return array
      */
-    public function render()
+    protected function prepareName($names)
     {
-        $output = $this->map(function (RenderableContract $meta) {
-            return $meta->render();
-        })->toArray();
-
-        return implode(PHP_EOL, array_filter($output));
-    }
-
-    /**
-     * Render the tag.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render();
-    }
-
-    /**
-     * Check if meta is ignored.
-     *
-     * @param string $name
-     *
-     * @return bool
-     */
-    protected function isIgnored($name)
-    {
-        return in_array($name, $this->ignored);
+        return array_map(function ($name) {
+            return strtolower(trim($name));
+        }, (array)$names);
     }
 
     /**
@@ -170,28 +160,38 @@ abstract class MetaCollection extends Collection implements MetaCollectionContra
     }
 
     /**
-     * Refresh meta collection items.
+     * Render the tag.
      *
-     * @return MetaCollection
+     * @return string
      */
-    protected function refresh()
+    public function __toString()
     {
-        return $this->map(function (MetaContract $meta) {
-            return $meta->setPrefix($this->prefix);
-        });
+        return $this->render();
     }
 
     /**
-     * Prepare names.
+     * Render the tag.
      *
-     * @param array|string $names
-     *
-     * @return array
+     * @return string
      */
-    protected function prepareName($names)
+    public function render()
     {
-        return array_map(function ($name) {
-            return strtolower(trim($name));
-        }, (array)$names);
+        $output = $this->map(function (RenderableContract $meta) {
+            return $meta->render();
+        })->toArray();
+
+        return implode(PHP_EOL, array_filter($output));
+    }
+
+    /**
+     * Check if meta is ignored.
+     *
+     * @param string $name
+     *
+     * @return bool
+     */
+    protected function isIgnored($name)
+    {
+        return in_array($name, $this->ignored);
     }
 }

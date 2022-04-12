@@ -2,7 +2,6 @@
 
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Ecommerce\Models\Product;
-use Botble\Ecommerce\Models\ProductCollection;
 use Botble\Ecommerce\Repositories\Interfaces\ProductCategoryInterface;
 use Botble\Ecommerce\Repositories\Interfaces\ProductCollectionInterface;
 use Botble\Ecommerce\Repositories\Interfaces\ProductInterface;
@@ -30,19 +29,19 @@ if (!function_exists('get_products')) {
     {
         $params = array_merge([
             'condition' => [
-                'ec_products.status'       => BaseStatusEnum::PUBLISHED,
+                'ec_products.status' => BaseStatusEnum::PUBLISHED,
                 'ec_products.is_variation' => 0,
             ],
-            'order_by'  => [
-                'ec_products.order'      => 'ASC',
+            'order_by' => [
+                'ec_products.order' => 'ASC',
                 'ec_products.created_at' => 'DESC',
             ],
-            'take'      => null,
-            'paginate'  => [
-                'per_page'      => null,
+            'take' => null,
+            'paginate' => [
+                'per_page' => null,
                 'current_paged' => 1,
             ],
-            'select'    => [
+            'select' => [
                 'ec_products.*',
             ],
             'with' => ['slugable'],
@@ -61,28 +60,28 @@ if (!function_exists('get_products_by_categories')) {
     {
         $params = array_merge([
             'categories' => [
-                'by'       => 'id',
+                'by' => 'id',
                 'value_in' => [],
             ],
-            'condition'  => [
-                'ec_products.status'       => BaseStatusEnum::PUBLISHED,
+            'condition' => [
+                'ec_products.status' => BaseStatusEnum::PUBLISHED,
                 'ec_products.is_variation' => 0,
             ],
-            'order_by'   => [
-                'ec_products.order'      => 'ASC',
+            'order_by' => [
+                'ec_products.order' => 'ASC',
                 'ec_products.created_at' => 'DESC',
             ],
-            'take'       => null,
-            'paginate'   => [
-                'per_page'      => null,
+            'take' => null,
+            'paginate' => [
+                'per_page' => null,
                 'current_paged' => 1,
             ],
-            'select'     => [
+            'select' => [
                 'ec_products.*',
                 'base_category.id as category_id',
                 'base_category.name as category_name',
             ],
-            'with'       => [],
+            'with' => [],
         ], $params);
 
         return app(ProductInterface::class)->getProductsWithCategory($params);
@@ -98,22 +97,22 @@ if (!function_exists('get_products_on_sale')) {
     {
         $params = array_merge([
             'condition' => [
-                'ec_products.status'       => BaseStatusEnum::PUBLISHED,
+                'ec_products.status' => BaseStatusEnum::PUBLISHED,
                 'ec_products.is_variation' => 0,
             ],
-            'order_by'  => [
-                'ec_products.order'      => 'ASC',
+            'order_by' => [
+                'ec_products.order' => 'ASC',
                 'ec_products.created_at' => 'DESC',
             ],
-            'take'      => null,
-            'paginate'  => [
-                'per_page'      => null,
+            'take' => null,
+            'paginate' => [
+                'per_page' => null,
                 'current_paged' => 1,
             ],
-            'select'    => [
+            'select' => [
                 'ec_products.*',
             ],
-            'with'      => [],
+            'with' => [],
         ], $params);
 
         return app(ProductInterface::class)->getOnSaleProducts($params);
@@ -129,16 +128,16 @@ if (!function_exists('get_featured_products')) {
     {
         $params = array_merge([
             'condition' => [
-                'ec_products.is_featured'  => 1,
+                'ec_products.is_featured' => 1,
                 'ec_products.is_variation' => 0,
-                'ec_products.status'       => BaseStatusEnum::PUBLISHED,
+                'ec_products.status' => BaseStatusEnum::PUBLISHED,
             ],
-            'take'      => null,
-            'order_by'  => [
+            'take' => null,
+            'order_by' => [
                 'ec_products.created_at' => 'DESC',
             ],
-            'select'    => ['ec_products.*'],
-            'with'      => [],
+            'select' => ['ec_products.*'],
+            'with' => [],
         ], $params);
 
         return app(ProductInterface::class)->advancedGet($params);
@@ -157,26 +156,26 @@ if (!function_exists('get_top_rated_products')) {
 
         $products = get_products([
             'condition' => [
-                'ec_products.status'       => BaseStatusEnum::PUBLISHED,
+                'ec_products.status' => BaseStatusEnum::PUBLISHED,
                 'ec_products.is_variation' => 0,
                 ['ec_products.id', 'IN', $topProductIds],
             ],
-            'order_by'  => [
-                'ec_products.order'      => 'ASC',
+            'order_by' => [
+                'ec_products.order' => 'ASC',
                 'ec_products.created_at' => 'DESC',
             ],
-            'take'      => null,
-            'paginate'  => [
-                'per_page'      => null,
+            'take' => null,
+            'paginate' => [
+                'per_page' => null,
                 'current_paged' => 1,
             ],
-            'select'    => [
+            'select' => [
                 'ec_products.*',
             ],
-            'with'      => $with,
+            'with' => $with,
         ]);
 
-        $products = $products->sortBy(function($product) use($topProductIds) {
+        $products = $products->sortBy(function ($product) use ($topProductIds) {
             return array_search($product->id, $topProductIds);
         });
 
@@ -213,15 +212,15 @@ if (!function_exists('get_trending_products')) {
     {
         $params = array_merge([
             'condition' => [
-                'ec_products.status'       => BaseStatusEnum::PUBLISHED,
+                'ec_products.status' => BaseStatusEnum::PUBLISHED,
                 'ec_products.is_variation' => 0,
             ],
-            'take'      => 10,
-            'order_by'  => [
+            'take' => 10,
+            'order_by' => [
                 'ec_products.views' => 'DESC',
             ],
-            'select'    => ['ec_products.*'],
-            'with'      => [],
+            'select' => ['ec_products.*'],
+            'with' => [],
         ], $params);
 
         return app(ProductInterface::class)->advancedGet($params);
@@ -237,22 +236,22 @@ if (!function_exists('get_featured_product_categories')) {
     function get_featured_product_categories($args = [])
     {
         $params = array_merge([
-            'limit'  => 0,
-            'order'  => [
+            'limit' => 0,
+            'order' => [
                 'ec_product_categories.order' => 'DESC',
             ],
             'select' => ['*'],
-            'with'   => ['slugable'],
+            'with' => ['slugable'],
         ], $args);
 
         return app(ProductCategoryInterface::class)->advancedGet([
             'condition' => [
                 'ec_product_categories.is_featured' => 1,
-                'ec_product_categories.status'      => BaseStatusEnum::PUBLISHED,
+                'ec_product_categories.status' => BaseStatusEnum::PUBLISHED,
             ],
-            'take'      => $params['limit'],
-            'order_by'  => $params['order'],
-            'select'    => $params['select'],
+            'take' => $params['limit'],
+            'order_by' => $params['order'],
+            'select' => $params['select'],
         ]);
     }
 }
@@ -288,11 +287,11 @@ if (!function_exists('get_default_product_variation')) {
         return app(ProductInterface::class)
             ->getProductVariations($configurableId, [
                 'condition' => [
-                    'ec_products.status'       => BaseStatusEnum::PUBLISHED,
+                    'ec_products.status' => BaseStatusEnum::PUBLISHED,
                     'ec_products.is_variation' => 1,
                 ],
-                'take'      => 1,
-                'order_by'  => [
+                'take' => 1,
+                'order_by' => [
                     'ec_product_variations.is_default' => 'DESC',
                 ],
             ]);
@@ -319,10 +318,10 @@ if (!function_exists('the_product_price')) {
     function the_product_price($product, $htmlWrap = [])
     {
         $htmlWrapParams = array_merge([
-            'open_wrap_price'  => '<del>',
+            'open_wrap_price' => '<del>',
             'close_wrap_price' => '</del>',
-            'open_wrap_sale'   => '<ins>',
-            'close_wrap_sale'  => '</ins>',
+            'open_wrap_sale' => '<ins>',
+            'close_wrap_sale' => '</ins>',
         ], $htmlWrap);
         if ($product->front_sale_price !== $product->price) {
             return $htmlWrapParams['open_wrap_price'] . format_price($product->price) . $htmlWrapParams['close_wrap_price'] .
@@ -343,18 +342,18 @@ if (!function_exists('get_related_products')) {
     {
         $params = [
             'condition' => [
-                'ec_products.status'       => BaseStatusEnum::PUBLISHED,
+                'ec_products.status' => BaseStatusEnum::PUBLISHED,
                 'ec_products.is_variation' => 0,
             ],
-            'order_by'  => [
-                'ec_products.order'      => 'ASC',
+            'order_by' => [
+                'ec_products.order' => 'ASC',
                 'ec_products.created_at' => 'DESC',
             ],
-            'take'      => $limit,
-            'select'    => [
+            'take' => $limit,
+            'select' => [
                 'ec_products.*',
             ],
-            'with'      => [
+            'with' => [
                 'slugable',
                 'variations',
                 'productCollections',

@@ -50,7 +50,7 @@ class RenderProductSwatchesSupport
     {
         $params = array_merge([
             'selected' => [],
-            'view'     => 'plugins/ecommerce::themes.attributes.swatches-renderer',
+            'view' => 'plugins/ecommerce::themes.attributes.swatches-renderer',
         ], $params);
 
         $attributeSets = $this->productRepository->getRelatedProductAttributeSets($this->product);

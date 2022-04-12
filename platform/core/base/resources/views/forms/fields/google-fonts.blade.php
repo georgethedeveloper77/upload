@@ -11,7 +11,7 @@
             @if ($showField)
                 @php
                     Arr::set($options['attr'], 'class', Arr::get($options['attr'], 'class') . ' ui-select');
-                    $emptyVal = $options['empty_value'] ? ['' => $options['empty_value']] : null;
+                    $emptyVal = $options['empty_value'] ? ['' => $options['empty_value']] : null
                 @endphp
                 {!! Form::googleFonts($name, $options['selected'], $options['attr']) !!}
                 @include('core/base::forms.partials.help-block')

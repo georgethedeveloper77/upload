@@ -22,7 +22,7 @@ if (!function_exists('render_review_form')) {
         Theme::asset()->usePath(false)->add('review-css', asset('vendor/core/plugins/ecommerce/css/review.css'));
 
         $reviews = app(ReviewInterface::class)->allBy([
-            'status'     => BaseStatusEnum::PUBLISHED,
+            'status' => BaseStatusEnum::PUBLISHED,
             'product_id' => $productId,
         ]);
 
@@ -44,7 +44,7 @@ if (!function_exists('check_if_reviewed_product')) {
 
         $existed = app(ReviewInterface::class)->count([
             'customer_id' => $customerId,
-            'product_id'  => $productId,
+            'product_id' => $productId,
         ]);
 
         return $existed > 0;
@@ -65,7 +65,7 @@ if (!function_exists('get_customer_reviewed_value')) {
 
         $review = app(ReviewInterface::class)->getFirstBy([
             'customer_id' => $customerId,
-            'product_id'  => $productId,
+            'product_id' => $productId,
         ]);
 
         if (!empty($review)) {
@@ -85,7 +85,7 @@ if (!function_exists('get_count_reviewed_of_product')) {
     {
         return app(ReviewInterface::class)->count([
             'product_id' => $productId,
-            'status'     => BaseStatusEnum::PUBLISHED,
+            'status' => BaseStatusEnum::PUBLISHED,
         ]);
     }
 }

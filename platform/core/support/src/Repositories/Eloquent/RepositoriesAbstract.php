@@ -160,18 +160,6 @@ abstract class RepositoriesAbstract implements RepositoryInterface
     }
 
     /**
-     * {@inheritDoc}
-     */
-    public function allBy(array $condition, array $with = [], array $select = ['*'])
-    {
-        $this->applyConditions($condition);
-
-        $data = $this->make($with)->select($select);
-
-        return $this->applyBeforeExecuteQuery($data)->get();
-    }
-
-    /**
      * @param array $where
      * @param null|Eloquent|Builder $model
      */
@@ -205,6 +193,18 @@ abstract class RepositoriesAbstract implements RepositoryInterface
         } else {
             $model = $newModel;
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function allBy(array $condition, array $with = [], array $select = ['*'])
+    {
+        $this->applyConditions($condition);
+
+        $data = $this->make($with)->select($select);
+
+        return $this->applyBeforeExecuteQuery($data)->get();
     }
 
     /**
@@ -382,14 +382,14 @@ abstract class RepositoriesAbstract implements RepositoryInterface
     {
         $params = array_merge([
             'condition' => [],
-            'order_by'  => [],
-            'take'      => null,
-            'paginate'  => [
-                'per_page'      => null,
+            'order_by' => [],
+            'take' => null,
+            'paginate' => [
+                'per_page' => null,
                 'current_paged' => 1,
             ],
-            'select'    => ['*'],
-            'with'      => [],
+            'select' => ['*'],
+            'with' => [],
             'withCount' => [],
         ], $params);
 

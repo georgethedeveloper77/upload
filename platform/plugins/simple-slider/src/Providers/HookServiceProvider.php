@@ -5,8 +5,10 @@ namespace Botble\SimpleSlider\Providers;
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Shortcode\Compilers\Shortcode;
 use Botble\SimpleSlider\Repositories\Interfaces\SimpleSliderInterface;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\ServiceProvider;
 use Theme;
+use Throwable;
 
 class HookServiceProvider extends ServiceProvider
 {
@@ -51,12 +53,12 @@ class HookServiceProvider extends ServiceProvider
     /**
      * @param Shortcode $shortcode
      * @return null
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function render($shortcode)
     {
         $slider = $this->app->make(SimpleSliderInterface::class)->getFirstBy([
-            'key'    => $shortcode->key,
+            'key' => $shortcode->key,
             'status' => BaseStatusEnum::PUBLISHED,
         ]);
 
@@ -70,7 +72,7 @@ class HookServiceProvider extends ServiceProvider
     /**
      * @param null $data
      * @return string
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function addSettings($data = null)
     {

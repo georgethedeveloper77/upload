@@ -2,14 +2,14 @@
 
 namespace Botble\JsValidation\Remote;
 
+use Botble\JsValidation\Support\AccessProtectedTrait;
+use Botble\JsValidation\Support\RuleListTrait;
 use Illuminate\Http\Exceptions\HttpResponseException;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Arr;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Validation\ValidationRuleParser;
 use Illuminate\Validation\Validator as BaseValidator;
-use Botble\JsValidation\Support\AccessProtectedTrait;
-use Botble\JsValidation\Support\RuleListTrait;
 
 class Validator
 {
@@ -22,7 +22,7 @@ class Validator
     const EXTENSION_NAME = 'js_validation';
 
     /**
-     * @var \Illuminate\Validation\Validator
+     * @var BaseValidator
      */
     protected $validator;
 
@@ -36,7 +36,7 @@ class Validator
     /**
      * RemoteValidator constructor.
      *
-     * @param \Illuminate\Validation\Validator $validator
+     * @param BaseValidator $validator
      * @param bool $escape
      */
     public function __construct(BaseValidator $validator, $escape = false)
@@ -52,7 +52,7 @@ class Validator
      * @param $parameters
      * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function validate($field, $parameters = [])
     {
@@ -169,10 +169,10 @@ class Validator
      * Throw the failed validation exception.
      *
      * @param mixed $result
-     * @param \Illuminate\Validation\Validator $validator
+     * @param BaseValidator $validator
      * @return void
      *
-     * @throws \Illuminate\Validation\ValidationException|\Illuminate\Http\Exceptions\HttpResponseException
+     * @throws ValidationException|HttpResponseException
      */
     protected function throwValidationException($result, $validator)
     {

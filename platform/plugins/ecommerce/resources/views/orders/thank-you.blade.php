@@ -8,7 +8,8 @@
         @if (theme_option('logo'))
             <div class="checkout-logo">
                 <a href="{{ url('/') }}" title="{{ theme_option('site_title') }}">
-                    <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" class="img-fluid" width="150" alt="{{ theme_option('site_title') }}" />
+                    <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" class="img-fluid" width="150"
+                         alt="{{ theme_option('site_title') }}"/>
                 </a>
             </div>
             <hr/>
@@ -44,9 +45,9 @@
 
                 @foreach ($order->products as $orderProduct)
                     @php
-                        $product = get_products([
+                        use Botble\Base\Enums\BaseStatusEnum;$product = get_products([
                             'condition' => [
-                                'ec_products.status' => \Botble\Base\Enums\BaseStatusEnum::PUBLISHED,
+                                'ec_products.status' => BaseStatusEnum::PUBLISHED,
                                 'ec_products.id'     => $orderProduct->product_id,
                             ],
                             'take' => 1,
@@ -62,7 +63,7 @@
                                 'ec_products.sku',
                                 'ec_products.is_variation',
                             ],
-                        ]);
+                        ])
                     @endphp
 
                     <div class="row cart-item">
@@ -79,7 +80,7 @@
                             <p style="margin-bottom: 0">
                                 <small>
                                     @php
-                                        $attributes = get_product_attributes($product->id);
+                                        $attributes = get_product_attributes($product->id)
                                     @endphp
 
                                     @if (!empty($attributes))
@@ -97,7 +98,8 @@
                             @if (!empty($orderProduct->options) && is_array($orderProduct->options))
                                 @foreach($orderProduct->options as $option)
                                     @if (!empty($option['key']) && !empty($option['value']))
-                                        <p class="mb-0"><small>{{ $option['key'] }}: <strong> {{ $option['value'] }}</strong></small></p>
+                                        <p class="mb-0"><small>{{ $option['key'] }}:
+                                                <strong> {{ $option['value'] }}</strong></small></p>
                                     @endif
                                 @endforeach
                             @endif
@@ -122,7 +124,8 @@
                 <hr/>
                 <div class="row">
                     <div class="col-6">
-                        <p>{{ __('Shipping fee') }}@if ($order->shipping_amount == 0 && $order->discount_amount == 0 && $order->coupon_code) ({{ __('Using coupon code') }} <strong>{{ $order->coupon_code }}</strong>)@endif:</p>
+                        <p>{{ __('Shipping fee') }}@if ($order->shipping_amount == 0 && $order->discount_amount == 0 && $order->coupon_code)
+                                ({{ __('Using coupon code') }} <strong>{{ $order->coupon_code }}</strong>)@endif:</p>
                     </div>
                     <div class="col-6 float-right">
                         <p class="total-text raw-total-text"> {{ format_price($order->shipping_amount) }} </p>
@@ -169,17 +172,20 @@
             <p>{{ __('Full name') }}: <span class="order-customer-info-meta">{{ $order->address->name }}</span>
             </p>
             <p>{{ __('Phone') }}: <span
-                        class="order-customer-info-meta">{{ $order->address->phone }}</span></p>
+                    class="order-customer-info-meta">{{ $order->address->phone }}</span></p>
             <p>{{ __('Email') }}: <span class="order-customer-info-meta">{{ $order->address->email }}</span>
             </p>
             <p>{{ __('Address') }}: <span
-                        class="order-customer-info-meta">{{ $order->address->address }}, {{ $order->address->city }}, {{ $order->address->state }}, {{ $order->address->country_name }}@if (EcommerceHelper::isZipCodeEnabled()), {{ $order->address->zip_code }} @endif</span></p>
+                    class="order-customer-info-meta">{{ $order->address->address }}, {{ $order->address->city }}, {{ $order->address->state }}, {{ $order->address->country_name }}@if (EcommerceHelper::isZipCodeEnabled())
+                        , {{ $order->address->zip_code }} @endif</span></p>
             <p>{{ __('Shipping method') }}: <span
-                        class="order-customer-info-meta">{{ $order->shipping_method_name }}</span>
+                    class="order-customer-info-meta">{{ $order->shipping_method_name }}</span>
             </p>
-            <p>{{ __('Payment method') }}: <span class="order-customer-info-meta">{{ $order->payment->payment_channel->label()  }}</span>
+            <p>{{ __('Payment method') }}: <span
+                    class="order-customer-info-meta">{{ $order->payment->payment_channel->label()  }}</span>
             </p>
-            <p>{{ __('Payment status') }}: <span class="order-customer-info-meta" style="text-transform: uppercase">{!! $order->payment->status->toHtml() !!}</span>
+            <p>{{ __('Payment status') }}: <span class="order-customer-info-meta"
+                                                 style="text-transform: uppercase">{!! $order->payment->status->toHtml() !!}</span>
             </p>
         </div>
         <hr/>
@@ -198,9 +204,9 @@
     <div class="col-lg-5 col-md-6 d-none d-md-block right">
     @foreach ($order->products as $key => $orderProduct)
         @php
-            $product = get_products([
+            use Botble\Base\Enums\BaseStatusEnum;$product = get_products([
                 'condition' => [
-                    'ec_products.status' => \Botble\Base\Enums\BaseStatusEnum::PUBLISHED,
+                    'ec_products.status' => BaseStatusEnum::PUBLISHED,
                     'ec_products.id' => $orderProduct->product_id,
                 ],
                 'take'   => 1,
@@ -216,7 +222,7 @@
                     'ec_products.sku',
                     'ec_products.is_variation',
                 ],
-            ]);
+            ])
         @endphp
         <!-- order detail item -->
             <div class="row product-item">
@@ -233,7 +239,7 @@
                     <p>
                         <small>
                             @php
-                                $attributes = get_product_attributes($product->id);
+                                $attributes = get_product_attributes($product->id)
                             @endphp
 
                             @if (!empty($attributes))
@@ -270,7 +276,8 @@
         <hr/>
         <div class="row total-price">
             <div class="col-lg-7 col-md-8 col-5">
-                <p>{{ __('Shipping fee') }}@if ($order->shipping_amount == 0 && $order->discount_amount == 0 && $order->coupon_code) ({{ __('Using coupon code') }} <strong>{{ $order->coupon_code }}</strong>) @endif:</p>
+                <p>{{ __('Shipping fee') }}@if ($order->shipping_amount == 0 && $order->discount_amount == 0 && $order->coupon_code)
+                        ({{ __('Using coupon code') }} <strong>{{ $order->coupon_code }}</strong>) @endif:</p>
             </div>
             <div class="col-lg-5 col-md-4 col-5 float-right">
                 <p class="total-text raw-total-text">{{ format_price( $order->shipping_amount) }} </p>

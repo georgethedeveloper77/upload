@@ -267,17 +267,17 @@ abstract class FormAbstract extends Form
     {
         $customFields = [
             'customSelect' => CustomSelectField::class,
-            'editor'       => EditorField::class,
-            'onOff'        => OnOffField::class,
-            'customRadio'  => CustomRadioField::class,
-            'mediaImage'   => MediaImageField::class,
-            'mediaImages'  => MediaImagesField::class,
-            'mediaFile'    => MediaFileField::class,
-            'customColor'  => ColorField::class,
-            'time'         => TimeField::class,
-            'date'         => DateField::class,
+            'editor' => EditorField::class,
+            'onOff' => OnOffField::class,
+            'customRadio' => CustomRadioField::class,
+            'mediaImage' => MediaImageField::class,
+            'mediaImages' => MediaImagesField::class,
+            'mediaFile' => MediaFileField::class,
+            'customColor' => ColorField::class,
+            'time' => TimeField::class,
+            'date' => DateField::class,
             'autocomplete' => AutocompleteField::class,
-            'html'         => HtmlField::class,
+            'html' => HtmlField::class,
         ];
 
         foreach ($customFields as $key => $field) {

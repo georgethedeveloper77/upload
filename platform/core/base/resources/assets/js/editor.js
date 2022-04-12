@@ -76,7 +76,7 @@ class EditorManagement {
             current.initEditor($tinyMce, {}, 'tinymce');
         }
 
-        $(document).on('click', '.show-hide-editor-btn', event =>  {
+        $(document).on('click', '.show-hide-editor-btn', event => {
             event.preventDefault();
             let _self = $(event.currentTarget);
             let $result = $('#' + _self.data('result'));
@@ -109,7 +109,7 @@ class EditorManagement {
                 $.ajax({
                     type: 'GET',
                     url: $(this).prop('href'),
-                    success: res =>  {
+                    success: res => {
                         if (res.error) {
                             Botble.showError(res.message);
                             return false;
@@ -125,7 +125,7 @@ class EditorManagement {
                             $('.short_code_modal .modal-title strong').text($(this).data('description'));
                         }
                     },
-                    error: data =>  {
+                    error: data => {
                         Botble.handleError(data);
                     }
                 });

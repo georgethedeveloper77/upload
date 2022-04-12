@@ -5,12 +5,12 @@ namespace Botble\AuditLog\Providers;
 use Assets;
 use AuditLog;
 use Botble\ACL\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Botble\Dashboard\Supports\DashboardWidgetInstance;
-use Illuminate\Support\Collection;
-use Illuminate\Support\ServiceProvider;
 use Botble\AuditLog\Events\AuditHandlerEvent;
+use Botble\Dashboard\Supports\DashboardWidgetInstance;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\ServiceProvider;
 use stdClass;
 use Throwable;
 

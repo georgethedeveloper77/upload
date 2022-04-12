@@ -110,7 +110,7 @@ class UserCreateCommand extends Command
         $validator = Validator::make($data, $rules);
         if ($validator->fails()) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => $validator->messages()->first(),
             ];
         }

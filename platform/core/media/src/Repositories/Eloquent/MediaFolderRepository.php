@@ -16,28 +16,6 @@ class MediaFolderRepository extends RepositoriesAbstract implements MediaFolderI
     /**
      * {@inheritDoc}
      */
-    public function getFolderByParentId($folderId, array $params = [], $withTrash = false)
-    {
-        $params = array_merge([
-            'condition' => [],
-        ], $params);
-
-        if (!$folderId) {
-            $folderId = null;
-        }
-
-        $this->model = $this->model->where('parent_id', $folderId);
-
-        if ($withTrash) {
-            $this->model = $this->model->withTrashed();
-        }
-
-        return $this->advancedGet($params);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
     public function createSlug($name, $parentId)
     {
         $slug = Str::slug($name);
@@ -48,21 +26,6 @@ class MediaFolderRepository extends RepositoriesAbstract implements MediaFolderI
         }
 
         return $slug;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function createName($name, $parentId)
-    {
-        $newName = $name;
-        $index = 1;
-        $baseSlug = $newName;
-        while ($this->checkIfExists('name', $newName, $parentId)) {
-            $newName = $baseSlug . '-' . $index++;
-        }
-
-        return $newName;
     }
 
     /**
@@ -86,6 +49,21 @@ class MediaFolderRepository extends RepositoriesAbstract implements MediaFolderI
     /**
      * {@inheritDoc}
      */
+    public function createName($name, $parentId)
+    {
+        $newName = $name;
+        $index = 1;
+        $baseSlug = $newName;
+        while ($this->checkIfExists('name', $newName, $parentId)) {
+            $newName = $baseSlug . '-' . $index++;
+        }
+
+        return $newName;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getBreadcrumbs($parentId, $breadcrumbs = [])
     {
         if (!$parentId) {
@@ -101,7 +79,7 @@ class MediaFolderRepository extends RepositoriesAbstract implements MediaFolderI
         $child = $this->getBreadcrumbs($folder->parent_id, $breadcrumbs);
         return array_merge($child, [
             [
-                'id'   => $folder->id,
+                'id' => $folder->id,
                 'name' => $folder->name,
             ],
         ]);
@@ -157,6 +135,28 @@ class MediaFolderRepository extends RepositoriesAbstract implements MediaFolderI
         } else {
             $this->deleteBy(['id' => $folderId]);
         }
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    public function getFolderByParentId($folderId, array $params = [], $withTrash = false)
+    {
+        $params = array_merge([
+            'condition' => [],
+        ], $params);
+
+        if (!$folderId) {
+            $folderId = null;
+        }
+
+        $this->model = $this->model->where('parent_id', $folderId);
+
+        if ($withTrash) {
+            $this->model = $this->model->withTrashed();
+        }
+
+        return $this->advancedGet($params);
     }
 
     /**

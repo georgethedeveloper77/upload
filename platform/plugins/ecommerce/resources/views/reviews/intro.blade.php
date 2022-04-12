@@ -8,7 +8,8 @@
                     <p class="text-info-displayTmpl">{{ trans('plugins/ecommerce::review.intro.description') }}</p>
                     <div class="empty-displayTmpl-pdtop">
                         <div class="empty-displayTmpl-image">
-                            <img src="{{ asset('vendor/core/plugins/ecommerce/images/empty-customer.png') }}" alt="image">
+                            <img src="{{ asset('vendor/core/plugins/ecommerce/images/empty-customer.png') }}"
+                                 alt="image">
                         </div>
                     </div>
                 </div>

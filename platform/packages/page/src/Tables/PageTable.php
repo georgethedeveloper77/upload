@@ -3,14 +3,14 @@
 namespace Botble\Page\Tables;
 
 use BaseHelper;
-use Botble\Page\Models\Page;
-use Illuminate\Support\Facades\Auth;
 use Botble\Base\Enums\BaseStatusEnum;
+use Botble\Page\Models\Page;
 use Botble\Page\Repositories\Interfaces\PageInterface;
 use Botble\Table\Abstracts\TableAbstract;
 use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
@@ -116,29 +116,29 @@ class PageTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'pages.id',
+            'id' => [
+                'name' => 'pages.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'name'       => [
-                'name'  => 'pages.name',
+            'name' => [
+                'name' => 'pages.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
-            'template'   => [
-                'name'  => 'pages.template',
+            'template' => [
+                'name' => 'pages.template',
                 'title' => trans('core/base::tables.template'),
                 'class' => 'text-left',
             ],
             'created_at' => [
-                'name'  => 'pages.created_at',
+                'name' => 'pages.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-center',
             ],
-            'status'     => [
-                'name'  => 'pages.status',
+            'status' => [
+                'name' => 'pages.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
                 'class' => 'text-center',
@@ -170,26 +170,26 @@ class PageTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'pages.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'pages.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'pages.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'pages.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|' . Rule::in(BaseStatusEnum::values()),
             ],
-            'pages.template'   => [
-                'title'    => trans('core/base::tables.template'),
-                'type'     => 'select',
-                'choices'  => get_page_templates(),
+            'pages.template' => [
+                'title' => trans('core/base::tables.template'),
+                'type' => 'select',
+                'choices' => get_page_templates(),
                 'validate' => 'required',
             ],
             'pages.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

@@ -35,15 +35,6 @@ class ShippingRule extends BaseModel
         'updated_at',
     ];
 
-
-    /**
-     * @return HasMany
-     */
-    public function items()
-    {
-        return $this->hasMany(ShippingRuleItem::class);
-    }
-
     protected static function boot()
     {
         parent::boot();
@@ -51,5 +42,13 @@ class ShippingRule extends BaseModel
         self::deleting(function (ShippingRule $shippingRule) {
             app(ShippingRuleItemInterface::class)->deleteBy(['shipping_rule_id' => $shippingRule->id]);
         });
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function items()
+    {
+        return $this->hasMany(ShippingRuleItem::class);
     }
 }

@@ -65,11 +65,11 @@ class StripeHelper
     public static function formatLog($input, $line = '', $function = '', $class = '')
     {
         return array_merge($input, [
-            'user_id'   => Auth::check() ? Auth::user()->getAuthIdentifier() : 0,
-            'ip'        => Request::ip(),
-            'line'      => $line,
-            'function'  => $function,
-            'class'     => $class,
+            'user_id' => Auth::check() ? Auth::user()->getAuthIdentifier() : 0,
+            'ip' => Request::ip(),
+            'line' => $line,
+            'function' => $function,
+            'class' => $class,
             'userAgent' => Request::header('User-Agent'),
         ]);
     }

@@ -12,7 +12,7 @@ class TagsManager {
             if ($(element).data('url')) {
                 tagify.on('input', e => {
                     tagify.settings.whitelist.length = 0; // reset current whitelist
-                    tagify.loading(true).dropdown.hide.call(tagify) // show the loader animation
+                    tagify.loading(true).dropdown.hide.call(tagify); // show the loader animation
 
                     $.ajax({
                         type: 'GET',
@@ -32,4 +32,4 @@ class TagsManager {
 
 $(document).ready(() => {
     (new TagsManager()).init();
-})
+});

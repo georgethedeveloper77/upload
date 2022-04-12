@@ -61,11 +61,11 @@ class Helper
     public static function formatLog($input, $line = '', $function = '', $class = ''): array
     {
         return array_merge($input, [
-            'user_id'   => Auth::check() ? Auth::user()->getKey() : 'System',
-            'ip'        => Request::ip(),
-            'line'      => $line,
-            'function'  => $function,
-            'class'     => $class,
+            'user_id' => Auth::check() ? Auth::user()->getKey() : 'System',
+            'ip' => Request::ip(),
+            'line' => $line,
+            'function' => $function,
+            'class' => $class,
             'userAgent' => Request::header('User-Agent'),
         ]);
     }

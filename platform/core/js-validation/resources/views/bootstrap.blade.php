@@ -19,7 +19,7 @@
                 },
 
                 @if (isset($validator['ignore']) && is_string($validator['ignore']))
-                    ignore: "{{ $validator['ignore'] }}",
+                ignore: "{{ $validator['ignore'] }}",
                 @endif
 
 

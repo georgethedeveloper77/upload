@@ -16,13 +16,13 @@
                 </label>
                 <label class="hrv-label">
                     <input type="radio" name="enable_captcha" class="hrv-radio"
-                                                value="1"
-                                                @if (setting('enable_captcha')) checked @endif>{{ trans('core/setting::setting.general.yes') }}
+                           value="1"
+                           @if (setting('enable_captcha')) checked @endif>{{ trans('core/setting::setting.general.yes') }}
                 </label>
                 <label class="hrv-label">
                     <input type="radio" name="enable_captcha" class="hrv-radio"
-                                                value="0"
-                                                @if (!setting('enable_captcha')) checked @endif>{{ trans('core/setting::setting.general.no') }}
+                           value="0"
+                           @if (!setting('enable_captcha')) checked @endif>{{ trans('core/setting::setting.general.no') }}
                 </label>
             </div>
 
@@ -62,13 +62,15 @@
                 <label class="text-title-field"
                        for="captcha_site_key">{{ trans('plugins/captcha::captcha.settings.captcha_site_key') }}</label>
                 <input data-counter="120" type="text" class="next-input" name="captcha_site_key" id="captcha_site_key"
-                       value="{{ setting('captcha_site_key', config('plugins.captcha.general.site_key')) }}" placeholder="{{ trans('plugins/captcha::captcha.settings.captcha_site_key') }}">
+                       value="{{ setting('captcha_site_key', config('plugins.captcha.general.site_key')) }}"
+                       placeholder="{{ trans('plugins/captcha::captcha.settings.captcha_site_key') }}">
             </div>
             <div class="form-group">
                 <label class="text-title-field"
                        for="captcha_secret">{{ trans('plugins/captcha::captcha.settings.captcha_secret') }}</label>
                 <input data-counter="120" type="text" class="next-input" name="captcha_secret" id="captcha_secret"
-                       value="{{ setting('captcha_secret', config('plugins.captcha.general.secret')) }}" placeholder="{{ trans('plugins/captcha::captcha.settings.captcha_secret') }}">
+                       value="{{ setting('captcha_secret', config('plugins.captcha.general.secret')) }}"
+                       placeholder="{{ trans('plugins/captcha::captcha.settings.captcha_secret') }}">
             </div>
             <div class="form-group">
                 <span class="help-ts">{{ trans('plugins/captcha::captcha.settings.helper') }}</span>

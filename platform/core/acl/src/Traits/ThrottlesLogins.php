@@ -26,6 +26,37 @@ trait ThrottlesLogins
     }
 
     /**
+     * Get the rate limiter instance.
+     *
+     * @return RateLimiter
+     */
+    protected function limiter()
+    {
+        return app(RateLimiter::class);
+    }
+
+    /**
+     * Get the throttle key for the given request.
+     *
+     * @param Request $request
+     * @return string
+     */
+    protected function throttleKey(Request $request)
+    {
+        return Str::lower($request->input($this->username())) . '|' . $request->ip();
+    }
+
+    /**
+     * Get the maximum number of attempts to allow.
+     *
+     * @return int
+     */
+    public function maxAttempts()
+    {
+        return property_exists($this, 'maxAttempts') ? $this->maxAttempts : 5;
+    }
+
+    /**
      * Increment the login attempts for the user.
      *
      * @param Request $request
@@ -36,6 +67,16 @@ trait ThrottlesLogins
         $this->limiter()->hit(
             $this->throttleKey($request), $this->decayMinutes() * 60
         );
+    }
+
+    /**
+     * Get the number of minutes to throttle for.
+     *
+     * @return int
+     */
+    public function decayMinutes()
+    {
+        return property_exists($this, 'decayMinutes') ? $this->decayMinutes : 1;
     }
 
     /**
@@ -82,46 +123,5 @@ trait ThrottlesLogins
     protected function fireLockoutEvent(Request $request)
     {
         event(new Lockout($request));
-    }
-
-    /**
-     * Get the throttle key for the given request.
-     *
-     * @param Request $request
-     * @return string
-     */
-    protected function throttleKey(Request $request)
-    {
-        return Str::lower($request->input($this->username())) . '|' . $request->ip();
-    }
-
-    /**
-     * Get the rate limiter instance.
-     *
-     * @return RateLimiter
-     */
-    protected function limiter()
-    {
-        return app(RateLimiter::class);
-    }
-
-    /**
-     * Get the maximum number of attempts to allow.
-     *
-     * @return int
-     */
-    public function maxAttempts()
-    {
-        return property_exists($this, 'maxAttempts') ? $this->maxAttempts : 5;
-    }
-
-    /**
-     * Get the number of minutes to throttle for.
-     *
-     * @return int
-     */
-    public function decayMinutes()
-    {
-        return property_exists($this, 'decayMinutes') ? $this->decayMinutes : 1;
     }
 }

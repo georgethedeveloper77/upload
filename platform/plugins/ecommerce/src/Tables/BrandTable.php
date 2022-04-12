@@ -103,16 +103,16 @@ class BrandTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'          => [
+            'id' => [
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
                 'class' => 'text-left',
             ],
-            'name'        => [
+            'name' => [
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
-            'logo'        => [
+            'logo' => [
                 'title' => trans('plugins/ecommerce::brands.logo'),
                 'class' => 'text-left',
             ],
@@ -120,12 +120,12 @@ class BrandTable extends TableAbstract
                 'title' => trans('core/base::tables.is_featured'),
                 'class' => 'text-left',
             ],
-            'created_at'  => [
+            'created_at' => [
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-left',
             ],
-            'status'      => [
+            'status' => [
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
                 'class' => 'text-left',
@@ -158,20 +158,20 @@ class BrandTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'ec_brands.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'ec_brands.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'ec_brands.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'ec_brands.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'ec_brands.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

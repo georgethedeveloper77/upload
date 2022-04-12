@@ -17,7 +17,9 @@
                             </p>
                             <p class="address"><i class="fa fa-address-book"
                                                   aria-hidden="true"></i> {{ $address->address }}, {{ $address->city }}
-                                , {{ $address->state }}, {{ $address->country_name }}@if (EcommerceHelper::isZipCodeEnabled()), {{ $address->zip_code }} @endif</p>
+                                , {{ $address->state }}
+                                , {{ $address->country_name }}@if (EcommerceHelper::isZipCodeEnabled())
+                                    , {{ $address->zip_code }} @endif</p>
                             <p class="phone"><i class="fa fa-phone" aria-hidden="true"></i> {{ $address->phone }}</p>
                             <div class="action">
                                 <div class="edit-customer-address">

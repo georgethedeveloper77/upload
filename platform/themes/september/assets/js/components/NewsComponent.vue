@@ -4,10 +4,12 @@
             <div class="circle circle-1"></div>
             <div class="circle circle-2"></div>
         </div>
-        <div class="col-xl-4 col-lg-4 col-12" v-for="item in data" :key="item.id" v-if="!isLoading && data.length">
+        <div :key="item.id" class="col-xl-4 col-lg-4 col-12" v-for="item in data" v-if="!isLoading && data.length">
             <article class="post">
                 <div class="post__wrapper">
-                    <div class="post__thumbnail"><a class="post__overlay" :href="item.url"></a><img :src="item.image" :alt="item.name" /></div>
+                    <div class="post__thumbnail"><a :href="item.url" class="post__overlay"></a><img :alt="item.name"
+                                                                                                    :src="item.image"/>
+                    </div>
                     <div class="post__content">
                         <div class="post__header">
                             <h4 class="post__title"><a :href="item.url">{{ item.name }}</a></h4><span> {{ item.created_at }}</span>
@@ -22,7 +24,7 @@
 
 <script>
     export default {
-        data: function() {
+        data: function () {
             return {
                 isLoading: true,
                 data: []

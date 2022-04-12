@@ -58,7 +58,7 @@ class PluginService
         $content = get_file_data(plugin_path($plugin) . '/plugin.json');
         if (empty($content)) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('packages/plugin-management::plugin.invalid_json'),
             ];
         }
@@ -71,7 +71,7 @@ class PluginService
                 if (!$valid) {
 
                     return [
-                        'error'   => true,
+                        'error' => true,
                         'message' => trans('packages/plugin-management::plugin.missing_required_plugins',
                             ['plugins' => implode(',', $content['require'])]),
                     ];
@@ -105,13 +105,13 @@ class PluginService
             Helper::clearCache();
 
             return [
-                'error'   => false,
+                'error' => false,
                 'message' => trans('packages/plugin-management::plugin.activate_success'),
             ];
         }
 
         return [
-            'error'   => true,
+            'error' => true,
             'message' => trans('packages/plugin-management::plugin.activated_already'),
         ];
     }
@@ -126,20 +126,20 @@ class PluginService
 
         if (!$this->files->isDirectory($location)) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('packages/plugin-management::plugin.plugin_not_exist'),
             ];
         }
 
         if (!$this->files->exists($location . '/plugin.json')) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('packages/plugin-management::plugin.missing_json_file'),
             ];
         }
 
         return [
-            'error'   => false,
+            'error' => false,
             'message' => trans('packages/plugin-management::plugin.plugin_invalid'),
         ];
     }
@@ -162,7 +162,7 @@ class PluginService
         }
 
         return [
-            'error'   => false,
+            'error' => false,
             'message' => trans('packages/plugin-management::plugin.published_assets_success', ['name' => $plugin]),
         ];
     }
@@ -224,7 +224,7 @@ class PluginService
         Helper::clearCache();
 
         return [
-            'error'   => false,
+            'error' => false,
             'message' => trans('packages/plugin-management::plugin.plugin_removed'),
         ];
     }
@@ -245,7 +245,7 @@ class PluginService
         $content = get_file_data(plugin_path($plugin) . '/plugin.json');
         if (empty($content)) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('packages/plugin-management::plugin.invalid_json'),
             ];
         }
@@ -275,13 +275,13 @@ class PluginService
             Helper::clearCache();
 
             return [
-                'error'   => false,
+                'error' => false,
                 'message' => trans('packages/plugin-management::plugin.deactivated_success'),
             ];
         }
 
         return [
-            'error'   => true,
+            'error' => true,
             'message' => trans('packages/plugin-management::plugin.deactivated_already'),
         ];
     }

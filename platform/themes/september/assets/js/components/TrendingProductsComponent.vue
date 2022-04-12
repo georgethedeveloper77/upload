@@ -4,14 +4,15 @@
             <div class="circle circle-1"></div>
             <div class="circle circle-2"></div>
         </div>
-        <div class="col-lg-3 col-md-4 col-6" v-for="item in data" :key="item.id" v-if="!isLoading && data.length" v-html="item">
+        <div :key="item.id" class="col-lg-3 col-md-4 col-6" v-for="item in data" v-html="item"
+             v-if="!isLoading && data.length">
         </div>
     </div>
 </template>
 
 <script>
     export default {
-        data: function() {
+        data: function () {
             return {
                 isLoading: true,
                 data: []

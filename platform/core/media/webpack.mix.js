@@ -13,4 +13,4 @@ mix
     .js(source + '/resources/assets/js/integrate.js', dist + '/js')
 
     .copyDirectory(dist + '/js', source + '/public/js')
-    .copyDirectory(dist + '/css', source + '/public/css')
+    .copyDirectory(dist + '/css', source + '/public/css');

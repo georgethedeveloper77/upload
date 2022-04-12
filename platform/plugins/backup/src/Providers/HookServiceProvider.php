@@ -3,6 +3,7 @@
 namespace Botble\Backup\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Throwable;
 
 class HookServiceProvider extends ServiceProvider
 {
@@ -16,7 +17,7 @@ class HookServiceProvider extends ServiceProvider
     /**
      * @param string $alert
      * @return string
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function registerAdminAlert($alert): string
     {

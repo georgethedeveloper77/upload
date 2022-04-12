@@ -53,6 +53,16 @@ class Layout {
         }
     }
 
+    // Helper function to calculate sidebar height for fixed sidebar layout.
+    static _calculateFixedSidebarViewportHeight() {
+        let sidebarHeight = App.getViewPort().height - $('.page-header').outerHeight(true);
+        if ($('body').hasClass('page-footer-fixed')) {
+            sidebarHeight = sidebarHeight - $('.page-footer').outerHeight();
+        }
+
+        return sidebarHeight;
+    }
+
     // Handle sidebar menu
     handleSidebarMenu() {
         let current = this;
@@ -147,16 +157,6 @@ class Layout {
         this.handleFixedSidebarHoverEffect();
     }
 
-    // Helper function to calculate sidebar height for fixed sidebar layout.
-    static _calculateFixedSidebarViewportHeight() {
-        let sidebarHeight = App.getViewPort().height - $('.page-header').outerHeight(true);
-        if ($('body').hasClass('page-footer-fixed')) {
-            sidebarHeight = sidebarHeight - $('.page-footer').outerHeight();
-        }
-
-        return sidebarHeight;
-    }
-
     // Handles fixed sidebar
     handleFixedSidebar() {
         let menu = $('.page-sidebar-menu');
@@ -174,12 +174,12 @@ class Layout {
         let current = this;
         if (this.$body.hasClass('page-sidebar-fixed')) {
             $('.page-sidebar')
-                .on('mouseenter', event =>  {
+                .on('mouseenter', event => {
                     if (current.$body.hasClass('page-sidebar-closed')) {
                         $(event.currentTarget).find('.page-sidebar-menu').removeClass('page-sidebar-menu-closed');
                     }
                 })
-                .on('mouseleave', event =>  {
+                .on('mouseleave', event => {
                     if (current.$body.hasClass('page-sidebar-closed')) {
                         $(event.currentTarget).find('.page-sidebar-menu').addClass('page-sidebar-menu-closed');
                     }
@@ -191,7 +191,7 @@ class Layout {
     handleSidebarToggler() {
         // handle sidebar show/hide
         let body = this.$body;
-        this.$body.on('click', '.sidebar-toggler', event =>  {
+        this.$body.on('click', '.sidebar-toggler', event => {
             event.preventDefault();
             let sidebarMenu = $('.page-sidebar-menu');
 
@@ -224,7 +224,7 @@ class Layout {
         let duration = 500;
 
         if (navigator.userAgent.match(/iPhone|iPad|iPod/i)) {  // ios supported
-            $(window).bind('touchend touchcancel touchleave', event =>  {
+            $(window).bind('touchend touchcancel touchleave', event => {
                 if ($(event.currentTarget).scrollTop() > offset) {
                     $('.scroll-to-top').fadeIn(duration);
                 } else {
@@ -232,7 +232,7 @@ class Layout {
                 }
             });
         } else {  // general
-            $(window).scroll(event =>  {
+            $(window).scroll(event => {
                 if ($(event.currentTarget).scrollTop() > offset) {
                     $('.scroll-to-top').fadeIn(duration);
                 } else {

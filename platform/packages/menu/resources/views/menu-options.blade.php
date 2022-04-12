@@ -1,5 +1,5 @@
 @if (!empty($options))
-    @php $id = Str::slug($name) . '-'. time(); @endphp
+    @php $id = Str::slug($name) . '-'. time() @endphp
     <div class="widget meta-boxes">
         <a data-toggle="collapse" data-parent="#accordion" href="#{{ $id }}">
             <h4 class="widget-title">

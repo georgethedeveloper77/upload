@@ -7,9 +7,13 @@ export class FolderService {
     constructor() {
         this.MediaService = new MediaService();
 
-        $('body').on('shown.bs.modal', '#modal_add_folder', event =>  {
+        $('body').on('shown.bs.modal', '#modal_add_folder', event => {
             $(event.currentTarget).find('.form-add-folder input[type=text]').focus();
         });
+    }
+
+    static closeModal() {
+        $(document).find('#modal_add_folder').modal('hide');
     }
 
     create(folderName) {
@@ -49,9 +53,5 @@ export class FolderService {
         MediaConfig.request_params.folder_id = folderId;
         Helpers.storeConfig();
         this.MediaService.getMedia(true);
-    }
-
-    static closeModal() {
-        $(document).find('#modal_add_folder').modal('hide');
     }
 }

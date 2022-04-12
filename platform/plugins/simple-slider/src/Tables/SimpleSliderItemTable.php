@@ -3,11 +3,11 @@
 namespace Botble\SimpleSlider\Tables;
 
 use BaseHelper;
-use Html;
-use Illuminate\Support\Facades\Auth;
 use Botble\SimpleSlider\Repositories\Interfaces\SimpleSliderItemInterface;
 use Botble\Table\Abstracts\TableAbstract;
+use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class SimpleSliderItemTable extends TableAbstract
@@ -66,8 +66,8 @@ class SimpleSliderItemTable extends TableAbstract
 
                 return Html::link('#', $item->title, [
                     'data-fancybox' => true,
-                    'data-type'     => 'ajax',
-                    'data-src'      => route('simple-slider-item.edit', $item->id),
+                    'data-type' => 'ajax',
+                    'data-src' => route('simple-slider-item.edit', $item->id),
                 ]);
             })
             ->editColumn('checkbox', function ($item) {
@@ -115,19 +115,19 @@ class SimpleSliderItemTable extends TableAbstract
         $operation['operations']['width'] = '170px;';
 
         return [
-                'id'         => [
+                'id' => [
                     'title' => trans('core/base::tables.id'),
                     'width' => '20px',
                 ],
-                'image'      => [
+                'image' => [
                     'title' => trans('core/base::tables.image'),
                     'class' => 'text-center',
                 ],
-                'title'      => [
+                'title' => [
                     'title' => trans('core/base::tables.title'),
                     'class' => 'text-left',
                 ],
-                'order'      => [
+                'order' => [
                     'title' => trans('core/base::tables.order'),
                     'class' => 'text-left order-column',
                 ],

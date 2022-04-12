@@ -7,6 +7,14 @@ use Botble\SeoHelper\Contracts\RenderableContract;
 interface MiscTagsContract extends RenderableContract
 {
     /**
+     * Make MiscTags instance.
+     *
+     * @param array $defaults
+     * @return $this
+     */
+    public static function make(array $defaults = []);
+
+    /**
      * Get the current URL.
      *
      * @return string
@@ -20,14 +28,6 @@ interface MiscTagsContract extends RenderableContract
      * @return $this
      */
     public function setUrl($url);
-
-    /**
-     * Make MiscTags instance.
-     *
-     * @param array $defaults
-     * @return $this
-     */
-    public static function make(array $defaults = []);
 
     /**
      * Add a meta tag.

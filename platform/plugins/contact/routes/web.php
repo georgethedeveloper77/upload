@@ -9,14 +9,14 @@ Route::group(['namespace' => 'Botble\Contact\Http\Controllers', 'middleware' => 
             Route::resource('', 'ContactController')->except(['create', 'store'])->parameters(['' => 'contact']);
 
             Route::delete('items/destroy', [
-                'as'         => 'deletes',
-                'uses'       => 'ContactController@deletes',
+                'as' => 'deletes',
+                'uses' => 'ContactController@deletes',
                 'permission' => 'contacts.destroy',
             ]);
 
             Route::post('reply/{id}', [
-                'as'         => 'reply',
-                'uses'       => 'ContactController@postReply',
+                'as' => 'reply',
+                'uses' => 'ContactController@postReply',
                 'permission' => 'contacts.edit',
             ]);
         });
@@ -24,7 +24,7 @@ Route::group(['namespace' => 'Botble\Contact\Http\Controllers', 'middleware' => 
 
     Route::group(apply_filters(BASE_FILTER_GROUP_PUBLIC_ROUTE, []), function () {
         Route::post('contact/send', [
-            'as'   => 'public.send.contact',
+            'as' => 'public.send.contact',
             'uses' => 'PublicController@postSendContact',
         ]);
     });

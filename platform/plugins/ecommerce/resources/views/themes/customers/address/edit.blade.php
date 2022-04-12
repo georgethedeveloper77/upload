@@ -1,7 +1,7 @@
 @extends('plugins/ecommerce::themes.customers.master')
 
 @section('content')
-   <h2 class="customer-page-title">{{ __('Address books') }}</h2>
+    <h2 class="customer-page-title">{{ __('Address books') }}</h2>
     <br>
     <div class="profile-content">
 
@@ -18,7 +18,7 @@
             {!! Form::error('email', $errors) !!}
         </div>
 
-       <div class="input-group">
+        <div class="input-group">
             <span class="input-group-prepend">{{ __('Phone') }}:</span>
             <input id="phone" type="text" class="form-control" name="phone" value="{{ $address->phone }}">
             {!! Form::error('phone', $errors) !!}
@@ -29,13 +29,15 @@
                 <label for="country">{{ __('Country') }}:</label>
                 <select name="country" class="form-control" id="country">
                     @foreach(['' => __('Select country...')] + EcommerceHelper::getAvailableCountries() as $countryCode => $countryName)
-                        <option value="{{ $countryCode }}" @if ($address->country == $countryCode) selected @endif>{{ $countryName }}</option>
+                        <option value="{{ $countryCode }}"
+                                @if ($address->country == $countryCode) selected @endif>{{ $countryName }}</option>
                     @endforeach
                 </select>
             </div>
             {!! Form::error('country', $errors) !!}
         @else
-            <input type="hidden" name="country" value="{{ Arr::first(array_keys(EcommerceHelper::getAvailableCountries())) }}">
+            <input type="hidden" name="country"
+                   value="{{ Arr::first(array_keys(EcommerceHelper::getAvailableCountries())) }}">
         @endif
 
         <div class="input-group @if ($errors->has('state')) has-error @endif">
@@ -66,7 +68,8 @@
 
         <div class="form-group">
             <label for="is_default">
-                <input class="customer-checkbox" type="checkbox" name="is_default" value="1" @if ($address->is_default) checked @endif id="is_default">
+                <input class="customer-checkbox" type="checkbox" name="is_default" value="1"
+                       @if ($address->is_default) checked @endif id="is_default">
                 {{ __('Use this address as default.') }}
                 {!! Form::error('is_default', $errors) !!}
             </label>

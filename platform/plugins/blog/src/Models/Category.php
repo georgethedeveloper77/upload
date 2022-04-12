@@ -2,9 +2,9 @@
 
 namespace Botble\Blog\Models;
 
-use Botble\Base\Traits\EnumCastable;
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Base\Models\BaseModel;
+use Botble\Base\Traits\EnumCastable;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -55,6 +55,17 @@ class Category extends BaseModel
         'status' => BaseStatusEnum::class,
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function (Category $category) {
+            Category::where('parent_id', $category->id)->delete();
+
+            $category->posts()->detach();
+        });
+    }
+
     /**
      * @return BelongsToMany
      */
@@ -77,16 +88,5 @@ class Category extends BaseModel
     public function children(): HasMany
     {
         return $this->hasMany(Category::class, 'parent_id');
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::deleting(function (Category $category) {
-            Category::where('parent_id', $category->id)->delete();
-
-            $category->posts()->detach();
-        });
     }
 }

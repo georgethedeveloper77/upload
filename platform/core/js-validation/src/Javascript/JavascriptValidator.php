@@ -2,10 +2,10 @@
 
 namespace Botble\JsValidation\Javascript;
 
+use Botble\JsValidation\Exceptions\PropertyNotFoundException;
 use Exception;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Support\Facades\View;
-use Botble\JsValidation\Exceptions\PropertyNotFoundException;
 
 class JavascriptValidator implements Arrayable
 {
@@ -68,22 +68,6 @@ class JavascriptValidator implements Arrayable
     }
 
     /**
-     * Render the specified view with validator data.
-     *
-     * @param null|\Illuminate\Contracts\View\View|string $view
-     * @param null|string $selector
-     * @return string
-     */
-    public function render($view = null, $selector = null)
-    {
-        $this->view($view);
-        $this->selector($selector);
-
-        return View::make($this->view, ['validator' => $this->getViewData()])
-            ->render();
-    }
-
-    /**
      * Get the view data as an array.
      *
      * @return array
@@ -91,38 +75,6 @@ class JavascriptValidator implements Arrayable
     public function toArray()
     {
         return $this->getViewData();
-    }
-
-    /**
-     * Get the string resulting of render default view.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        try {
-            return $this->render();
-        } catch (Exception $exception) {
-            return trigger_error($exception->__toString(), E_USER_ERROR);
-        }
-    }
-
-    /**
-     * Gets value from view data.
-     *
-     * @param string $name
-     * @return string
-     *
-     * @throws PropertyNotFoundException
-     */
-    public function __get($name)
-    {
-        $data = $this->getViewData();
-        if (!array_key_exists($name, $data)) {
-            throw new PropertyNotFoundException($name, get_class());
-        }
-
-        return $data[$name];
     }
 
     /**
@@ -144,6 +96,49 @@ class JavascriptValidator implements Arrayable
     }
 
     /**
+     * Get the string resulting of render default view.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        try {
+            return $this->render();
+        } catch (Exception $exception) {
+            return trigger_error($exception->__toString(), E_USER_ERROR);
+        }
+    }
+
+    /**
+     * Render the specified view with validator data.
+     *
+     * @param null|\Illuminate\Contracts\View\View|string $view
+     * @param null|string $selector
+     * @return string
+     */
+    public function render($view = null, $selector = null)
+    {
+        $this->view($view);
+        $this->selector($selector);
+
+        return View::make($this->view, ['validator' => $this->getViewData()])
+            ->render();
+    }
+
+    /**
+     * Set the view to render Javascript Validations.
+     *
+     * @param null|\Illuminate\Contracts\View\View|string $view
+     * @return JavascriptValidator
+     */
+    public function view($view)
+    {
+        $this->view = is_null($view) ? $this->view : $view;
+
+        return $this;
+    }
+
+    /**
      * Set the form selector to validate.
      *
      * @param string $selector
@@ -157,6 +152,24 @@ class JavascriptValidator implements Arrayable
     }
 
     /**
+     * Gets value from view data.
+     *
+     * @param string $name
+     * @return string
+     *
+     * @throws PropertyNotFoundException
+     */
+    public function __get($name)
+    {
+        $data = $this->getViewData();
+        if (!array_key_exists($name, $data)) {
+            throw new PropertyNotFoundException($name, get_class());
+        }
+
+        return $data[$name];
+    }
+
+    /**
      * Set the input selector to ignore for validation.
      *
      * @param string $ignore
@@ -165,19 +178,6 @@ class JavascriptValidator implements Arrayable
     public function ignore($ignore)
     {
         $this->ignore = $ignore;
-
-        return $this;
-    }
-
-    /**
-     * Set the view to render Javascript Validations.
-     *
-     * @param null|\Illuminate\Contracts\View\View|string $view
-     * @return JavascriptValidator
-     */
-    public function view($view)
-    {
-        $this->view = is_null($view) ? $this->view : $view;
 
         return $this;
     }

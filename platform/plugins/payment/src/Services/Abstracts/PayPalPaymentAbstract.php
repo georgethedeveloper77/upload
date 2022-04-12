@@ -3,24 +3,24 @@
 namespace Botble\Payment\Services\Abstracts;
 
 use Botble\Payment\Enums\PaymentMethodEnum;
-use Botble\Support\Services\ProduceServiceInterface;
 use Botble\Payment\Services\Traits\PaymentErrorTrait;
+use Botble\Support\Services\ProduceServiceInterface;
 use Exception;
 use Illuminate\Http\Request;
+use PayPal\Api\Amount;
+use PayPal\Api\Item;
+use PayPal\Api\ItemList;
+use PayPal\Api\Payer;
+use PayPal\Api\Payment;
+use PayPal\Api\PaymentExecution;
+use PayPal\Api\RedirectUrls;
+use PayPal\Api\Transaction;
+use PayPal\Auth\OAuthTokenCredential;
 use PayPal\Exception\PayPalConfigurationException;
 use PayPal\Exception\PayPalConnectionException;
 use PayPal\Exception\PayPalInvalidCredentialException;
 use PayPal\Exception\PayPalMissingCredentialException;
 use PayPal\Rest\ApiContext;
-use PayPal\Auth\OAuthTokenCredential;
-use PayPal\Api\Item;
-use PayPal\Api\ItemList;
-use PayPal\Api\Amount;
-use PayPal\Api\Transaction;
-use PayPal\Api\RedirectUrls;
-use PayPal\Api\Payment;
-use PayPal\Api\Payer;
-use PayPal\Api\PaymentExecution;
 
 abstract class PayPalPaymentAbstract implements ProduceServiceInterface
 {
@@ -64,8 +64,8 @@ abstract class PayPalPaymentAbstract implements ProduceServiceInterface
         $payPalMode = setting('payment_paypal_mode') ? 'live' : 'sandbox';
 
         config([
-            'plugins.payment.payment.paypal.client_id'     => setting('payment_paypal_client_id'),
-            'plugins.payment.payment.paypal.secret'        => setting('payment_paypal_client_secret'),
+            'plugins.payment.payment.paypal.client_id' => setting('payment_paypal_client_id'),
+            'plugins.payment.payment.paypal.secret' => setting('payment_paypal_client_secret'),
             'plugins.payment.payment.paypal.settings.mode' => $payPalMode,
         ]);
 
@@ -156,6 +156,16 @@ abstract class PayPalPaymentAbstract implements ProduceServiceInterface
     }
 
     /**
+     * Get return URL
+     *
+     * @return string Return URL
+     */
+    public function getReturnUrl()
+    {
+        return $this->returnUrl;
+    }
+
+    /**
      * Set return URL
      *
      * @param string $url Return URL for payment process complete
@@ -169,13 +179,13 @@ abstract class PayPalPaymentAbstract implements ProduceServiceInterface
     }
 
     /**
-     * Get return URL
+     * Get cancel URL of payment
      *
-     * @return string Return URL
+     * @return string Cancel URL
      */
-    public function getReturnUrl()
+    public function getCancelUrl()
     {
-        return $this->returnUrl;
+        return $this->cancelUrl;
     }
 
     /**
@@ -189,16 +199,6 @@ abstract class PayPalPaymentAbstract implements ProduceServiceInterface
         $this->cancelUrl = $url;
 
         return $this;
-    }
-
-    /**
-     * Get cancel URL of payment
-     *
-     * @return string Cancel URL
-     */
-    public function getCancelUrl()
-    {
-        return $this->cancelUrl;
     }
 
     /**
@@ -301,7 +301,7 @@ abstract class PayPalPaymentAbstract implements ProduceServiceInterface
     public function getPaymentList($limit = 10, $offset = 0)
     {
         $params = [
-            'count'       => $limit,
+            'count' => $limit,
             'start_index' => $offset,
         ];
 

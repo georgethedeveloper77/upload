@@ -2,24 +2,24 @@
 
 namespace Botble\Blog\Providers;
 
-use Botble\Shortcode\View\View;
-use Illuminate\Routing\Events\RouteMatched;
 use Botble\Base\Supports\Helper;
 use Botble\Base\Traits\LoadAndPublishDataTrait;
-use Botble\Blog\Models\Post;
-use Botble\Blog\Repositories\Caches\PostCacheDecorator;
-use Botble\Blog\Repositories\Eloquent\PostRepository;
-use Botble\Blog\Repositories\Interfaces\PostInterface;
-use Event;
-use Illuminate\Support\ServiceProvider;
 use Botble\Blog\Models\Category;
-use Botble\Blog\Repositories\Caches\CategoryCacheDecorator;
-use Botble\Blog\Repositories\Eloquent\CategoryRepository;
-use Botble\Blog\Repositories\Interfaces\CategoryInterface;
+use Botble\Blog\Models\Post;
 use Botble\Blog\Models\Tag;
+use Botble\Blog\Repositories\Caches\CategoryCacheDecorator;
+use Botble\Blog\Repositories\Caches\PostCacheDecorator;
 use Botble\Blog\Repositories\Caches\TagCacheDecorator;
+use Botble\Blog\Repositories\Eloquent\CategoryRepository;
+use Botble\Blog\Repositories\Eloquent\PostRepository;
 use Botble\Blog\Repositories\Eloquent\TagRepository;
+use Botble\Blog\Repositories\Interfaces\CategoryInterface;
+use Botble\Blog\Repositories\Interfaces\PostInterface;
 use Botble\Blog\Repositories\Interfaces\TagInterface;
+use Botble\Shortcode\View\View;
+use Event;
+use Illuminate\Routing\Events\RouteMatched;
+use Illuminate\Support\ServiceProvider;
 use Language;
 use Note;
 use SeoHelper;
@@ -70,39 +70,39 @@ class BlogServiceProvider extends ServiceProvider
         Event::listen(RouteMatched::class, function () {
             dashboard_menu()
                 ->registerItem([
-                    'id'          => 'cms-plugins-blog',
-                    'priority'    => 3,
-                    'parent_id'   => null,
-                    'name'        => 'plugins/blog::base.menu_name',
-                    'icon'        => 'fa fa-edit',
-                    'url'         => route('posts.index'),
+                    'id' => 'cms-plugins-blog',
+                    'priority' => 3,
+                    'parent_id' => null,
+                    'name' => 'plugins/blog::base.menu_name',
+                    'icon' => 'fa fa-edit',
+                    'url' => route('posts.index'),
                     'permissions' => ['posts.index'],
                 ])
                 ->registerItem([
-                    'id'          => 'cms-plugins-blog-post',
-                    'priority'    => 1,
-                    'parent_id'   => 'cms-plugins-blog',
-                    'name'        => 'plugins/blog::posts.menu_name',
-                    'icon'        => null,
-                    'url'         => route('posts.index'),
+                    'id' => 'cms-plugins-blog-post',
+                    'priority' => 1,
+                    'parent_id' => 'cms-plugins-blog',
+                    'name' => 'plugins/blog::posts.menu_name',
+                    'icon' => null,
+                    'url' => route('posts.index'),
                     'permissions' => ['posts.index'],
                 ])
                 ->registerItem([
-                    'id'          => 'cms-plugins-blog-categories',
-                    'priority'    => 2,
-                    'parent_id'   => 'cms-plugins-blog',
-                    'name'        => 'plugins/blog::categories.menu_name',
-                    'icon'        => null,
-                    'url'         => route('categories.index'),
+                    'id' => 'cms-plugins-blog-categories',
+                    'priority' => 2,
+                    'parent_id' => 'cms-plugins-blog',
+                    'name' => 'plugins/blog::categories.menu_name',
+                    'icon' => null,
+                    'url' => route('categories.index'),
                     'permissions' => ['categories.index'],
                 ])
                 ->registerItem([
-                    'id'          => 'cms-plugins-blog-tags',
-                    'priority'    => 3,
-                    'parent_id'   => 'cms-plugins-blog',
-                    'name'        => 'plugins/blog::tags.menu_name',
-                    'icon'        => null,
-                    'url'         => route('tags.index'),
+                    'id' => 'cms-plugins-blog-tags',
+                    'priority' => 3,
+                    'parent_id' => 'cms-plugins-blog',
+                    'name' => 'plugins/blog::tags.menu_name',
+                    'icon' => null,
+                    'url' => route('tags.index'),
                     'permissions' => ['tags.index'],
                 ]);
         });

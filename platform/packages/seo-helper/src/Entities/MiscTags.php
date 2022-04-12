@@ -33,6 +33,30 @@ class MiscTags implements MiscTagsContract
     }
 
     /**
+     * Add the canonical link.
+     *
+     * @return MiscTags
+     */
+    protected function addCanonical()
+    {
+        if ($this->hasUrl()) {
+            $this->add('canonical', $this->currentUrl);
+        }
+
+        return $this;
+    }
+
+    /**
+     * Check if has the current URL.
+     *
+     * @return bool
+     */
+    protected function hasUrl()
+    {
+        return !empty($this->getUrl());
+    }
+
+    /**
      * Get the current URL.
      *
      * @return string
@@ -40,33 +64,6 @@ class MiscTags implements MiscTagsContract
     public function getUrl()
     {
         return $this->currentUrl;
-    }
-
-    /**
-     * Set the current URL.
-     *
-     * @param string $url
-     *
-     * @return MiscTags
-     */
-    public function setUrl($url)
-    {
-        $this->currentUrl = $url;
-        $this->addCanonical();
-
-        return $this;
-    }
-
-    /**
-     * Make MiscTags instance.
-     *
-     * @param array $defaults
-     *
-     * @return MiscTags
-     */
-    public static function make(array $defaults = [])
-    {
-        return new self();
     }
 
     /**
@@ -94,6 +91,33 @@ class MiscTags implements MiscTagsContract
     public function addMany(array $meta)
     {
         $this->meta->addMany($meta);
+
+        return $this;
+    }
+
+    /**
+     * Make MiscTags instance.
+     *
+     * @param array $defaults
+     *
+     * @return MiscTags
+     */
+    public static function make(array $defaults = [])
+    {
+        return new self();
+    }
+
+    /**
+     * Set the current URL.
+     *
+     * @param string $url
+     *
+     * @return MiscTags
+     */
+    public function setUrl($url)
+    {
+        $this->currentUrl = $url;
+        $this->addCanonical();
 
         return $this;
     }
@@ -129,9 +153,9 @@ class MiscTags implements MiscTagsContract
      *
      * @return string
      */
-    public function render()
+    public function __toString()
     {
-        return $this->meta->render();
+        return $this->render();
     }
 
     /**
@@ -139,32 +163,8 @@ class MiscTags implements MiscTagsContract
      *
      * @return string
      */
-    public function __toString()
+    public function render()
     {
-        return $this->render();
-    }
-
-    /**
-     * Check if has the current URL.
-     *
-     * @return bool
-     */
-    protected function hasUrl()
-    {
-        return !empty($this->getUrl());
-    }
-
-    /**
-     * Add the canonical link.
-     *
-     * @return MiscTags
-     */
-    protected function addCanonical()
-    {
-        if ($this->hasUrl()) {
-            $this->add('canonical', $this->currentUrl);
-        }
-
-        return $this;
+        return $this->meta->render();
     }
 }

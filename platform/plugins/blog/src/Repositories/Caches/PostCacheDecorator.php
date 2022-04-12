@@ -2,8 +2,8 @@
 
 namespace Botble\Blog\Repositories\Caches;
 
-use Botble\Support\Repositories\Caches\CacheAbstractDecorator;
 use Botble\Blog\Repositories\Interfaces\PostInterface;
+use Botble\Support\Repositories\Caches\CacheAbstractDecorator;
 
 class PostCacheDecorator extends CacheAbstractDecorator implements PostInterface
 {

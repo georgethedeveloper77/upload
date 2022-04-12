@@ -17,10 +17,10 @@ class CurrencyRequest extends Request
     public function rules()
     {
         $rules = [
-            'title'  => 'required|string',
-            'code'   => 'required|string|unique:ec_currencies,code',
+            'title' => 'required|string',
+            'code' => 'required|string|unique:ec_currencies,code',
             'symbol' => 'required|string|unique:ec_currencies,symbol',
-            'order'  => 'required|integer|min:0',
+            'order' => 'required|integer|min:0',
         ];
 
         $id = Arr::get(Route::current()->parameters(), 'id');

@@ -63,7 +63,7 @@ class MediaFileController extends Controller
             // We are in chunk mode, lets send the current progress
             $handler = $save->handler();
             return response()->json([
-                'done'   => $handler->getPercentageDone(),
+                'done' => $handler->getPercentageDone(),
                 'status' => true,
             ]);
         } catch (Exception $exception) {
@@ -79,7 +79,7 @@ class MediaFileController extends Controller
     {
         if ($result['error'] == false) {
             return RvMedia::responseSuccess([
-                'id'  => $result['data']->id,
+                'id' => $result['data']->id,
                 'src' => RvMedia::url($result['data']->url),
             ]);
         }

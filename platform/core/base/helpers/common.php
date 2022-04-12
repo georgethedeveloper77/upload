@@ -2,6 +2,7 @@
 
 use Botble\Base\Facades\DashboardMenuFacade;
 use Botble\Base\Facades\PageTitleFacade;
+use Botble\Base\Supports\DashboardMenu;
 use Botble\Base\Supports\Editor;
 use Botble\Base\Supports\PageTitle;
 
@@ -71,7 +72,7 @@ if (!function_exists('page_title')) {
 
 if (!function_exists('dashboard_menu')) {
     /**
-     * @return \Botble\Base\Supports\DashboardMenu
+     * @return DashboardMenu
      */
     function dashboard_menu()
     {

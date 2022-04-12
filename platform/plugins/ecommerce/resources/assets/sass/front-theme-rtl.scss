@@ -1,5 +1,6 @@
 body[dir="rtl"] {
     text-align: right;
+
     .show-cart-link {
         i {
             float: left;
@@ -27,17 +28,17 @@ body[dir="rtl"] {
         right: 2px;
     }
 
-    .magic-checkbox+label:before, .magic-radio+label:before {
+    .magic-checkbox + label:before, .magic-radio + label:before {
         left: auto;
         right: 0;
     }
 
-    .magic-radio+label:after {
+    .magic-radio + label:after {
         left: auto;
         right: 6px;
     }
 
-    .magic-checkbox+label, .magic-radio+label {
+    .magic-checkbox + label, .magic-radio + label {
         padding-left: 0;
         padding-right: 30px;
     }

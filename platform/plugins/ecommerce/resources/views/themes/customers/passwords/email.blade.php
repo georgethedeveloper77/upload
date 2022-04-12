@@ -10,13 +10,15 @@
                         </div>
                     @endif
 
-                    <form class="form-horizontal" role="form" method="POST" action="{{ route('customer.password.request') }}">
+                    <form class="form-horizontal" role="form" method="POST"
+                          action="{{ route('customer.password.request') }}">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="email" class="col-md-4 control-label">{{ __('E-Mail Address') }}</label>
                             <div class="col-md-6">
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}">
+                                <input id="email" type="email" class="form-control" name="email"
+                                       value="{{ old('email') }}">
                                 {!! Form::error('email', $errors) !!}
                             </div>
                         </div>

@@ -47,22 +47,6 @@ class WidgetGroupCollection
     }
 
     /**
-     * Get the widget group object.
-     *
-     * @param string $sidebarId
-     * @return WidgetGroup
-     */
-    public function group($sidebarId)
-    {
-        if (isset($this->groups[$sidebarId])) {
-            return $this->groups[$sidebarId];
-        }
-        $this->groups[$sidebarId] = new WidgetGroup(['id' => $sidebarId, 'name' => $sidebarId], $this->app);
-
-        return $this->groups[$sidebarId];
-    }
-
-    /**
      * @param array $args
      * @return $this|mixed
      */
@@ -144,6 +128,22 @@ class WidgetGroupCollection
         }
 
         return app(WidgetInterface::class)->allBy(['theme' => Theme::getThemeName() . $languageCode]);
+    }
+
+    /**
+     * Get the widget group object.
+     *
+     * @param string $sidebarId
+     * @return WidgetGroup
+     */
+    public function group($sidebarId)
+    {
+        if (isset($this->groups[$sidebarId])) {
+            return $this->groups[$sidebarId];
+        }
+        $this->groups[$sidebarId] = new WidgetGroup(['id' => $sidebarId, 'name' => $sidebarId], $this->app);
+
+        return $this->groups[$sidebarId];
     }
 
     /**

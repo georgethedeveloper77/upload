@@ -4,6 +4,7 @@ namespace Botble\Ecommerce\Models;
 
 use Botble\Base\Supports\Avatar;
 use Botble\Ecommerce\Notifications\CustomerResetPassword;
+use Eloquent;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -11,7 +12,7 @@ use Illuminate\Notifications\Notifiable;
 use RvMedia;
 
 /**
- * @mixin \Eloquent
+ * @mixin Eloquent
  */
 class Customer extends Authenticatable
 {
@@ -45,6 +46,25 @@ class Customer extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::deleting(function (Customer $customer) {
+            $customer->discounts()->detach();
+            Review::where('customer_id', $customer->id)->delete();
+            Wishlist::where('customer_id', $customer->id)->delete();
+        });
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class, 'ec_discount_customers', 'customer_id', 'id');
+    }
 
     /**
      * Send the password reset notification.
@@ -84,27 +104,8 @@ class Customer extends Authenticatable
     /**
      * @return BelongsToMany
      */
-    public function discounts()
-    {
-        return $this->belongsToMany(Discount::class, 'ec_discount_customers', 'customer_id', 'id');
-    }
-
-    /**
-     * @return BelongsToMany
-     */
     public function wishlist(): HasMany
     {
         return $this->hasMany(Wishlist::class, 'customer_id');
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::deleting(function (Customer $customer) {
-            $customer->discounts()->detach();
-            Review::where('customer_id', $customer->id)->delete();
-            Wishlist::where('customer_id', $customer->id)->delete();
-        });
     }
 }

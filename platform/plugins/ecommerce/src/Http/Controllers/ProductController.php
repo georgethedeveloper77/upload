@@ -84,7 +84,8 @@ class ProductController extends BaseController
         ProductCollectionInterface $productCollectionRepository,
         BrandInterface $brandRepository,
         ProductAttributeInterface $productAttributeRepository
-    ) {
+    )
+    {
         $this->productRepository = $productRepository;
         $this->productCategoryRepository = $productCategoryRepository;
         $this->productCollectionRepository = $productCollectionRepository;
@@ -153,7 +154,8 @@ class ProductController extends BaseController
         GroupedProductInterface $groupedProductRepository,
         StoreAttributesOfProductService $storeAttributesOfProductService,
         StoreProductTagService $storeProductTagService
-    ) {
+    )
+    {
         $product = $this->productRepository->getModel();
 
         $product = $service->execute($request, $product);
@@ -193,7 +195,7 @@ class ProductController extends BaseController
         if ($request->has('grouped_products')) {
             $groupedProductRepository->createGroupedProducts($product->id, array_map(function ($item) {
                 return [
-                    'id'  => $item,
+                    'id' => $item,
                     'qty' => 1,
                 ];
             }, array_filter(explode(',', $request->input('grouped_products', '')))));
@@ -219,7 +221,8 @@ class ProductController extends BaseController
         $id,
         BaseHttpResponse $response,
         $isUpdateProduct = true
-    ) {
+    )
+    {
         $product = $this->productRepository->findOrFail($id);
 
         foreach ($versionInRequest as $variationId => $version) {
@@ -358,7 +361,8 @@ class ProductController extends BaseController
         ProductVariationInterface $variationRepository,
         ProductVariationItemInterface $productVariationItemRepository,
         StoreProductTagService $storeProductTagService
-    ) {
+    )
+    {
         $product = $this->productRepository->findOrFail($id);
 
         $product = $service->execute($request, $product);
@@ -414,7 +418,7 @@ class ProductController extends BaseController
         if ($request->has('grouped_products')) {
             $groupedProductRepository->createGroupedProducts($product->id, array_map(function ($item) {
                 return [
-                    'id'  => $item,
+                    'id' => $item,
                     'qty' => 1,
                 ];
             }, array_filter(explode(',', $request->input('grouped_products', '')))));
@@ -440,7 +444,8 @@ class ProductController extends BaseController
         ProductVariationInterface $variationRepository,
         BaseHttpResponse $response,
         StoreAttributesOfProductService $storeAttributesOfProductService
-    ) {
+    )
+    {
         $product = $this->productRepository->findOrFail($id);
 
         $addedAttributes = $request->input('added_attributes', []);
@@ -530,7 +535,8 @@ class ProductController extends BaseController
         ProductVariationItemInterface $productVariationItem,
         $variationId,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $variation = $productVariation->findOrFail($variationId);
 
         $productVariationItem->deleteBy(['variation_id' => $variationId]);
@@ -594,7 +600,8 @@ class ProductController extends BaseController
         ProductVariationInterface $productVariation,
         $id,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $addedAttributes = $request->input('attribute_sets', []);
 
         if ($addedAttributes && !empty($addedAttributes) && is_array($addedAttributes)) {
@@ -632,7 +639,8 @@ class ProductController extends BaseController
         ProductAttributeSetInterface $productAttributeSetRepository,
         ProductAttributeInterface $productAttributeRepository,
         ProductVariationItemInterface $productVariationItemRepository
-    ) {
+    )
+    {
         $variation = $productVariation->findOrFail($id);
         $product = $this->productRepository->findOrFail($variation->product_id);
 
@@ -668,7 +676,8 @@ class ProductController extends BaseController
         ProductVariationInterface $productVariation,
         $id,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $variation = $productVariation->findOrFail($id);
 
         $addedAttributes = $request->input('attribute_sets', []);
@@ -714,7 +723,8 @@ class ProductController extends BaseController
         ProductVariationInterface $productVariation,
         $id,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $product = $this->productRepository->findOrFail($id);
 
         $variations = $service->execute($product);
@@ -750,7 +760,8 @@ class ProductController extends BaseController
         StoreAttributesOfProductService $service,
         $id,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $product = $this->productRepository->findOrFail($id);
 
         $attributeSets = $request->input('attribute_sets', []);
@@ -777,14 +788,14 @@ class ProductController extends BaseController
                     ['id', '<>', $id],
                     ['name', 'LIKE', '%' . $request->input('keyword') . '%'],
                 ],
-                'select'    => [
+                'select' => [
                     'id',
                     'name',
                     'images',
                 ],
-                'paginate'  => [
-                    'per_page'      => 5,
-                    'type'          => 'simplePaginate',
+                'paginate' => [
+                    'per_page' => 5,
+                    'type' => 'simplePaginate',
                     'current_paged' => (int)$request->input('page', 1),
                 ],
             ]);
@@ -869,7 +880,8 @@ class ProductController extends BaseController
     public function postCreateProductWhenCreatingOrder(
         CreateProductWhenCreatingOrderRequest $request,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $product = $this->productRepository->createOrUpdate($request->input());
 
         event(new CreatedContentEvent(PRODUCT_MODULE_SCREEN_NAME, $request, $product));

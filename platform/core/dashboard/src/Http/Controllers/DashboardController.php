@@ -43,7 +43,8 @@ class DashboardController extends BaseController
         DashboardWidgetSettingInterface $widgetSettingRepository,
         DashboardWidgetInterface $widgetRepository,
         UserInterface $userRepository
-    ) {
+    )
+    {
         $this->widgetSettingRepository = $widgetSettingRepository;
         $this->widgetRepository = $widgetRepository;
         $this->userRepository = $userRepository;
@@ -110,7 +111,7 @@ class DashboardController extends BaseController
             }
             $widgetSetting = $this->widgetSettingRepository->firstOrCreate([
                 'widget_id' => $widget->id,
-                'user_id'   => $request->user()->getKey(),
+                'user_id' => $request->user()->getKey(),
             ]);
             $widgetSetting->settings = array_merge((array)$widgetSetting->settings, [
                 $request->input('setting_name') => $request->input('setting_value'),
@@ -138,7 +139,7 @@ class DashboardController extends BaseController
             ]);
             $widgetSetting = $this->widgetSettingRepository->firstOrCreate([
                 'widget_id' => $widget->id,
-                'user_id'   => $request->user()->getKey(),
+                'user_id' => $request->user()->getKey(),
             ]);
             $widgetSetting->order = $key;
             $this->widgetSettingRepository->createOrUpdate($widgetSetting);
@@ -160,7 +161,7 @@ class DashboardController extends BaseController
         if (!empty($widget)) {
             $widgetSetting = $this->widgetSettingRepository->firstOrCreate([
                 'widget_id' => $widget->id,
-                'user_id'   => $request->user()->getKey(),
+                'user_id' => $request->user()->getKey(),
             ]);
             $widgetSetting->status = 0;
             $widgetSetting->order = 99 + $widgetSetting->id;
@@ -181,7 +182,7 @@ class DashboardController extends BaseController
         foreach ($widgets as $widget) {
             $widgetSetting = $this->widgetSettingRepository->firstOrCreate([
                 'widget_id' => $widget->id,
-                'user_id'   => $request->user()->getKey(),
+                'user_id' => $request->user()->getKey(),
             ]);
             if (array_key_exists($widget->name,
                     $request->input('widgets', [])) && $request->input('widgets.' . $widget->name) == 1) {

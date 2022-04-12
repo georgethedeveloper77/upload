@@ -9,8 +9,10 @@ use Botble\Ecommerce\Models\Customer;
 use Botble\Ecommerce\Repositories\Interfaces\CustomerInterface;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Auth\StatefulGuard;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\View\View;
 use Response;
 use SeoHelper;
 use Theme;
@@ -55,42 +57,6 @@ class RegisterController extends Controller
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param array $data
-     * @return \Illuminate\Contracts\Validation\Validator
-     */
-    protected function validator(array $data)
-    {
-        $rules = [
-            'name'     => 'required|max:255',
-            'email'    => 'required|email|max:255|unique:ec_customers',
-            'password' => 'required|min:6|confirmed',
-        ];
-
-        if (setting('enable_captcha') && is_plugin_active('captcha')) {
-            $rules += ['g-recaptcha-response' => 'required|captcha'];
-        }
-
-        return Validator::make($data, $rules);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param array $data
-     * @return Customer
-     */
-    protected function create(array $data)
-    {
-        return $this->customerRepository->create([
-            'name'     => $data['name'],
-            'email'    => $data['email'],
-            'password' => bcrypt($data['password']),
-        ]);
-    }
-
-    /**
      * Show the application registration form.
      *
      * @return Response
@@ -108,7 +74,7 @@ class RegisterController extends Controller
     /**
      * Handle a registration request for the application.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param BaseHttpResponse $response
      * @return BaseHttpResponse
      */
@@ -130,6 +96,57 @@ class RegisterController extends Controller
         $this->guard()->login($customer);
 
         return $response->setNextUrl($this->redirectPath())->setMessage(__('Registered successfully!'));
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param array $data
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        $rules = [
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:ec_customers',
+            'password' => 'required|min:6|confirmed',
+        ];
+
+        if (setting('enable_captcha') && is_plugin_active('captcha')) {
+            $rules += ['g-recaptcha-response' => 'required|captcha'];
+        }
+
+        return Validator::make($data, $rules);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param array $data
+     * @return Customer
+     */
+    protected function create(array $data)
+    {
+        return $this->customerRepository->create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => bcrypt($data['password']),
+        ]);
+    }
+
+    /**
+     * Send the confirmation code to a user.
+     *
+     * @param Customer $customer
+     */
+    protected function sendConfirmationToUser($customer)
+    {
+        // Notify the user
+        $notificationConfig = config('plugins.ecommerce.general.customer.notification');
+        if ($notificationConfig) {
+            $notification = app($notificationConfig);
+            $customer->notify($notification);
+        }
     }
 
     /**
@@ -176,7 +193,7 @@ class RegisterController extends Controller
     /**
      * Resend a confirmation code to a user.
      *
-     * @param \Illuminate\Http\Request $request
+     * @param Request $request
      * @param CustomerInterface $customerRepository
      * @param BaseHttpResponse $response
      * @return BaseHttpResponse
@@ -185,7 +202,8 @@ class RegisterController extends Controller
         Request $request,
         CustomerInterface $customerRepository,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $customer = $customerRepository->getFirstBy(['email' => $request->input('email')]);
 
         if (!$customer) {
@@ -201,22 +219,7 @@ class RegisterController extends Controller
     }
 
     /**
-     * Send the confirmation code to a user.
-     *
-     * @param Customer $customer
-     */
-    protected function sendConfirmationToUser($customer)
-    {
-        // Notify the user
-        $notificationConfig = config('plugins.ecommerce.general.customer.notification');
-        if ($notificationConfig) {
-            $notification = app($notificationConfig);
-            $customer->notify($notification);
-        }
-    }
-
-    /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function getVerify()
     {

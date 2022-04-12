@@ -21,15 +21,18 @@
                                     <div class="node-content">
                                         <div class="form-group">
                                             <label for="node-title">{{ trans('packages/menu::menu.title') }}</label>
-                                            <input type="text" class="form-control" id="node-title" autocomplete="false">
+                                            <input type="text" class="form-control" id="node-title"
+                                                   autocomplete="false">
                                         </div>
                                         <div class="form-group">
                                             <label for="node-url">{{ trans('packages/menu::menu.url') }}</label>
-                                            <input type="text" class="form-control" id="node-url" placeholder="http://" autocomplete="false">
+                                            <input type="text" class="form-control" id="node-url" placeholder="http://"
+                                                   autocomplete="false">
                                         </div>
                                         <div class="form-group">
                                             <label for="node-icon">{{ trans('packages/menu::menu.icon') }}</label>
-                                            <input type="text" class="form-control" id="node-icon" placeholder="fa fa-home" autocomplete="false">
+                                            <input type="text" class="form-control" id="node-icon"
+                                                   placeholder="fa fa-home" autocomplete="false">
                                         </div>
                                         <div class="form-group">
                                             <label for="node-css">{{ trans('packages/menu::menu.css_class') }}</label>
@@ -39,24 +42,30 @@
                                             <label for="target">{{ trans('packages/menu::menu.target') }}</label>
                                             <div class="ui-select-wrapper">
                                                 <select name="target" class="ui-select" id="target">
-                                                    <option value="_self">{{ trans('packages/menu::menu.self_open_link') }}</option>
-                                                    <option value="_blank">{{ trans('packages/menu::menu.blank_open_link') }}</option>
+                                                    <option
+                                                        value="_self">{{ trans('packages/menu::menu.self_open_link') }}</option>
+                                                    <option
+                                                        value="_blank">{{ trans('packages/menu::menu.blank_open_link') }}</option>
                                                 </select>
                                                 <svg class="svg-next-icon svg-next-icon-size-16">
-                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
+                                                    <use xmlns:xlink="http://www.w3.org/1999/xlink"
+                                                         xlink:href="#select-chevron"></use>
                                                 </svg>
                                             </div>
                                         </div>
 
                                         <div class="text-right form-group node-actions hidden">
-                                            <a class="btn red btn-remove" href="#">{{ trans('packages/menu::menu.remove') }}</a>
-                                            <a class="btn blue btn-cancel" href="#">{{ trans('packages/menu::menu.cancel') }}</a>
+                                            <a class="btn red btn-remove"
+                                               href="#">{{ trans('packages/menu::menu.remove') }}</a>
+                                            <a class="btn blue btn-cancel"
+                                               href="#">{{ trans('packages/menu::menu.cancel') }}</a>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="text-right add-button">
                                                 <div class="btn-group">
-                                                    <a href="#" class="btn-add-to-menu btn btn-primary"><span class="text"><i class="fa fa-plus"></i> {{ trans('packages/menu::menu.add_to_menu') }}</span></a>
+                                                    <a href="#" class="btn-add-to-menu btn btn-primary"><span
+                                                            class="text"><i class="fa fa-plus"></i> {{ trans('packages/menu::menu.add_to_menu') }}</span></a>
                                                 </div>
                                             </div>
                                         </div>
@@ -97,7 +106,9 @@
                             <div class="col-md-8">
                                 @foreach (Menu::getMenuLocations() as $location => $description)
                                     <div>
-                                        <input type="checkbox" @if (in_array($location, $locations)) checked @endif class="hrv-checkbox" name="locations[]" value="{{ $location }}" id="menu_location_{{ $location }}">
+                                        <input type="checkbox" @if (in_array($location, $locations)) checked
+                                               @endif class="hrv-checkbox" name="locations[]" value="{{ $location }}"
+                                               id="menu_location_{{ $location }}">
                                         <label for="menu_location_{{ $location }}">{{ $description }}</label>
                                     </div>
                                 @endforeach

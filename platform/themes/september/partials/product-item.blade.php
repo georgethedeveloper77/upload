@@ -4,17 +4,21 @@
             <div class="product__thumbnail">
                 @if ($product->front_sale_price !== $product->price)
                     <div class="product__badges">
-                        <span class="badge badge--sale">{{ get_sale_percentage($product->price, $product->front_sale_price) }}</span>
+                        <span
+                            class="badge badge--sale">{{ get_sale_percentage($product->price, $product->front_sale_price) }}</span>
                     </div>
                 @endif
                 <a class="product__overlay" href="{{ $product->url }}"></a>
-                <img src="{{ RvMedia::getImageUrl($product->image, 'medium', false, RvMedia::getDefaultImage()) }}" alt="{{ $product->url }}" />
-                <a class="product__favorite js-add-to-wishlist-button" href="{{ route('public.wishlist.add', $product->id) }}">
+                <img src="{{ RvMedia::getImageUrl($product->image, 'medium', false, RvMedia::getDefaultImage()) }}"
+                     alt="{{ $product->url }}"/>
+                <a class="product__favorite js-add-to-wishlist-button"
+                   href="{{ route('public.wishlist.add', $product->id) }}">
                     <i class="fa fa-heart-o"></i>
                 </a>
                 <ul class="product__actions">
                     @if (EcommerceHelper::isCartEnabled())
-                        <li><a class="add-to-cart-button" data-id="{{ $product->id }}" href="{{ route('public.cart.add-to-cart') }}">{{ __('Add to cart') }}</a></li>
+                        <li><a class="add-to-cart-button" data-id="{{ $product->id }}"
+                               href="{{ route('public.cart.add-to-cart') }}">{{ __('Add to cart') }}</a></li>
                     @endif
                 </ul>
                 @if (count($product->variationAttributeSwatchesForProductList))
@@ -23,7 +27,8 @@
                             @if ($attribute->display_layout == 'visual')
                                 <li>
                                     <div class="custom-checkbox">
-                                        <span style="{{ $attribute->image ? 'background-image: url(' . RvMedia::getImageUrl($attribute->image) . ');' : 'background-color: ' . $attribute->color . ';' }}; cursor: initial;"></span>
+                                        <span
+                                            style="{{ $attribute->image ? 'background-image: url(' . RvMedia::getImageUrl($attribute->image) . ');' : 'background-color: ' . $attribute->color . ';' }}; cursor: initial;"></span>
                                     </div>
                                 </li>
                             @endif
@@ -44,7 +49,8 @@
                     @if ($countRating > 0)
                         <div class="rating_wrap">
                             <div class="rating">
-                                <div class="product_rate" style="width: {{ get_average_star_of_product($product->id) * 20 }}%"></div>
+                                <div class="product_rate"
+                                     style="width: {{ get_average_star_of_product($product->id) * 20 }}%"></div>
                             </div>
                             <span class="rating_num">({{ $countRating }})</span>
                         </div>

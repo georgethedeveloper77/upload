@@ -15,8 +15,8 @@ class GetShippingFeeRequest extends Request
     public function rules()
     {
         return [
-            'state'       => 'required',
-            'city'        => 'required',
+            'state' => 'required',
+            'city' => 'required',
             'currency_id' => 'integer',
         ];
     }

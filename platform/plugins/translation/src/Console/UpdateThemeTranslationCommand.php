@@ -5,6 +5,7 @@ namespace Botble\Translation\Console;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Symfony\Component\Finder\Finder;
+use Symfony\Component\Finder\SplFileInfo;
 use Theme;
 
 class UpdateThemeTranslationCommand extends Command
@@ -65,7 +66,7 @@ class UpdateThemeTranslationCommand extends Command
         $finder->in($path)->name('*.php')->files();
 
         /**
-         * @var \Symfony\Component\Finder\SplFileInfo $file
+         * @var SplFileInfo $file
          */
         foreach ($finder as $file) {
             if (!preg_match_all('/' . $stringPattern . '/siU', $file->getContents(), $matches)) {

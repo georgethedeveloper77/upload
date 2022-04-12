@@ -84,13 +84,13 @@ class EmailHandler
     public function initVariable(): self
     {
         $this->variables['core'] = [
-            'header'           => trans('core/base::base.email_template.header'),
-            'footer'           => trans('core/base::base.email_template.footer'),
-            'site_title'       => trans('core/base::base.email_template.site_title'),
-            'site_url'         => trans('core/base::base.email_template.site_url'),
-            'site_logo'        => trans('core/base::base.email_template.site_logo'),
-            'date_time'        => trans('core/base::base.email_template.date_time'),
-            'date_year'        => trans('core/base::base.email_template.date_year'),
+            'header' => trans('core/base::base.email_template.header'),
+            'footer' => trans('core/base::base.email_template.footer'),
+            'site_title' => trans('core/base::base.email_template.site_title'),
+            'site_url' => trans('core/base::base.email_template.site_url'),
+            'site_logo' => trans('core/base::base.email_template.site_logo'),
+            'date_time' => trans('core/base::base.email_template.date_time'),
+            'date_year' => trans('core/base::base.email_template.date_year'),
             'site_admin_email' => trans('core/base::base.email_template.site_admin_email'),
         ];
 
@@ -215,6 +215,16 @@ class EmailHandler
     }
 
     /**
+     * @param string $template
+     * @param string $type
+     * @return array|SettingStore|string|null
+     */
+    public function getTemplateSubject(string $template, string $type = 'plugins')
+    {
+        return get_setting_email_subject($type, $this->module, $template);
+    }
+
+    /**
      * @param string $content
      * @param string $title
      * @param string $to
@@ -283,15 +293,15 @@ class EmailHandler
     public function initVariableValues()
     {
         $this->variableValues['core'] = [
-            'header'           => apply_filters(BASE_FILTER_EMAIL_TEMPLATE_HEADER,
+            'header' => apply_filters(BASE_FILTER_EMAIL_TEMPLATE_HEADER,
                 get_setting_email_template_content('core', 'base', 'header')),
-            'footer'           => apply_filters(BASE_FILTER_EMAIL_TEMPLATE_FOOTER,
+            'footer' => apply_filters(BASE_FILTER_EMAIL_TEMPLATE_FOOTER,
                 get_setting_email_template_content('core', 'base', 'footer')),
-            'site_title'       => setting('admin_title'),
-            'site_url'         => url(''),
-            'site_logo'        => setting('admin_logo') ? RvMedia::getImageUrl(setting('admin_logo')) : url(config('core.base.general.logo')),
-            'date_time'        => now()->toDateTimeString(),
-            'date_year'        => now()->format('Y'),
+            'site_title' => setting('admin_title'),
+            'site_url' => url(''),
+            'site_logo' => setting('admin_logo') ? RvMedia::getImageUrl(setting('admin_logo')) : url(config('core.base.general.logo')),
+            'date_time' => now()->toDateTimeString(),
+            'date_year' => now()->format('Y'),
             'site_admin_email' => setting('admin_email'),
         ];
     }
@@ -392,15 +402,5 @@ class EmailHandler
     public function getTemplateContent(string $template, string $type = 'plugins'): ?string
     {
         return get_setting_email_template_content($type, $this->module, $template);
-    }
-
-    /**
-     * @param string $template
-     * @param string $type
-     * @return array|SettingStore|string|null
-     */
-    public function getTemplateSubject(string $template, string $type = 'plugins')
-    {
-        return get_setting_email_subject($type, $this->module, $template);
     }
 }

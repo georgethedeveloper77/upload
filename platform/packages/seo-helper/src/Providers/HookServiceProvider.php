@@ -44,7 +44,7 @@ class HookServiceProvider extends ServiceProvider
     public function seoMetaBox()
     {
         $meta = [
-            'seo_title'       => null,
+            'seo_title' => null,
             'seo_description' => null,
         ];
 

@@ -3,16 +3,10 @@
 namespace Botble\ACL\Http\Controllers;
 
 use Assets;
-use Botble\Base\Events\UpdatedContentEvent;
-use Botble\Media\Services\ThumbnailService;
-use File;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 use Botble\ACL\Forms\PasswordForm;
 use Botble\ACL\Forms\ProfileForm;
 use Botble\ACL\Forms\UserForm;
-use Botble\ACL\Tables\UserTable;
+use Botble\ACL\Http\Requests\AvatarRequest;
 use Botble\ACL\Http\Requests\CreateUserRequest;
 use Botble\ACL\Http\Requests\UpdatePasswordRequest;
 use Botble\ACL\Http\Requests\UpdateProfileRequest;
@@ -21,15 +15,21 @@ use Botble\ACL\Repositories\Interfaces\RoleInterface;
 use Botble\ACL\Repositories\Interfaces\UserInterface;
 use Botble\ACL\Services\ChangePasswordService;
 use Botble\ACL\Services\CreateUserService;
+use Botble\ACL\Tables\UserTable;
 use Botble\Base\Events\CreatedContentEvent;
 use Botble\Base\Events\DeletedContentEvent;
+use Botble\Base\Events\UpdatedContentEvent;
 use Botble\Base\Forms\FormBuilder;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Media\Repositories\Interfaces\MediaFileInterface;
-use Botble\ACL\Http\Requests\AvatarRequest;
+use Botble\Media\Services\ThumbnailService;
 use Exception;
+use File;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use RvMedia;
 use Throwable;
@@ -62,7 +62,8 @@ class UserController extends BaseController
         UserInterface $userRepository,
         RoleInterface $roleRepository,
         MediaFileInterface $fileRepository
-    ) {
+    )
+    {
         $this->userRepository = $userRepository;
         $this->roleRepository = $roleRepository;
         $this->fileRepository = $fileRepository;
@@ -288,7 +289,8 @@ class UserController extends BaseController
         UpdatePasswordRequest $request,
         ChangePasswordService $service,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $request->merge(['id' => $id]);
         $result = $service->execute($request);
 

@@ -6,25 +6,23 @@ class Shortcode
 {
 
     /**
+     * Shortcode content
+     *
+     * @var string
+     */
+    public $content;
+    /**
      * Shortcode name
      *
      * @var string
      */
     protected $name;
-
     /**
      * Shortcode Attributes
      *
      * @var array
      */
     protected $attributes = [];
-
-    /**
-     * Shortcode content
-     *
-     * @var string
-     */
-    public $content;
 
     /**
      * Constructor

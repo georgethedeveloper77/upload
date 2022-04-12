@@ -15,8 +15,8 @@
 <!-- Page Content Wrapper -->
 <div class="page-content-wraper">
     <!-- Bread Crumb -->
-    {!! Theme::breadcrumb()->render() !!}
-    <!-- Bread Crumb -->
+{!! Theme::breadcrumb()->render() !!}
+<!-- Bread Crumb -->
 
     <!-- Page Content -->
     <section id="product-detail-page" class="content-page single-product-content">
@@ -63,17 +63,18 @@
                                      title="Rated {{ get_average_star_of_product($product->id) }} out of 5">
                                     <span style="width: {{ get_average_star_of_product($product->id) * 20 }}%"></span>
                                 </div>
-                                    <div class="product-rating-count"><a href="#list-reviews">( <span
-                                                    class="count">{{ get_count_reviewed_of_product($originalProduct->id) }}</span>
-                                            {{ __('Reviews') }} )</a>
-                                    </div>
+                                <div class="product-rating-count"><a href="#list-reviews">( <span
+                                            class="count">{{ get_count_reviewed_of_product($originalProduct->id) }}</span>
+                                        {{ __('Reviews') }} )</a>
+                                </div>
                             </div>
                         @endif
                         <div class="product-price">
                             @if ($originalProduct->front_sale_price !== $originalProduct->price)
                                 <del>{{ format_price($originalProduct->front_sale_price) }}</del>
                                 <span>
-                                    <span class="product-price-text">{{ format_price($originalProduct->front_sale_price) }}</span>
+                                    <span
+                                        class="product-price-text">{{ format_price($originalProduct->front_sale_price) }}</span>
                                 </span>
                             @else
                                 <span>
@@ -112,10 +113,10 @@
                         <div class="product-meta">
                             @if ($originalProduct->sku)
                                 <span>{{ __('SKU') }} : <span id="product-sku" class="sku"
-                                                  itemprop="sku">{{ $originalProduct->sku }}</span></span>
+                                                              itemprop="sku">{{ $originalProduct->sku }}</span></span>
                             @endif
                             <span><span
-                                        id="is-out-of-stock">{{ ! $originalProduct->isOutOfStock() ? __('In stock') : __('Out of stock') }}</span></span>
+                                    id="is-out-of-stock">{{ ! $originalProduct->isOutOfStock() ? __('In stock') : __('Out of stock') }}</span></span>
 
                             @if (!$product->categories->isEmpty())
                                 <span>{{ __('Categories') }} :
@@ -188,20 +189,21 @@
 
                 @if (EcommerceHelper::isReviewEnabled())
                     <div id="tab_reviews" role="tabpanel" class="tab-pane fade">
-                    <!-- Accordion Title -->
-                    <h6 class="product-collapse-title" data-toggle="collapse" data-target="#tab_reviews-coll">{{ __('Reviews') }}
-                        ({{ get_count_reviewed_of_product($product->id) }})</h6>
-                    <!-- End Accordion Title -->
-                    <!-- Accordion Content -->
-                    <div id="tab_reviews-coll" class=" product-collapse collapse container">
-                        <div class="row">
-                            <div class="review-form-wrapper col-md-12">
-                                {!! render_review_form($product->id) !!}
+                        <!-- Accordion Title -->
+                        <h6 class="product-collapse-title" data-toggle="collapse"
+                            data-target="#tab_reviews-coll">{{ __('Reviews') }}
+                            ({{ get_count_reviewed_of_product($product->id) }})</h6>
+                        <!-- End Accordion Title -->
+                        <!-- Accordion Content -->
+                        <div id="tab_reviews-coll" class=" product-collapse collapse container">
+                            <div class="row">
+                                <div class="review-form-wrapper col-md-12">
+                                    {!! render_review_form($product->id) !!}
+                                </div>
                             </div>
                         </div>
+                        <!-- End Accordion Content -->
                     </div>
-                    <!-- End Accordion Content -->
-                </div>
                 @endif
 
                 <div id="tab_more_products" role="tabpanel" class="tab-pane fade">
@@ -210,7 +212,7 @@
                     <div class="row">
                         <!-- Product Carousel -->
                         @php
-                            $up_sale_products = get_up_sale_products($product);
+                            $up_sale_products = get_up_sale_products($product)
                         @endphp
 
                         @if (! empty($up_sale_products))
@@ -221,7 +223,7 @@
 
                                     @foreach ($up_sale_products as $up_id)
                                         @php
-                                            $up_sale = get_product_by_id($up_id);
+                                            $up_sale = get_product_by_id($up_id)
                                         @endphp
                                         @include('plugins/ecommerce::themes.includes.default-product', ['product' => $up_sale])
                                     @endforeach
@@ -241,7 +243,7 @@
 
         <!-- Product Carousel -->
         @php
-            $relatedProducts = get_related_products($product);
+            $relatedProducts = get_related_products($product)
         @endphp
 
         @if (!empty($relatedProducts))
@@ -256,7 +258,7 @@
                 </div>
             </div>
 
-         @endif
+    @endif
     <!-- End Product Carousel -->
     </section>
 </div>

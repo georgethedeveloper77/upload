@@ -1,4 +1,4 @@
-@php $sslcommerzStatus = get_payment_setting('status', SSLCOMMERZ_PAYMENT_METHOD_NAME); @endphp
+@php $sslcommerzStatus = get_payment_setting('status', SSLCOMMERZ_PAYMENT_METHOD_NAME) @endphp
 <table class="table payment-method-item">
     <tbody>
     <tr class="border-pay-row">
@@ -49,9 +49,11 @@
                             <ul class="m-md-l" style="list-style-type:decimal">
                                 <li style="list-style-type:decimal">
                                     <p>For registration in Sandbox, click the link <a
-                                            href="https://developer.sslcommerz.com/registration/" target="_blank">https://developer.sslcommerz.com/registration/</a></p>
+                                            href="https://developer.sslcommerz.com/registration/" target="_blank">https://developer.sslcommerz.com/registration/</a>
+                                    </p>
                                     <p>For registration in Production, click the link <a
-                                            href="https://signup.sslcommerz.com/register" target="_blank">https://signup.sslcommerz.com/register</a></p>
+                                            href="https://signup.sslcommerz.com/register" target="_blank">https://signup.sslcommerz.com/register</a>
+                                    </p>
                                 </li>
                                 <li style="list-style-type:decimal">
                                     <p>{{ __('After registration at :name, you will have Store ID and Store Password (API/Secret key)', ['name' => 'SslCommerz']) }}</p>
@@ -68,33 +70,43 @@
                         <div class="form-group">
                             <label class="text-title-field"
                                    for="sslcommerz_name">{{ trans('plugins/payment::payment.method_name') }}</label>
-                            <input type="text" class="next-input" name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_name"
+                            <input type="text" class="next-input"
+                                   name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_name"
                                    id="sslcommerz_name" data-counter="400"
                                    value="{{ get_payment_setting('name', SSLCOMMERZ_PAYMENT_METHOD_NAME, __('Online payment via SslCommerz')) }}">
                         </div>
                         <div class="form-group">
-                            <label class="text-title-field" for="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_description">{{ __('Description') }}</label>
-                            <textarea class="next-input" name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_description" id="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_description">{{ get_payment_setting('description', SSLCOMMERZ_PAYMENT_METHOD_NAME, __('The largest payment gateway aggregator in Bangladesh and a pioneer in the FinTech industry since 2010')) }}</textarea>
+                            <label class="text-title-field"
+                                   for="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_description">{{ __('Description') }}</label>
+                            <textarea class="next-input" name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_description"
+                                      id="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_description">{{ get_payment_setting('description', SSLCOMMERZ_PAYMENT_METHOD_NAME, __('The largest payment gateway aggregator in Bangladesh and a pioneer in the FinTech industry since 2010')) }}</textarea>
                         </div>
                         <p class="payment-note">
-                            {{ trans('plugins/payment::payment.please_provide_information') }} <a target="_blank" href="https://sslcommerz.com">SslCommerz</a>:
+                            {{ trans('plugins/payment::payment.please_provide_information') }} <a target="_blank"
+                                                                                                  href="https://sslcommerz.com">SslCommerz</a>:
                         </p>
                         <div class="form-group">
-                            <label class="text-title-field" for="{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_id">{{ __('Store ID') }}</label>
+                            <label class="text-title-field"
+                                   for="{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_id">{{ __('Store ID') }}</label>
                             <input type="text" class="next-input"
-                                   name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_id" id="{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_id"
+                                   name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_id"
+                                   id="{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_id"
                                    value="{{ get_payment_setting('store_id', SSLCOMMERZ_PAYMENT_METHOD_NAME) }}">
                         </div>
                         <div class="form-group">
-                            <label class="text-title-field" for="{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_password">{{ __('Store Password (API/Secret key)') }}</label>
+                            <label class="text-title-field"
+                                   for="{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_password">{{ __('Store Password (API/Secret key)') }}</label>
                             <input type="password" class="next-input"
-                                   name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_password" id="{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_password"
+                                   name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_password"
+                                   id="{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_store_password"
                                    value="{{ get_payment_setting('store_password', SSLCOMMERZ_PAYMENT_METHOD_NAME) }}">
                         </div>
                         <div class="form-group">
                             {!! Form::hidden('payment_' . SSLCOMMERZ_PAYMENT_METHOD_NAME . '_mode', 1) !!}
                             <label class="next-label">
-                                <input type="checkbox" class="hrv-checkbox" value="0" name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_mode" @if (setting('payment_' . SSLCOMMERZ_PAYMENT_METHOD_NAME . '_mode') == 0) checked @endif>
+                                <input type="checkbox" class="hrv-checkbox" value="0"
+                                       name="payment_{{ SSLCOMMERZ_PAYMENT_METHOD_NAME }}_mode"
+                                       @if (setting('payment_' . SSLCOMMERZ_PAYMENT_METHOD_NAME . '_mode') == 0) checked @endif>
                                 {{ trans('plugins/payment::payment.sandbox_mode') }}
                             </label>
                         </div>

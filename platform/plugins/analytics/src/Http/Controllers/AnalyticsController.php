@@ -2,11 +2,11 @@
 
 namespace Botble\Analytics\Http\Controllers;
 
+use Analytics;
 use Botble\Analytics\Exceptions\InvalidConfiguration;
 use Botble\Analytics\Period;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use Analytics;
 use Carbon\Carbon;
 use Exception;
 use Throwable;
@@ -39,16 +39,16 @@ class AnalyticsController extends BaseController
             if ($dimensions === 'hour') {
                 foreach ($answer->rows as $dateRow) {
                     $visitorData[] = [
-                        'axis'      => (int)$dateRow[0] . 'h',
-                        'visitors'  => $dateRow[1],
+                        'axis' => (int)$dateRow[0] . 'h',
+                        'visitors' => $dateRow[1],
                         'pageViews' => $dateRow[2],
                     ];
                 }
             } else {
                 foreach ($answer->rows as $dateRow) {
                     $visitorData[] = [
-                        'axis'      => Carbon::parse($dateRow[0])->toDateString(),
-                        'visitors'  => $dateRow[1],
+                        'axis' => Carbon::parse($dateRow[0])->toDateString(),
+                        'visitors' => $dateRow[1],
                         'pageViews' => $dateRow[2],
                     ];
                 }

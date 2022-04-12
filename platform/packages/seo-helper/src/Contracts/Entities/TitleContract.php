@@ -7,6 +7,16 @@ use Botble\SeoHelper\Contracts\RenderableContract;
 interface TitleContract extends RenderableContract
 {
     /**
+     * Make a Title instance.
+     *
+     * @param string $title
+     * @param string $siteName
+     * @param string $separator
+     * @return $this
+     */
+    public static function make($title, $siteName = '', $separator = '-');
+
+    /**
      * Get title only (without site name or separator).
      *
      * @return string
@@ -86,14 +96,4 @@ interface TitleContract extends RenderableContract
      * @return $this
      */
     public function setMax($max);
-
-    /**
-     * Make a Title instance.
-     *
-     * @param string $title
-     * @param string $siteName
-     * @param string $separator
-     * @return $this
-     */
-    public static function make($title, $siteName = '', $separator = '-');
 }

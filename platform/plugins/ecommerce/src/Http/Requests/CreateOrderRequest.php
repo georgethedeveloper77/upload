@@ -14,7 +14,7 @@ class CreateOrderRequest extends Request
     public function rules()
     {
         return [
-            'customer_id'            => 'required|exists:ec_customers,id',
+            'customer_id' => 'required|exists:ec_customers,id',
             'customer_address.phone' => 'max:20',
         ];
     }

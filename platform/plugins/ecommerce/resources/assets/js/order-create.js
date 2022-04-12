@@ -16,7 +16,7 @@ Vue.prototype.__ = key => {
 
 Vue.filter('formatPrice', function (value) {
     return parseFloat(value).toFixed(2);
-})
+});
 
 new Vue({
     el: '#main-order',

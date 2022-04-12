@@ -1,11 +1,11 @@
 <?php
 
 return [
-    'pattern'   => '--slug--',
+    'pattern' => '--slug--',
     'supported' => [
         'Botble\Page\Models\Page' => 'Pages',
     ],
-    'prefixes'  => [
+    'prefixes' => [
 
     ],
     'disable_preview' => [

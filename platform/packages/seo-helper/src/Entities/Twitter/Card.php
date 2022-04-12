@@ -60,6 +60,61 @@ class Card implements TwitterCardContract
     }
 
     /**
+     * Check the card type.
+     *
+     * @param string $type
+     *
+     * @throws InvalidTwitterCardException
+     */
+    protected function checkType(&$type)
+    {
+        if (!is_string($type)) {
+            throw new InvalidTwitterCardException(
+                'The Twitter card type must be a string value, [' . gettype($type) . '] was given.'
+            );
+        }
+
+        $type = strtolower(trim($type));
+
+        if (!in_array($type, $this->types())) {
+            throw new InvalidTwitterCardException('The Twitter card type [' . $type . '] is not supported.');
+        }
+    }
+
+    /**
+     * Get all supported card types.
+     *
+     * @return array
+     */
+    public function types()
+    {
+        return [
+            static::TYPE_APP,
+            static::TYPE_GALLERY,
+            static::TYPE_PHOTO,
+            static::TYPE_PLAYER,
+            static::TYPE_PRODUCT,
+            static::TYPE_SUMMARY,
+            static::TYPE_SUMMARY_LARGE_IMAGE,
+        ];
+    }
+
+    /**
+     * Add a meta to the card.
+     *
+     * @param string $name
+     * @param string $content
+     *
+     * @return Card
+     */
+    public function addMeta($name, $content)
+    {
+        $this->meta->add(compact('name', 'content'));
+
+        return $this;
+    }
+
+    /**
      * Set card site.
      *
      * @param string $site
@@ -75,6 +130,32 @@ class Card implements TwitterCardContract
         $this->checkSite($site);
 
         return $this->addMeta('site', $site);
+    }
+
+    /**
+     * Check the card site.
+     *
+     * @param string $site
+     */
+    protected function checkSite(&$site)
+    {
+        $site = $this->prepareUsername($site);
+    }
+
+    /**
+     * Prepare username.
+     *
+     * @param string $username
+     *
+     * @return string
+     */
+    protected function prepareUsername($username)
+    {
+        if (!Str::startsWith($username, '@')) {
+            $username = '@' . $username;
+        }
+
+        return $username;
     }
 
     /**
@@ -132,55 +213,6 @@ class Card implements TwitterCardContract
     }
 
     /**
-     * Add a meta to the card.
-     *
-     * @param string $name
-     * @param string $content
-     *
-     * @return Card
-     */
-    public function addMeta($name, $content)
-    {
-        $this->meta->add(compact('name', 'content'));
-
-        return $this;
-    }
-
-    /**
-     * Get all supported card types.
-     *
-     * @return array
-     */
-    public function types()
-    {
-        return [
-            static::TYPE_APP,
-            static::TYPE_GALLERY,
-            static::TYPE_PHOTO,
-            static::TYPE_PLAYER,
-            static::TYPE_PRODUCT,
-            static::TYPE_SUMMARY,
-            static::TYPE_SUMMARY_LARGE_IMAGE,
-        ];
-    }
-
-    /**
-     * Render card images.
-     */
-    protected function loadImages()
-    {
-        if (count($this->images) == 1) {
-            $this->addMeta('image', $this->images[0]);
-
-            return;
-        }
-
-        foreach ($this->images as $number => $url) {
-            $this->addMeta('image{' . $number . '}', $url);
-        }
-    }
-
-    /**
      * Reset the card.
      *
      * @return Card
@@ -191,6 +223,16 @@ class Card implements TwitterCardContract
         $this->images = [];
 
         return $this;
+    }
+
+    /**
+     * Render the tag.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->render();
     }
 
     /**
@@ -208,60 +250,18 @@ class Card implements TwitterCardContract
     }
 
     /**
-     * Render the tag.
-     *
-     * @return string
+     * Render card images.
      */
-    public function __toString()
+    protected function loadImages()
     {
-        return $this->render();
-    }
+        if (count($this->images) == 1) {
+            $this->addMeta('image', $this->images[0]);
 
-    /**
-     * Check the card type.
-     *
-     * @param string $type
-     *
-     * @throws InvalidTwitterCardException
-     */
-    protected function checkType(&$type)
-    {
-        if (!is_string($type)) {
-            throw new InvalidTwitterCardException(
-                'The Twitter card type must be a string value, [' . gettype($type) . '] was given.'
-            );
+            return;
         }
 
-        $type = strtolower(trim($type));
-
-        if (!in_array($type, $this->types())) {
-            throw new InvalidTwitterCardException('The Twitter card type [' . $type . '] is not supported.');
+        foreach ($this->images as $number => $url) {
+            $this->addMeta('image{' . $number . '}', $url);
         }
-    }
-
-    /**
-     * Check the card site.
-     *
-     * @param string $site
-     */
-    protected function checkSite(&$site)
-    {
-        $site = $this->prepareUsername($site);
-    }
-
-    /**
-     * Prepare username.
-     *
-     * @param string $username
-     *
-     * @return string
-     */
-    protected function prepareUsername($username)
-    {
-        if (!Str::startsWith($username, '@')) {
-            $username = '@' . $username;
-        }
-
-        return $username;
     }
 }

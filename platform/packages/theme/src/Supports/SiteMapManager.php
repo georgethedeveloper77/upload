@@ -4,8 +4,8 @@ namespace Botble\Theme\Supports;
 
 use AdminBar;
 use BaseHelper;
-use Illuminate\Contracts\Container\BindingResolutionException;
 use Botble\Sitemap\Sitemap;
+use Illuminate\Contracts\Container\BindingResolutionException;
 
 class SiteMapManager
 {

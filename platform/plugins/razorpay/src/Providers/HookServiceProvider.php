@@ -75,8 +75,8 @@ class HookServiceProvider extends ServiceProvider
             $receiptId = Str::random(20);
 
             $order = $api->order->create([
-                'receipt'  => $receiptId,
-                'amount'   => $data['amount'] * 100,
+                'receipt' => $receiptId,
+                'amount' => $data['amount'] * 100,
                 'currency' => $data['currency'],
             ]);
 
@@ -102,9 +102,9 @@ class HookServiceProvider extends ServiceProvider
                     get_payment_setting('secret', RAZORPAY_PAYMENT_METHOD_NAME));
 
                 $api->utility->verifyPaymentSignature([
-                    'razorpay_signature'  => $request->input('razorpay_signature'),
+                    'razorpay_signature' => $request->input('razorpay_signature'),
                     'razorpay_payment_id' => $request->input('razorpay_payment_id'),
-                    'razorpay_order_id'   => $request->input('razorpay_order_id'),
+                    'razorpay_order_id' => $request->input('razorpay_order_id'),
                 ]);
 
                 $status = PaymentStatusEnum::COMPLETED;
@@ -119,13 +119,13 @@ class HookServiceProvider extends ServiceProvider
             }
 
             app(PaymentInterface::class)->create([
-                'account_id'      => Arr::get($data, 'account_id'),
-                'amount'          => $data['amount'],
-                'currency'        => $data['currency'],
-                'charge_id'       => $data['charge_id'],
+                'account_id' => Arr::get($data, 'account_id'),
+                'amount' => $data['amount'],
+                'currency' => $data['currency'],
+                'charge_id' => $data['charge_id'],
                 'payment_channel' => RAZORPAY_PAYMENT_METHOD_NAME,
-                'status'          => $status,
-                'order_id'        => $request->input('order_id'),
+                'status' => $status,
+                'order_id' => $request->input('order_id'),
             ]);
         }
 

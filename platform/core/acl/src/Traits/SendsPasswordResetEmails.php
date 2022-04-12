@@ -58,6 +58,16 @@ trait SendsPasswordResetEmails
     }
 
     /**
+     * Get the broker to be used during password reset.
+     *
+     * @return PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker();
+    }
+
+    /**
      * Get the needed authentication credentials from the request.
      *
      * @param Request $request
@@ -101,15 +111,5 @@ trait SendsPasswordResetEmails
         return back()
             ->withInput($request->only('email'))
             ->withErrors(['email' => trans($response)]);
-    }
-
-    /**
-     * Get the broker to be used during password reset.
-     *
-     * @return PasswordBroker
-     */
-    public function broker()
-    {
-        return Password::broker();
     }
 }

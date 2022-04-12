@@ -26,13 +26,13 @@ trait PaymentTrait
         $paymentChannel = Arr::get($data, 'payment_channel', PaymentMethodEnum::STRIPE);
 
         return app(PaymentInterface::class)->create([
-            'account_id'      => Arr::get($data, 'account_id'),
-            'amount'          => $data['amount'],
-            'currency'        => $data['currency'],
-            'charge_id'       => $data['charge_id'],
-            'order_id'        => $data['order_id'],
+            'account_id' => Arr::get($data, 'account_id'),
+            'amount' => $data['amount'],
+            'currency' => $data['currency'],
+            'charge_id' => $data['charge_id'],
+            'order_id' => $data['order_id'],
             'payment_channel' => $paymentChannel,
-            'status'          => Arr::get($data, 'status', PaymentStatusEnum::PENDING),
+            'status' => Arr::get($data, 'status', PaymentStatusEnum::PENDING),
         ]);
     }
 }

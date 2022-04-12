@@ -21,9 +21,9 @@ class MailConfigServiceProvider extends ServiceProvider
             $config->set([
                 'mail' => array_merge($config->get('mail'), [
                     'default' => $setting->get('email_driver', $config->get('mail.default')),
-                    'from'    => [
+                    'from' => [
                         'address' => $setting->get('email_from_address', $config->get('mail.from.address')),
-                        'name'    => $setting->get('email_from_name', $config->get('mail.from.name')),
+                        'name' => $setting->get('email_from_name', $config->get('mail.from.name')),
                     ],
                 ]),
             ]);
@@ -32,22 +32,22 @@ class MailConfigServiceProvider extends ServiceProvider
                 case 'smtp':
                     $config->set([
                         'mail.mailers.smtp' => array_merge($config->get('mail.mailers.smtp'), [
-                            'transport'  => 'smtp',
-                            'host'       => $setting->get('email_host', $config->get('mail.mailers.smtp.host')),
-                            'port'       => (int)$setting->get('email_port', $config->get('mail.mailers.smtp.port')),
+                            'transport' => 'smtp',
+                            'host' => $setting->get('email_host', $config->get('mail.mailers.smtp.host')),
+                            'port' => (int)$setting->get('email_port', $config->get('mail.mailers.smtp.port')),
                             'encryption' => $setting->get('email_encryption',
                                 $config->get('mail.mailers.smtp.encryption')),
-                            'username'   => $setting->get('email_username', $config->get('mail.mailers.smtp.username')),
-                            'password'   => $setting->get('email_password', $config->get('mail.mailers.smtp.password')),
+                            'username' => $setting->get('email_username', $config->get('mail.mailers.smtp.username')),
+                            'password' => $setting->get('email_password', $config->get('mail.mailers.smtp.password')),
                         ]),
                     ]);
                     break;
                 case 'mailgun':
                     $config->set([
                         'services.mailgun' => [
-                            'domain'   => $setting->get('email_mail_gun_domain',
+                            'domain' => $setting->get('email_mail_gun_domain',
                                 $config->get('services.mailgun.domain')),
-                            'secret'   => $setting->get('email_mail_gun_secret',
+                            'secret' => $setting->get('email_mail_gun_secret',
                                 $config->get('services.mailgun.secret')),
                             'endpoint' => $setting->get('email_mail_gun_endpoint',
                                 $config->get('services.mailgun.endpoint')),
@@ -70,7 +70,7 @@ class MailConfigServiceProvider extends ServiceProvider
                 case 'ses':
                     $config->set([
                         'services.ses' => [
-                            'key'    => $setting->get('email_ses_key', $config->get('services.ses.key')),
+                            'key' => $setting->get('email_ses_key', $config->get('services.ses.key')),
                             'secret' => $setting->get('email_ses_secret', $config->get('services.ses.secret')),
                             'region' => $setting->get('email_ses_region', $config->get('services.ses.region')),
                         ],

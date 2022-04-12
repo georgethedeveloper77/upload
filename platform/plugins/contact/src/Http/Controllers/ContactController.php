@@ -3,6 +3,8 @@
 namespace Botble\Contact\Http\Controllers;
 
 use Botble\Base\Events\BeforeEditContentEvent;
+use Botble\Base\Events\DeletedContentEvent;
+use Botble\Base\Events\UpdatedContentEvent;
 use Botble\Base\Forms\FormBuilder;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
@@ -11,15 +13,15 @@ use Botble\Contact\Enums\ContactStatusEnum;
 use Botble\Contact\Forms\ContactForm;
 use Botble\Contact\Http\Requests\ContactReplyRequest;
 use Botble\Contact\Http\Requests\EditContactRequest;
+use Botble\Contact\Repositories\Interfaces\ContactInterface;
 use Botble\Contact\Repositories\Interfaces\ContactReplyInterface;
 use Botble\Contact\Tables\ContactTable;
-use Botble\Contact\Repositories\Interfaces\ContactInterface;
-use Botble\Setting\Supports\SettingStore;
 use EmailHandler;
 use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Botble\Base\Events\DeletedContentEvent;
-use Botble\Base\Events\UpdatedContentEvent;
+use Illuminate\View\View;
+use Throwable;
 
 class ContactController extends BaseController
 {
@@ -40,8 +42,8 @@ class ContactController extends BaseController
 
     /**
      * @param ContactTable $dataTable
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Throwable
+     * @return Factory|View
+     * @throws Throwable
      */
     public function index(ContactTable $dataTable)
     {
@@ -132,13 +134,14 @@ class ContactController extends BaseController
         ContactReplyRequest $request,
         BaseHttpResponse $response,
         ContactReplyInterface $contactReplyRepository
-    ) {
+    )
+    {
         $contact = $this->contactRepository->findOrFail($id);
 
         EmailHandler::send($request->input('message'), 'Re: ' . $contact->subject, $contact->email);
 
         $contactReplyRepository->create([
-            'message'    => $request->input('message'),
+            'message' => $request->input('message'),
             'contact_id' => $id,
         ]);
 

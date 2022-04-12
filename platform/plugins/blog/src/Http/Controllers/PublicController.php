@@ -7,6 +7,7 @@ use Botble\Blog\Models\Post;
 use Botble\Blog\Models\Tag;
 use Botble\Blog\Repositories\Interfaces\PostInterface;
 use Botble\Blog\Services\BlogService;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Response;
@@ -40,7 +41,7 @@ class PublicController extends Controller
     /**
      * @param string $slug
      * @param Request $request
-     * @return \Illuminate\Http\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function getTag($slug, BlogService $blogService)
     {
@@ -63,7 +64,7 @@ class PublicController extends Controller
     /**
      * @param string $slug
      * @param BlogService $blogService
-     * @return \Illuminate\Http\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function getPost($slug, BlogService $blogService)
     {
@@ -86,7 +87,7 @@ class PublicController extends Controller
     /**
      * @param string $slug
      * @param BlogService $blogService
-     * @return \Illuminate\Http\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function getCategory($slug, BlogService $blogService)
     {

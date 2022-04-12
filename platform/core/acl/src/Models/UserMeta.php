@@ -2,8 +2,8 @@
 
 namespace Botble\ACL\Models;
 
-use Illuminate\Support\Facades\Auth;
 use Botble\Base\Models\BaseModel;
+use Illuminate\Support\Facades\Auth;
 
 class UserMeta extends BaseModel
 {
@@ -48,7 +48,7 @@ class UserMeta extends BaseModel
 
         $meta = self::firstOrCreate([
             'user_id' => $userId,
-            'key'     => $key,
+            'key' => $key,
         ]);
 
         return $meta->update(['value' => $value]);
@@ -68,7 +68,7 @@ class UserMeta extends BaseModel
 
         $meta = self::where([
             'user_id' => $userId,
-            'key'     => $key,
+            'key' => $key,
         ])->select('value')->first();
 
         if (!empty($meta)) {

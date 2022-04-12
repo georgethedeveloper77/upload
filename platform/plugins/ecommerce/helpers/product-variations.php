@@ -63,7 +63,7 @@ if (!function_exists('render_product_swatches')) {
 
         $params = array_merge([
             'selected' => $selected,
-            'view'     => 'plugins/ecommerce::themes.attributes.swatches-renderer',
+            'view' => 'plugins/ecommerce::themes.attributes.swatches-renderer',
         ], $params);
 
         $support = app(RenderProductSwatchesSupport::class);
@@ -93,13 +93,13 @@ if (!function_exists('get_ecommerce_attribute_set')) {
         $attributeSets = app(ProductAttributeSetInterface::class)
             ->advancedGet([
                 'condition' => [
-                    'status'        => BaseStatusEnum::PUBLISHED,
+                    'status' => BaseStatusEnum::PUBLISHED,
                     'is_searchable' => 1,
                 ],
-                'order_by'  => [
+                'order_by' => [
                     'order' => 'ASC',
                 ],
-                'with'      => [
+                'with' => [
                     'attributes',
                 ],
             ]);

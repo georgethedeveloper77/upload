@@ -1,8 +1,9 @@
 <ul {!! $options !!}>
     @foreach ($items as $key => $row)
-        @php $id = 'menu-id-' . strtolower(Str::slug(str_replace('\\', ' ', get_class($model)))) . '-' . $row->id; @endphp
+        @php $id = 'menu-id-' . strtolower(Str::slug(str_replace('\\', ' ', get_class($model)))) . '-' . $row->id @endphp
         <li>
-            <label for="{{ $id }}" data-title="{{ $row->name }}" data-reference-id="{{ $row->id }}" data-reference-type="{{ get_class($model) }}">
+            <label for="{{ $id }}" data-title="{{ $row->name }}" data-reference-id="{{ $row->id }}"
+                   data-reference-type="{{ get_class($model) }}">
                 {!! Form::checkbox('menu_id', $row->id, null, compact('id')) !!}
                 {{ $row->name }}
             </label>

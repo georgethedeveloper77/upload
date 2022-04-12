@@ -11,7 +11,8 @@
                 <div class="wrapper-action">
                     @if ($actions)
                         <div class="btn-group">
-                            <a class="btn btn-secondary dropdown-toggle" href="#" data-toggle="dropdown">{{ trans('core/table::table.bulk_actions') }}
+                            <a class="btn btn-secondary dropdown-toggle" href="#"
+                               data-toggle="dropdown">{{ trans('core/table::table.bulk_actions') }}
                             </a>
                             <ul class="dropdown-menu">
                                 @foreach ($actions as $action)
@@ -23,13 +24,15 @@
                         </div>
                     @endif
                     @if ($table->isHasFilter())
-                        <button class="btn btn-primary btn-show-table-options">{{ trans('core/table::table.filters') }}</button>
+                        <button
+                            class="btn btn-primary btn-show-table-options">{{ trans('core/table::table.filters') }}</button>
                     @endif
                 </div>
             </div>
         </div>
         <div class="portlet-body">
-            <div class="table-responsive @if ($actions) table-has-actions @endif @if ($table->isHasFilter()) table-has-filter @endif">
+            <div
+                class="table-responsive @if ($actions) table-has-actions @endif @if ($table->isHasFilter()) table-has-filter @endif">
                 @section('main-table')
                     {!! $dataTable->table(compact('id', 'class'), false) !!}
                 @show

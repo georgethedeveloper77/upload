@@ -12,17 +12,21 @@
                             <form class="add-locale-form" action="{{ route('translations.locales') }}" method="POST">
                                 @csrf
                                 <div class="form-group">
-                                    <label for="locale_id" class="control-label">{{ trans('plugins/translation::translation.choose_language') }}</label>
+                                    <label for="locale_id"
+                                           class="control-label">{{ trans('plugins/translation::translation.choose_language') }}</label>
                                     <select id="locale_id" name="locale" class="form-control select-search-full">
                                         <option>{{ trans('plugins/translation::translation.select_language') }}</option>
                                         @foreach ($languages as $key => $language)
-                                            <option value="{{ $key }}" data-language="{{ json_encode($language) }}"> {{ $language[2] }} - {{ $language[1] }}</option>
+                                            <option value="{{ $key }}"
+                                                    data-language="{{ json_encode($language) }}"> {{ $language[2] }}
+                                                - {{ $language[1] }}</option>
                                         @endforeach
                                     </select>
                                 </div>
 
                                 <p class="submit">
-                                    <button class="btn btn-primary" type="submit">{{ trans('plugins/translation::translation.add_new_language') }}</button>
+                                    <button class="btn btn-primary"
+                                            type="submit">{{ trans('plugins/translation::translation.add_new_language') }}</button>
                                 </p>
                             </form>
                         </div>
@@ -33,16 +37,20 @@
                         <table class="table table-hover table-language table-header-color" style="background: #f1f1f1;">
                             <thead>
                             <tr>
-                                <th class="text-left"><span>{{ trans('plugins/translation::translation.name') }}</span></th>
-                                <th class="text-center"><span>{{ trans('plugins/translation::translation.locale') }}</span></th>
-                                <th class="text-center"><span>{{ trans('plugins/translation::translation.flag') }}</span></th>
-                                <th class="text-center"><span>{{ trans('plugins/translation::translation.actions') }}</span></th>
+                                <th class="text-left"><span>{{ trans('plugins/translation::translation.name') }}</span>
+                                </th>
+                                <th class="text-center">
+                                    <span>{{ trans('plugins/translation::translation.locale') }}</span></th>
+                                <th class="text-center">
+                                    <span>{{ trans('plugins/translation::translation.flag') }}</span></th>
+                                <th class="text-center">
+                                    <span>{{ trans('plugins/translation::translation.actions') }}</span></th>
                             </tr>
                             </thead>
                             <tbody>
-                                @foreach ($locales as $item)
-                                    @include('plugins/translation::partials.locale-item', compact('item'))
-                                @endforeach
+                            @foreach ($locales as $item)
+                                @include('plugins/translation::partials.locale-item', compact('item'))
+                            @endforeach
                             </tbody>
                         </table>
                     </div>

@@ -5,11 +5,11 @@ namespace Botble\Blog\Tables;
 use BaseHelper;
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Blog\Models\Category;
-use Html;
-use Illuminate\Support\Facades\Auth;
 use Botble\Blog\Repositories\Interfaces\CategoryInterface;
 use Botble\Table\Abstracts\TableAbstract;
+use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class CategoryTable extends TableAbstract
@@ -100,28 +100,28 @@ class CategoryTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'id',
+            'id' => [
+                'name' => 'id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'name'       => [
-                'name'  => 'name',
+            'name' => [
+                'name' => 'name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
             'created_at' => [
-                'name'  => 'created_at',
+                'name' => 'created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
             'updated_at' => [
-                'name'  => 'updated_at',
+                'name' => 'updated_at',
                 'title' => trans('core/base::tables.updated_at'),
                 'width' => '100px',
             ],
-            'status'     => [
-                'name'  => 'status',
+            'status' => [
+                'name' => 'status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
             ],
@@ -152,20 +152,20 @@ class CategoryTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'categories.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'categories.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'categories.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'categories.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'categories.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

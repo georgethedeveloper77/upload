@@ -14,15 +14,21 @@
                     </div>
                     <div class="app-footer">
                         <div class="app-description" title="{{ $plugin->description }}">{{ $plugin->description }}</div>
-                        <div class="app-author">{{ trans('packages/plugin-management::plugin.author') }}: <a href="{{ $plugin->url }}" target="_blank">{{ $plugin->author }}</a></div>
-                        <div class="app-version">{{ trans('packages/plugin-management::plugin.version') }}: {{ $plugin->version }}</div>
+                        <div class="app-author">{{ trans('packages/plugin-management::plugin.author') }}: <a
+                                href="{{ $plugin->url }}" target="_blank">{{ $plugin->author }}</a></div>
+                        <div class="app-version">{{ trans('packages/plugin-management::plugin.version') }}
+                            : {{ $plugin->version }}</div>
                         <div class="app-actions">
                             @if (Auth::user()->hasPermission('plugins.edit'))
-                                <button class="btn @if ($plugin->status) btn-warning @else btn-info @endif btn-trigger-change-status" data-plugin="{{ $plugin->path }}" data-status="{{ $plugin->status }}">@if ($plugin->status) {{ trans('packages/plugin-management::plugin.deactivate') }} @else {{ trans('packages/plugin-management::plugin.activate') }} @endif</button>
+                                <button
+                                    class="btn @if ($plugin->status) btn-warning @else btn-info @endif btn-trigger-change-status"
+                                    data-plugin="{{ $plugin->path }}"
+                                    data-status="{{ $plugin->status }}">@if ($plugin->status) {{ trans('packages/plugin-management::plugin.deactivate') }} @else {{ trans('packages/plugin-management::plugin.activate') }} @endif</button>
                             @endif
 
                             @if (Auth::user()->hasPermission('plugins.remove'))
-                                <button class="btn btn-danger btn-trigger-remove-plugin" data-plugin="{{ $plugin->path }}">{{ trans('packages/plugin-management::plugin.remove') }}</button>
+                                <button class="btn btn-danger btn-trigger-remove-plugin"
+                                        data-plugin="{{ $plugin->path }}">{{ trans('packages/plugin-management::plugin.remove') }}</button>
                             @endif
                         </div>
                     </div>

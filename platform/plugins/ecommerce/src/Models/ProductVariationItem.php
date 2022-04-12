@@ -8,10 +8,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ProductVariationItem extends BaseModel
 {
     /**
+     * @var bool
+     */
+    public $timestamps = false;
+    /**
      * @var string
      */
     protected $table = 'ec_product_variation_items';
-
     /**
      * @var array
      */
@@ -19,11 +22,6 @@ class ProductVariationItem extends BaseModel
         'attribute_id',
         'variation_id',
     ];
-
-    /**
-     * @var bool
-     */
-    public $timestamps = false;
 
     /**
      * @return BelongsTo

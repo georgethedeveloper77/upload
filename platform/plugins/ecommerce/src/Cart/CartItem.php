@@ -94,6 +94,60 @@ class CartItem implements Arrayable, Jsonable
     }
 
     /**
+     * Generate a unique id for the cart item.
+     *
+     * @param string $id
+     * @param array $options
+     * @return string
+     */
+    protected function generateRowId($id, array $options)
+    {
+        ksort($options);
+
+        return md5($id . serialize($options));
+    }
+
+    /**
+     * Create a new instance from a Buyable.
+     *
+     * @param Buyable $item
+     * @param array $options
+     * @return CartItem
+     */
+    public static function fromBuyable(Buyable $item, array $options = [])
+    {
+        return new self($item->getBuyableIdentifier($options), $item->getBuyableDescription($options),
+            $item->getBuyablePrice($options), $options);
+    }
+
+    /**
+     * Create a new instance from the given array.
+     *
+     * @param array $attributes
+     * @return CartItem
+     */
+    public static function fromArray(array $attributes)
+    {
+        $options = Arr::get($attributes, 'options', []);
+
+        return new self($attributes['id'], $attributes['name'], $attributes['price'], $options);
+    }
+
+    /**
+     * Create a new instance from the given attributes.
+     *
+     * @param int|string $id
+     * @param string $name
+     * @param float $price
+     * @param array $options
+     * @return CartItem
+     */
+    public static function fromAttributes($id, $name, $price, array $options = [])
+    {
+        return new self($id, $name, $price, $options);
+    }
+
+    /**
      * Returns the formatted price without TAX.
      *
      * @param int $decimals
@@ -104,6 +158,32 @@ class CartItem implements Arrayable, Jsonable
     public function price($decimals = null, $decimalPoint = null, $thousandSeperator = null)
     {
         return $this->numberFormat($this->price, $decimals, $decimalPoint, $thousandSeperator);
+    }
+
+    /**
+     * Get the formatted number.
+     *
+     * @param float $value
+     * @param int $decimals
+     * @param string $decimalPoint
+     * @param $thousandSeparator
+     * @return string
+     */
+    protected function numberFormat($value, $decimals, $decimalPoint, $thousandSeparator)
+    {
+        if (empty($decimals)) {
+            $decimals = empty(config('plugins.ecommerce.cart.format.decimals')) ? 2 : config('plugins.ecommerce.cart.format.decimals');
+        }
+
+        if (empty($decimalPoint)) {
+            $decimalPoint = empty(config('plugins.ecommerce.cart.format.decimal_point')) ? '.' : config('plugins.ecommerce.cart.format.decimal_point');
+        }
+
+        if (empty($thousandSeparator)) {
+            $thousandSeparator = empty(config('plugins.ecommerce.cart.format.thousand_separator')) ? ',' : config('plugins.ecommerce.cart.format.thousand_separator');
+        }
+
+        return number_format($value, $decimals, $decimalPoint, $thousandSeparator);
     }
 
     /**
@@ -285,79 +365,6 @@ class CartItem implements Arrayable, Jsonable
     }
 
     /**
-     * Create a new instance from a Buyable.
-     *
-     * @param Buyable $item
-     * @param array $options
-     * @return CartItem
-     */
-    public static function fromBuyable(Buyable $item, array $options = [])
-    {
-        return new self($item->getBuyableIdentifier($options), $item->getBuyableDescription($options),
-            $item->getBuyablePrice($options), $options);
-    }
-
-    /**
-     * Create a new instance from the given array.
-     *
-     * @param array $attributes
-     * @return CartItem
-     */
-    public static function fromArray(array $attributes)
-    {
-        $options = Arr::get($attributes, 'options', []);
-
-        return new self($attributes['id'], $attributes['name'], $attributes['price'], $options);
-    }
-
-    /**
-     * Create a new instance from the given attributes.
-     *
-     * @param int|string $id
-     * @param string $name
-     * @param float $price
-     * @param array $options
-     * @return CartItem
-     */
-    public static function fromAttributes($id, $name, $price, array $options = [])
-    {
-        return new self($id, $name, $price, $options);
-    }
-
-    /**
-     * Generate a unique id for the cart item.
-     *
-     * @param string $id
-     * @param array $options
-     * @return string
-     */
-    protected function generateRowId($id, array $options)
-    {
-        ksort($options);
-
-        return md5($id . serialize($options));
-    }
-
-    /**
-     * Get the instance as an array.
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        return [
-            'rowId'    => $this->rowId,
-            'id'       => $this->id,
-            'name'     => $this->name,
-            'qty'      => $this->qty,
-            'price'    => $this->price,
-            'options'  => $this->options->toArray(),
-            'tax'      => $this->tax,
-            'subtotal' => $this->subtotal,
-        ];
-    }
-
-    /**
      * Convert the object to its JSON representation.
      *
      * @param int $options
@@ -369,28 +376,21 @@ class CartItem implements Arrayable, Jsonable
     }
 
     /**
-     * Get the formatted number.
+     * Get the instance as an array.
      *
-     * @param float $value
-     * @param int $decimals
-     * @param string $decimalPoint
-     * @param $thousandSeparator
-     * @return string
+     * @return array
      */
-    protected function numberFormat($value, $decimals, $decimalPoint, $thousandSeparator)
+    public function toArray()
     {
-        if (empty($decimals)) {
-            $decimals = empty(config('plugins.ecommerce.cart.format.decimals')) ? 2 : config('plugins.ecommerce.cart.format.decimals');
-        }
-
-        if (empty($decimalPoint)) {
-            $decimalPoint = empty(config('plugins.ecommerce.cart.format.decimal_point')) ? '.' : config('plugins.ecommerce.cart.format.decimal_point');
-        }
-
-        if (empty($thousandSeparator)) {
-            $thousandSeparator = empty(config('plugins.ecommerce.cart.format.thousand_separator')) ? ',' : config('plugins.ecommerce.cart.format.thousand_separator');
-        }
-
-        return number_format($value, $decimals, $decimalPoint, $thousandSeparator);
+        return [
+            'rowId' => $this->rowId,
+            'id' => $this->id,
+            'name' => $this->name,
+            'qty' => $this->qty,
+            'price' => $this->price,
+            'options' => $this->options->toArray(),
+            'tax' => $this->tax,
+            'subtotal' => $this->subtotal,
+        ];
     }
 }

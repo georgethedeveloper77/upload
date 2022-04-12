@@ -3,9 +3,8 @@
 namespace Botble\ACL\Tables;
 
 use BaseHelper;
-use Botble\ACL\Models\User;
-use Illuminate\Support\Facades\Auth;
 use Botble\ACL\Enums\UserStatusEnum;
+use Botble\ACL\Models\User;
 use Botble\ACL\Repositories\Interfaces\ActivationInterface;
 use Botble\ACL\Repositories\Interfaces\UserInterface;
 use Botble\ACL\Services\ActivateUserService;
@@ -15,6 +14,7 @@ use Exception;
 use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class UserTable extends TableAbstract
@@ -47,7 +47,8 @@ class UserTable extends TableAbstract
         UrlGenerator $urlGenerator,
         UserInterface $userRepository,
         ActivateUserService $service
-    ) {
+    )
+    {
         $this->repository = $userRepository;
         $this->service = $service;
         $this->setOption('id', 'table-users');
@@ -149,33 +150,33 @@ class UserTable extends TableAbstract
     public function columns()
     {
         return [
-            'username'   => [
-                'name'  => 'users.username',
+            'username' => [
+                'name' => 'users.username',
                 'title' => trans('core/acl::users.username'),
                 'class' => 'text-left',
             ],
-            'email'      => [
-                'name'  => 'users.email',
+            'email' => [
+                'name' => 'users.email',
                 'title' => trans('core/acl::users.email'),
                 'class' => 'text-left',
             ],
-            'role_name'  => [
-                'name'       => 'role_name',
-                'title'      => trans('core/acl::users.role'),
+            'role_name' => [
+                'name' => 'role_name',
+                'title' => trans('core/acl::users.role'),
                 'searchable' => false,
             ],
             'created_at' => [
-                'name'  => 'users.created_at',
+                'name' => 'users.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
-            'status'     => [
-                'name'  => 'users.updated_at',
+            'status' => [
+                'name' => 'users.updated_at',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
             ],
             'super_user' => [
-                'name'  => 'users.super_user',
+                'name' => 'users.super_user',
                 'title' => trans('core/acl::users.is_super'),
                 'width' => '100px',
             ],
@@ -225,25 +226,25 @@ class UserTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'users.username'   => [
-                'title'    => trans('core/acl::users.username'),
-                'type'     => 'text',
+            'users.username' => [
+                'title' => trans('core/acl::users.username'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'users.email'      => [
-                'title'    => trans('core/base::tables.email'),
-                'type'     => 'text',
+            'users.email' => [
+                'title' => trans('core/base::tables.email'),
+                'type' => 'text',
                 'validate' => 'required|max:120|email',
             ],
-            'users.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => UserStatusEnum::labels(),
+            'users.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => UserStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', UserStatusEnum::values()),
             ],
             'users.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }
@@ -255,13 +256,13 @@ class UserTable extends TableAbstract
     {
         return [
             'operations' => [
-                'title'      => trans('core/base::tables.operations'),
-                'width'      => '350px',
-                'class'      => 'text-right',
-                'orderable'  => false,
+                'title' => trans('core/base::tables.operations'),
+                'width' => '350px',
+                'class' => 'text-right',
+                'orderable' => false,
                 'searchable' => false,
                 'exportable' => false,
-                'printable'  => false,
+                'printable' => false,
             ],
         ];
     }

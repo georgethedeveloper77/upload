@@ -15,12 +15,12 @@ class AddCustomerWhenCreateOrderRequest extends Request
     public function rules()
     {
         return [
-            'name'       => 'required|max:255',
-            'email'      => 'required|max:60|min:6|email|unique:ec_customers',
-            'phone'      => 'required|numeric',
-            'state'      => 'required|max:120',
-            'city'       => 'required|max:120',
-            'address'    => 'required|max:120',
+            'name' => 'required|max:255',
+            'email' => 'required|max:60|min:6|email|unique:ec_customers',
+            'phone' => 'required|numeric',
+            'state' => 'required|max:120',
+            'city' => 'required|max:120',
+            'address' => 'required|max:120',
             'is_default' => 'integer|min:0|max:1',
         ];
     }

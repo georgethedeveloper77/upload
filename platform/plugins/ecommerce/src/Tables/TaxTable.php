@@ -103,34 +103,34 @@ class TaxTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'ec_taxes.id',
+            'id' => [
+                'name' => 'ec_taxes.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
                 'class' => 'text-left',
             ],
-            'title'      => [
-                'name'  => 'ec_taxes.title',
+            'title' => [
+                'name' => 'ec_taxes.title',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
             'percentage' => [
-                'name'  => 'ec_taxes.percentage',
+                'name' => 'ec_taxes.percentage',
                 'title' => trans('plugins/ecommerce::tax.percentage'),
                 'class' => 'text-center',
             ],
-            'priority'   => [
-                'name'  => 'ec_taxes.priority',
+            'priority' => [
+                'name' => 'ec_taxes.priority',
                 'title' => trans('plugins/ecommerce::tax.priority'),
                 'class' => 'text-center',
             ],
-            'status'     => [
-                'name'  => 'ec_taxes.status',
+            'status' => [
+                'name' => 'ec_taxes.status',
                 'title' => trans('core/base::tables.status'),
                 'class' => 'text-center',
             ],
             'created_at' => [
-                'name'  => 'ec_taxes.created_at',
+                'name' => 'ec_taxes.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-left',
@@ -162,20 +162,20 @@ class TaxTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'ec_taxes.title'      => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'ec_taxes.title' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'ec_taxes.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'ec_taxes.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'ec_taxes.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

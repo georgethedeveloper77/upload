@@ -16,12 +16,12 @@ class AddressRequest extends Request
     public function rules()
     {
         $rules = [
-            'name'       => 'required|max:255',
-            'email'      => 'email|nullable|max:60',
-            'phone'      => 'required|numeric',
-            'state'      => 'required|max:120',
-            'city'       => 'required|max:120',
-            'address'    => 'required|max:120',
+            'name' => 'required|max:255',
+            'email' => 'email|nullable|max:60',
+            'phone' => 'required|numeric',
+            'state' => 'required|max:120',
+            'city' => 'required|max:120',
+            'address' => 'required|max:120',
             'is_default' => 'integer|min:0|max:1',
         ];
 

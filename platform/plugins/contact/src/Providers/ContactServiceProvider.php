@@ -2,19 +2,19 @@
 
 namespace Botble\Contact\Providers;
 
-use EmailHandler;
-use Illuminate\Routing\Events\RouteMatched;
 use Botble\Base\Supports\Helper;
 use Botble\Base\Traits\LoadAndPublishDataTrait;
+use Botble\Contact\Models\Contact;
 use Botble\Contact\Models\ContactReply;
+use Botble\Contact\Repositories\Caches\ContactCacheDecorator;
 use Botble\Contact\Repositories\Caches\ContactReplyCacheDecorator;
 use Botble\Contact\Repositories\Eloquent\ContactReplyRepository;
-use Botble\Contact\Repositories\Interfaces\ContactInterface;
-use Botble\Contact\Models\Contact;
-use Botble\Contact\Repositories\Caches\ContactCacheDecorator;
 use Botble\Contact\Repositories\Eloquent\ContactRepository;
+use Botble\Contact\Repositories\Interfaces\ContactInterface;
 use Botble\Contact\Repositories\Interfaces\ContactReplyInterface;
+use EmailHandler;
 use Event;
+use Illuminate\Routing\Events\RouteMatched;
 use Illuminate\Support\ServiceProvider;
 
 class ContactServiceProvider extends ServiceProvider
@@ -46,12 +46,12 @@ class ContactServiceProvider extends ServiceProvider
 
         Event::listen(RouteMatched::class, function () {
             dashboard_menu()->registerItem([
-                'id'          => 'cms-plugins-contact',
-                'priority'    => 120,
-                'parent_id'   => null,
-                'name'        => 'plugins/contact::contact.menu',
-                'icon'        => 'far fa-envelope',
-                'url'         => route('contacts.index'),
+                'id' => 'cms-plugins-contact',
+                'priority' => 120,
+                'parent_id' => null,
+                'name' => 'plugins/contact::contact.menu',
+                'icon' => 'far fa-envelope',
+                'url' => route('contacts.index'),
                 'permissions' => ['contacts.index'],
             ]);
 

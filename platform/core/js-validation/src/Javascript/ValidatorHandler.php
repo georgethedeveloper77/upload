@@ -68,6 +68,22 @@ class ValidatorHandler
     }
 
     /**
+     * Returns view data to render javascript.
+     *
+     * @return array
+     */
+    public function validationData()
+    {
+        $jsMessages = [];
+        $jsValidations = $this->generateJavascriptValidations();
+
+        return [
+            'rules' => $jsValidations,
+            'messages' => $jsMessages,
+        ];
+    }
+
+    /**
      * Generate Javascript Validations.
      *
      * @return array
@@ -86,6 +102,17 @@ class ValidatorHandler
         }
 
         return $jsValidations;
+    }
+
+    /**
+     * Check if JS Validation is disabled for attribute.
+     *
+     * @param $attribute
+     * @return bool
+     */
+    public function jsValidationEnabled($attribute)
+    {
+        return !$this->validator->hasRule($attribute, self::JS_VALIDATION_DISABLE);
     }
 
     /**
@@ -125,33 +152,6 @@ class ValidatorHandler
     protected function isValidatable($jsRule, $includeRemote)
     {
         return $jsRule && ($includeRemote || $jsRule !== RuleParser::REMOTE_RULE);
-    }
-
-    /**
-     * Check if JS Validation is disabled for attribute.
-     *
-     * @param $attribute
-     * @return bool
-     */
-    public function jsValidationEnabled($attribute)
-    {
-        return !$this->validator->hasRule($attribute, self::JS_VALIDATION_DISABLE);
-    }
-
-    /**
-     * Returns view data to render javascript.
-     *
-     * @return array
-     */
-    public function validationData()
-    {
-        $jsMessages = [];
-        $jsValidations = $this->generateJavascriptValidations();
-
-        return [
-            'rules'    => $jsValidations,
-            'messages' => $jsMessages,
-        ];
     }
 
     /**

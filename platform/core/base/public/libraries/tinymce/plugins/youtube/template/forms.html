@@ -3,14 +3,14 @@
 
     <div class="form-group">
         <label class="control-label col-xs-2" for=
-        "inpKeywords">{{youtubeSearch}}:</label>
+            "inpKeywords">{{youtubeSearch}}:</label>
 
         <div class="input-append">
             <div class="input-group-btn">
-                <input class="form-control" id="inpKeywords" style=
-                "width:300px;float:left;" type="text" autocomplete="off">
+                <input autocomplete="off" class="form-control" id="inpKeywords" style=
+                    "width:300px;float:left;" type="text">
                 <input class="btn-default btn" id="btnSearch" type=
-                "submit" value=" {{youtubeSearch}} ">
+                    "submit" value=" {{youtubeSearch}} ">
             </div>
         </div>
 
@@ -24,7 +24,7 @@
 
                 <div id="load_more">
                     <a href="javascript:loadmore()" style=
-                    "font-size:10pt">{{youtubeLOAD}}</a>
+                        "font-size:10pt">{{youtubeLOAD}}</a>
                 </div>
             </div>
         </div>
@@ -36,25 +36,27 @@
 
             <div class="form-group">
                 <label class="col-xs-5 control-label" for=
-                "widthURL">{{youtubeWidth}}:</label>
+                    "widthURL">{{youtubeWidth}}:</label>
 
                 <div class="col-xs-7">
-                    <input type="text" class="span2 form-control" value="{{width}}" data-slider-min="200" data-slider-max="1280" data-slider-step="5" data-slider-value="{{width}}" id="widthURL">
+                    <input class="span2 form-control" data-slider-max="1280" data-slider-min="200" data-slider-step="5"
+                           data-slider-value="{{width}}" id="widthURL" type="text" value="{{width}}">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-xs-5 control-label" for=
-                "heightURL">{{youtubeHeight}}:</label>
+                    "heightURL">{{youtubeHeight}}:</label>
 
                 <div class="col-xs-7">
-                    <input type="text" class="span2 form-control" value="{{height}}" data-slider-min="113" data-slider-max="720" data-slider-step="5" data-slider-value="{{height}}" id="heightURL">
+                    <input class="span2 form-control" data-slider-max="720" data-slider-min="113" data-slider-step="5"
+                           data-slider-value="{{height}}" id="heightURL" type="text" value="{{height}}">
                 </div>
             </div>
 
             <div class="form-group">
                 <label class="col-xs-5 control-label" for=
-                "inpURL">{{youtubeSkin}}:</label>
+                    "inpURL">{{youtubeSkin}}:</label>
 
                 <div class="col-xs-7">
                     <select class=" form-control" id="skinURL">
@@ -76,22 +78,24 @@
 
         <div class="col-xs-10">
             <input class="form-control" id="inpURL" placeholder=
-            "{{youtubeurl}}" type="text">
+                "{{youtubeurl}}" type="text">
         </div>
     </div>
 
     <div class="form-group">
         <label class="col-xs-2 control-label" for=
-        "titleURL">{{youtubeTitle}}:</label>
+            "titleURL">{{youtubeTitle}}:</label>
 
         <div class="col-xs-5">
             <input class="form-control" id="titleURL" placeholder=
-            "{{youtubeTitle}}" type="text">
+                "{{youtubeTitle}}" type="text">
         </div>
 
         <div class="col-xs-5 pull-right">
-             <input type="button" name="btnInsert" id="btnInsert" value="{{youtubeADD}}" onclick="I_Insert();" class="btn btn-default pull-right insert">
-		     <input type="button" name="btnInsert" id="btnInsert" value="{{youtubeADDclose}}" onclick="I_Insert();I_Close();" class="btn btn-primary pull-right insert">
+            <input class="btn btn-default pull-right insert" id="btnInsert" name="btnInsert" onclick="I_Insert();" type="button"
+                   value="{{youtubeADD}}">
+            <input class="btn btn-primary pull-right insert" id="btnInsert" name="btnInsert" onclick="I_Insert();I_Close();"
+                   type="button" value="{{youtubeADDclose}}">
         </div>
     </div>
 </form>

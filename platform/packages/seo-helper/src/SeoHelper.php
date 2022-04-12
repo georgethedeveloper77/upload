@@ -45,7 +45,8 @@ class SeoHelper implements SeoHelperContract
         SeoMetaContract $seoMeta,
         SeoOpenGraphContract $seoOpenGraph,
         SeoTwitterContract $seoTwitter
-    ) {
+    )
+    {
         $this->setSeoMeta($seoMeta);
         $this->setSeoOpenGraph($seoOpenGraph);
         $this->setSeoTwitter($seoTwitter);

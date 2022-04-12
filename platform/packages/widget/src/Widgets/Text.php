@@ -37,9 +37,9 @@ class Text extends AbstractWidget
     public function __construct()
     {
         parent::__construct([
-            'name'        => trans('packages/widget::widget.widget_text'),
+            'name' => trans('packages/widget::widget.widget_text'),
             'description' => trans('packages/widget::widget.widget_text_description'),
-            'content'     => null,
+            'content' => null,
         ]);
     }
 }

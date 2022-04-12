@@ -8,6 +8,17 @@ interface MetaContract extends RenderableContract
 {
 
     /**
+     * Make Meta instance.
+     *
+     * @param string $name
+     * @param string $content
+     * @param string $propertyName
+     * @param string $prefix
+     * @return $this
+     */
+    public static function make($name, $content, $propertyName = 'name', $prefix = '');
+
+    /**
      * Get the meta name.
      *
      * @return string
@@ -29,17 +40,6 @@ interface MetaContract extends RenderableContract
      * @return $this
      */
     public function setNameProperty($nameProperty);
-
-    /**
-     * Make Meta instance.
-     *
-     * @param string $name
-     * @param string $content
-     * @param string $propertyName
-     * @param string $prefix
-     * @return $this
-     */
-    public static function make($name, $content, $propertyName = 'name', $prefix = '');
 
     /**
      * Check if meta is valid.

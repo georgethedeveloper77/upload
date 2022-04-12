@@ -3,10 +3,10 @@
 namespace Botble\ACL\Http\Controllers\Auth;
 
 use Assets;
+use Botble\ACL\Traits\SendsPasswordResetEmails;
 use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Illuminate\Contracts\View\Factory;
-use Botble\ACL\Traits\SendsPasswordResetEmails;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 

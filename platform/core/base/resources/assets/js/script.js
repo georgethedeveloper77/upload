@@ -163,142 +163,6 @@ class Botble {
         Botble.showError(message);
     }
 
-    countCharacter() {
-        $.fn.charCounter = function (max, settings) {
-            max = max || 100;
-            settings = $.extend({
-                container: '<span></span>',
-                classname: 'charcounter',
-                format: '(%1 ' + BotbleVariables.languages.system.character_remain + ')',
-                pulse: true,
-                delay: 0
-            }, settings);
-            let p, timeout;
-
-            let count = (el, container) => {
-                el = $(el);
-                if (el.val().length > max) {
-                    el.val(el.val().substring(0, max));
-                    if (settings.pulse && !p) {
-                        pulse(container, true);
-                    }
-                }
-                if (settings.delay > 0) {
-                    if (timeout) {
-                        window.clearTimeout(timeout);
-                    }
-                    timeout = window.setTimeout(() => {
-                        container.html(settings.format.replace(/%1/, (max - el.val().length)));
-                    }, settings.delay);
-                } else {
-                    container.html(settings.format.replace(/%1/, (max - el.val().length)));
-                }
-            };
-
-            let pulse = (el, again) => {
-                if (p) {
-                    window.clearTimeout(p);
-                    p = null;
-                }
-                el.animate({
-                    opacity: 0.1
-                }, 100, () => {
-                    $(el).animate({
-                        opacity: 1.0
-                    }, 100);
-                });
-                if (again) {
-                    p = window.setTimeout(() => {
-                        pulse(el)
-                    }, 200);
-                }
-            };
-
-            return this.each((index, el) => {
-                let container;
-                if (!settings.container.match(/^<.+>$/)) {
-                    // use existing element to hold counter message
-                    container = $(settings.container);
-                } else {
-                    // append element to hold counter message (clean up old element first)
-                    $(el).next('.' + settings.classname).remove();
-                    container = $(settings.container)
-                        .insertAfter(el)
-                        .addClass(settings.classname);
-                }
-                $(el)
-                    .unbind('.charCounter')
-                    .bind('keydown.charCounter', () => {
-                        count(el, container);
-                    })
-                    .bind('keypress.charCounter', () => {
-                        count(el, container);
-                    })
-                    .bind('keyup.charCounter', () => {
-                        count(el, container);
-                    })
-                    .bind('focus.charCounter', () => {
-                        count(el, container);
-                    })
-                    .bind('mouseover.charCounter', () => {
-                        count(el, container);
-                    })
-                    .bind('mouseout.charCounter', () => {
-                        count(el, container);
-                    })
-                    .bind('paste.charCounter', () => {
-                        setTimeout(() => {
-                            count(el, container);
-                        }, 10);
-                    });
-                if (el.addEventListener) {
-                    el.addEventListener('input', () => {
-                        count(el, container);
-                    }, false);
-                }
-                count(el, container);
-            });
-        };
-
-        $(document).on('click', 'input[data-counter], textarea[data-counter]', event => {
-            $(event.currentTarget).charCounter($(event.currentTarget).data('counter'), {
-                container: '<small></small>'
-            });
-        });
-    }
-
-    manageSidebar() {
-        let body = $('body');
-        let navigation = $('.navigation');
-        let sidebar_content = $('.sidebar-content');
-
-        navigation.find('li.active').parents('li').addClass('active');
-        navigation.find('li').has('ul').children('a').parent('li').addClass('has-ul');
-
-
-        $(document).on('click', '.sidebar-toggle.d-none', event => {
-            event.preventDefault();
-
-            body.toggleClass('sidebar-narrow');
-            body.toggleClass('page-sidebar-closed');
-
-            if (body.hasClass('sidebar-narrow')) {
-                navigation.children('li').children('ul').css('display', '');
-
-                sidebar_content.delay().queue(() => {
-                    $(event.currentTarget).show().addClass('animated fadeIn').clearQueue();
-                });
-            } else {
-                navigation.children('li').children('ul').css('display', 'none');
-                navigation.children('li.active').children('ul').css('display', 'block');
-
-                sidebar_content.delay().queue(() => {
-                    $(event.currentTarget).show().addClass('animated fadeIn').clearQueue();
-                });
-            }
-        });
-    }
-
     static initDatePicker(element) {
         if (jQuery().bootstrapDP) {
             let format = $(document).find(element).data('date-format');
@@ -500,21 +364,6 @@ class Botble {
         obj.stickyTableHeaders({scrollableArea: obj, 'fixedOffset': 2});
     }
 
-    handleWayPoint() {
-        if ($('#waypoint').length > 0) {
-            new Waypoint({
-                element: document.getElementById('waypoint'),
-                handler: (direction) => {
-                    if (direction === 'down') {
-                        $('.form-actions-fixed-top').removeClass('hidden');
-                    } else {
-                        $('.form-actions-fixed-top').addClass('hidden');
-                    }
-                }
-            });
-        }
-    };
-
     static handleCounterUp() {
         if (!$().counterUp) {
             return;
@@ -687,6 +536,188 @@ class Botble {
         };
     }
 
+    static initCodeEditor(id, type = 'css') {
+        $(document).find('#' + id).wrap('<div id="wrapper_' + id + '"><div class="container_content_codemirror"></div> </div>');
+        $('#wrapper_' + id).append('<div class="handle-tool-drag" id="tool-drag_' + id + '"></div>');
+        CodeMirror.fromTextArea(document.getElementById(id), {
+            extraKeys: {'Ctrl-Space': 'autocomplete'},
+            lineNumbers: true,
+            mode: type,
+            autoRefresh: true,
+            lineWrapping: true,
+        });
+
+        $('.handle-tool-drag').mousedown(event => {
+            let _self = $(event.currentTarget);
+            _self.attr('data-start_h', _self.parent().find('.CodeMirror').height()).attr('data-start_y', event.pageY);
+            $('body').attr('data-dragtool', _self.attr('id')).on('mousemove', Botble.onDragTool);
+            $(window).on('mouseup', Botble.onReleaseTool);
+        });
+    }
+
+    static onDragTool(e) {
+        let ele = '#' + $('body').attr('data-dragtool');
+        let start_h = parseInt($(ele).attr('data-start_h'));
+
+        $(ele).parent().find('.CodeMirror').css('height', Math.max(200, start_h + e.pageY - $(ele).attr('data-start_y')));
+    }
+
+    static onReleaseTool() {
+        $('body').off('mousemove', Botble.onDragTool);
+        $(window).off('mouseup', Botble.onReleaseTool);
+    }
+
+    countCharacter() {
+        $.fn.charCounter = function (max, settings) {
+            max = max || 100;
+            settings = $.extend({
+                container: '<span></span>',
+                classname: 'charcounter',
+                format: '(%1 ' + BotbleVariables.languages.system.character_remain + ')',
+                pulse: true,
+                delay: 0
+            }, settings);
+            let p, timeout;
+
+            let count = (el, container) => {
+                el = $(el);
+                if (el.val().length > max) {
+                    el.val(el.val().substring(0, max));
+                    if (settings.pulse && !p) {
+                        pulse(container, true);
+                    }
+                }
+                if (settings.delay > 0) {
+                    if (timeout) {
+                        window.clearTimeout(timeout);
+                    }
+                    timeout = window.setTimeout(() => {
+                        container.html(settings.format.replace(/%1/, (max - el.val().length)));
+                    }, settings.delay);
+                } else {
+                    container.html(settings.format.replace(/%1/, (max - el.val().length)));
+                }
+            };
+
+            let pulse = (el, again) => {
+                if (p) {
+                    window.clearTimeout(p);
+                    p = null;
+                }
+                el.animate({
+                    opacity: 0.1
+                }, 100, () => {
+                    $(el).animate({
+                        opacity: 1.0
+                    }, 100);
+                });
+                if (again) {
+                    p = window.setTimeout(() => {
+                        pulse(el)
+                    }, 200);
+                }
+            };
+
+            return this.each((index, el) => {
+                let container;
+                if (!settings.container.match(/^<.+>$/)) {
+                    // use existing element to hold counter message
+                    container = $(settings.container);
+                } else {
+                    // append element to hold counter message (clean up old element first)
+                    $(el).next('.' + settings.classname).remove();
+                    container = $(settings.container)
+                        .insertAfter(el)
+                        .addClass(settings.classname);
+                }
+                $(el)
+                    .unbind('.charCounter')
+                    .bind('keydown.charCounter', () => {
+                        count(el, container);
+                    })
+                    .bind('keypress.charCounter', () => {
+                        count(el, container);
+                    })
+                    .bind('keyup.charCounter', () => {
+                        count(el, container);
+                    })
+                    .bind('focus.charCounter', () => {
+                        count(el, container);
+                    })
+                    .bind('mouseover.charCounter', () => {
+                        count(el, container);
+                    })
+                    .bind('mouseout.charCounter', () => {
+                        count(el, container);
+                    })
+                    .bind('paste.charCounter', () => {
+                        setTimeout(() => {
+                            count(el, container);
+                        }, 10);
+                    });
+                if (el.addEventListener) {
+                    el.addEventListener('input', () => {
+                        count(el, container);
+                    }, false);
+                }
+                count(el, container);
+            });
+        };
+
+        $(document).on('click', 'input[data-counter], textarea[data-counter]', event => {
+            $(event.currentTarget).charCounter($(event.currentTarget).data('counter'), {
+                container: '<small></small>'
+            });
+        });
+    }
+
+    manageSidebar() {
+        let body = $('body');
+        let navigation = $('.navigation');
+        let sidebar_content = $('.sidebar-content');
+
+        navigation.find('li.active').parents('li').addClass('active');
+        navigation.find('li').has('ul').children('a').parent('li').addClass('has-ul');
+
+
+        $(document).on('click', '.sidebar-toggle.d-none', event => {
+            event.preventDefault();
+
+            body.toggleClass('sidebar-narrow');
+            body.toggleClass('page-sidebar-closed');
+
+            if (body.hasClass('sidebar-narrow')) {
+                navigation.children('li').children('ul').css('display', '');
+
+                sidebar_content.delay().queue(() => {
+                    $(event.currentTarget).show().addClass('animated fadeIn').clearQueue();
+                });
+            } else {
+                navigation.children('li').children('ul').css('display', 'none');
+                navigation.children('li.active').children('ul').css('display', 'block');
+
+                sidebar_content.delay().queue(() => {
+                    $(event.currentTarget).show().addClass('animated fadeIn').clearQueue();
+                });
+            }
+        });
+    }
+
+    handleWayPoint() {
+        if ($('#waypoint').length > 0) {
+            new Waypoint({
+                element: document.getElementById('waypoint'),
+                handler: (direction) => {
+                    if (direction === 'down') {
+                        $('.form-actions-fixed-top').removeClass('hidden');
+                    } else {
+                        $('.form-actions-fixed-top').addClass('hidden');
+                    }
+                }
+            });
+        }
+    };
+
     handlePortletTools() {
         // handle portlet remove
 
@@ -725,37 +756,6 @@ class Botble {
                 el.slideDown(200);
             }
         });
-    }
-
-    static initCodeEditor(id, type = 'css') {
-        $(document).find('#' + id).wrap('<div id="wrapper_' + id + '"><div class="container_content_codemirror"></div> </div>');
-        $('#wrapper_' + id).append('<div class="handle-tool-drag" id="tool-drag_' + id + '"></div>');
-        CodeMirror.fromTextArea(document.getElementById(id), {
-            extraKeys: {'Ctrl-Space': 'autocomplete'},
-            lineNumbers: true,
-            mode: type,
-            autoRefresh: true,
-            lineWrapping: true,
-        });
-
-        $('.handle-tool-drag').mousedown(event => {
-            let _self = $(event.currentTarget);
-            _self.attr('data-start_h', _self.parent().find('.CodeMirror').height()).attr('data-start_y', event.pageY);
-            $('body').attr('data-dragtool', _self.attr('id')).on('mousemove', Botble.onDragTool);
-            $(window).on('mouseup', Botble.onReleaseTool);
-        });
-    }
-
-    static onDragTool(e) {
-        let ele = '#' + $('body').attr('data-dragtool');
-        let start_h = parseInt($(ele).attr('data-start_h'));
-
-        $(ele).parent().find('.CodeMirror').css('height', Math.max(200, start_h + e.pageY - $(ele).attr('data-start_y')));
-    }
-
-    static onReleaseTool() {
-        $('body').off('mousemove', Botble.onDragTool);
-        $(window).off('mouseup', Botble.onReleaseTool);
     }
 
     processAuthorize() {

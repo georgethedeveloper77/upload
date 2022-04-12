@@ -2,8 +2,8 @@
 
 namespace Botble\Blog\Repositories\Caches;
 
-use Botble\Support\Repositories\Caches\CacheAbstractDecorator;
 use Botble\Blog\Repositories\Interfaces\TagInterface;
+use Botble\Support\Repositories\Caches\CacheAbstractDecorator;
 
 class TagCacheDecorator extends CacheAbstractDecorator implements TagInterface
 {

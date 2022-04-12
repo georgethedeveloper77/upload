@@ -1,4 +1,4 @@
-@php $razorpayStatus = get_payment_setting('status', RAZORPAY_PAYMENT_METHOD_NAME); @endphp
+@php $razorpayStatus = get_payment_setting('status', RAZORPAY_PAYMENT_METHOD_NAME) @endphp
 <table class="table payment-method-item">
     <tbody>
     <tr class="border-pay-row">
@@ -72,8 +72,10 @@
                                    value="{{ get_payment_setting('name', RAZORPAY_PAYMENT_METHOD_NAME, __('Online payment via Razorpay')) }}">
                         </div>
                         <div class="form-group">
-                            <label class="text-title-field" for="payment_{{ RAZORPAY_PAYMENT_METHOD_NAME }}_description">{{ __('Description') }}</label>
-                            <textarea class="next-input" name="payment_{{ RAZORPAY_PAYMENT_METHOD_NAME }}_description" id="payment_{{ RAZORPAY_PAYMENT_METHOD_NAME }}_description">{{ get_payment_setting('description', RAZORPAY_PAYMENT_METHOD_NAME, __('Payment with Razorpay')) }}</textarea>
+                            <label class="text-title-field"
+                                   for="payment_{{ RAZORPAY_PAYMENT_METHOD_NAME }}_description">{{ __('Description') }}</label>
+                            <textarea class="next-input" name="payment_{{ RAZORPAY_PAYMENT_METHOD_NAME }}_description"
+                                      id="payment_{{ RAZORPAY_PAYMENT_METHOD_NAME }}_description">{{ get_payment_setting('description', RAZORPAY_PAYMENT_METHOD_NAME, __('Payment with Razorpay')) }}</textarea>
                         </div>
 
                         <p class="payment-note">

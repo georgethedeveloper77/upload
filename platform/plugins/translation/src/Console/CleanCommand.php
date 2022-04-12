@@ -3,6 +3,7 @@
 namespace Botble\Translation\Console;
 
 use Botble\Translation\Manager;
+use Exception;
 use Illuminate\Console\Command;
 
 class CleanCommand extends Command
@@ -41,7 +42,7 @@ class CleanCommand extends Command
      * Execute the console command.
      *
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     public function handle()
     {

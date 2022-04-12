@@ -27,7 +27,7 @@ class PageService
         }
 
         $condition = [
-            'id'     => $slug->reference_id,
+            'id' => $slug->reference_id,
             'status' => BaseStatusEnum::PUBLISHED,
         ];
 
@@ -88,10 +88,10 @@ class PageService
         do_action(BASE_ACTION_PUBLIC_RENDER_SINGLE, PAGE_MODULE_SCREEN_NAME, $page);
 
         return [
-            'view'         => 'page',
+            'view' => 'page',
             'default_view' => 'packages/page::themes.page',
-            'data'         => compact('page'),
-            'slug'         => $page->slug,
+            'data' => compact('page'),
+            'slug' => $page->slug,
         ];
     }
 }

@@ -136,7 +136,7 @@
 
                 let html = `<div class="alert ${messageType} alert-dismissible" id="${alertId}">
                             <span class="close feather icon-x" data-dismiss="alert" aria-label="close"></span>
-                            <i class="feather icon-` + (messageType === 'alert-success' ? 'check-circle': 'alert-circle') + ` message-icon"></i>
+                            <i class="feather icon-` + (messageType === 'alert-success' ? 'check-circle' : 'alert-circle') + ` message-icon"></i>
                             ${message}
                         </div>`;
 
@@ -146,7 +146,7 @@
                     }, 6000);
                 });
             }
-        }
+        };
 
         $(document).on('click', '.generic-form button[type=submit]', function (event) {
             event.preventDefault();
@@ -194,7 +194,7 @@
         $(document).ready(function () {
             window.onBeforeChangeSwatches = function () {
                 $('.add-to-cart-form button[type=submit]').prop('disabled', true).addClass('btn-disabled');
-            }
+            };
 
             window.onChangeSwatchesSuccess = function (res) {
                 $('.add-to-cart-form .error-message').hide();

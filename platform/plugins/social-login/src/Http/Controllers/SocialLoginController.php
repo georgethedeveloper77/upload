@@ -9,8 +9,11 @@ use Botble\Ecommerce\Repositories\Interfaces\CustomerInterface;
 use Botble\Setting\Supports\SettingStore;
 use Botble\SocialLogin\Http\Requests\SocialLoginRequest;
 use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\View\View;
+use Laravel\Socialite\AbstractUser;
 use RvMedia;
 use Socialite;
 
@@ -38,7 +41,7 @@ class SocialLoginController extends BaseController
     {
         try {
             /**
-             * @var \Laravel\Socialite\AbstractUser $oAuth
+             * @var AbstractUser $oAuth
              */
             $oAuth = Socialite::driver($provider)->user();
         } catch (Exception $ex) {
@@ -72,11 +75,11 @@ class SocialLoginController extends BaseController
             }
 
             $account = app(CustomerInterface::class)->createOrUpdate([
-                'name'        => $oAuth->getName(),
-                'email'       => $oAuth->getEmail(),
+                'name' => $oAuth->getName(),
+                'email' => $oAuth->getEmail(),
                 'verified_at' => now(),
-                'password'    => bcrypt(Str::random(36)),
-                'avatar_id'   => $avatarId,
+                'password' => bcrypt(Str::random(36)),
+                'avatar_id' => $avatarId,
             ]);
         }
 
@@ -88,7 +91,7 @@ class SocialLoginController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Factory|View
      */
     public function getSettings()
     {

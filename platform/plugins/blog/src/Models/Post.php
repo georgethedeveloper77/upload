@@ -3,10 +3,10 @@
 namespace Botble\Blog\Models;
 
 use Botble\ACL\Models\User;
-use Botble\Base\Traits\EnumCastable;
 use Botble\Base\Enums\BaseStatusEnum;
-use Botble\Revision\RevisionableTrait;
 use Botble\Base\Models\BaseModel;
+use Botble\Base\Traits\EnumCastable;
+use Botble\Revision\RevisionableTrait;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -80,21 +80,14 @@ class Post extends BaseModel
         'status' => BaseStatusEnum::class,
     ];
 
-    /**
-     * @deprecated
-     * @return BelongsTo
-     */
-    public function user(): BelongsTo
+    protected static function boot()
     {
-        return $this->belongsTo(User::class)->withDefault();
-    }
+        parent::boot();
 
-    /**
-     * @return BelongsToMany
-     */
-    public function tags(): BelongsToMany
-    {
-        return $this->belongsToMany(Tag::class, 'post_tags');
+        static::deleting(function (Post $post) {
+            $post->categories()->detach();
+            $post->tags()->detach();
+        });
     }
 
     /**
@@ -106,20 +99,27 @@ class Post extends BaseModel
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function tags(): BelongsToMany
+    {
+        return $this->belongsToMany(Tag::class, 'post_tags');
+    }
+
+    /**
+     * @return BelongsTo
+     * @deprecated
+     */
+    public function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class)->withDefault();
+    }
+
+    /**
      * @return MorphTo
      */
     public function author(): MorphTo
     {
         return $this->morphTo();
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::deleting(function (Post $post) {
-            $post->categories()->detach();
-            $post->tags()->detach();
-        });
     }
 }

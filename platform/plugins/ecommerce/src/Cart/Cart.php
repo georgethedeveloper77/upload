@@ -69,16 +69,6 @@ class Cart
     }
 
     /**
-     * Get the current cart instance.
-     *
-     * @return string
-     */
-    public function currentInstance()
-    {
-        return str_replace('cart.', '', $this->instance);
-    }
-
-    /**
      * Add an item to the cart.
      *
      * @param mixed $id
@@ -111,6 +101,64 @@ class Cart
         $this->session->put($this->instance, $content);
 
         return $cartItem;
+    }
+
+    /**
+     * Check if the item is a multidimensional array or an array of Buyables.
+     *
+     * @param mixed $item
+     * @return bool
+     */
+    protected function isMulti($item)
+    {
+        if (!is_array($item)) {
+            return false;
+        }
+
+        return is_array(head($item)) || head($item) instanceof Buyable;
+    }
+
+    /**
+     * Create a new CartItem from the supplied attributes.
+     *
+     * @param mixed $id
+     * @param mixed $name
+     * @param int|float $qty
+     * @param float $price
+     * @param array $options
+     * @return CartItem
+     */
+    protected function createCartItem($id, $name, $qty, $price, array $options)
+    {
+        if ($id instanceof Buyable) {
+            $cartItem = CartItem::fromBuyable($id, $qty ?: []);
+            $cartItem->setQuantity($name ?: 1);
+            $cartItem->associate($id);
+        } elseif (is_array($id)) {
+            $cartItem = CartItem::fromArray($id);
+            $cartItem->setQuantity($id['qty']);
+        } else {
+            $cartItem = CartItem::fromAttributes($id, $name, $price, $options);
+            $cartItem->setQuantity($qty);
+        }
+
+        $cartItem->setTaxRate($options['taxRate'] ?? 0);
+
+        return $cartItem;
+    }
+
+    /**
+     * Get the carts content, if there is no cart content set yet, return a new empty Collection
+     *
+     * @return Collection
+     */
+    protected function getContent()
+    {
+        $content = $this->session->has($this->instance)
+            ? $this->session->get($this->instance)
+            : new Collection;
+
+        return $content;
     }
 
     /**
@@ -158,6 +206,23 @@ class Cart
     }
 
     /**
+     * Get a cart item from the cart by its rowId.
+     *
+     * @param string $rowId
+     * @return CartItem
+     */
+    public function get($rowId)
+    {
+        $content = $this->getContent();
+
+        if (!$content->has($rowId)) {
+            throw new InvalidRowIDException('The cart does not contain rowId ' . $rowId);
+        }
+
+        return $content->get($rowId);
+    }
+
+    /**
      * Remove the cart item with the given rowId from the cart.
      *
      * @param string $rowId
@@ -174,23 +239,6 @@ class Cart
         $this->events->dispatch('cart.removed', $cartItem);
 
         $this->session->put($this->instance, $content);
-    }
-
-    /**
-     * Get a cart item from the cart by its rowId.
-     *
-     * @param string $rowId
-     * @return CartItem
-     */
-    public function get($rowId)
-    {
-        $content = $this->getContent();
-
-        if (!$content->has($rowId)) {
-            throw new InvalidRowIDException('The cart does not contain rowId ' . $rowId);
-        }
-
-        return $content->get($rowId);
     }
 
     /**
@@ -230,25 +278,6 @@ class Cart
     }
 
     /**
-     * Get the total price of the items in the cart.
-     *
-     * @param int $decimals
-     * @param string $decimalPoint
-     * @param string $thousandSeparator
-     * @return string
-     */
-    public function total($decimals = null, $decimalPoint = null, $thousandSeparator = null)
-    {
-        $content = $this->getContent();
-
-        $total = $content->reduce(function ($total, CartItem $cartItem) {
-            return $total + ($cartItem->qty * ($cartItem->priceTax == 0 ? $cartItem->price : $cartItem->priceTax));
-        }, 0);
-
-        return $this->numberFormat($total, $decimals, $decimalPoint, $thousandSeparator);
-    }
-
-    /**
      * @return int
      */
     public function rawTotal()
@@ -265,62 +294,6 @@ class Cart
         }, 0);
 
         return $total;
-    }
-
-    /**
-     * Get the total tax of the items in the cart.
-     *
-     * @param int $decimals
-     * @param string $decimalPoint
-     * @param string $thousandSeparator
-     * @return float
-     */
-    public function tax($decimals = null, $decimalPoint = null, $thousandSeparator = null)
-    {
-        if (!EcommerceHelper::isTaxEnabled()) {
-            return 0;
-        }
-
-        return $this->numberFormat($this->rawTax(), $decimals, $decimalPoint, $thousandSeparator);
-    }
-
-    /**
-     * Get the raw total tax of the items in the cart.
-     *
-     * @return float
-     */
-    public function rawTax()
-    {
-        if (!EcommerceHelper::isTaxEnabled()) {
-            return 0;
-        }
-
-        $content = $this->getContent();
-
-        $tax = $content->reduce(function ($tax, CartItem $cartItem) {
-            return $tax + ($cartItem->qty * $cartItem->tax);
-        }, 0);
-
-        return $tax;
-    }
-
-    /**
-     * Get the subtotal (total - tax) of the items in the cart.
-     *
-     * @param int $decimals
-     * @param string $decimalPoint
-     * @param string $thousandSeparator
-     * @return float
-     */
-    public function subtotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
-    {
-        $content = $this->getContent();
-
-        $subTotal = $content->reduce(function ($subTotal, CartItem $cartItem) {
-            return $subTotal + ($cartItem->qty * $cartItem->price);
-        }, 0);
-
-        return $this->numberFormat($subTotal, $decimals, $decimalPoint, $thousandSeparator);
     }
 
     /**
@@ -410,11 +383,64 @@ class Cart
 
         $this->getConnection()->table($this->getTableName())->insert([
             'identifier' => $identifier,
-            'instance'   => $this->currentInstance(),
-            'content'    => serialize($content),
+            'instance' => $this->currentInstance(),
+            'content' => serialize($content),
         ]);
 
         $this->events->dispatch('cart.stored');
+    }
+
+    /**
+     * @param $identifier
+     * @return bool
+     */
+    protected function storedCartWithIdentifierExists($identifier)
+    {
+        return $this->getConnection()->table($this->getTableName())->where('identifier', $identifier)->exists();
+    }
+
+    /**
+     * Get the database connection.
+     *
+     * @return Connection
+     */
+    protected function getConnection()
+    {
+        $connectionName = $this->getConnectionName();
+
+        return app(DatabaseManager::class)->connection($connectionName);
+    }
+
+    /**
+     * Get the database connection name.
+     *
+     * @return string
+     */
+    protected function getConnectionName()
+    {
+        $connection = config('plugins.ecommerce.cart.database.connection');
+
+        return empty($connection) ? config('database.default') : $connection;
+    }
+
+    /**
+     * Get the database table name.
+     *
+     * @return string
+     */
+    protected function getTableName()
+    {
+        return config('plugins.ecommerce.cart.database.table', 'cart');
+    }
+
+    /**
+     * Get the current cart instance.
+     *
+     * @return string
+     */
+    public function currentInstance()
+    {
+        return str_replace('cart.', '', $this->instance);
     }
 
     /**
@@ -478,104 +504,22 @@ class Cart
     }
 
     /**
-     * Get the carts content, if there is no cart content set yet, return a new empty Collection
+     * Get the total price of the items in the cart.
      *
-     * @return Collection
-     */
-    protected function getContent()
-    {
-        $content = $this->session->has($this->instance)
-            ? $this->session->get($this->instance)
-            : new Collection;
-
-        return $content;
-    }
-
-    /**
-     * Create a new CartItem from the supplied attributes.
-     *
-     * @param mixed $id
-     * @param mixed $name
-     * @param int|float $qty
-     * @param float $price
-     * @param array $options
-     * @return CartItem
-     */
-    protected function createCartItem($id, $name, $qty, $price, array $options)
-    {
-        if ($id instanceof Buyable) {
-            $cartItem = CartItem::fromBuyable($id, $qty ?: []);
-            $cartItem->setQuantity($name ?: 1);
-            $cartItem->associate($id);
-        } elseif (is_array($id)) {
-            $cartItem = CartItem::fromArray($id);
-            $cartItem->setQuantity($id['qty']);
-        } else {
-            $cartItem = CartItem::fromAttributes($id, $name, $price, $options);
-            $cartItem->setQuantity($qty);
-        }
-
-        $cartItem->setTaxRate($options['taxRate'] ?? 0);
-
-        return $cartItem;
-    }
-
-    /**
-     * Check if the item is a multidimensional array or an array of Buyables.
-     *
-     * @param mixed $item
-     * @return bool
-     */
-    protected function isMulti($item)
-    {
-        if (!is_array($item)) {
-            return false;
-        }
-
-        return is_array(head($item)) || head($item) instanceof Buyable;
-    }
-
-    /**
-     * @param $identifier
-     * @return bool
-     */
-    protected function storedCartWithIdentifierExists($identifier)
-    {
-        return $this->getConnection()->table($this->getTableName())->where('identifier', $identifier)->exists();
-    }
-
-    /**
-     * Get the database connection.
-     *
-     * @return Connection
-     */
-    protected function getConnection()
-    {
-        $connectionName = $this->getConnectionName();
-
-        return app(DatabaseManager::class)->connection($connectionName);
-    }
-
-    /**
-     * Get the database table name.
-     *
+     * @param int $decimals
+     * @param string $decimalPoint
+     * @param string $thousandSeparator
      * @return string
      */
-    protected function getTableName()
+    public function total($decimals = null, $decimalPoint = null, $thousandSeparator = null)
     {
-        return config('plugins.ecommerce.cart.database.table', 'cart');
-    }
+        $content = $this->getContent();
 
-    /**
-     * Get the database connection name.
-     *
-     * @return string
-     */
-    protected function getConnectionName()
-    {
-        $connection = config('plugins.ecommerce.cart.database.connection');
+        $total = $content->reduce(function ($total, CartItem $cartItem) {
+            return $total + ($cartItem->qty * ($cartItem->priceTax == 0 ? $cartItem->price : $cartItem->priceTax));
+        }, 0);
 
-        return empty($connection) ? config('database.default') : $connection;
+        return $this->numberFormat($total, $decimals, $decimalPoint, $thousandSeparator);
     }
 
     /**
@@ -600,5 +544,61 @@ class Cart
         }
 
         return number_format($value, $decimals, $decimalPoint, $thousandSeparator);
+    }
+
+    /**
+     * Get the total tax of the items in the cart.
+     *
+     * @param int $decimals
+     * @param string $decimalPoint
+     * @param string $thousandSeparator
+     * @return float
+     */
+    public function tax($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    {
+        if (!EcommerceHelper::isTaxEnabled()) {
+            return 0;
+        }
+
+        return $this->numberFormat($this->rawTax(), $decimals, $decimalPoint, $thousandSeparator);
+    }
+
+    /**
+     * Get the raw total tax of the items in the cart.
+     *
+     * @return float
+     */
+    public function rawTax()
+    {
+        if (!EcommerceHelper::isTaxEnabled()) {
+            return 0;
+        }
+
+        $content = $this->getContent();
+
+        $tax = $content->reduce(function ($tax, CartItem $cartItem) {
+            return $tax + ($cartItem->qty * $cartItem->tax);
+        }, 0);
+
+        return $tax;
+    }
+
+    /**
+     * Get the subtotal (total - tax) of the items in the cart.
+     *
+     * @param int $decimals
+     * @param string $decimalPoint
+     * @param string $thousandSeparator
+     * @return float
+     */
+    public function subtotal($decimals = null, $decimalPoint = null, $thousandSeparator = null)
+    {
+        $content = $this->getContent();
+
+        $subTotal = $content->reduce(function ($subTotal, CartItem $cartItem) {
+            return $subTotal + ($cartItem->qty * $cartItem->price);
+        }, 0);
+
+        return $this->numberFormat($subTotal, $decimals, $decimalPoint, $thousandSeparator);
     }
 }

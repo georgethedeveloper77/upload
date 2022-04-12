@@ -17,7 +17,7 @@ $.extend(true, laravelValidation, {
         fileinfo: function (fieldObj, index) {
             var FileName = fieldObj.value;
             index = typeof index !== 'undefined' ? index : 0;
-            if ( fieldObj.files !== null ) {
+            if (fieldObj.files !== null) {
                 if (typeof fieldObj.files[index] !== 'undefined') {
                     return {
                         file: FileName,
@@ -39,7 +39,7 @@ $.extend(true, laravelValidation, {
          */
         selector: function (names) {
             var selector = [];
-            if (!$.isArray(names))  {
+            if (!$.isArray(names)) {
                 names = [names];
             }
             for (var i = 0; i < names.length; i++) {
@@ -84,11 +84,11 @@ $.extend(true, laravelValidation, {
             if (element.name in validator.settings.rules) {
                 listRules.push(validator.settings.rules[element.name]);
             }
-            $.each(listRules, function(index,objRules){
+            $.each(listRules, function (index, objRules) {
                 if ('laravelValidation' in objRules) {
-                    var _rules=objRules.laravelValidation;
+                    var _rules = objRules.laravelValidation;
                     for (var i = 0; i < _rules.length; i++) {
-                        if ($.inArray(_rules[i][0],rules) !== -1) {
+                        if ($.inArray(_rules[i][0], rules) !== -1) {
                             found = true;
                             return false;
                         }
@@ -139,14 +139,14 @@ $.extend(true, laravelValidation, {
          * @param element
          * @returns object
          */
-        getLaravelValidation: function(rule, element) {
+        getLaravelValidation: function (rule, element) {
 
             var found = undefined;
-            $.each($.validator.staticRules(element), function(key, rules) {
-                if (key==="laravelValidation") {
+            $.each($.validator.staticRules(element), function (key, rules) {
+                if (key === "laravelValidation") {
                     $.each(rules, function (i, value) {
-                        if (value[0]===rule) {
-                            found=value;
+                        if (value[0] === rule) {
+                            found = value;
                         }
                     });
                 }
@@ -168,7 +168,7 @@ $.extend(true, laravelValidation, {
             var fmt = new DateFormatter();
 
             if ($.type(format) === 'object') {
-                var dateRule=this.getLaravelValidation('DateFormat', format);
+                var dateRule = this.getLaravelValidation('DateFormat', format);
                 if (dateRule !== undefined) {
                     format = dateRule[1][0];
                 } else {
@@ -246,7 +246,7 @@ $.extend(true, laravelValidation, {
          * @returns {*}
          */
         arrayEquals: function (arr1, arr2) {
-            if (! $.isArray(arr1) || ! $.isArray(arr2)) {
+            if (!$.isArray(arr1) || !$.isArray(arr2)) {
                 return false;
             }
 
@@ -265,11 +265,11 @@ $.extend(true, laravelValidation, {
          * @param name
          * @returns {*}
          */
-        dependentElement: function(validator, element, name) {
+        dependentElement: function (validator, element, name) {
 
-            var el=validator.findByName(name);
+            var el = validator.findByName(name);
 
-            if ( el[0]!==undefined  && validator.settings.onfocusout ) {
+            if (el[0] !== undefined && validator.settings.onfocusout) {
                 var event = 'blur';
                 if (el[0].tagName === 'SELECT' ||
                     el[0].tagName === 'OPTION' ||
@@ -280,10 +280,10 @@ $.extend(true, laravelValidation, {
                 }
 
                 var ruleName = '.validate-laravelValidation';
-                el.off( ruleName )
+                el.off(ruleName)
                     .off(event + ruleName + '-' + element.name)
-                    .on( event + ruleName + '-' + element.name, function() {
-                        $( element ).valid();
+                    .on(event + ruleName + '-' + element.name, function () {
+                        $(element).valid();
                     });
             }
 
@@ -323,22 +323,22 @@ $.extend(true, laravelValidation, {
          * @param name
          * @returns {RegExp}
          */
-        regexFromWildcard: function(name) {
+        regexFromWildcard: function (name) {
             var nameParts = name.split("[*]");
             if (nameParts.length === 1) {
                 nameParts.push('');
             }
-            var regexpParts = nameParts.map(function(currentValue, index) {
+            var regexpParts = nameParts.map(function (currentValue, index) {
                 if (index % 2 === 0) {
                     currentValue = currentValue + '[';
                 } else {
-                    currentValue = ']' +currentValue;
+                    currentValue = ']' + currentValue;
                 }
 
                 return laravelValidation.helpers.escapeRegExp(currentValue);
             });
 
-            return new RegExp('^'+regexpParts.join('[^\\]]*')+'$');
+            return new RegExp('^' + regexpParts.join('[^\\]]*') + '$');
         }
     }
 });

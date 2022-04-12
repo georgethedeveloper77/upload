@@ -3,18 +3,18 @@
 
     @if (Auth::check())
         BotbleVariables.languages = {
-            tables: {!! json_encode(trans('core/base::tables'), JSON_HEX_APOS) !!},
-            notices_msg: {!! json_encode(trans('core/base::notices'), JSON_HEX_APOS) !!},
-            pagination: {!! json_encode(trans('pagination'), JSON_HEX_APOS) !!},
-            system: {
-                'character_remain': '{{ trans('core/base::forms.character_remain') }}'
-            },
-        };
-        BotbleVariables.authorized = "{{ setting('membership_authorization_at') && now()->diffInDays(Carbon\Carbon::createFromFormat('Y-m-d H:i:s', setting('membership_authorization_at'))) <= 7 ? 1 : 0 }}";
+        tables: {!! json_encode(trans('core/base::tables'), JSON_HEX_APOS) !!},
+        notices_msg: {!! json_encode(trans('core/base::notices'), JSON_HEX_APOS) !!},
+        pagination: {!! json_encode(trans('pagination'), JSON_HEX_APOS) !!},
+        system: {
+            'character_remain': '{{ trans('core/base::forms.character_remain') }}'
+        },
+    };
+    BotbleVariables.authorized = "{{ setting('membership_authorization_at') && now()->diffInDays(Carbon\Carbon::createFromFormat('Y-m-d H:i:s', setting('membership_authorization_at'))) <= 7 ? 1 : 0 }}";
     @else
         BotbleVariables.languages = {
-            notices_msg: {!! json_encode(trans('core/base::notices'), JSON_HEX_APOS) !!},
-        };
+        notices_msg: {!! json_encode(trans('core/base::notices'), JSON_HEX_APOS) !!},
+    };
     @endif
 </script>
 

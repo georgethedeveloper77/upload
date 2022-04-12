@@ -2,9 +2,9 @@
 
 namespace Botble\Analytics;
 
-use Botble\PluginManagement\Abstracts\PluginOperationAbstract;
 use Botble\Dashboard\Models\DashboardWidget;
 use Botble\Dashboard\Repositories\Interfaces\DashboardWidgetInterface;
+use Botble\PluginManagement\Abstracts\PluginOperationAbstract;
 use Exception;
 
 class Plugin extends PluginOperationAbstract

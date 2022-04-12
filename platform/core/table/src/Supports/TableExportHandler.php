@@ -24,7 +24,7 @@ class TableExportHandler extends DataTablesExportHandler implements WithEvents
             BeforeSheet::class => function (BeforeSheet $event) {
                 $this->beforeSheet($event);
             },
-            AfterSheet::class  => function (AfterSheet $event) {
+            AfterSheet::class => function (AfterSheet $event) {
                 $this->afterSheet($event);
             },
         ];
@@ -69,8 +69,8 @@ class TableExportHandler extends DataTablesExportHandler implements WithEvents
             $dimensions = 'A1:' . $lastColumnName . '1';
             $delegate->getStyle($dimensions)->applyFromArray(
                 [
-                    'font'      => [
-                        'bold'  => true,
+                    'font' => [
+                        'bold' => true,
                         'color' => [
                             'argb' => 'ffffff',
                         ],
@@ -78,8 +78,8 @@ class TableExportHandler extends DataTablesExportHandler implements WithEvents
                     'alignment' => [
                         'horizontal' => Alignment::HORIZONTAL_CENTER,
                     ],
-                    'fill'      => [
-                        'fillType'   => Fill::FILL_SOLID,
+                    'fill' => [
+                        'fillType' => Fill::FILL_SOLID,
                         'startColor' => [
                             'argb' => '1d9977',
                         ],
@@ -123,29 +123,6 @@ class TableExportHandler extends DataTablesExportHandler implements WithEvents
         }
 
         return $letter;
-    }
-
-    /**
-     * @param string $imageUrl
-     * @return null|resource
-     */
-    protected function getImageResourceFromURL($imageUrl)
-    {
-        if (!$imageUrl) {
-            return null;
-        }
-
-        $imageUrl = url($imageUrl);
-
-        try {
-            $content = @file_get_contents($imageUrl);
-            if (!$content) {
-                return null;
-            }
-            return imagecreatefromstring($content);
-        } catch (Exception $exception) {
-            return null;
-        }
     }
 
     /**
@@ -194,5 +171,28 @@ class TableExportHandler extends DataTablesExportHandler implements WithEvents
         }
 
         return true;
+    }
+
+    /**
+     * @param string $imageUrl
+     * @return null|resource
+     */
+    protected function getImageResourceFromURL($imageUrl)
+    {
+        if (!$imageUrl) {
+            return null;
+        }
+
+        $imageUrl = url($imageUrl);
+
+        try {
+            $content = @file_get_contents($imageUrl);
+            if (!$content) {
+                return null;
+            }
+            return imagecreatefromstring($content);
+        } catch (Exception $exception) {
+            return null;
+        }
     }
 }

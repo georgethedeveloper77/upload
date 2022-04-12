@@ -2,17 +2,17 @@
 
 namespace Botble\ACL\Http\Controllers;
 
-use Botble\ACL\Forms\RoleForm;
-use Botble\Base\Events\BeforeEditContentEvent;
-use Botble\Base\Forms\FormBuilder;
-use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\ACL\Events\RoleAssignmentEvent;
 use Botble\ACL\Events\RoleUpdateEvent;
-use Botble\ACL\Tables\RoleTable;
+use Botble\ACL\Forms\RoleForm;
 use Botble\ACL\Http\Requests\RoleCreateRequest;
 use Botble\ACL\Repositories\Interfaces\RoleInterface;
 use Botble\ACL\Repositories\Interfaces\UserInterface;
+use Botble\ACL\Tables\RoleTable;
+use Botble\Base\Events\BeforeEditContentEvent;
+use Botble\Base\Forms\FormBuilder;
 use Botble\Base\Http\Controllers\BaseController;
+use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Base\Supports\Helper;
 use Exception;
 use Illuminate\Contracts\View\Factory;
@@ -187,13 +187,13 @@ class RoleController extends BaseController
         }
 
         $role = $this->roleRepository->createOrUpdate([
-            'name'        => $request->input('name'),
-            'slug'        => $this->roleRepository->createSlug($request->input('name'), 0),
+            'name' => $request->input('name'),
+            'slug' => $this->roleRepository->createSlug($request->input('name'), 0),
             'permissions' => $this->cleanPermission($request->input('flags')),
             'description' => $request->input('description'),
-            'is_default'  => $request->input('is_default'),
-            'created_by'  => $request->user()->getKey(),
-            'updated_by'  => $request->user()->getKey(),
+            'is_default' => $request->input('is_default'),
+            'created_by' => $request->user()->getKey(),
+            'updated_by' => $request->user()->getKey(),
         ]);
 
         return $response
@@ -212,12 +212,12 @@ class RoleController extends BaseController
         $baseRole = $this->roleRepository->findOrFail($id);
 
         $role = $this->roleRepository->createOrUpdate([
-            'name'        => $baseRole->name . ' (Duplicate)',
-            'slug'        => $this->roleRepository->createSlug($baseRole->slug, 0),
+            'name' => $baseRole->name . ' (Duplicate)',
+            'slug' => $this->roleRepository->createSlug($baseRole->slug, 0),
             'permissions' => $baseRole->permissions,
             'description' => $baseRole->description,
-            'created_by'  => $baseRole->created_by,
-            'updated_by'  => $baseRole->updated_by,
+            'created_by' => $baseRole->created_by,
+            'updated_by' => $baseRole->updated_by,
         ]);
 
         return $response
@@ -235,7 +235,7 @@ class RoleController extends BaseController
         foreach ($this->roleRepository->all() as $role) {
             $pl[] = [
                 'value' => $role->id,
-                'text'  => $role->name,
+                'text' => $role->name,
             ];
         }
 

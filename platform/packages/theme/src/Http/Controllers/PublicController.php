@@ -5,10 +5,11 @@ namespace Botble\Theme\Http\Controllers;
 use BaseHelper;
 use Botble\Page\Models\Page;
 use Botble\Page\Services\PageService;
-use Botble\Theme\Events\RenderingSingleEvent;
 use Botble\Theme\Events\RenderingHomePageEvent;
+use Botble\Theme\Events\RenderingSingleEvent;
 use Botble\Theme\Events\RenderingSiteMapEvent;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Arr;
 use Response;
@@ -20,35 +21,8 @@ use Theme;
 class PublicController extends Controller
 {
     /**
-     * @return \Illuminate\Http\Response|Response
-     */
-    public function getIndex()
-    {
-        if (defined('PAGE_MODULE_SCREEN_NAME')) {
-            $homepageId = BaseHelper::getHomepageId();
-            if ($homepageId) {
-                $slug = SlugHelper::getSlug(null, SlugHelper::getPrefix(Page::class), Page::class, $homepageId);
-
-                if ($slug) {
-                    $data = (new PageService)->handleFrontRoutes($slug);
-
-                    return Theme::scope($data['view'], $data['data'], $data['default_view'])->render();
-                }
-            }
-        }
-
-        SeoHelper::setTitle(theme_option('site_title'));
-
-        Theme::breadcrumb()->add(__('Home'), url('/'));
-
-        event(RenderingHomePageEvent::class);
-
-        return Theme::scope('index')->render();
-    }
-
-    /**
      * @param string $key
-     * @return \Illuminate\Http\RedirectResponse|Response
+     * @return RedirectResponse|Response
      * @throws FileNotFoundException
      */
     public function getView($key = null)
@@ -82,6 +56,33 @@ class PublicController extends Controller
         }
 
         abort(404);
+    }
+
+    /**
+     * @return \Illuminate\Http\Response|Response
+     */
+    public function getIndex()
+    {
+        if (defined('PAGE_MODULE_SCREEN_NAME')) {
+            $homepageId = BaseHelper::getHomepageId();
+            if ($homepageId) {
+                $slug = SlugHelper::getSlug(null, SlugHelper::getPrefix(Page::class), Page::class, $homepageId);
+
+                if ($slug) {
+                    $data = (new PageService)->handleFrontRoutes($slug);
+
+                    return Theme::scope($data['view'], $data['data'], $data['default_view'])->render();
+                }
+            }
+        }
+
+        SeoHelper::setTitle(theme_option('site_title'));
+
+        Theme::breadcrumb()->add(__('Home'), url('/'));
+
+        event(RenderingHomePageEvent::class);
+
+        return Theme::scope('index')->render();
     }
 
     /**

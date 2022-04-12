@@ -12,11 +12,11 @@ class Webmasters implements WebmastersContract
      * @var array
      */
     protected $supported = [
-        'google'    => 'google-site-verification',
-        'bing'      => 'msvalidate.01',
-        'alexa'     => 'alexaVerifyID',
+        'google' => 'google-site-verification',
+        'bing' => 'msvalidate.01',
+        'alexa' => 'alexaVerifyID',
         'pinterest' => 'p:domain_verify',
-        'yandex'    => 'yandex-verification',
+        'yandex' => 'yandex-verification',
     ];
 
     /**
@@ -33,18 +33,15 @@ class Webmasters implements WebmastersContract
     }
 
     /**
-     * Get the webmaster meta name.
+     * Reset the webmaster collection.
      *
-     * @param $webmaster
-     * @return mixed|null
+     * @return Webmasters
      */
-    protected function getWebmasterName($webmaster)
+    public function reset()
     {
-        if ($this->isSupported($webmaster)) {
-            return $this->supported[$webmaster];
-        }
+        $this->meta = new MetaCollection;
 
-        return null;
+        return $this;
     }
 
     /**
@@ -77,25 +74,30 @@ class Webmasters implements WebmastersContract
     }
 
     /**
-     * Reset the webmaster collection.
+     * Get the webmaster meta name.
      *
-     * @return Webmasters
+     * @param $webmaster
+     * @return mixed|null
      */
-    public function reset()
+    protected function getWebmasterName($webmaster)
     {
-        $this->meta = new MetaCollection;
+        if ($this->isSupported($webmaster)) {
+            return $this->supported[$webmaster];
+        }
 
-        return $this;
+        return null;
     }
 
     /**
-     * Render the tag.
+     * Check if the webmaster is supported.
      *
-     * @return string
+     * @param string $webmaster
+     *
+     * @return bool
      */
-    public function render()
+    protected function isSupported($webmaster)
     {
-        return $this->meta->render();
+        return array_key_exists($webmaster, $this->supported);
     }
 
     /**
@@ -109,14 +111,12 @@ class Webmasters implements WebmastersContract
     }
 
     /**
-     * Check if the webmaster is supported.
+     * Render the tag.
      *
-     * @param string $webmaster
-     *
-     * @return bool
+     * @return string
      */
-    protected function isSupported($webmaster)
+    public function render()
     {
-        return array_key_exists($webmaster, $this->supported);
+        return $this->meta->render();
     }
 }

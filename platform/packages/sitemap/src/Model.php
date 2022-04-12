@@ -119,136 +119,6 @@ class Model
     }
 
     /**
-     * Returns $sitemaps array.
-     *
-     * @return array
-     */
-    public function getSitemaps()
-    {
-        return $this->sitemaps;
-    }
-
-    /**
-     * Returns $title value.
-     *
-     * @return string
-     */
-    public function getTitle()
-    {
-        return $this->title;
-    }
-
-    /**
-     * Returns $link value.
-     *
-     * @return string
-     */
-    public function getLink()
-    {
-        return $this->link;
-    }
-
-    /**
-     * Returns $useStyles value.
-     *
-     * @return bool
-     */
-    public function isUseStyles()
-    {
-        return $this->useStyles;
-    }
-
-    /**
-     * Returns $sloc value.
-     *
-     * @return string
-     */
-    public function getSloc()
-    {
-        return $this->sloc;
-    }
-
-    /**
-     * Returns $useCache value.
-     *
-     * @return bool
-     */
-    public function isUseCache()
-    {
-        return $this->useCache;
-    }
-
-    /**
-     * Returns $CacheKey value.
-     *
-     * @return string
-     */
-    public function getCacheKey()
-    {
-        return $this->cacheKey;
-    }
-
-    /**
-     * Returns $CacheDuration value.
-     *
-     * @return string
-     */
-    public function getCacheDuration()
-    {
-        return $this->cacheDuration;
-    }
-
-    /**
-     * Returns $escaping value.
-     *
-     * @return bool
-     */
-    public function isEscaping()
-    {
-        return $this->escaping;
-    }
-
-    /**
-     * Returns $useLimitSize value.
-     *
-     * @return bool
-     */
-    public function isUseLimitSize()
-    {
-        return $this->useLimitSize;
-    }
-
-    /**
-     * Returns $maxSize value.
-     *
-     * @param int $maxSize
-     */
-    public function getMaxSize()
-    {
-        return $this->maxSize;
-    }
-
-    /**
-     * Returns $useGzip value.
-     *
-     * @param bool $useGzip
-     */
-    public function getUseGzip()
-    {
-        return $this->useGzip;
-    }
-
-    /**
-     * Sets $escaping value.
-     *
-     * @param bool $escaping
-     */
-    public function setEscaping($escaping)
-    {
-        $this->escaping = $escaping;
-    }
-
-    /**
      * Adds item to $items array.
      *
      * @param array $item
@@ -256,6 +126,16 @@ class Model
     public function setItems($items)
     {
         $this->items[] = $items;
+    }
+
+    /**
+     * Returns $sitemaps array.
+     *
+     * @return array
+     */
+    public function getSitemaps()
+    {
+        return $this->sitemaps;
     }
 
     /**
@@ -269,6 +149,16 @@ class Model
     }
 
     /**
+     * Returns $title value.
+     *
+     * @return string
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
      * Sets $title value.
      *
      * @param string $title
@@ -276,6 +166,16 @@ class Model
     public function setTitle($title)
     {
         $this->title = $title;
+    }
+
+    /**
+     * Returns $link value.
+     *
+     * @return string
+     */
+    public function getLink()
+    {
+        return $this->link;
     }
 
     /**
@@ -289,6 +189,16 @@ class Model
     }
 
     /**
+     * Returns $useStyles value.
+     *
+     * @return bool
+     */
+    public function isUseStyles()
+    {
+        return $this->useStyles;
+    }
+
+    /**
      * Sets $useStyles value.
      *
      * @param bool $useStyles
@@ -296,6 +206,16 @@ class Model
     public function setUseStyles($useStyles)
     {
         $this->useStyles = $useStyles;
+    }
+
+    /**
+     * Returns $sloc value.
+     *
+     * @return string
+     */
+    public function getSloc()
+    {
+        return $this->sloc;
     }
 
     /**
@@ -309,6 +229,96 @@ class Model
     }
 
     /**
+     * Returns $useCache value.
+     *
+     * @return bool
+     */
+    public function isUseCache()
+    {
+        return $this->useCache;
+    }
+
+    /**
+     * Set use cache value.
+     *
+     * @param bool $useCache
+     */
+    public function setUseCache($useCache = true)
+    {
+        $this->useCache = $useCache;
+    }
+
+    /**
+     * Returns $CacheKey value.
+     *
+     * @return string
+     */
+    public function getCacheKey()
+    {
+        return $this->cacheKey;
+    }
+
+    /**
+     * Set cache key value.
+     *
+     * @param string $cacheKey
+     */
+    public function setCacheKey($cacheKey)
+    {
+        $this->cacheKey = $cacheKey;
+    }
+
+    /**
+     * Returns $CacheDuration value.
+     *
+     * @return string
+     */
+    public function getCacheDuration()
+    {
+        return $this->cacheDuration;
+    }
+
+    /**
+     * Set cache duration value.
+     *
+     * @param Carbon|Datetime|int $cacheDuration
+     */
+    public function setCacheDuration($cacheDuration)
+    {
+        $this->cacheDuration = $cacheDuration;
+    }
+
+    /**
+     * Returns $escaping value.
+     *
+     * @return bool
+     */
+    public function isEscaping()
+    {
+        return $this->escaping;
+    }
+
+    /**
+     * Sets $escaping value.
+     *
+     * @param bool $escaping
+     */
+    public function setEscaping($escaping)
+    {
+        $this->escaping = $escaping;
+    }
+
+    /**
+     * Returns $useLimitSize value.
+     *
+     * @return bool
+     */
+    public function isUseLimitSize()
+    {
+        return $this->useLimitSize;
+    }
+
+    /**
      * Sets $useLimitSize value.
      *
      * @param bool $useLimitSize
@@ -319,6 +329,16 @@ class Model
     }
 
     /**
+     * Returns $maxSize value.
+     *
+     * @param int $maxSize
+     */
+    public function getMaxSize()
+    {
+        return $this->maxSize;
+    }
+
+    /**
      * Sets $maxSize value.
      *
      * @param int $maxSize
@@ -326,6 +346,16 @@ class Model
     public function setMaxSize($maxSize)
     {
         $this->maxSize = $maxSize;
+    }
+
+    /**
+     * Returns $useGzip value.
+     *
+     * @param bool $useGzip
+     */
+    public function getUseGzip()
+    {
+        return $this->useGzip;
     }
 
     /**
@@ -364,35 +394,5 @@ class Model
     public function resetSitemaps($sitemaps = [])
     {
         $this->sitemaps = $sitemaps;
-    }
-
-    /**
-     * Set use cache value.
-     *
-     * @param bool $useCache
-     */
-    public function setUseCache($useCache = true)
-    {
-        $this->useCache = $useCache;
-    }
-
-    /**
-     * Set cache key value.
-     *
-     * @param string $cacheKey
-     */
-    public function setCacheKey($cacheKey)
-    {
-        $this->cacheKey = $cacheKey;
-    }
-
-    /**
-     * Set cache duration value.
-     *
-     * @param Carbon|Datetime|int $cacheDuration
-     */
-    public function setCacheDuration($cacheDuration)
-    {
-        $this->cacheDuration = $cacheDuration;
     }
 }

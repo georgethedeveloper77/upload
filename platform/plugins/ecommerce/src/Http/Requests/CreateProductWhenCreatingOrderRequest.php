@@ -15,7 +15,7 @@ class CreateProductWhenCreatingOrderRequest extends Request
     public function rules()
     {
         return [
-            'name'  => 'required',
+            'name' => 'required',
             'price' => 'numeric|nullable',
         ];
     }

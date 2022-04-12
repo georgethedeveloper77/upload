@@ -5,12 +5,12 @@ namespace Botble\Payment\Tables;
 use Auth;
 use BaseHelper;
 use Botble\Payment\Enums\PaymentStatusEnum;
+use Botble\Payment\Models\Payment;
 use Botble\Payment\Repositories\Interfaces\PaymentInterface;
 use Botble\Table\Abstracts\TableAbstract;
 use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Yajra\DataTables\DataTables;
-use Botble\Payment\Models\Payment;
 
 class PaymentTable extends TableAbstract
 {
@@ -104,33 +104,33 @@ class PaymentTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'              => [
-                'name'  => 'payments.id',
+            'id' => [
+                'name' => 'payments.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'charge_id'       => [
-                'name'  => 'payments.charge_id',
+            'charge_id' => [
+                'name' => 'payments.charge_id',
                 'title' => trans('plugins/payment::payment.charge_id'),
                 'class' => 'text-left',
             ],
-            'amount'          => [
-                'name'  => 'payments.amount',
+            'amount' => [
+                'name' => 'payments.amount',
                 'title' => trans('plugins/payment::payment.amount'),
                 'class' => 'text-left',
             ],
             'payment_channel' => [
-                'name'  => 'payments.payment_channel',
+                'name' => 'payments.payment_channel',
                 'title' => trans('plugins/payment::payment.payment_channel'),
                 'class' => 'text-left',
             ],
-            'created_at'      => [
-                'name'  => 'payments.created_at',
+            'created_at' => [
+                'name' => 'payments.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
-            'status'          => [
-                'name'  => 'payments.status',
+            'status' => [
+                'name' => 'payments.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
             ],
@@ -159,20 +159,20 @@ class PaymentTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'payments.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => PaymentStatusEnum::labels(),
+            'payments.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => PaymentStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', PaymentStatusEnum::values()),
             ],
-            'payments.charge_id'  => [
-                'title'    => trans('plugins/payment::payment.charge_id'),
-                'type'     => 'text',
+            'payments.charge_id' => [
+                'title' => trans('plugins/payment::payment.charge_id'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
             'payments.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

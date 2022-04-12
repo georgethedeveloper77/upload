@@ -26,13 +26,14 @@
                 @if (theme_option('logo'))
                     <div class="checkout-logo">
                         <a href="{{ url('/') }}" title="{{ theme_option('site_title') }}">
-                            <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" class="img-fluid" width="150" alt="{{ theme_option('site_title') }}" />
+                            <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" class="img-fluid" width="150"
+                                 alt="{{ theme_option('site_title') }}"/>
                         </a>
                     </div>
                     <hr/>
-                @endif
+            @endif
 
-                <!-- for mobile device display -->
+            <!-- for mobile device display -->
                 <div class="d-sm-block d-md-none" style="padding: 0 15px;" id="main-checkout-product-info-mobile">
                     <div class="payment-info-loading" style="display: none;">
                         <div class="payment-info-loading-content">
@@ -45,14 +46,16 @@
                             @foreach(Cart::instance('cart')->content() as $key => $cartItem)
 
                                 @php
-                                    $product = $products->where('id', $cartItem->id)->first();
+                                    $product = $products->where('id', $cartItem->id)->first()
                                 @endphp
 
                                 @if(!empty($product))
                                     <div class="row cart-item">
                                         <div class="col-3">
                                             <div class="checkout-product-img-wrapper">
-                                                <img class="item-thumb img-thumbnail img-rounded" src="{{ $cartItem->options['image']}}" alt="{{ $product->name ?? '' }}">
+                                                <img class="item-thumb img-thumbnail img-rounded"
+                                                     src="{{ $cartItem->options['image']}}"
+                                                     alt="{{ $product->name ?? '' }}">
                                                 <span class="checkout-quantity">{{ $cartItem->qty }}</span>
                                             </div>
                                         </div>
@@ -75,7 +78,8 @@
                                             @if (!empty($cartItem->options['extras']) && is_array($cartItem->options['extras']))
                                                 @foreach($cartItem->options['extras'] as $option)
                                                     @if (!empty($option['key']) && !empty($option['value']))
-                                                        <p style="margin-bottom: 0;"><small>{{ $option['key'] }}: <strong> {{ $option['value'] }}</strong></small></p>
+                                                        <p style="margin-bottom: 0;"><small>{{ $option['key'] }}:
+                                                                <strong> {{ $option['value'] }}</strong></small></p>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -162,9 +166,9 @@
                     </div>
 
                     <div>
-                        <hr />
+                        <hr/>
                         @include('plugins/ecommerce::themes.discounts.partials.form')
-                        <hr />
+                        <hr/>
                     </div>
                 </div> <!-- /mobile display -->
 
@@ -174,7 +178,8 @@
 
                         <div>
                             <h5 class="checkout-payment-title">{{ __('Shipping information') }}</h5>
-                            <input type="hidden" value="{{ route('public.checkout.save-information', $token) }}" id="save-shipping-information-url">
+                            <input type="hidden" value="{{ route('public.checkout.save-information', $token) }}"
+                                   id="save-shipping-information-url">
                             @include('plugins/ecommerce::orders.partials.address-form', compact('sessionCheckoutData'))
                         </div>
                         <br>
@@ -188,7 +193,8 @@
                             </div>
                             @if (!empty($shipping))
                                 <div class="payment-checkout-form">
-                                    <input type="hidden" name="shipping_option" value="{{ old('shipping_option', $defaultShippingOption) }}">
+                                    <input type="hidden" name="shipping_option"
+                                           value="{{ old('shipping_option', $defaultShippingOption) }}">
                                     <ul class="list-group list_payment_method">
                                         @foreach ($shipping as $shippingKey => $shippingItem)
                                             @foreach($shippingItem as $subShippingKey => $subShippingItem)
@@ -210,59 +216,82 @@
 
                         <div>
                             <h5 class="checkout-payment-title">{{ __('Payment method') }}</h5>
-                            <input type="hidden" name="amount" value="{{ ($promotionDiscountAmount + $couponDiscountAmount - $shippingAmount) > Cart::instance('cart')->rawTotal() ? 0 : Cart::instance('cart')->rawTotal() - $promotionDiscountAmount - $couponDiscountAmount + $shippingAmount }}">
-                            <input type="hidden" name="currency" value="{{ strtoupper(get_application_currency()->title) }}">
+                            <input type="hidden" name="amount"
+                                   value="{{ ($promotionDiscountAmount + $couponDiscountAmount - $shippingAmount) > Cart::instance('cart')->rawTotal() ? 0 : Cart::instance('cart')->rawTotal() - $promotionDiscountAmount - $couponDiscountAmount + $shippingAmount }}">
+                            <input type="hidden" name="currency"
+                                   value="{{ strtoupper(get_application_currency()->title) }}">
                             <input type="hidden" name="currency_id" value="{{ get_application_currency_id() }}">
-                            <input type="hidden" name="callback_url" value="{{ route('public.payment.paypal.status') }}">
-                            <input type="hidden" name="return_url" value="{{ route('public.checkout.success', $token) }}">
+                            <input type="hidden" name="callback_url"
+                                   value="{{ route('public.payment.paypal.status') }}">
+                            <input type="hidden" name="return_url"
+                                   value="{{ route('public.checkout.success', $token) }}">
                             <ul class="list-group list_payment_method">
                                 @if (setting('payment_stripe_status') == 1)
                                     <li class="list-group-item">
-                                        <input class="magic-radio js_payment_method" type="radio" name="payment_method" id="payment_stripe"
-                                               value="stripe" @if (!setting('default_payment_method') || setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::STRIPE) checked @endif data-toggle="collapse" data-target=".payment_stripe_wrap" data-parent=".list_payment_method">
+                                        <input class="magic-radio js_payment_method" type="radio" name="payment_method"
+                                               id="payment_stripe"
+                                               value="stripe"
+                                               @if (!setting('default_payment_method') || setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::STRIPE) checked
+                                               @endif data-toggle="collapse" data-target=".payment_stripe_wrap"
+                                               data-parent=".list_payment_method">
                                         <label for="payment_stripe" class="text-left">
                                             {{ setting('payment_stripe_name', trans('plugins/payment::payment.payment_via_card')) }}
                                         </label>
-                                        <div class="payment_stripe_wrap payment_collapse_wrap collapse @if (!setting('default_payment_method') || setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::STRIPE) show @endif">
+                                        <div
+                                            class="payment_stripe_wrap payment_collapse_wrap collapse @if (!setting('default_payment_method') || setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::STRIPE) show @endif">
                                             <div class="card-checkout">
                                                 <div class="form-group">
                                                     <div class="stripe-card-wrapper"></div>
                                                 </div>
-                                                <div class="form-group @if ($errors->has('number') || $errors->has('expiry')) has-error @endif">
+                                                <div
+                                                    class="form-group @if ($errors->has('number') || $errors->has('expiry')) has-error @endif">
                                                     <div class="row">
                                                         <div class="col-sm-9">
-                                                            <input placeholder="{{ trans('plugins/payment::payment.card_number') }}"
-                                                                   class="form-control" type="text" id="stripe-number" data-stripe="number">
+                                                            <input
+                                                                placeholder="{{ trans('plugins/payment::payment.card_number') }}"
+                                                                class="form-control" type="text" id="stripe-number"
+                                                                data-stripe="number">
                                                         </div>
                                                         <div class="col-sm-3">
-                                                            <input placeholder="{{ trans('plugins/payment::payment.mm_yy') }}" class="form-control"
-                                                                   type="text" id="stripe-exp" data-stripe="exp">
+                                                            <input
+                                                                placeholder="{{ trans('plugins/payment::payment.mm_yy') }}"
+                                                                class="form-control"
+                                                                type="text" id="stripe-exp" data-stripe="exp">
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="form-group @if ($errors->has('name') || $errors->has('cvc')) has-error @endif">
+                                                <div
+                                                    class="form-group @if ($errors->has('name') || $errors->has('cvc')) has-error @endif">
                                                     <div class="row">
                                                         <div class="col-sm-9">
-                                                            <input placeholder="{{ trans('plugins/payment::payment.full_name') }}"
-                                                                   class="form-control" id="stripe-name" type="text" data-stripe="name">
+                                                            <input
+                                                                placeholder="{{ trans('plugins/payment::payment.full_name') }}"
+                                                                class="form-control" id="stripe-name" type="text"
+                                                                data-stripe="name">
                                                         </div>
                                                         <div class="col-sm-3">
-                                                            <input placeholder="{{ trans('plugins/payment::payment.cvc') }}" class="form-control"
-                                                                   type="text" id="stripe-cvc" data-stripe="cvc">
+                                                            <input
+                                                                placeholder="{{ trans('plugins/payment::payment.cvc') }}"
+                                                                class="form-control"
+                                                                type="text" id="stripe-cvc" data-stripe="cvc">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div id="payment-stripe-key" data-value="{{ setting('payment_stripe_client_id') }}"></div>
+                                            <div id="payment-stripe-key"
+                                                 data-value="{{ setting('payment_stripe_client_id') }}"></div>
                                         </div>
                                     </li>
                                 @endif
                                 @if (setting('payment_paypal_status') == 1)
                                     <li class="list-group-item">
-                                        <input class="magic-radio js_payment_method" type="radio" name="payment_method" id="payment_paypal"
-                                               @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::PAYPAL) checked @endif
+                                        <input class="magic-radio js_payment_method" type="radio" name="payment_method"
+                                               id="payment_paypal"
+                                               @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::PAYPAL) checked
+                                               @endif
                                                value="paypal">
-                                        <label for="payment_paypal" class="text-left">{{ setting('payment_paypal_name', trans('plugins/payment::payment.payment_via_paypal')) }}</label>
+                                        <label for="payment_paypal"
+                                               class="text-left">{{ setting('payment_paypal_name', trans('plugins/payment::payment.payment_via_paypal')) }}</label>
                                     </li>
                                 @endif
 
@@ -270,22 +299,35 @@
 
                                 @if (setting('payment_cod_status') == 1)
                                     <li class="list-group-item">
-                                        <input class="magic-radio js_payment_method" type="radio" name="payment_method" id="payment_cod"
-                                               @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::COD) checked @endif
-                                               value="cod" data-toggle="collapse" data-target=".payment_cod_wrap" data-parent=".list_payment_method">
-                                        <label for="payment_cod" class="text-left">{{ setting('payment_cod_name', trans('plugins/payment::payment.payment_via_cod')) }}</label>
-                                        <div class="payment_cod_wrap payment_collapse_wrap collapse @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::COD) show @endif" style="padding: 15px 0;">
+                                        <input class="magic-radio js_payment_method" type="radio" name="payment_method"
+                                               id="payment_cod"
+                                               @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::COD) checked
+                                               @endif
+                                               value="cod" data-toggle="collapse" data-target=".payment_cod_wrap"
+                                               data-parent=".list_payment_method">
+                                        <label for="payment_cod"
+                                               class="text-left">{{ setting('payment_cod_name', trans('plugins/payment::payment.payment_via_cod')) }}</label>
+                                        <div
+                                            class="payment_cod_wrap payment_collapse_wrap collapse @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::COD) show @endif"
+                                            style="padding: 15px 0;">
                                             {!! clean(setting('payment_cod_description')) !!}
                                         </div>
                                     </li>
                                 @endif
                                 @if (setting('payment_bank_transfer_status') == 1)
                                     <li class="list-group-item">
-                                        <input class="magic-radio js_payment_method" type="radio" name="payment_method" id="payment_bank_transfer"
-                                               @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::BANK_TRANSFER) checked @endif
-                                               value="bank_transfer" data-toggle="collapse" data-target=".payment_bank_transfer_wrap" data-parent=".list_payment_method">
-                                        <label for="payment_bank_transfer" class="text-left">{{ setting('payment_bank_transfer_name', trans('plugins/payment::payment.payment_via_bank_transfer')) }}</label>
-                                        <div class="payment_bank_transfer_wrap payment_collapse_wrap collapse @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::BANK_TRANSFER) show @endif" style="padding: 15px 0;">
+                                        <input class="magic-radio js_payment_method" type="radio" name="payment_method"
+                                               id="payment_bank_transfer"
+                                               @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::BANK_TRANSFER) checked
+                                               @endif
+                                               value="bank_transfer" data-toggle="collapse"
+                                               data-target=".payment_bank_transfer_wrap"
+                                               data-parent=".list_payment_method">
+                                        <label for="payment_bank_transfer"
+                                               class="text-left">{{ setting('payment_bank_transfer_name', trans('plugins/payment::payment.payment_via_bank_transfer')) }}</label>
+                                        <div
+                                            class="payment_bank_transfer_wrap payment_collapse_wrap collapse @if (setting('default_payment_method') == \Botble\Payment\Enums\PaymentMethodEnum::BANK_TRANSFER) show @endif"
+                                            style="padding: 15px 0;">
                                             {!! clean(setting('payment_bank_transfer_description')) !!}
                                         </div>
                                     </li>
@@ -298,17 +340,22 @@
                         <div class="form-group @if ($errors->has('description')) has-error @endif">
                             <label for="description" class="control-label">{{ __('Note') }}</label>
                             <br>
-                            <textarea name="description" id="description" rows="3" class="form-control" placeholder="{{ __('Note') }}...">{{ old('description') }}</textarea>
+                            <textarea name="description" id="description" rows="3" class="form-control"
+                                      placeholder="{{ __('Note') }}...">{{ old('description') }}</textarea>
                             {!! Form::error('description', $errors) !!}
                         </div>
 
                         <div class="form-group">
                             <div class="row">
                                 <div class="col-md-6 d-none d-md-block" style="line-height: 53px">
-                                    <a class="text-info" href="{{ route('public.cart') }}"><i class="fas fa-long-arrow-alt-left"></i> {{ __('Back to cart') }}</a>
+                                    <a class="text-info" href="{{ route('public.cart') }}"><i
+                                            class="fas fa-long-arrow-alt-left"></i> {{ __('Back to cart') }}</a>
                                 </div>
                                 <div class="col-md-6" style="margin-bottom: 40px">
-                                    <button type="submit" class="btn payment-checkout-btn payment-checkout-btn-step float-right" data-processing-text="{{ __('Processing. Please wait...') }}" data-error-header="{{ __('Error') }}">
+                                    <button type="submit"
+                                            class="btn payment-checkout-btn payment-checkout-btn-step float-right"
+                                            data-processing-text="{{ __('Processing. Please wait...') }}"
+                                            data-error-header="{{ __('Error') }}">
                                         {{ __('Checkout') }}
                                     </button>
                                 </div>
@@ -320,7 +367,7 @@
 
             </div>
             <!---------------------- start right column ---------------- -->
-            <div class="col-lg-5 col-md-6 d-none d-md-block right"  id="main-checkout-product-info">
+            <div class="col-lg-5 col-md-6 d-none d-md-block right" id="main-checkout-product-info">
                 <div class="payment-info-loading" style="display: none;">
                     <div class="payment-info-loading-content">
                         <i class="fas fa-spinner fa-spin"></i>
@@ -329,13 +376,14 @@
                 @if (isset($products) && $products)
                     @foreach(Cart::instance('cart')->content() as $key => $cartItem)
                         @php
-                            $product = $products->where('id', $cartItem->id)->first();
+                            $product = $products->where('id', $cartItem->id)->first()
                         @endphp
                         @if(!empty($product))
                             <div class="row product-item">
                                 <div class="col-lg-2 col-md-2">
                                     <div class="checkout-product-img-wrapper">
-                                        <img class="item-thumb img-thumbnail img-rounded" src="{{ $cartItem->options['image']}}" alt="{{ $product->name ?? '' }}">
+                                        <img class="item-thumb img-thumbnail img-rounded"
+                                             src="{{ $cartItem->options['image']}}" alt="{{ $product->name ?? '' }}">
                                         <span class="checkout-quantity">{{ $cartItem->qty }}</span>
                                     </div>
                                 </div>
@@ -344,7 +392,7 @@
                                     <p style="margin-bottom: 0">
                                         <small>
                                             @php
-                                                $attributes = get_product_attributes($product->id);
+                                                $attributes = get_product_attributes($product->id)
                                             @endphp
 
                                             @if (!empty($attributes))
@@ -361,7 +409,8 @@
                                     @if (!empty($cartItem->options['extras']) && is_array($cartItem->options['extras']))
                                         @foreach($cartItem->options['extras'] as $option)
                                             @if (!empty($option['key']) && !empty($option['value']))
-                                                <p style="margin-bottom: 0;"><small>{{ $option['key'] }}: <strong> {{ $option['value'] }}</strong></small></p>
+                                                <p style="margin-bottom: 0;"><small>{{ $option['key'] }}:
+                                                        <strong> {{ $option['value'] }}</strong></small></p>
                                             @endif
                                         @endforeach
                                     @endif
@@ -375,7 +424,7 @@
                         @endif
                     @endforeach
                 @endif
-                <hr />
+                <hr/>
                 @include('plugins/ecommerce::themes.discounts.partials.form')
                 <hr/>
                 <div class="row price">
@@ -455,7 +504,8 @@
                     @if (theme_option('logo'))
                         <div class="checkout-logo">
                             <a href="{{ url('/') }}" title="{{ theme_option('site_title') }}">
-                                <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" class="img-fluid" width="150" alt="{{ theme_option('site_title') }}" />
+                                <img src="{{ RvMedia::getImageUrl(theme_option('logo')) }}" class="img-fluid"
+                                     width="150" alt="{{ theme_option('site_title') }}"/>
                             </a>
                         </div>
                         <hr/>

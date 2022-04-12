@@ -146,7 +146,8 @@ class Theme implements ThemeContract
         Asset $asset,
         Filesystem $files,
         Breadcrumb $breadcrumb
-    ) {
+    )
+    {
         $this->config = $config;
         $this->events = $events;
         $this->view = $view;
@@ -979,11 +980,11 @@ class Theme implements ThemeContract
         }
 
         $content->withHeaders([
-            'Author'            => 'Botble Technologies (contact@botble.com)',
-            'Author-Team'       => 'https://botble.com',
-            'CMS'               => 'Botble CMS',
-            'CMS-Version'       => get_cms_version(),
-            'Authorization-At'  => setting('membership_authorization_at'),
+            'Author' => 'Botble Technologies (contact@botble.com)',
+            'Author-Team' => 'https://botble.com',
+            'CMS' => 'Botble CMS',
+            'CMS-Version' => get_cms_version(),
+            'Authorization-At' => setting('membership_authorization_at'),
             'Activated-License' => !empty(setting('licensed_to')) ? 'Yes' : 'No',
         ]);
 

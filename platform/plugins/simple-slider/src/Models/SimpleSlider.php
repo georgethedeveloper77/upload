@@ -3,8 +3,9 @@
 namespace Botble\SimpleSlider\Models;
 
 use Botble\Base\Enums\BaseStatusEnum;
-use Botble\Base\Traits\EnumCastable;
 use Botble\Base\Models\BaseModel;
+use Botble\Base\Traits\EnumCastable;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class SimpleSlider extends BaseModel
 {
@@ -34,14 +35,6 @@ class SimpleSlider extends BaseModel
         'status' => BaseStatusEnum::class,
     ];
 
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function sliderItems()
-    {
-        return $this->hasMany(SimpleSliderItem::class)->orderBy('simple_slider_items.order', 'asc');
-    }
-
     protected static function boot()
     {
         parent::boot();
@@ -49,5 +42,13 @@ class SimpleSlider extends BaseModel
         self::deleting(function (SimpleSlider $slider) {
             SimpleSliderItem::where('simple_slider_id', $slider->id)->delete();
         });
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function sliderItems()
+    {
+        return $this->hasMany(SimpleSliderItem::class)->orderBy('simple_slider_items.order', 'asc');
     }
 }

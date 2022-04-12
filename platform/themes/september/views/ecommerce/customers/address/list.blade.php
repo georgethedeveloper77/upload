@@ -15,8 +15,11 @@
                             <p class="name">{{ $address->name }} @if ($address->is_default) <span
                                     class="address-default">{{ __('Default') }}</span> @endif
                             </p>
-                            <p class="address"><i class="fa fa-map-marker" aria-hidden="true"></i> {{ $address->address }}, {{ $address->city }}
-                                , {{ $address->state }}@if (count(EcommerceHelper::getAvailableCountries()) > 1), {{ $address->country_name }} @endif @if (EcommerceHelper::isZipCodeEnabled()), {{ $address->zip_code }} @endif</p>
+                            <p class="address"><i class="fa fa-map-marker"
+                                                  aria-hidden="true"></i> {{ $address->address }}, {{ $address->city }}
+                                , {{ $address->state }}@if (count(EcommerceHelper::getAvailableCountries()) > 1)
+                                    , {{ $address->country_name }} @endif @if (EcommerceHelper::isZipCodeEnabled())
+                                    , {{ $address->zip_code }} @endif</p>
                             <p class="phone"><i class="fa fa-phone" aria-hidden="true"></i> {{ $address->phone }}</p>
                             <div class="action">
                                 <div class="edit-customer-address">

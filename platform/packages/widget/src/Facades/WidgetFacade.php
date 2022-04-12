@@ -8,14 +8,6 @@ use Illuminate\Support\Facades\Facade;
 class WidgetFacade extends Facade
 {
     /**
-     * @return string
-     */
-    protected static function getFacadeAccessor()
-    {
-        return 'botble.widget';
-    }
-
-    /**
      * Get the widget group object.
      *
      * @param string $name
@@ -25,5 +17,13 @@ class WidgetFacade extends Facade
     public static function group($name)
     {
         return app('botble.widget-group-collection')->group($name);
+    }
+
+    /**
+     * @return string
+     */
+    protected static function getFacadeAccessor()
+    {
+        return 'botble.widget';
     }
 }

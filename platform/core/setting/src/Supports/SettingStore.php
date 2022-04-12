@@ -43,18 +43,24 @@ abstract class SettingStore
     }
 
     /**
-     * Determine if a key exists in the settings data.
+     * Make sure data is loaded.
      *
-     * @param string $key
-     *
-     * @return boolean
+     * @param boolean $force Force a reload of data. Default false.
      */
-    public function has($key)
+    public function load($force = false)
     {
-        $this->load();
-
-        return Arr::has($this->data, $key);
+        if (!$this->loaded || $force) {
+            $this->data = $this->read();
+            $this->loaded = true;
+        }
     }
+
+    /**
+     * Read the data from the store.
+     *
+     * @return array
+     */
+    abstract protected function read();
 
     /**
      * Set a specific key to a value in the settings data.
@@ -93,6 +99,20 @@ abstract class SettingStore
         }
 
         return $this;
+    }
+
+    /**
+     * Determine if a key exists in the settings data.
+     *
+     * @param string $key
+     *
+     * @return boolean
+     */
+    public function has($key)
+    {
+        $this->load();
+
+        return Arr::has($this->data, $key);
     }
 
     /**
@@ -135,26 +155,6 @@ abstract class SettingStore
         $this->write($this->data);
         $this->unsaved = false;
     }
-
-    /**
-     * Make sure data is loaded.
-     *
-     * @param boolean $force Force a reload of data. Default false.
-     */
-    public function load($force = false)
-    {
-        if (!$this->loaded || $force) {
-            $this->data = $this->read();
-            $this->loaded = true;
-        }
-    }
-
-    /**
-     * Read the data from the store.
-     *
-     * @return array
-     */
-    abstract protected function read();
 
     /**
      * Write the data into the store.

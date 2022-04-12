@@ -326,7 +326,7 @@ class DashboardWidgetInstance
             $widget->column = $this->column;
 
             $data = [
-                'id'   => $widget->id,
+                'id' => $widget->id,
                 'type' => $this->type,
                 'view' => view('core/dashboard::widgets.base', compact('widget', 'widgetSetting'))->render(),
             ];
@@ -343,7 +343,7 @@ class DashboardWidgetInstance
         $widget->statsTotal = $this->statsTotal;
 
         $widgets[$this->key] = [
-            'id'   => $widget->id,
+            'id' => $widget->id,
             'type' => $this->type,
             'view' => view('core/dashboard::widgets.stats', compact('widget', 'widgetSetting'))->render(),
         ];

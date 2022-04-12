@@ -21,7 +21,8 @@ if (!function_exists('add_meta_box')) {
         $context = 'advanced',
         $priority = 'default',
         $callbackArgs = null
-    ) {
+    )
+    {
         MetaBox::addMetaBox($id, $title, $callback, $screen, $context, $priority, $callbackArgs);
     }
 }

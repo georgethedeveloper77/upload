@@ -7,7 +7,7 @@
     <div class="col-md-4">
         <div class="form-group @if ($errors->has('sku')) has-error @endif">
             <label
-                    class="text-title-field">{{ trans('plugins/ecommerce::products.sku') }}</label>
+                class="text-title-field">{{ trans('plugins/ecommerce::products.sku') }}</label>
             {!! Form::text('sku', old('sku', $product ? $product->sku : null), ['class' => 'next-input', 'id' => 'sku', 'data-counter' => 30]) !!}
         </div>
     </div>
@@ -16,7 +16,8 @@
         <div class="form-group">
             <label class="text-title-field">{{ trans('plugins/ecommerce::products.form.price') }}</label>
             <div class="next-input--stylized">
-                <span class="next-input-add-on next-input__add-on--before">{{ get_application_currency()->symbol }}</span>
+                <span
+                    class="next-input-add-on next-input__add-on--before">{{ get_application_currency()->symbol }}</span>
                 <input name="price"
                        class="next-input input-mask-number regular-price next-input--invisible"
                        step="any"
@@ -29,13 +30,14 @@
         <div class="form-group">
             <label class="text-title-field">
                 <span>{{ trans('plugins/ecommerce::products.form.price_sale') }}</span>
-                <a href="javascript:;"
+                <a href="javascript:"
                    class="turn-on-schedule @if (old('sale_type', $product ? $product->sale_type : ($originalProduct->sale_type ?? 0)) == 1) hidden @endif">{{ trans('plugins/ecommerce::products.form.choose_discount_period') }}</a>
-                <a href="javascript:;"
+                <a href="javascript:"
                    class="turn-off-schedule @if (old('sale_type', $product ? $product->sale_type : ($originalProduct->sale_type ?? 0)) == 0) hidden @endif">{{ trans('plugins/ecommerce::products.form.cancel') }}</a>
             </label>
             <div class="next-input--stylized">
-                <span class="next-input-add-on next-input__add-on--before">{{ get_application_currency()->symbol }}</span>
+                <span
+                    class="next-input-add-on next-input__add-on--before">{{ get_application_currency()->symbol }}</span>
                 <input name="sale_price"
                        class="next-input input-mask-number sale-price next-input--invisible"
                        value="{{ old('sale_price', $product ? $product->sale_price : ($originalProduct->sale_price ?? null)) }}"
@@ -43,7 +45,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-6 scheduled-time @if (old('sale_type', $product ? $product->sale_type : ($originalProduct->sale_type ?? 0)) == 0) hidden @endif">
+    <div
+        class="col-md-6 scheduled-time @if (old('sale_type', $product ? $product->sale_type : ($originalProduct->sale_type ?? 0)) == 0) hidden @endif">
         <div class="form-group">
             <label class="text-title-field">{{ trans('plugins/ecommerce::products.form.date.start') }}</label>
             <input name="start_date"
@@ -52,7 +55,8 @@
                    type="text">
         </div>
     </div>
-    <div class="col-md-6 scheduled-time @if (old('sale_type', $product ? $product->sale_type : ($originalProduct->sale_type ?? 0)) == 0) hidden @endif">
+    <div
+        class="col-md-6 scheduled-time @if (old('sale_type', $product ? $product->sale_type : ($originalProduct->sale_type ?? 0)) == 0) hidden @endif">
         <div class="form-group">
             <label class="text-title-field">{{ trans('plugins/ecommerce::products.form.date.end') }}</label>
             <input name="end_date"
@@ -69,11 +73,15 @@
     <div class="storehouse-management">
         <div class="mt5">
             <input type="hidden" name="with_storehouse_management" value="0">
-            <label><input type="checkbox" class="hrv-checkbox storehouse-management-status" value="1" name="with_storehouse_management" @if (old('with_storehouse_management', $product ? $product->with_storehouse_management : ($originalProduct->with_storehouse_management ?? 0)) == 1) checked @endif> {{ trans('plugins/ecommerce::products.form.storehouse.storehouse') }}</label>
+            <label><input type="checkbox" class="hrv-checkbox storehouse-management-status" value="1"
+                          name="with_storehouse_management"
+                          @if (old('with_storehouse_management', $product ? $product->with_storehouse_management : ($originalProduct->with_storehouse_management ?? 0)) == 1) checked @endif> {{ trans('plugins/ecommerce::products.form.storehouse.storehouse') }}
+            </label>
         </div>
     </div>
 </div>
-<div class="storehouse-info @if (old('with_storehouse_management', $product ? $product->with_storehouse_management : ($originalProduct->with_storehouse_management ?? 0)) == 0) hidden @endif">
+<div
+    class="storehouse-info @if (old('with_storehouse_management', $product ? $product->with_storehouse_management : ($originalProduct->with_storehouse_management ?? 0)) == 0) hidden @endif">
     <div class="form-group">
         <label class="text-title-field">{{ trans('plugins/ecommerce::products.form.storehouse.quantity') }}</label>
         <input type="text"
@@ -98,37 +106,48 @@
     <div class="row">
         <div class="col-md-3 col-md-6">
             <div class="form-group">
-                <label>{{ trans('plugins/ecommerce::products.form.shipping.weight') }} ({{ ecommerce_weight_unit() }})</label>
+                <label>{{ trans('plugins/ecommerce::products.form.shipping.weight') }} ({{ ecommerce_weight_unit() }}
+                    )</label>
                 <div class="next-input--stylized">
                     <span class="next-input-add-on next-input__add-on--before">{{ ecommerce_weight_unit() }}</span>
-                    <input type="text" class="next-input input-mask-number next-input--invisible" name="weight" value="{{ old('weight', $product ? $product->weight : ($originalProduct->weight ?? 0)) }}">
+                    <input type="text" class="next-input input-mask-number next-input--invisible" name="weight"
+                           value="{{ old('weight', $product ? $product->weight : ($originalProduct->weight ?? 0)) }}">
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-md-6">
             <div class="form-group">
-                <label>{{ trans('plugins/ecommerce::products.form.shipping.length') }} ({{ ecommerce_width_height_unit() }})</label>
+                <label>{{ trans('plugins/ecommerce::products.form.shipping.length') }}
+                    ({{ ecommerce_width_height_unit() }})</label>
                 <div class="next-input--stylized">
-                    <span class="next-input-add-on next-input__add-on--before">{{ ecommerce_width_height_unit() }}</span>
-                    <input type="text" class="next-input input-mask-number next-input--invisible" name="length" value="{{ old('length', $product ? $product->length : ($originalProduct->length ?? 0)) }}">
+                    <span
+                        class="next-input-add-on next-input__add-on--before">{{ ecommerce_width_height_unit() }}</span>
+                    <input type="text" class="next-input input-mask-number next-input--invisible" name="length"
+                           value="{{ old('length', $product ? $product->length : ($originalProduct->length ?? 0)) }}">
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-md-6">
             <div class="form-group">
-                <label>{{ trans('plugins/ecommerce::products.form.shipping.wide') }} ({{ ecommerce_width_height_unit() }})</label>
+                <label>{{ trans('plugins/ecommerce::products.form.shipping.wide') }}
+                    ({{ ecommerce_width_height_unit() }})</label>
                 <div class="next-input--stylized">
-                    <span class="next-input-add-on next-input__add-on--before">{{ ecommerce_width_height_unit() }}</span>
-                    <input type="text" class="next-input input-mask-number next-input--invisible" name="wide" value="{{ old('wide', $product ? $product->wide : ($originalProduct->wide ?? 0)) }}">
+                    <span
+                        class="next-input-add-on next-input__add-on--before">{{ ecommerce_width_height_unit() }}</span>
+                    <input type="text" class="next-input input-mask-number next-input--invisible" name="wide"
+                           value="{{ old('wide', $product ? $product->wide : ($originalProduct->wide ?? 0)) }}">
                 </div>
             </div>
         </div>
         <div class="col-md-3 col-md-6">
             <div class="form-group">
-                <label>{{ trans('plugins/ecommerce::products.form.shipping.height') }} ({{ ecommerce_width_height_unit() }})</label>
+                <label>{{ trans('plugins/ecommerce::products.form.shipping.height') }}
+                    ({{ ecommerce_width_height_unit() }})</label>
                 <div class="next-input--stylized">
-                    <span class="next-input-add-on next-input__add-on--before">{{ ecommerce_width_height_unit() }}</span>
-                    <input type="text" class="next-input input-mask-number next-input--invisible" name="height" value="{{ old('height', $product ? $product->height : ($originalProduct->height ?? 0)) }}" />
+                    <span
+                        class="next-input-add-on next-input__add-on--before">{{ ecommerce_width_height_unit() }}</span>
+                    <input type="text" class="next-input input-mask-number next-input--invisible" name="height"
+                           value="{{ old('height', $product ? $product->height : ($originalProduct->height ?? 0)) }}"/>
                 </div>
             </div>
         </div>

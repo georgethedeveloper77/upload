@@ -19,7 +19,8 @@
                         <input type="hidden" name="social_login_enable" value="0">
                         <label>
                             <input type="checkbox" class="hrv-checkbox" value="1"
-                                   @if (setting('social_login_enable')) checked @endif name="social_login_enable" id="social_login_enable">
+                                   @if (setting('social_login_enable')) checked @endif name="social_login_enable"
+                                   id="social_login_enable">
                             {{ trans('plugins/social-login::social-login.settings.enable') }}
                         </label>
                     </div>
@@ -27,7 +28,8 @@
                 </div>
             </div>
         </div>
-        <div class="wrapper-list-social-login-options" @if (!setting('social_login_enable')) style="display:none;" @endif>
+        <div class="wrapper-list-social-login-options"
+             @if (!setting('social_login_enable')) style="display:none;" @endif>
             <div class="flexbox-annotated-section">
 
                 <div class="flexbox-annotated-section-annotation">
@@ -45,15 +47,18 @@
                             <input type="hidden" name="social_login_facebook_enable" value="0">
                             <label>
                                 <input type="checkbox" class="hrv-checkbox enable-social-login-option" value="1"
-                                       @if (setting('social_login_facebook_enable')) checked @endif name="social_login_facebook_enable">
+                                       @if (setting('social_login_facebook_enable')) checked
+                                       @endif name="social_login_facebook_enable">
                                 {{ trans('plugins/social-login::social-login.settings.enable') }}
                             </label>
                         </div>
-                        <div class="enable-social-login-option-wrapper" @if (!setting('social_login_facebook_enable')) style="display:none;" @endif>
+                        <div class="enable-social-login-option-wrapper"
+                             @if (!setting('social_login_facebook_enable')) style="display:none;" @endif>
                             <div class="form-group">
                                 <label class="text-title-field"
                                        for="social_login_facebook_app_id">{{ trans('plugins/social-login::social-login.settings.facebook.app_id') }}</label>
-                                <input data-counter="120" type="text" class="next-input" name="social_login_facebook_app_id" id="social_login_facebook_app_id"
+                                <input data-counter="120" type="text" class="next-input"
+                                       name="social_login_facebook_app_id" id="social_login_facebook_app_id"
                                        value="{{ setting('social_login_facebook_app_id') }}">
                             </div>
 
@@ -61,7 +66,8 @@
                                 <div class="form-group mb-0">
                                     <label class="text-title-field"
                                            for="social_login_facebook_app_secret">{{ trans('plugins/social-login::social-login.settings.facebook.app_secret') }}</label>
-                                    <input data-counter="120" type="password" class="next-input" name="social_login_facebook_app_secret" id="social_login_facebook_app_secret"
+                                    <input data-counter="120" type="password" class="next-input"
+                                           name="social_login_facebook_app_secret" id="social_login_facebook_app_secret"
                                            value="{{ setting('social_login_facebook_app_secret') }}">
                                 </div>
                             @endif
@@ -89,16 +95,19 @@
                             <input type="hidden" name="social_login_google_enable" value="0">
                             <label>
                                 <input type="checkbox" class="hrv-checkbox enable-social-login-option" value="1"
-                                       @if (setting('social_login_google_enable')) checked @endif name="social_login_google_enable">
+                                       @if (setting('social_login_google_enable')) checked
+                                       @endif name="social_login_google_enable">
                                 {{ trans('plugins/social-login::social-login.settings.enable') }}
                             </label>
                         </div>
 
-                        <div class="enable-social-login-option-wrapper" @if (!setting('social_login_google_enable')) style="display:none;" @endif>
+                        <div class="enable-social-login-option-wrapper"
+                             @if (!setting('social_login_google_enable')) style="display:none;" @endif>
                             <div class="form-group">
                                 <label class="text-title-field"
                                        for="social_login_google_app_id">{{ trans('plugins/social-login::social-login.settings.google.app_id') }}</label>
-                                <input data-counter="120" type="text" class="next-input" name="social_login_google_app_id" id="social_login_google_app_id"
+                                <input data-counter="120" type="text" class="next-input"
+                                       name="social_login_google_app_id" id="social_login_google_app_id"
                                        value="{{ setting('social_login_google_app_id') }}">
                             </div>
 
@@ -106,7 +115,8 @@
                                 <div class="form-group mb-0">
                                     <label class="text-title-field"
                                            for="social_login_google_app_secret">{{ trans('plugins/social-login::social-login.settings.google.app_secret') }}</label>
-                                    <input data-counter="120" type="password" class="next-input" name="social_login_google_app_secret" id="social_login_google_app_secret"
+                                    <input data-counter="120" type="password" class="next-input"
+                                           name="social_login_google_app_secret" id="social_login_google_app_secret"
                                            value="{{ setting('social_login_google_app_secret') }}">
                                 </div>
                             @endif
@@ -134,16 +144,19 @@
                             <input type="hidden" name="social_login_github_enable" value="0">
                             <label>
                                 <input type="checkbox" class="hrv-checkbox enable-social-login-option" value="1"
-                                       @if (setting('social_login_github_enable')) checked @endif name="social_login_github_enable">
+                                       @if (setting('social_login_github_enable')) checked
+                                       @endif name="social_login_github_enable">
                                 {{ trans('plugins/social-login::social-login.settings.enable') }}
                             </label>
                         </div>
 
-                        <div class="enable-social-login-option-wrapper" @if (!setting('social_login_github_enable')) style="display:none;" @endif>
+                        <div class="enable-social-login-option-wrapper"
+                             @if (!setting('social_login_github_enable')) style="display:none;" @endif>
                             <div class="form-group">
                                 <label class="text-title-field"
                                        for="social_login_github_app_id">{{ trans('plugins/social-login::social-login.settings.github.app_id') }}</label>
-                                <input data-counter="120" type="text" class="next-input" name="social_login_github_app_id" id="social_login_github_app_id"
+                                <input data-counter="120" type="text" class="next-input"
+                                       name="social_login_github_app_id" id="social_login_github_app_id"
                                        value="{{ setting('social_login_github_app_id') }}">
                             </div>
 
@@ -151,7 +164,8 @@
                                 <div class="form-group mb-0">
                                     <label class="text-title-field"
                                            for="social_login_github_app_secret">{{ trans('plugins/social-login::social-login.settings.github.app_secret') }}</label>
-                                    <input data-counter="120" type="password" class="next-input" name="social_login_github_app_secret" id="social_login_github_app_secret"
+                                    <input data-counter="120" type="password" class="next-input"
+                                           name="social_login_github_app_secret" id="social_login_github_app_secret"
                                            value="{{ setting('social_login_github_app_secret') }}">
                                 </div>
                             @endif
@@ -179,16 +193,19 @@
                             <input type="hidden" name="social_login_linkedin_enable" value="0">
                             <label>
                                 <input type="checkbox" class="hrv-checkbox enable-social-login-option" value="1"
-                                       @if (setting('social_login_linkedin_enable')) checked @endif name="social_login_linkedin_enable">
+                                       @if (setting('social_login_linkedin_enable')) checked
+                                       @endif name="social_login_linkedin_enable">
                                 {{ trans('plugins/social-login::social-login.settings.enable') }}
                             </label>
                         </div>
 
-                        <div class="enable-social-login-option-wrapper" @if (!setting('social_login_linkedin_enable')) style="display:none;" @endif>
+                        <div class="enable-social-login-option-wrapper"
+                             @if (!setting('social_login_linkedin_enable')) style="display:none;" @endif>
                             <div class="form-group">
                                 <label class="text-title-field"
                                        for="social_login_linkedin_app_id">{{ trans('plugins/social-login::social-login.settings.linkedin.app_id') }}</label>
-                                <input data-counter="120" type="text" class="next-input" name="social_login_linkedin_app_id" id="social_login_linkedin_app_id"
+                                <input data-counter="120" type="text" class="next-input"
+                                       name="social_login_linkedin_app_id" id="social_login_linkedin_app_id"
                                        value="{{ setting('social_login_linkedin_app_id') }}">
                             </div>
 
@@ -196,7 +213,8 @@
                                 <div class="form-group mb-0">
                                     <label class="text-title-field"
                                            for="social_login_linkedin_app_secret">{{ trans('plugins/social-login::social-login.settings.linkedin.app_secret') }}</label>
-                                    <input data-counter="120" type="password" class="next-input" name="social_login_linkedin_app_secret" id="social_login_linkedin_app_secret"
+                                    <input data-counter="120" type="password" class="next-input"
+                                           name="social_login_linkedin_app_secret" id="social_login_linkedin_app_secret"
                                            value="{{ setting('social_login_linkedin_app_secret') }}">
                                 </div>
                             @endif

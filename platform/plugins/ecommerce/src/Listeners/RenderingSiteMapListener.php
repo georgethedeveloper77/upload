@@ -43,7 +43,8 @@ class RenderingSiteMapListener
         ProductCategoryInterface $productCategoryRepository,
         BrandInterface $brandRepository,
         ProductTagInterface $tagRepository
-    ) {
+    )
+    {
         $this->tagRepository = $tagRepository;
         $this->productRepository = $productRepository;
         $this->productCategoryRepository = $productCategoryRepository;

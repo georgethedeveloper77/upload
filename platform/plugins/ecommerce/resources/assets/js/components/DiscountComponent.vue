@@ -4,47 +4,49 @@
             <div class="wrapper-content">
                 <div class="pd-all-20 ws-nm">
                     <label class="title-product-main text-no-bold"><span
-                            v-if="!is_promotion">{{ __('Create coupon code')}}</span><span v-if="is_promotion">{{ __('Create discount promotion') }}</span></label>
-                    <a href="#" class="btn-change-link float-right" v-on:click="generateCouponCode($event)"
+                        v-if="!is_promotion">{{ __('Create coupon code')}}</span><span v-if="is_promotion">{{ __('Create discount promotion') }}</span></label>
+                    <a class="btn-change-link float-right" href="#" v-on:click="generateCouponCode($event)"
                        v-show="!is_promotion">{{ __('Generate coupon code')}}</a>
                     <div class="form-group mt15 mb0">
-                        <input type="text" class="next-input coupon-code-input" name="code" v-model="code"
+                        <input class="next-input coupon-code-input" name="code" type="text" v-model="code"
                                v-show="!is_promotion">
-                        <input type="text" class="next-input" name="title" v-model="title" v-show="is_promotion"
-                               placeholder="Enter promotion name">
-                        <p class="type-subdued mt5 mb0" v-show="!is_promotion">{{ __('Customers will enter this coupon code when they checkout')}}.</p>
+                        <input class="next-input" name="title" placeholder="Enter promotion name" type="text" v-model="title"
+                               v-show="is_promotion">
+                        <p class="type-subdued mt5 mb0" v-show="!is_promotion">{{ __('Customers will enter this coupon
+                            code when they checkout')}}.</p>
                     </div>
                 </div>
                 <div class="pd-all-20 border-top-color">
-                    <label class="title-product-main text-no-bold block-display">{{ __('Select type of discount') }}</label>
+                    <label class="title-product-main text-no-bold block-display">{{ __('Select type of discount')
+                        }}</label>
                     <div class="ui-select-wrapper width-200-px-rsp-768 mt15">
-                        <select class="ui-select" id="select-promotion" name="type" v-model="type"
-                                @change="changeDiscountType()">
+                        <select @change="changeDiscountType()" class="ui-select" id="select-promotion" name="type"
+                                v-model="type">
                             <option value="coupon">{{ __('Coupon code')}}</option>
                             <option value="promotion">{{ __('Promotion')}}</option>
                         </select>
                         <svg class="svg-next-icon svg-next-icon-size-16">
-                            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
+                            <use xlink:href="#select-chevron" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                         </svg>
                     </div>
                     <div class="form-group mt15 mb0" v-show="!is_promotion">
                         <label class="next-label">
-                            <input type="checkbox" class="hrv-checkbox" value="1" name="can_use_with_promotion"
-                                   v-model="can_use_with_promotion">
+                            <input class="hrv-checkbox" name="can_use_with_promotion" type="checkbox" v-model="can_use_with_promotion"
+                                   value="1">
                             <span class="pre-line">{{ __('Can be used with promotion')}}</span>
                         </label>
                     </div>
                     <div class="form-group mb0 mt15" v-show="!is_promotion">
                         <label>
-                            <input type="checkbox" class="hrv-checkbox" name="is_unlimited" value="1"
-                                   v-model="is_unlimited">{{ __('Unlimited coupon')}}
+                            <input class="hrv-checkbox" name="is_unlimited" type="checkbox" v-model="is_unlimited"
+                                   value="1">{{ __('Unlimited coupon')}}
                         </label>
                     </div>
                     <div class="form-group mb0 mt15" v-show="!is_promotion && !is_unlimited">
                         <label class="text-title-field">{{ __('Enter number') }}</label>
                         <div class="limit-input-group">
-                            <input type="text" class="form-control pl5 p-r5" name="quantity" v-model="quantity"
-                                   autocomplete="off" v-bind:disabled="is_unlimited">
+                            <input autocomplete="off" class="form-control pl5 p-r5" name="quantity" type="text"
+                                   v-bind:disabled="is_unlimited" v-model="quantity">
                         </div>
                     </div>
                 </div>
@@ -52,77 +54,81 @@
                     <label class="title-product-main text-no-bold block-display">{{ __('Coupon type') }}</label>
                     <div class="form-inline form-group discount-input mt15 mb0 ws-nm">
                         <div class="ui-select-wrapper inline_block mb5" style="min-width: 200px;">
-                            <select id="discount-type-option" name="type_option" class="ui-select" v-model="type_option"
-                                    @change="handleChangeTypeOption()">
+                            <select @change="handleChangeTypeOption()" class="ui-select" id="discount-type-option" name="type_option"
+                                    v-model="type_option">
                                 <option value="amount">{{ currency }}</option>
                                 <option value="percentage">{{ __('Discount %')}}</option>
-                                <option value="shipping" v-if="!is_promotion">{{ __('Free shipping')}}</option>
+                                <option v-if="!is_promotion" value="shipping">{{ __('Free shipping')}}</option>
                                 <option value="same-price">{{ __('Same price') }}</option>
                             </select>
                             <svg class="svg-next-icon svg-next-icon-size-16">
-                                <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
+                                <use xlink:href="#select-chevron" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                             </svg>
                         </div>
                         <span class="lb-dis"> <span>{{ value_label }}</span></span>
                         <div class="inline width20-rsp-768 mb5">
                             <div class="next-input--stylized">
-                                <input type="text" class="next-input next-input--invisible" name="value"
-                                       v-model="discount_value" autocomplete="off" placeholder="0">
+                                <input autocomplete="off" class="next-input next-input--invisible" name="value"
+                                       placeholder="0" type="text" v-model="discount_value">
                                 <span class="next-input-add-on next-input__add-on--after">{{ discountUnit }}</span>
                             </div>
                         </div>
-                        <span class="lb-dis" v-show="type_option !== 'shipping' && type_option"> {{ __('apply for') }}</span>
+                        <span class="lb-dis"
+                              v-show="type_option !== 'shipping' && type_option"> {{ __('apply for') }}</span>
                         <div v-show="type_option !== 'shipping' && type_option">
-                            <div class="ui-select-wrapper inline_block mb5 min-width-150-px" style="margin-right: 10px;"
-                                 @change="handleChangeTarget()">
-                                <select id="select-offers" class="ui-select" name="target" v-model="target">
-                                    <option value="all-orders" v-if="type_option !== 'same-price'">{{ __('All orders') }}
+                            <div @change="handleChangeTarget()" class="ui-select-wrapper inline_block mb5 min-width-150-px"
+                                 style="margin-right: 10px;">
+                                <select class="ui-select" id="select-offers" name="target" v-model="target">
+                                    <option v-if="type_option !== 'same-price'" value="all-orders">{{ __('All orders')
+                                        }}
                                     </option>
-                                    <option value="amount-minimum-order" v-if="type_option !== 'same-price'">{{ __('Order amount from')}}
+                                    <option v-if="type_option !== 'same-price'" value="amount-minimum-order">{{
+                                        __('Order amount from')}}
                                     </option>
                                     <option value="group-products">{{ __('Product collection')}}</option>
                                     <option value="specific-product">{{ __('Product')}}</option>
-                                    <option value="customer" v-if="type_option !== 'same-price'">{{ __('Customer')}}</option>
+                                    <option v-if="type_option !== 'same-price'" value="customer">{{ __('Customer')}}
+                                    </option>
                                     <option value="product-variant">{{ __('Variant') }}</option>
                                 </select>
                                 <svg class="svg-next-icon svg-next-icon-size-16">
-                                    <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#select-chevron"></use>
+                                    <use xlink:href="#select-chevron" xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                 </svg>
                             </div>
                             <div class="inline mb5" id="div-select-collection"
-                                 v-if="target === 'group-products' && type_option !== 'shipping'"
-                                 style="margin-right: 10px;">
+                                 style="margin-right: 10px;"
+                                 v-if="target === 'group-products' && type_option !== 'shipping'">
 
                                 <div class="ui-select-wrapper" style="min-width: 200px;">
-                                    <select name="product_collections" class="ui-select"
+                                    <select class="ui-select" name="product_collections"
                                             v-model="product_collection_id">
-                                        <option v-for="product_collection in product_collections"
-                                                v-bind:value="product_collection.id">{{ product_collection.name }}
+                                        <option v-bind:value="product_collection.id"
+                                                v-for="product_collection in product_collections">{{ product_collection.name }}
                                         </option>
                                     </select>
                                     <svg class="svg-next-icon svg-next-icon-size-16">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                             xlink:href="#select-chevron"></use>
+                                        <use xlink:href="#select-chevron"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                     </svg>
                                 </div>
                             </div>
                             <div class="inline mb5" id="div-select-product"
-                                 v-if="target === 'specific-product' && type_option !== 'shipping'"
-                                 style="margin-right: 10px;">
+                                 style="margin-right: 10px;"
+                                 v-if="target === 'specific-product' && type_option !== 'shipping'">
                                 <div class="drop-select-search drop-control dropdown dropdown-collection">
-                                    <input type="hidden" name="products" v-model="product_id">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            @click="loadListProductsForSelect()">
+                                    <input name="products" type="hidden" v-model="product_id">
+                                    <button @click="loadListProductsForSelect()" aria-expanded="false"
+                                            aria-haspopup="true" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                            type="button">
                                         <span class="overflow-title max-250 p-r15">{{ product_text }}</span>
                                     </button>
                                     <div class="dropdown-menu">
                                         <div class="has-loading" v-show="loading">
                                             <i class="fa fa-spinner fa-spin"></i>
                                         </div>
-                                        <a v-show="!loading" class="dropdown-item"
-                                           @click="handleSelectProducts(product)" href="#" v-for="product in products"
-                                           v-bind:value="product.id">{{ product.name }}</a>
+                                        <a @click="handleSelectProducts(product)" class="dropdown-item"
+                                           href="#" v-bind:value="product.id" v-for="product in products"
+                                           v-show="!loading">{{ product.name }}</a>
                                     </div>
                                 </div>
                             </div>
@@ -130,31 +136,32 @@
                             <div class="inline mb5" id="div-select-customer"
                                  v-if="target === 'customer' && type_option !== 'shipping'">
                                 <div class="drop-select-search drop-control dropdown dropdown-collection">
-                                    <input type="hidden" name="customers" v-model="customer_id">
-                                    <button class="btn btn-secondary dropdown-toggle" type="button"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                                            @click="loadListCustomersForSelect()">
+                                    <input name="customers" type="hidden" v-model="customer_id">
+                                    <button @click="loadListCustomersForSelect()" aria-expanded="false"
+                                            aria-haspopup="true" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown"
+                                            type="button">
                                         <span class="overflow-title max-250 p-r15">{{ customer_name }}</span>
                                     </button>
                                     <div class="dropdown-menu">
                                         <div class="has-loading" v-show="loading">
                                             <i class="fa fa-spinner fa-spin"></i>
                                         </div>
-                                        <a v-show="!loading" class="dropdown-item"
-                                           @click="handleSelectCustomers(customer)" href="#"
-                                           v-for="customer in customers" v-bind:value="customer.id">{{ customer.name
+                                        <a @click="handleSelectCustomers(customer)" class="dropdown-item"
+                                           href="#" v-bind:value="customer.id"
+                                           v-for="customer in customers" v-show="!loading">{{ customer.name
                                             }}</a>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="inline mb5" id="div-select-product-variant"
-                                 v-if="target === 'product-variant' && type_option !== 'shipping'"
-                                 style="margin-right: 10px;">
+                                 style="margin-right: 10px;"
+                                 v-if="target === 'product-variant' && type_option !== 'shipping'">
                                 <div class="box-search-advance product" style="min-width: 310px;">
-                                    <input type="text" class="next-input textbox-advancesearch"
-                                           @click="loadListProductsForSearch()"
-                                           @keyup="handleSearchProduct($event.target.value)" placeholder="Search product">
+                                    <input @click="loadListProductsForSearch()" @keyup="handleSearchProduct($event.target.value)"
+                                           class="next-input textbox-advancesearch"
+                                           placeholder="Search product"
+                                           type="text">
                                     <div class="panel panel-default"
                                          v-bind:class="{ active: product_variants, hidden : hidden_product_search_panel }">
                                         <div class="panel-body">
@@ -175,13 +182,15 @@
                                                             product_variant.name }}</label>
                                                         <div class="clear"></div>
                                                         <ul>
-                                                            <li class="clearfix product-variant"
-                                                                v-for="variation in product_variant.variations"
-                                                                @click="selectProductVariant(product_variant, variation)">
+                                                            <li @click="selectProductVariant(product_variant, variation)"
+                                                                class="clearfix product-variant"
+                                                                v-for="variation in product_variant.variations">
                                                                 <a class="color_green float-left">
-                                                                    <span v-for="(variantItem, index) in variation.variation_items">
+                                                                    <span
+                                                                        v-for="(variantItem, index) in variation.variation_items">
                                                                         {{ variantItem.attribute_title }}
-                                                                        <span v-if="index !== variation.variation_items.length - 1">/</span>
+                                                                        <span
+                                                                            v-if="index !== variation.variation_items.length - 1">/</span>
                                                                     </span>
                                                                 </a>
                                                             </li>
@@ -196,23 +205,23 @@
                                         <div class="panel-footer"
                                              v-if="product_variants.next_page_url || product_variants.prev_page_url">
                                             <div class="btn-group float-right">
-                                                <button type="button"
-                                                        @click="loadListProductsForSearch(1, (product_variants.prev_page_url ? product_variants.current_page - 1 : product_variants.current_page), true)"
+                                                <button @click="loadListProductsForSearch(1, (product_variants.prev_page_url ? product_variants.current_page - 1 : product_variants.current_page), true)"
+                                                        type="button"
                                                         v-bind:class="{ 'btn btn-secondary': product_variants.current_page !== 1, 'btn btn-secondary disable': product_variants.current_page === 1}"
                                                         v-bind:disabled="product_variants.current_page === 1">
-                                                    <svg role="img"
-                                                         class="svg-next-icon svg-next-icon-size-16 svg-next-icon-rotate-180">
-                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                             xlink:href="#next-chevron"></use>
+                                                    <svg class="svg-next-icon svg-next-icon-size-16 svg-next-icon-rotate-180"
+                                                         role="img">
+                                                        <use xlink:href="#next-chevron"
+                                                             xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                                     </svg>
                                                 </button>
-                                                <button type="button"
-                                                        @click="loadListProductsForSearch(1, (product_variants.next_page_url ? product_variants.current_page + 1 : product_variants.current_page), true)"
+                                                <button @click="loadListProductsForSearch(1, (product_variants.next_page_url ? product_variants.current_page + 1 : product_variants.current_page), true)"
+                                                        type="button"
                                                         v-bind:class="{ 'btn btn-secondary': product_variants.next_page_url, 'btn btn-secondary disable': !product_variants.next_page_url }"
                                                         v-bind:disabled="!product_variants.next_page_url">
-                                                    <svg role="img" class="svg-next-icon svg-next-icon-size-16">
-                                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                             xlink:href="#next-chevron"></use>
+                                                    <svg class="svg-next-icon svg-next-icon-size-16" role="img">
+                                                        <use xlink:href="#next-chevron"
+                                                             xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                                     </svg>
                                                 </button>
                                             </div>
@@ -230,27 +239,27 @@
                                         <option value="per-every-item">{{ __('One time per product in cart') }}</option>
                                     </select>
                                     <svg class="svg-next-icon svg-next-icon-size-16">
-                                        <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                             xlink:href="#select-chevron"></use>
+                                        <use xlink:href="#select-chevron"
+                                             xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                     </svg>
                                 </div>
                             </div>
                             <div class="inline width-150-px mb5"
                                  v-if="target === 'amount-minimum-order' && type_option !== 'shipping'">
                                 <div class="next-input--stylized">
-                                    <input type="text" class="next-input next-input--invisible"
-                                           v-model="min_order_price" name="min_order_price">
+                                    <input class="next-input next-input--invisible" name="min_order_price"
+                                           type="text" v-model="min_order_price">
                                     <span class="next-input-add-on next-input__add-on--after">{{ currency }}</span>
                                 </div>
                             </div>
                         </div>
                         <div style="margin: 10px 0;" v-show="is_promotion">
                             <span class="lb-dis">  {{ __('Number of products') }}: </span>
-                            <input type="text" class="form-control width-100-px p-none-r" name="product_quantity"
-                                   id="product-quantity" v-model="product_quantity">
+                            <input class="form-control width-100-px p-none-r" id="product-quantity" name="product_quantity"
+                                   type="text" v-model="product_quantity">
                         </div>
                     </div>
-                    <input type="hidden" v-model="variant_ids" name="variants">
+                    <input name="variants" type="hidden" v-model="variant_ids">
                     <div class="clearfix" v-if="variants.length && target === 'product-variant'">
                         <div class="mt20"><label class="text-title-field">{{ __('Selected products')}}:</label></div>
                         <div class="table-wrapper p-none mt10 mb20 ps-relative">
@@ -264,8 +273,8 @@
                                         </div>
                                     </td>
                                     <td class="pl5 p-r5 min-width-200-px">
-                                        <a class="hover-underline pre-line" v-bind:href="variant.product_link"
-                                           target="_blank">{{ variant.product_name }}</a>
+                                        <a class="hover-underline pre-line" target="_blank"
+                                           v-bind:href="variant.product_link">{{ variant.product_name }}</a>
                                         <p class="type-subdued">
                                             <span v-for="(variantItem, index) in variant.variation_items">
                                                 {{ variantItem.attribute_title }}
@@ -274,10 +283,10 @@
                                         </p>
                                     </td>
                                     <td class="pl5 p-r5 text-right width-20-px min-width-20-px">
-                                        <a href="#" @click="handleRemoveVariant($event, variant)">
+                                        <a @click="handleRemoveVariant($event, variant)" href="#">
                                             <svg class="svg-next-icon svg-next-icon-size-12">
-                                                <use xmlns:xlink="http://www.w3.org/1999/xlink"
-                                                     xlink:href="#next-remove"></use>
+                                                <use xlink:href="#next-remove"
+                                                     xmlns:xlink="http://www.w3.org/1999/xlink"></use>
                                             </svg>
                                         </a>
                                     </td>
@@ -299,8 +308,9 @@
                     <label class="text-title-field">{{ __('Start date')}}</label>
                     <div class="next-field__connected-wrapper z-index-9">
                         <div class="input-group date form_datetime form_datetime bs-datetime">
-                            <input type="text" placeholder="Select date..." data-date-format="dd-mm-yyyy" name="start_date" v-model="start_date"
-                                   class="next-field--connected next-input z-index-9 datepicker" autocomplete="off">
+                            <input autocomplete="off" class="next-field--connected next-input z-index-9 datepicker" data-date-format="dd-mm-yyyy"
+                                   name="start_date" placeholder="Select date..."
+                                   type="text" v-model="start_date">
                             <span class="input-group-prepend">
                                 <button class="btn default" type="button">
                                     <span class="fa fa-fw fa-calendar"></span>
@@ -308,8 +318,8 @@
                             </span>
                         </div>
                         <div class="input-group">
-                            <input type="text" placeholder="Select time..." name="start_time" v-model="start_time"
-                                   class="next-field--connected next-input z-index-9 time-picker timepicker timepicker-24">
+                            <input class="next-field--connected next-input z-index-9 time-picker timepicker timepicker-24" name="start_time" placeholder="Select time..." type="text"
+                                   v-model="start_time">
                             <span class="input-group-prepend">
                                 <button class="btn default" type="button">
                                     <i class="fa fa-clock"></i>
@@ -322,9 +332,10 @@
                     <label class="text-title-field">{{ __('End date')}}</label>
                     <div class="next-field__connected-wrapper z-index-9">
                         <div class="input-group date form_datetime form_datetime bs-datetime">
-                            <input type="text" placeholder="Select date..." data-date-format="dd-mm-yyyy" name="end_date" v-model="end_date"
-                                   class="next-field--connected next-input z-index-9 datepicker"
-                                   v-bind:disabled="unlimited_time">
+                            <input class="next-field--connected next-input z-index-9 datepicker" data-date-format="dd-mm-yyyy" name="end_date"
+                                   placeholder="Select date..." type="text"
+                                   v-bind:disabled="unlimited_time"
+                                   v-model="end_date">
                             <span class="input-group-prepend">
                                 <button class="btn default" type="button">
                                     <span class="fa fa-fw fa-calendar"></span>
@@ -332,9 +343,9 @@
                             </span>
                         </div>
                         <div class="input-group">
-                            <input type="text" placeholder="Select time..." name="end_time" v-model="end_time"
-                                   class="next-field--connected next-input z-index-9 time-picker timepicker timepicker-24"
-                                   v-bind:disabled="unlimited_time">
+                            <input class="next-field--connected next-input z-index-9 time-picker timepicker timepicker-24" name="end_time" placeholder="Select time..." type="text"
+                                   v-bind:disabled="unlimited_time"
+                                   v-model="end_time">
                             <span class="input-group-prepend">
                                 <button class="btn default" type="button">
                                     <i class="fa fa-clock"></i>
@@ -345,8 +356,8 @@
                 </div>
                 <div class="pd-all-10-20">
                     <label class="next-label disable-input-date-discount">
-                        <input type="checkbox" class="hrv-checkbox" name="unlimited_time" value="1"
-                               v-model="unlimited_time">{{ __('Never expired')}}
+                        <input class="hrv-checkbox" name="unlimited_time" type="checkbox" v-model="unlimited_time"
+                               value="1">{{ __('Never expired')}}
                     </label>
                 </div>
             </div>

@@ -1,9 +1,9 @@
 @php
     //get all product of category
-    $products = get_product_by_brand([
+    use Botble\Base\Enums\BaseStatusEnum;$products = get_product_by_brand([
         'brand_id' => $brand->id,
         'condition' => [
-            'ec_products.status' => \Botble\Base\Enums\BaseStatusEnum::PUBLISHED,
+            'ec_products.status' => BaseStatusEnum::PUBLISHED,
             'ec_products.is_variation' => 0,
         ],
         'order_by' => [
@@ -15,7 +15,7 @@
             'per_page' => 20,
             'current_paged' => 1
         ],
-   ]);
+   ])
 @endphp
 <div class="content-page">
     <div class="container">
@@ -59,15 +59,19 @@
                                 <div class="product-thumb">
                                     <a href="{{ $product->url }}" class="product-thumb-link">
                                         @foreach ($product->images as $image)
-                                            <img data-color="black" @if ($loop->first) class="active" @endif src="{{ RvMedia::getImageUrl($image, 'thumb') }}" alt="">
+                                            <img data-color="black" @if ($loop->first) class="active"
+                                                 @endif src="{{ RvMedia::getImageUrl($image, 'thumb') }}" alt="">
                                         @endforeach
                                     </a>
 
                                 </div>
                                 <div class="product-info">
-                                    <h3 class="product-title"><a href="{{ $product->url }}">{{ $product->name }}</a></h3>
+                                    <h3 class="product-title"><a href="{{ $product->url }}">{{ $product->name }}</a>
+                                    </h3>
                                     <div class="product-price">
-                                        @if ( $product->front_sale_price )  <del><span>{{ format_price($product->front_sale_price) }}</span></del> @endif
+                                        @if ( $product->front_sale_price )
+                                            <del><span>{{ format_price($product->front_sale_price) }}</span>
+                                            </del> @endif
                                         <ins><span>{{ format_price ($product->price) }}</span></ins>
                                     </div>
                                 </div>

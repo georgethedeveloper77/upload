@@ -2,8 +2,8 @@
 
 namespace Botble\JsValidation\Javascript;
 
-use Botble\JsValidation\Support\RuleListTrait;
 use Botble\JsValidation\Support\DelegatedValidator;
+use Botble\JsValidation\Support\RuleListTrait;
 use Botble\JsValidation\Support\UseDelegatedValidatorTrait;
 
 class RuleParser
@@ -75,32 +75,6 @@ class RuleParser
     }
 
     /**
-     * Gets rules from Validator instance.
-     *
-     * @return array
-     */
-    public function getValidatorRules()
-    {
-        return $this->validator->getRules();
-    }
-
-    /**
-     * Add conditional rules.
-     *
-     * @param mixed $attribute
-     * @param array $rules
-     * @return void
-     */
-    public function addConditionalRules($attribute, $rules = [])
-    {
-        foreach ((array)$attribute as $key) {
-            $current = isset($this->conditional[$key]) ? $this->conditional[$key] : [];
-            $merge = head($this->validator->explodeRules((array)$rules));
-            $this->conditional[$key] = array_merge($current, $merge);
-        }
-    }
-
-    /**
      * Determine if rule is passed with sometimes.
      *
      * @param mixed $attribute
@@ -111,26 +85,6 @@ class RuleParser
     {
         return isset($this->conditional[$attribute]) &&
             in_array($rule, $this->conditional[$attribute]);
-    }
-
-    /**
-     * Returns Javascript parameters for remote validated rules.
-     *
-     * @param string $attribute
-     * @param string $rule
-     * @param $parameters
-     * @return array
-     */
-    protected function clientRule($attribute, $rule, $parameters)
-    {
-        $jsRule = self::JAVASCRIPT_RULE;
-        $method = 'rule' . $rule;
-
-        if (method_exists($this, $method)) {
-            [$attribute, $parameters] = $this->$method($attribute, $parameters);
-        }
-
-        return [$jsRule, $attribute, $parameters];
     }
 
     /**
@@ -166,6 +120,52 @@ class RuleParser
         }
 
         return $attribute;
+    }
+
+    /**
+     * Returns Javascript parameters for remote validated rules.
+     *
+     * @param string $attribute
+     * @param string $rule
+     * @param $parameters
+     * @return array
+     */
+    protected function clientRule($attribute, $rule, $parameters)
+    {
+        $jsRule = self::JAVASCRIPT_RULE;
+        $method = 'rule' . $rule;
+
+        if (method_exists($this, $method)) {
+            [$attribute, $parameters] = $this->$method($attribute, $parameters);
+        }
+
+        return [$jsRule, $attribute, $parameters];
+    }
+
+    /**
+     * Gets rules from Validator instance.
+     *
+     * @return array
+     */
+    public function getValidatorRules()
+    {
+        return $this->validator->getRules();
+    }
+
+    /**
+     * Add conditional rules.
+     *
+     * @param mixed $attribute
+     * @param array $rules
+     * @return void
+     */
+    public function addConditionalRules($attribute, $rules = [])
+    {
+        foreach ((array)$attribute as $key) {
+            $current = isset($this->conditional[$key]) ? $this->conditional[$key] : [];
+            $merge = head($this->validator->explodeRules((array)$rules));
+            $this->conditional[$key] = array_merge($current, $merge);
+        }
     }
 
     /**

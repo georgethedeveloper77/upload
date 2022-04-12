@@ -2,6 +2,7 @@
 
 namespace Botble\Base\Supports;
 
+use ArrayAccess;
 use BadMethodCallException;
 use Botble\Base\Models\BaseModel;
 use Closure;
@@ -76,7 +77,7 @@ class MacroableModels
 
     /**
      * @param string $name
-     * @return array|\ArrayAccess|mixed
+     * @return array|ArrayAccess|mixed
      */
     public function getMacro(string $name)
     {
@@ -143,7 +144,7 @@ class MacroableModels
             if (in_array($model, array_keys($models))) {
                 $params = (new ReflectionFunction($this->macros[$macro][$model]))->getParameters();
                 $macros[$macro] = [
-                    'name'       => $macro,
+                    'name' => $macro,
                     'parameters' => $params,
                 ];
             }

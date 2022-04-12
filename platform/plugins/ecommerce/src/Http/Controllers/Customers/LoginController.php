@@ -64,16 +64,6 @@ class LoginController extends Controller
     }
 
     /**
-     * Get the guard to be used during authentication.
-     *
-     * @return StatefulGuard
-     */
-    protected function guard()
-    {
-        return auth('customer');
-    }
-
-    /**
      * @param Request $request
      * @return Response|void
      * @throws ValidationException
@@ -105,6 +95,44 @@ class LoginController extends Controller
     }
 
     /**
+     * Attempt to log the user into the application.
+     *
+     * @param Request $request
+     * @return bool
+     * @throws ValidationException
+     */
+    protected function attemptLogin(Request $request)
+    {
+        if ($this->guard()->validate($this->credentials($request))) {
+            $customer = $this->guard()->getLastAttempted();
+
+            if (get_ecommerce_setting('verify_customer_email', 0) && empty($customer->confirmed_at)) {
+                throw ValidationException::withMessages([
+                    'confirmation' => [
+                        __('The given email address has not been confirmed. <a href=":resend_link">Resend confirmation link.</a>', [
+                            'resend_link' => route('customer.resend_confirmation', ['email' => $customer->email]),
+                        ]),
+                    ],
+                ]);
+            }
+
+            return $this->baseAttemptLogin($request);
+        }
+
+        return false;
+    }
+
+    /**
+     * Get the guard to be used during authentication.
+     *
+     * @return StatefulGuard
+     */
+    protected function guard()
+    {
+        return auth('customer');
+    }
+
+    /**
      * Log the user out of the application.
      *
      * @param Request $request
@@ -130,33 +158,5 @@ class LoginController extends Controller
         }
 
         return $this->loggedOut($request) ?: redirect('/');
-    }
-
-    /**
-     * Attempt to log the user into the application.
-     *
-     * @param \Illuminate\Http\Request $request
-     * @return bool
-     * @throws ValidationException
-     */
-    protected function attemptLogin(Request $request)
-    {
-        if ($this->guard()->validate($this->credentials($request))) {
-            $customer = $this->guard()->getLastAttempted();
-
-            if (get_ecommerce_setting('verify_customer_email', 0) && empty($customer->confirmed_at)) {
-                throw ValidationException::withMessages([
-                    'confirmation' => [
-                        __('The given email address has not been confirmed. <a href=":resend_link">Resend confirmation link.</a>', [
-                            'resend_link' => route('customer.resend_confirmation', ['email' => $customer->email]),
-                        ]),
-                    ],
-                ]);
-            }
-
-            return $this->baseAttemptLogin($request);
-        }
-
-        return false;
     }
 }

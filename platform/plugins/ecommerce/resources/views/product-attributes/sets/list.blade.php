@@ -50,7 +50,8 @@
             @foreach($attributes as $attribute)
                 <li data-id="{{ $attribute['id'] }}" class="clearfix">
                     <div class="swatch-is-default">
-                        <input type="radio" name="related_attribute_is_default" value="{{ $attribute['order'] }}" @if ($attribute['is_default']) checked @endif>
+                        <input type="radio" name="related_attribute_is_default" value="{{ $attribute['order'] }}"
+                               @if ($attribute['is_default']) checked @endif>
                     </div>
                     <div class="swatch-title">
                         <input type="text" class="form-control" value="{{ $attribute['title'] }}">
@@ -75,5 +76,6 @@
             @endforeach
         @endif
     </ul>
-    <button type="button" class="btn purple js-add-new-attribute">{{ trans('plugins/ecommerce::product-attribute-sets.add_new_attribute') }}</button>
+    <button type="button"
+            class="btn purple js-add-new-attribute">{{ trans('plugins/ecommerce::product-attribute-sets.add_new_attribute') }}</button>
 </div>

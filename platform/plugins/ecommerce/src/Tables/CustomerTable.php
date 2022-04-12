@@ -98,24 +98,24 @@ class CustomerTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'ec_customers.id',
+            'id' => [
+                'name' => 'ec_customers.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
                 'class' => 'text-left',
             ],
-            'name'       => [
-                'name'  => 'ec_customers.name',
+            'name' => [
+                'name' => 'ec_customers.name',
                 'title' => trans('core/base::forms.name'),
                 'class' => 'text-left',
             ],
-            'email'      => [
-                'name'  => 'ec_customers.email',
+            'email' => [
+                'name' => 'ec_customers.email',
                 'title' => trans('plugins/ecommerce::customer.name'),
                 'class' => 'text-left',
             ],
             'created_at' => [
-                'name'  => 'ec_customers.created_at',
+                'name' => 'ec_customers.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-left',
@@ -147,19 +147,19 @@ class CustomerTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'ec_customers.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'ec_customers.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'ec_customers.email'      => [
-                'title'    => trans('core/base::tables.email'),
-                'type'     => 'text',
+            'ec_customers.email' => [
+                'title' => trans('core/base::tables.email'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
             'ec_customers.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

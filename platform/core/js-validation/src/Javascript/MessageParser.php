@@ -69,25 +69,6 @@ class MessageParser
     }
 
     /**
-     * Generate fake data to get RequiredIf message.
-     *
-     * @param $data
-     * @param $rule
-     * @param $parameters
-     * @return void
-     */
-    private function fakeRequiredIfData($data, $rule, $parameters)
-    {
-        if ($rule !== 'RequiredIf') {
-            return;
-        }
-
-        $newData = $data;
-        $newData[$parameters[0]] = $parameters[1];
-        $this->validator->setData($newData);
-    }
-
-    /**
      * Generate fake data to get file type messages.
      *
      * @param $data
@@ -113,5 +94,24 @@ class MessageParser
     protected function createUploadedFile()
     {
         return new UploadedFile('fakefile', 'fakefile', null, UPLOAD_ERR_NO_FILE, true);
+    }
+
+    /**
+     * Generate fake data to get RequiredIf message.
+     *
+     * @param $data
+     * @param $rule
+     * @param $parameters
+     * @return void
+     */
+    private function fakeRequiredIfData($data, $rule, $parameters)
+    {
+        if ($rule !== 'RequiredIf') {
+            return;
+        }
+
+        $newData = $data;
+        $newData[$parameters[0]] = $parameters[1];
+        $this->validator->setData($newData);
     }
 }

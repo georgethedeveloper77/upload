@@ -2,14 +2,14 @@
 
 namespace Botble\SocialLogin\Providers;
 
+use Botble\Base\Supports\Helper;
+use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Botble\Setting\Supports\SettingStore;
 use Botble\SocialLogin\Facades\SocialServiceFacade;
-use Illuminate\Foundation\AliasLoader;
-use Illuminate\Support\ServiceProvider;
-use Botble\Base\Supports\Helper;
-use Illuminate\Routing\Events\RouteMatched;
 use Event;
-use Botble\Base\Traits\LoadAndPublishDataTrait;
+use Illuminate\Foundation\AliasLoader;
+use Illuminate\Routing\Events\RouteMatched;
+use Illuminate\Support\ServiceProvider;
 
 class SocialLoginServiceProvider extends ServiceProvider
 {
@@ -32,12 +32,12 @@ class SocialLoginServiceProvider extends ServiceProvider
 
         Event::listen(RouteMatched::class, function () {
             dashboard_menu()->registerItem([
-                'id'          => 'cms-plugins-social-login',
-                'priority'    => 5,
-                'parent_id'   => 'cms-core-settings',
-                'name'        => 'plugins/social-login::social-login.menu',
-                'icon'        => null,
-                'url'         => route('social-login.settings'),
+                'id' => 'cms-plugins-social-login',
+                'priority' => 5,
+                'parent_id' => 'cms-core-settings',
+                'name' => 'plugins/social-login::social-login.menu',
+                'icon' => null,
+                'url' => route('social-login.settings'),
                 'permissions' => ['social-login.settings'],
             ]);
         });
@@ -50,24 +50,24 @@ class SocialLoginServiceProvider extends ServiceProvider
 
             $config->set([
                 'services.facebook' => [
-                    'client_id'     => $setting->get('social_login_facebook_app_id'),
+                    'client_id' => $setting->get('social_login_facebook_app_id'),
                     'client_secret' => $setting->get('social_login_facebook_app_secret'),
-                    'redirect'      => route('auth.social.callback', 'facebook'),
+                    'redirect' => route('auth.social.callback', 'facebook'),
                 ],
-                'services.google'   => [
-                    'client_id'     => $setting->get('social_login_google_app_id'),
+                'services.google' => [
+                    'client_id' => $setting->get('social_login_google_app_id'),
                     'client_secret' => $setting->get('social_login_google_app_secret'),
-                    'redirect'      => route('auth.social.callback', 'google'),
+                    'redirect' => route('auth.social.callback', 'google'),
                 ],
-                'services.github'   => [
-                    'client_id'     => $setting->get('social_login_github_app_id'),
+                'services.github' => [
+                    'client_id' => $setting->get('social_login_github_app_id'),
                     'client_secret' => $setting->get('social_login_github_app_secret'),
-                    'redirect'      => route('auth.social.callback', 'github'),
+                    'redirect' => route('auth.social.callback', 'github'),
                 ],
-                'services.linkedin'   => [
-                    'client_id'     => $setting->get('social_login_linkedin_app_id'),
+                'services.linkedin' => [
+                    'client_id' => $setting->get('social_login_linkedin_app_id'),
                     'client_secret' => $setting->get('social_login_linkedin_app_secret'),
-                    'redirect'      => route('auth.social.callback', 'linkedin'),
+                    'redirect' => route('auth.social.callback', 'linkedin'),
                 ],
             ]);
         });

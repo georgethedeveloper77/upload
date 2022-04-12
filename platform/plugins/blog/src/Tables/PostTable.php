@@ -55,7 +55,8 @@ class PostTable extends TableAbstract
         UrlGenerator $urlGenerator,
         PostInterface $postRepository,
         CategoryInterface $categoryRepository
-    ) {
+    )
+    {
         $this->repository = $postRepository;
         $this->setOption('id', 'table-posts');
         $this->categoryRepository = $categoryRepository;
@@ -147,7 +148,7 @@ class PostTable extends TableAbstract
                 'categories' => function ($query) {
                     $query->select(['categories.id', 'categories.name']);
                 },
-                'author'     => function ($query) {
+                'author' => function ($query) {
                     $query->select(['id', 'first_name', 'last_name']);
                 },
             ])
@@ -162,43 +163,43 @@ class PostTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'posts.id',
+            'id' => [
+                'name' => 'posts.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'image'      => [
-                'name'  => 'posts.image',
+            'image' => [
+                'name' => 'posts.image',
                 'title' => trans('core/base::tables.image'),
                 'width' => '70px',
             ],
-            'name'       => [
-                'name'  => 'posts.name',
+            'name' => [
+                'name' => 'posts.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
             'updated_at' => [
-                'name'      => 'posts.updated_at',
-                'title'     => trans('plugins/blog::posts.categories'),
-                'width'     => '150px',
-                'class'     => 'no-sort text-center',
+                'name' => 'posts.updated_at',
+                'title' => trans('plugins/blog::posts.categories'),
+                'width' => '150px',
+                'class' => 'no-sort text-center',
                 'orderable' => false,
             ],
-            'author_id'  => [
-                'name'      => 'posts.author_id',
-                'title'     => trans('plugins/blog::posts.author'),
-                'width'     => '150px',
-                'class'     => 'no-sort text-center',
+            'author_id' => [
+                'name' => 'posts.author_id',
+                'title' => trans('plugins/blog::posts.author'),
+                'width' => '150px',
+                'class' => 'no-sort text-center',
                 'orderable' => false,
             ],
             'created_at' => [
-                'name'  => 'posts.created_at',
+                'name' => 'posts.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-center',
             ],
-            'status'     => [
-                'name'  => 'posts.status',
+            'status' => [
+                'name' => 'posts.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
                 'class' => 'text-center',
@@ -230,26 +231,26 @@ class PostTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'posts.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'posts.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'posts.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'posts.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
-            'category'         => [
-                'title'    => trans('plugins/blog::posts.category'),
-                'type'     => 'select-search',
+            'category' => [
+                'title' => trans('plugins/blog::posts.category'),
+                'type' => 'select-search',
                 'validate' => 'required',
                 'callback' => 'getCategories',
             ],
             'posts.created_at' => [
-                'title'    => trans('core/base::tables.created_at'),
-                'type'     => 'date',
+                'title' => trans('core/base::tables.created_at'),
+                'type' => 'date',
                 'validate' => 'required',
             ],
         ];

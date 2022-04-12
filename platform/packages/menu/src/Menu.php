@@ -75,7 +75,8 @@ class Menu
         MenuNodeInterface $menuNodeRepository,
         CacheManager $cache,
         Repository $config
-    ) {
+    )
+    {
         $this->config = $config;
         $this->menuRepository = $menuRepository;
         $this->html = $html;
@@ -289,7 +290,7 @@ class Menu
         }
 
         $data = [
-            'menu'       => $menu,
+            'menu' => $menu,
             'menu_nodes' => $menuNodes,
         ];
 
@@ -315,7 +316,7 @@ class Menu
     public function registerMenuOptions(string $model, string $name)
     {
         $options = Menu::generateSelect([
-            'model'   => new $model,
+            'model' => new $model,
             'options' => [
                 'class' => 'list-item',
             ],

@@ -3,13 +3,13 @@
 use Illuminate\Routing\Events\RouteMatched;
 
 register_page_template([
-    'homepage'   => __('Homepage'),
+    'homepage' => __('Homepage'),
     'full-width' => __('Full width'),
 ]);
 
 register_sidebar([
-    'id'          => 'footer_sidebar',
-    'name'        => __('Footer sidebar'),
+    'id' => 'footer_sidebar',
+    'name' => __('Footer sidebar'),
     'description' => __('Footer sidebar'),
 ]);
 
@@ -22,247 +22,247 @@ Menu::removeMenuLocation('header-menu')
 
 theme_option()
     ->setField([
-        'id'         => 'hotline',
+        'id' => 'hotline',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'text',
-        'label'      => __('Hotline'),
+        'type' => 'text',
+        'label' => __('Hotline'),
         'attributes' => [
-            'name'    => 'hotline',
-            'value'   => null,
+            'name' => 'hotline',
+            'value' => null,
             'options' => [
-                'class'        => 'form-control',
-                'placeholder'  => __('Hotline'),
+                'class' => 'form-control',
+                'placeholder' => __('Hotline'),
                 'data-counter' => 30,
             ],
         ],
     ])
     ->setField([
-        'id'         => 'email',
+        'id' => 'email',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'email',
-        'label'      => __('Email'),
+        'type' => 'email',
+        'label' => __('Email'),
         'attributes' => [
-            'name'    => 'email',
-            'value'   => null,
+            'name' => 'email',
+            'value' => null,
             'options' => [
-                'class'        => 'form-control',
-                'placeholder'  => __('Email'),
+                'class' => 'form-control',
+                'placeholder' => __('Email'),
                 'data-counter' => 120,
             ],
         ],
     ])
     ->setField([
-        'id'         => 'address',
+        'id' => 'address',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'text',
-        'label'      => __('Address'),
+        'type' => 'text',
+        'label' => __('Address'),
         'attributes' => [
-            'name'    => 'address',
-            'value'   => null,
+            'name' => 'address',
+            'value' => null,
             'options' => [
-                'class'        => 'form-control',
-                'placeholder'  => __('Address'),
+                'class' => 'form-control',
+                'placeholder' => __('Address'),
                 'data-counter' => 120,
             ],
         ],
     ])
     ->setSection([
-        'title'      => __('Social'),
-        'desc'       => __('Social links'),
-        'id'         => 'opt-text-subsection-social',
+        'title' => __('Social'),
+        'desc' => __('Social links'),
+        'id' => 'opt-text-subsection-social',
         'subsection' => true,
-        'icon'       => 'fa fa-share-alt',
+        'icon' => 'fa fa-share-alt',
     ])
     ->setField([
-        'id'         => 'facebook',
+        'id' => 'facebook',
         'section_id' => 'opt-text-subsection-social',
-        'type'       => 'text',
-        'label'      => 'Facebook',
+        'type' => 'text',
+        'label' => 'Facebook',
         'attributes' => [
-            'name'    => 'facebook',
-            'value'   => null,
+            'name' => 'facebook',
+            'value' => null,
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'twitter',
+        'id' => 'twitter',
         'section_id' => 'opt-text-subsection-social',
-        'type'       => 'text',
-        'label'      => 'Twitter',
+        'type' => 'text',
+        'label' => 'Twitter',
         'attributes' => [
-            'name'    => 'twitter',
-            'value'   => null,
+            'name' => 'twitter',
+            'value' => null,
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'linkedin',
+        'id' => 'linkedin',
         'section_id' => 'opt-text-subsection-social',
-        'type'       => 'text',
-        'label'      => 'Linkedin',
+        'type' => 'text',
+        'label' => 'Linkedin',
         'attributes' => [
-            'name'    => 'linkedin',
-            'value'   => null,
+            'name' => 'linkedin',
+            'value' => null,
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'youtube',
+        'id' => 'youtube',
         'section_id' => 'opt-text-subsection-social',
-        'type'       => 'text',
-        'label'      => 'Youtube',
+        'type' => 'text',
+        'label' => 'Youtube',
         'attributes' => [
-            'name'    => 'youtube',
-            'value'   => null,
+            'name' => 'youtube',
+            'value' => null,
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'instagram',
+        'id' => 'instagram',
         'section_id' => 'opt-text-subsection-social',
-        'type'       => 'text',
-        'label'      => 'Instagram',
+        'type' => 'text',
+        'label' => 'Instagram',
         'attributes' => [
-            'name'    => 'instagram',
-            'value'   => null,
+            'name' => 'instagram',
+            'value' => null,
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'pinterest',
+        'id' => 'pinterest',
         'section_id' => 'opt-text-subsection-social',
-        'type'       => 'text',
-        'label'      => 'Pinterest',
+        'type' => 'text',
+        'label' => 'Pinterest',
         'attributes' => [
-            'name'    => 'pinterest',
-            'value'   => null,
+            'name' => 'pinterest',
+            'value' => null,
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'product_page_banner_title',
+        'id' => 'product_page_banner_title',
         'section_id' => 'opt-text-subsection-ecommerce',
-        'type'       => 'text',
-        'label'      => __('The description for products page'),
+        'type' => 'text',
+        'label' => __('The description for products page'),
         'attributes' => [
-            'name'    => 'product_page_banner_title',
-            'value'   => null,
+            'name' => 'product_page_banner_title',
+            'value' => null,
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'product_page_banner_image',
+        'id' => 'product_page_banner_image',
         'section_id' => 'opt-text-subsection-ecommerce',
-        'type'       => 'mediaImage',
-        'label'      => __('Banner image for products page'),
+        'type' => 'mediaImage',
+        'label' => __('Banner image for products page'),
         'attributes' => [
-            'name'  => 'product_page_banner_image',
+            'name' => 'product_page_banner_image',
             'value' => null,
         ],
     ])
     ->setField([
-        'id'         => 'primary_font',
+        'id' => 'primary_font',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'googleFonts',
-        'label'      => __('Primary font'),
+        'type' => 'googleFonts',
+        'label' => __('Primary font'),
         'attributes' => [
-            'name'  => 'primary_font',
+            'name' => 'primary_font',
             'value' => 'Poppins',
         ],
     ])
     ->setField([
-        'id'         => 'primary_color',
+        'id' => 'primary_color',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'customColor',
-        'label'      => __('Primary color'),
+        'type' => 'customColor',
+        'label' => __('Primary color'),
         'attributes' => [
-            'name'  => 'primary_color',
+            'name' => 'primary_color',
             'value' => '#026e94',
         ],
     ])
     ->setField([
-        'id'         => 'secondary_color',
+        'id' => 'secondary_color',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'customColor',
-        'label'      => __('Secondary color'),
+        'type' => 'customColor',
+        'label' => __('Secondary color'),
         'attributes' => [
-            'name'  => 'secondary_color',
+            'name' => 'secondary_color',
             'value' => '#2c1dff',
         ],
     ])
     ->setField([
-        'id'         => 'facebook_chat_enabled',
+        'id' => 'facebook_chat_enabled',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'select',
-        'label'      => __('Enable Facebook chat?'),
+        'type' => 'select',
+        'label' => __('Enable Facebook chat?'),
         'attributes' => [
-            'name'    => 'facebook_chat_enabled',
-            'list'    => [
-                'no'  => trans('core/base::base.no'),
+            'name' => 'facebook_chat_enabled',
+            'list' => [
+                'no' => trans('core/base::base.no'),
                 'yes' => trans('core/base::base.yes'),
             ],
-            'value'   => 'yes',
+            'value' => 'yes',
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'facebook_page_id',
+        'id' => 'facebook_page_id',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'text',
-        'label'      => __('Facebook page ID'),
+        'type' => 'text',
+        'label' => __('Facebook page ID'),
         'attributes' => [
-            'name'    => 'facebook_page_id',
-            'value'   => null,
+            'name' => 'facebook_page_id',
+            'value' => null,
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'facebook_comment_enabled_in_post',
+        'id' => 'facebook_comment_enabled_in_post',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'select',
-        'label'      => __('Enable Facebook comment in post detail page?'),
+        'type' => 'select',
+        'label' => __('Enable Facebook comment in post detail page?'),
         'attributes' => [
-            'name'    => 'facebook_comment_enabled_in_post',
-            'list'    => [
-                'no'  => trans('core/base::base.no'),
+            'name' => 'facebook_comment_enabled_in_post',
+            'list' => [
+                'no' => trans('core/base::base.no'),
                 'yes' => trans('core/base::base.yes'),
             ],
-            'value'   => 'yes',
+            'value' => 'yes',
             'options' => [
                 'class' => 'form-control',
             ],
         ],
     ])
     ->setField([
-        'id'         => 'facebook_comment_enabled_in_product',
+        'id' => 'facebook_comment_enabled_in_product',
         'section_id' => 'opt-text-subsection-general',
-        'type'       => 'select',
-        'label'      => __('Enable Facebook comment in product detail page?'),
+        'type' => 'select',
+        'label' => __('Enable Facebook comment in product detail page?'),
         'attributes' => [
-            'name'    => 'facebook_comment_enabled_in_product',
-            'list'    => [
-                'no'  => trans('core/base::base.no'),
+            'name' => 'facebook_comment_enabled_in_product',
+            'list' => [
+                'no' => trans('core/base::base.no'),
                 'yes' => trans('core/base::base.yes'),
             ],
-            'value'   => 'yes',
+            'value' => 'yes',
             'options' => [
                 'class' => 'form-control',
             ],
@@ -272,7 +272,7 @@ theme_option()
 add_action('init', function () {
     config([
         'filesystems.disks.public.root' => public_path('storage'),
-        'filesystems.disks.public.url'  => str_replace('/index.php', '', url('storage')),
+        'filesystems.disks.public.url' => str_replace('/index.php', '', url('storage')),
     ]);
 }, 124);
 
@@ -288,7 +288,7 @@ shortcode()->setAdminConfig('google-map', Theme::partial('short-codes.google-map
 if (is_plugin_active('ecommerce')) {
     add_shortcode('product-categories', __('Product categories'), __('Product categories'), function ($shortCode) {
         return Theme::partial('short-codes.product-categories', [
-            'title'       => $shortCode->title,
+            'title' => $shortCode->title,
             'description' => $shortCode->description,
         ]);
     });
@@ -298,9 +298,9 @@ if (is_plugin_active('ecommerce')) {
     add_shortcode('featured-products', __('Featured products'), __('Featured products'), function ($shortCode) {
 
         return Theme::partial('short-codes.featured-products', [
-            'title'       => $shortCode->title,
+            'title' => $shortCode->title,
             'description' => $shortCode->description,
-            'limit'       => $shortCode->limit ? $shortCode->limit : 8,
+            'limit' => $shortCode->limit ? $shortCode->limit : 8,
         ]);
     });
 
@@ -310,7 +310,7 @@ if (is_plugin_active('ecommerce')) {
         function ($shortCode) {
 
             return Theme::partial('short-codes.featured-product-categories', [
-                'title'       => $shortCode->title,
+                'title' => $shortCode->title,
                 'description' => $shortCode->description,
             ]);
         });
@@ -328,7 +328,7 @@ if (is_plugin_active('ecommerce')) {
 
     add_shortcode('product-collections', __('Product collections'), __('Product collections'), function ($shortCode) {
         return Theme::partial('short-codes.product-collections', [
-            'title'       => $shortCode->title,
+            'title' => $shortCode->title,
             'description' => $shortCode->description,
         ]);
     });
@@ -337,9 +337,9 @@ if (is_plugin_active('ecommerce')) {
 
     add_shortcode('trending-products', __('Trending Products'), __('Trending Products'), function ($shortCode) {
         return Theme::partial('short-codes.trending-products', [
-            'title'       => $shortCode->title,
+            'title' => $shortCode->title,
             'description' => $shortCode->description,
-            'limit'       => $shortCode->limit ? $shortCode->limit : 4,
+            'limit' => $shortCode->limit ? $shortCode->limit : 4,
         ]);
     });
 
@@ -348,13 +348,13 @@ if (is_plugin_active('ecommerce')) {
     add_shortcode('all-products', __('All Products'), __('All Products'), function ($shortCode) {
         $products = get_products([
             'paginate' => [
-                'per_page'      => $shortCode->per_page,
+                'per_page' => $shortCode->per_page,
                 'current_paged' => (int)request()->input('page'),
             ],
         ]);
 
         return Theme::partial('short-codes.all-products', [
-            'title'    => $shortCode->title,
+            'title' => $shortCode->title,
             'products' => $products,
         ]);
     });
@@ -365,7 +365,7 @@ if (is_plugin_active('ecommerce')) {
         $brands = get_all_brands();
 
         return Theme::partial('short-codes.all-brands', [
-            'title'  => $shortCode->title,
+            'title' => $shortCode->title,
             'brands' => $brands,
         ]);
     });
@@ -376,7 +376,7 @@ if (is_plugin_active('ecommerce')) {
 if (is_plugin_active('blog')) {
     add_shortcode('news', __('News'), __('News'), function ($shortCode) {
         return Theme::partial('short-codes.news', [
-            'title'       => $shortCode->title,
+            'title' => $shortCode->title,
             'description' => $shortCode->description,
         ]);
     });
@@ -412,7 +412,7 @@ add_shortcode('our-features', __('Our features'), __('Our features'), function (
 
 Form::component('themeIcon', Theme::getThemeNamespace() . '::partials.icons-field', [
     'name',
-    'value'      => null,
+    'value' => null,
     'attributes' => [],
 ]);
 

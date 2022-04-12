@@ -8,16 +8,20 @@ use Botble\Base\Events\CreatedContentEvent;
 use Botble\Base\Events\DeletedContentEvent;
 use Botble\Base\Events\UpdatedContentEvent;
 use Botble\Base\Forms\FormBuilder;
+use Botble\Base\Http\Controllers\BaseController;
 use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Base\Traits\HasDeleteManyItemsTrait;
 use Botble\SimpleSlider\Forms\SimpleSliderForm;
 use Botble\SimpleSlider\Http\Requests\SimpleSliderRequest;
 use Botble\SimpleSlider\Repositories\Interfaces\SimpleSliderInterface;
-use Botble\Base\Http\Controllers\BaseController;
 use Botble\SimpleSlider\Repositories\Interfaces\SimpleSliderItemInterface;
-use Illuminate\Http\Request;
-use Exception;
 use Botble\SimpleSlider\Tables\SimpleSliderTable;
+use Exception;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
+use Illuminate\View\View;
+use Throwable;
 
 class SimpleSliderController extends BaseController
 {
@@ -49,8 +53,8 @@ class SimpleSliderController extends BaseController
 
     /**
      * @param SimpleSliderTable $dataTable
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Throwable
+     * @return Factory|View
+     * @throws Throwable
      */
     public function index(SimpleSliderTable $dataTable)
     {
@@ -158,7 +162,7 @@ class SimpleSliderController extends BaseController
     /**
      * @param Request $request
      * @param BaseHttpResponse $response
-     * @return array|BaseHttpResponse|\Illuminate\Http\JsonResponse
+     * @return array|BaseHttpResponse|JsonResponse
      * @throws Exception
      */
     public function deletes(Request $request, BaseHttpResponse $response)

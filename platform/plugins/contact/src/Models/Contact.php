@@ -2,9 +2,10 @@
 
 namespace Botble\Contact\Models;
 
+use Botble\Base\Models\BaseModel;
 use Botble\Base\Traits\EnumCastable;
 use Botble\Contact\Enums\ContactStatusEnum;
-use Botble\Base\Models\BaseModel;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Contact extends BaseModel
 {
@@ -50,7 +51,7 @@ class Contact extends BaseModel
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return HasMany
      */
     public function replies()
     {

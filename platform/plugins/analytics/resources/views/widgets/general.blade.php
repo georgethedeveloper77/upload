@@ -73,7 +73,8 @@
         </div>
         <div class="info-box-content">
             <span class="info-box-text">{{ trans('plugins/analytics::analytics.page_session') }}</span>
-            <span class="info-box-number" id="page_views_per_visit_total">{{ round($total['ga:pageviewsPerVisit'], 2) }}</span>
+            <span class="info-box-number"
+                  id="page_views_per_visit_total">{{ round($total['ga:pageviewsPerVisit'], 2) }}</span>
         </div>
     </div>
 </div>
@@ -85,7 +86,8 @@
         </div>
         <div class="info-box-content">
             <span class="info-box-text">{{ trans('plugins/analytics::analytics.avg_duration') }}</span>
-            <span class="info-box-number" id="session_duration_total">{{ gmdate('H:i:s', $total['ga:avgSessionDuration']) }}</span>
+            <span class="info-box-number"
+                  id="session_duration_total">{{ gmdate('H:i:s', $total['ga:avgSessionDuration']) }}</span>
         </div>
     </div>
 </div>

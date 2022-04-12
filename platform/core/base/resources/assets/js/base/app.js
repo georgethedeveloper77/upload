@@ -78,6 +78,20 @@ export class App {
         return sizes[size] ? sizes[size] : 0;
     }
 
+    //public function to add callback a function which will be called on window resize
+    static addResizeHandler(func) {
+        resizeHandlers.push(func);
+    }
+
+    // runs callback functions set by App.addResponsiveHandler().
+    static runResizeHandlers() {
+        // reinitialize other subscribed elements
+        for (let i = 0; i < resizeHandlers.length; i++) {
+            let each = resizeHandlers[i];
+            each.call();
+        }
+    };
+
     // initializes main settings
     handleInit() {
 
@@ -119,7 +133,7 @@ export class App {
         });
 
         // fix page scrollbars issue
-        this.$body.on('show.bs.modal', '.modal', event =>  {
+        this.$body.on('show.bs.modal', '.modal', event => {
             if ($(event.currentTarget).hasClass('modal-scroll')) {
                 current.$body.addClass('modal-open-noscroll');
             }
@@ -131,7 +145,7 @@ export class App {
         });
 
         // remove ajax content and remove cache on modal closed
-        this.$body.on('hidden.bs.modal', '.modal:not(.modal-cached)', event =>  {
+        this.$body.on('hidden.bs.modal', '.modal:not(.modal-cached)', event => {
             $(event.currentTarget).removeData('bs.modal');
         });
     }
@@ -233,20 +247,6 @@ export class App {
             }
         });
     }
-
-    //public function to add callback a function which will be called on window resize
-    static addResizeHandler(func) {
-        resizeHandlers.push(func);
-    }
-
-    // runs callback functions set by App.addResponsiveHandler().
-    static runResizeHandlers() {
-        // reinitialize other subscribed elements
-        for (let i = 0; i < resizeHandlers.length; i++) {
-            let each = resizeHandlers[i];
-            each.call();
-        }
-    };
 
     handleOnResize() {
         let windowWidth = $(window).width();

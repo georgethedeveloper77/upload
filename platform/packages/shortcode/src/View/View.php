@@ -5,6 +5,7 @@ namespace Botble\Shortcode\View;
 use ArrayAccess;
 use Botble\Shortcode\Compilers\ShortcodeCompiler;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Engine;
 use Illuminate\View\View as IlluminateView;
 
 class View extends IlluminateView implements ArrayAccess, Renderable
@@ -21,7 +22,7 @@ class View extends IlluminateView implements ArrayAccess, Renderable
      * Create a new view instance.
      *
      * @param \Illuminate\View\Factory|Factory $factory
-     * @param \Illuminate\Contracts\View\Engine $engine
+     * @param Engine $engine
      * @param string $view
      * @param string $path
      * @param array $data

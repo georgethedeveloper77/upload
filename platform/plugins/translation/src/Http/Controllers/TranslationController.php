@@ -9,13 +9,18 @@ use Botble\Base\Supports\Language;
 use Botble\Translation\Http\Requests\LocaleRequest;
 use Botble\Translation\Http\Requests\TranslationRequest;
 use Botble\Translation\Manager;
+use Botble\Translation\Models\Translation;
 use DB;
 use File;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
-use Botble\Translation\Models\Translation;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Collection;
+use Illuminate\View\View;
 use Schema;
+use Symfony\Component\VarExporter\Exception\ExceptionInterface;
 use Theme;
 
 class TranslationController extends BaseController
@@ -116,8 +121,8 @@ class TranslationController extends BaseController
             [$locale, $key] = explode('|', $name, 2);
             $translation = Translation::firstOrNew([
                 'locale' => $locale,
-                'group'  => $group,
-                'key'    => $key,
+                'group' => $group,
+                'key' => $key,
             ]);
             $translation->value = (string)$value ?: null;
             $translation->status = Translation::STATUS_CHANGED;
@@ -143,7 +148,7 @@ class TranslationController extends BaseController
      * @param Request $request
      * @param BaseHttpResponse $response
      * @return BaseHttpResponse
-     * @throws \Symfony\Component\VarExporter\Exception\ExceptionInterface
+     * @throws ExceptionInterface
      */
     public function postPublish(Request $request, BaseHttpResponse $response)
     {
@@ -155,7 +160,7 @@ class TranslationController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return Application|Factory|View
      */
     public function getLocales()
     {
@@ -197,6 +202,26 @@ class TranslationController extends BaseController
     }
 
     /**
+     * @param string $path
+     * @param string $locale
+     * @return int|void
+     */
+    protected function createLocaleInPath(string $path, $locale)
+    {
+        $folders = File::directories($path);
+
+        foreach ($folders as $module) {
+            foreach (File::directories($module) as $item) {
+                if (File::name($item) == 'en') {
+                    File::copyDirectory($item, $module . '/' . $locale);
+                }
+            }
+        }
+
+        return count($folders);
+    }
+
+    /**
      * @param BaseHttpResponse $response
      * @return BaseHttpResponse
      */
@@ -226,26 +251,6 @@ class TranslationController extends BaseController
 
     /**
      * @param string $path
-     * @param string $locale
-     * @return int|void
-     */
-    protected function createLocaleInPath(string $path, $locale)
-    {
-        $folders = File::directories($path);
-
-        foreach ($folders as $module) {
-            foreach (File::directories($module) as $item) {
-                if (File::name($item) == 'en') {
-                    File::copyDirectory($item, $module . '/' . $locale);
-                }
-            }
-        }
-
-        return count($folders);
-    }
-
-    /**
-     * @param string $path
      * @return int|void
      */
     protected function removeLocaleInPath(string $path, $locale)
@@ -264,8 +269,8 @@ class TranslationController extends BaseController
     }
 
     /**
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @return Factory|View
+     * @throws FileNotFoundException
      */
     public function getThemeTranslations(Request $request)
     {

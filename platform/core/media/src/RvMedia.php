@@ -66,7 +66,8 @@ class RvMedia
         MediaFolderInterface $folderRepository,
         UploadsManager $uploadManager,
         ThumbnailService $thumbnailService
-    ) {
+    )
+    {
         $this->fileRepository = $fileRepository;
         $this->folderRepository = $folderRepository;
         $this->uploadManager = $uploadManager;
@@ -93,15 +94,15 @@ class RvMedia
     public function getUrls(): array
     {
         return [
-            'base_url'                 => url(''),
-            'base'                     => route('media.index'),
-            'get_media'                => route('media.list'),
-            'create_folder'            => route('media.folders.create'),
-            'popup'                    => route('media.popup'),
-            'download'                 => route('media.download'),
-            'upload_file'              => route('media.files.upload'),
-            'get_breadcrumbs'          => route('media.breadcrumbs'),
-            'global_actions'           => route('media.global_actions'),
+            'base_url' => url(''),
+            'base' => route('media.index'),
+            'get_media' => route('media.list'),
+            'create_folder' => route('media.folders.create'),
+            'popup' => route('media.popup'),
+            'download' => route('media.download'),
+            'upload_file' => route('media.files.upload'),
+            'get_breadcrumbs' => route('media.breadcrumbs'),
+            'global_actions' => route('media.global_actions'),
             'media_upload_from_editor' => route('media.files.upload.from.editor'),
         ];
     }
@@ -132,8 +133,8 @@ class RvMedia
     public function responseSuccess($data, $message = null): JsonResponse
     {
         return response()->json([
-            'error'   => false,
-            'data'    => $data,
+            'error' => false,
+            'data' => $data,
             'message' => $message,
         ]);
     }
@@ -148,10 +149,10 @@ class RvMedia
     public function responseError($message, $data = [], $code = null, $status = 200): JsonResponse
     {
         return response()->json([
-            'error'   => true,
+            'error' => true,
             'message' => $message,
-            'data'    => $data,
-            'code'    => $code,
+            'data' => $data,
+            'code' => $code,
         ], $status);
     }
 
@@ -411,7 +412,7 @@ class RvMedia
                 return response()->json([
                     'fileName' => File::name($this->url($file->url)),
                     'uploaded' => 1,
-                    'url'      => $this->url($file->url),
+                    'url' => $this->url($file->url),
                 ]);
             }
 
@@ -434,7 +435,7 @@ class RvMedia
     {
         if (!$fileUpload) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('core/media::media.can_not_detect_file_type'),
             ];
         }
@@ -451,7 +452,7 @@ class RvMedia
 
                 if ($validator->fails()) {
                     return [
-                        'error'   => true,
+                        'error' => true,
                         'message' => $validator->getMessageBag()->first(),
                     ];
                 }
@@ -461,7 +462,7 @@ class RvMedia
 
             if ($fileUpload->getSize() / 1024 > (int)$maxSize) {
                 return [
-                    'error'   => true,
+                    'error' => true,
                     'message' => trans('core/media::media.file_too_big', ['size' => human_file_size($maxSize)]),
                 ];
             }
@@ -474,7 +475,7 @@ class RvMedia
 
             if (!$skipValidation && !in_array(strtolower($fileExtension), explode(',', $allowedMimeTypes))) {
                 return [
-                    'error'   => true,
+                    'error' => true,
                     'message' => trans('core/media::media.can_not_detect_file_type'),
                 ];
             }
@@ -484,9 +485,9 @@ class RvMedia
 
                 if (!$folder) {
                     $folder = $this->folderRepository->createOrUpdate([
-                        'user_id'   => Auth::check() ? Auth::user()->getKey() : 0,
-                        'name'      => $this->folderRepository->createName($folderSlug, 0),
-                        'slug'      => $this->folderRepository->createSlug($folderSlug, 0),
+                        'user_id' => Auth::check() ? Auth::user()->getKey() : 0,
+                        'name' => $this->folderRepository->createName($folderSlug, 0),
+                        'slug' => $this->folderRepository->createSlug($folderSlug, 0),
                         'parent_id' => 0,
                     ]);
                 }
@@ -519,7 +520,7 @@ class RvMedia
 
             if (!$skipValidation && empty($data['mime_type'])) {
                 return [
-                    'error'   => true,
+                    'error' => true,
                     'message' => trans('core/media::media.can_not_detect_file_type'),
                 ];
             }
@@ -536,11 +537,11 @@ class RvMedia
 
             return [
                 'error' => false,
-                'data'  => new FileResource($file),
+                'data' => new FileResource($file),
             ];
         } catch (Exception $exception) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => $exception->getMessage(),
             ];
         }
@@ -678,7 +679,7 @@ class RvMedia
     {
         if (empty($url)) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('core/media::media.url_invalid'),
             ];
         }
@@ -689,7 +690,7 @@ class RvMedia
             $contents = file_get_contents($url);
         } catch (Exception $exception) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => $exception->getMessage(),
             ];
         }
@@ -739,7 +740,7 @@ class RvMedia
     {
         if (empty($path)) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('core/media::media.path_invalid'),
             ];
         }

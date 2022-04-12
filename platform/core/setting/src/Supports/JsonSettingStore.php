@@ -28,6 +28,14 @@ class JsonSettingStore extends SettingStore
     }
 
     /**
+     * @return string
+     */
+    public function getPath(): string
+    {
+        return $this->path;
+    }
+
+    /**
      * Set the path for the JSON file.
      *
      * @param string $path
@@ -47,14 +55,6 @@ class JsonSettingStore extends SettingStore
         }
 
         $this->path = $path;
-    }
-
-    /**
-     * @return string
-     */
-    public function getPath(): string
-    {
-        return $this->path;
     }
 
     /**

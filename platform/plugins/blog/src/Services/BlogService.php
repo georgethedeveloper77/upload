@@ -31,7 +31,7 @@ class BlogService
         }
 
         $condition = [
-            'id'     => $slug->reference_id,
+            'id' => $slug->reference_id,
             'status' => BaseStatusEnum::PUBLISHED,
         ];
 
@@ -82,10 +82,10 @@ class BlogService
                 do_action(BASE_ACTION_PUBLIC_RENDER_SINGLE, POST_MODULE_SCREEN_NAME, $post);
 
                 return [
-                    'view'         => 'post',
+                    'view' => 'post',
                     'default_view' => 'plugins/blog::themes.post',
-                    'data'         => compact('post'),
-                    'slug'         => $post->slug,
+                    'data' => compact('post'),
+                    'slug' => $post->slug,
                 ];
             case Category::class:
                 $category = app(CategoryInterface::class)
@@ -129,10 +129,10 @@ class BlogService
                 do_action(BASE_ACTION_PUBLIC_RENDER_SINGLE, CATEGORY_MODULE_SCREEN_NAME, $category);
 
                 return [
-                    'view'         => 'category',
+                    'view' => 'category',
                     'default_view' => 'plugins/blog::themes.category',
-                    'data'         => compact('category', 'posts'),
-                    'slug'         => $category->slug,
+                    'data' => compact('category', 'posts'),
+                    'slug' => $category->slug,
                 ];
             case Tag::class:
                 $tag = app(TagInterface::class)->getFirstBy($condition, ['*'], ['slugable']);
@@ -163,10 +163,10 @@ class BlogService
                 do_action(BASE_ACTION_PUBLIC_RENDER_SINGLE, TAG_MODULE_SCREEN_NAME, $tag);
 
                 return [
-                    'view'         => 'tag',
+                    'view' => 'tag',
                     'default_view' => 'plugins/blog::themes.tag',
-                    'data'         => compact('tag', 'posts'),
-                    'slug'         => $tag->slug,
+                    'data' => compact('tag', 'posts'),
+                    'slug' => $tag->slug,
                 ];
         }
 

@@ -1,6 +1,8 @@
 <?php
 
 use Botble\Setting\Facades\SettingFacade;
+use Botble\Setting\Supports\SettingStore;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 if (!function_exists('setting')) {
     /**
@@ -8,7 +10,7 @@ if (!function_exists('setting')) {
      *
      * @param string|null $key
      * @param string|null $default
-     * @return array|\Botble\Setting\Supports\SettingStore|string|null
+     * @return array|SettingStore|string|null
      */
     function setting($key = null, $default = null)
     {
@@ -31,7 +33,7 @@ if (!function_exists('get_setting_email_template_content')) {
      * @param string $module
      * @param string $templateKey key is config in config.email.templates.$key
      * @return bool|mixed|null
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     function get_setting_email_template_content($type, $module, $templateKey)
     {
@@ -78,7 +80,7 @@ if (!function_exists('get_setting_email_subject')) {
      * @param string $type : plugins or core
      * @param string $name : name of plugin or core component
      * @param string $templateKey : define in config/email/templates
-     * @return array|\Botble\Setting\Supports\SettingStore|null|string
+     * @return array|SettingStore|null|string
      */
     function get_setting_email_subject($type, $module, $templateKey)
     {
@@ -109,7 +111,7 @@ if (!function_exists('get_setting_email_status')) {
      * @param string $type
      * @param string $module
      * @param string $templateKey
-     * @return array|\Botble\Setting\Supports\SettingStore|null|string
+     * @return array|SettingStore|null|string
      */
     function get_setting_email_status($type, $module, $templateKey)
     {

@@ -59,14 +59,14 @@ class SslCommerzPaymentController extends BaseController
         $orderId = $request->input('value_a');
 
         $this->storeLocalPayment([
-            'amount'          => $amount,
-            'currency'        => $currency,
-            'charge_id'       => $transactionId,
+            'amount' => $amount,
+            'currency' => $currency,
+            'charge_id' => $transactionId,
             'payment_channel' => SSLCOMMERZ_PAYMENT_METHOD_NAME,
-            'status'          => $validation ? PaymentStatusEnum::COMPLETED : PaymentStatusEnum::FAILED,
-            'customer_id'     => auth('customer')->check() ? auth('customer')->user()->getAuthIdentifier() : null,
-            'payment_type'    => 'direct',
-            'order_id'        => $orderId,
+            'status' => $validation ? PaymentStatusEnum::COMPLETED : PaymentStatusEnum::FAILED,
+            'customer_id' => auth('customer')->check() ? auth('customer')->user()->getAuthIdentifier() : null,
+            'payment_type' => 'direct',
+            'order_id' => $orderId,
         ]);
 
         return OrderHelper::processOrder($orderId, $transactionId);

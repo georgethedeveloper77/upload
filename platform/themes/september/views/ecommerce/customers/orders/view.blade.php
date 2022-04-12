@@ -16,7 +16,7 @@
             <div class="col-md-6">
                 <div class="order-meta">
                     <span>{{ __('Order number') }}:</span> <span
-                            class="order-detail-value">{{ get_order_code($order->id) }}</span>
+                        class="order-detail-value">{{ get_order_code($order->id) }}</span>
                     <span>{{ __('Time') }}:</span> <span
                         class="order-detail-value">{{ $order->created_at->format('h:m d/m/Y') }}</span>
                 </div>
@@ -43,14 +43,17 @@
 
                     @if (EcommerceHelper::isTaxEnabled())
                         <span>{{ __('Tax') }}:</span>
-                        <span class="order-detail-value"> {{ format_price($order->tax_amount, $order->currency_id) }} </span>&nbsp;
+                        <span
+                            class="order-detail-value"> {{ format_price($order->tax_amount, $order->currency_id) }} </span>
+                        &nbsp;
                     @endif
 
                     <span>{{ __('Discount') }}:</span>
                     <span class="order-detail-value"> {{ format_price($order->discount_amount) }}
                         @if ($order->discount_amount)
                             @if ($order->coupon_code)
-                                ({!! __('Coupon code: ":code"', ['code' => Html::tag('strong', $order->coupon_code)->toHtml()]) !!})
+                                ({!! __('Coupon code: ":code"', ['code' => Html::tag('strong', $order->coupon_code)->toHtml()]) !!}
+                                )
                             @elseif ($order->discount_description)
                                 ({{ $order->discount_description }})
                             @endif
@@ -64,8 +67,10 @@
                 <br>
                 <h5>{{ __('Customer') }}</h5>
                 <div>
-                    <span>{{ __('Full Name') }}:</span> <span class="order-detail-value">{{ $order->address->name }} </span>&nbsp;
-                    <span>{{ __('Phone') }}:</span> <span class="order-detail-value">{{ $order->address->phone }} </span>&nbsp;
+                    <span>{{ __('Full Name') }}:</span> <span
+                        class="order-detail-value">{{ $order->address->name }} </span>&nbsp;
+                    <span>{{ __('Phone') }}:</span> <span
+                        class="order-detail-value">{{ $order->address->phone }} </span>&nbsp;
                     <div class="row">
                         <div class="col-12">
                             <span>{{ __('Address') }}:</span> <span
@@ -95,9 +100,9 @@
                         <tbody>
                         @foreach($order->products as $key => $orderProduct)
                             @php
-                                $product = get_products([
+                                use Botble\Base\Enums\BaseStatusEnum;$product = get_products([
                                     'condition' => [
-                                        'ec_products.status' => \Botble\Base\Enums\BaseStatusEnum::PUBLISHED,
+                                        'ec_products.status' => BaseStatusEnum::PUBLISHED,
                                         'ec_products.id'     => $orderProduct->product_id,
                                     ],
                                     'take'   => 1,
@@ -113,25 +118,29 @@
                                         'ec_products.sku',
                                         'ec_products.is_variation',
                                     ],
-                                ]);
+                                ])
 
                             @endphp
                             <tr>
                                 <td style="vertical-align: middle">{{ $key + 1 }}</td>
                                 <td style="vertical-align: middle">
                                     @if ($product)
-                                        <img src="{{ RvMedia::getImageUrl($product->image, 'thumb', false, RvMedia::getDefaultImage()) }}" width="50" alt="{{ $product->name }}">
+                                        <img
+                                            src="{{ RvMedia::getImageUrl($product->image, 'thumb', false, RvMedia::getDefaultImage()) }}"
+                                            width="50" alt="{{ $product->name }}">
                                     @endif
                                 </td>
                                 <td style="vertical-align: middle">
-                                    {{ $orderProduct->product_name }} @if ($product && $product->sku) ({{ $product->sku }}) @endif
+                                    {{ $orderProduct->product_name }} @if ($product && $product->sku)
+                                        ({{ $product->sku }}) @endif
                                     @if ($product && $product->is_variation)
                                         <p>
                                             <small>
                                                 @php $attributes = get_product_attributes($product->id) @endphp
                                                 @if (!empty($attributes))
                                                     @foreach ($attributes as $attribute)
-                                                        {{ $attribute->attribute_set_title }}: {{ $attribute->title }}@if (!$loop->last), @endif
+                                                        {{ $attribute->attribute_set_title }}
+                                                        : {{ $attribute->title }}@if (!$loop->last), @endif
                                                     @endforeach
                                                 @endif
                                             </small>
@@ -141,7 +150,8 @@
                                     @if (!empty($orderProduct->options) && is_array($orderProduct->options))
                                         @foreach($orderProduct->options as $option)
                                             @if (!empty($option['key']) && !empty($option['value']))
-                                                <p class="mb-0"><small>{{ $option['key'] }}: <strong> {{ $option['value'] }}</strong></small></p>
+                                                <p class="mb-0"><small>{{ $option['key'] }}:
+                                                        <strong> {{ $option['value'] }}</strong></small></p>
                                             @endif
                                         @endforeach
                                     @endif
@@ -160,9 +170,11 @@
                 </div>
 
                 <br>
-                <a href="{{ route('customer.print-order', $order->id) }}" class="btn--custom btn--rounded btn--outline btn--sm">{{ __('Print order') }}</a>
+                <a href="{{ route('customer.print-order', $order->id) }}"
+                   class="btn--custom btn--rounded btn--outline btn--sm">{{ __('Print order') }}</a>
                 @if ($order->canBeCanceled())
-                    &nbsp;<a href="{{ route('customer.orders.cancel', $order->id) }}" class="btn--custom btn--rounded btn--outline btn--sm">{{ __('Cancel order') }}</a>
+                    &nbsp;<a href="{{ route('customer.orders.cancel', $order->id) }}"
+                             class="btn--custom btn--rounded btn--outline btn--sm">{{ __('Cancel order') }}</a>
                 @endif
             </div>
         </div>

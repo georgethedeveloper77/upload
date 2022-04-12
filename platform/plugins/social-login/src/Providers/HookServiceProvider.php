@@ -5,6 +5,7 @@ namespace Botble\SocialLogin\Providers;
 use Illuminate\Support\ServiceProvider;
 use SocialService;
 use Theme;
+use Throwable;
 
 class HookServiceProvider extends ServiceProvider
 {
@@ -19,7 +20,7 @@ class HookServiceProvider extends ServiceProvider
      * @param string $html
      * @param string $module
      * @return null|string
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function addLoginOptions($html, string $module)
     {

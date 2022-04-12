@@ -1,6 +1,6 @@
 class SlugBoxManagement {
     init() {
-        $('#change_slug').on('click', event =>  {
+        $('#change_slug').on('click', event => {
             $('.default-slug').unwrap();
             let $slug_input = $('#editable-post-name');
             $slug_input.html('<input type="text" id="new-post-slug" class="form-control" value="' + $slug_input.text() + '" autocomplete="off">');
@@ -28,7 +28,7 @@ class SlugBoxManagement {
                     slug_id: id,
                     model: $('input[name=model]').val(),
                 },
-                success: data =>  {
+                success: data => {
                     let $permalink = $('#sample-permalink');
                     let $slug_id = $('#slug_id');
                     if (exist) {
@@ -46,7 +46,7 @@ class SlugBoxManagement {
                     $('#change_slug').show();
                     $('#edit-slug-box').removeClass('hidden');
                 },
-                error: data =>  {
+                error: data => {
                     Botble.handleError(data);
                 }
             });

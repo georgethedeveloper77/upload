@@ -79,11 +79,11 @@ class HookServiceProvider extends ServiceProvider
 
             $response = Paystack::getAuthorizationResponse([
                 'reference' => Paystack::genTranxRef(),
-                'quantity'  => 1,
-                'currency'  => $request->input('currency'),
-                'amount'    => $request->input('amount') * 100,
-                'email'     => $orderAddress->email,
-                'metadata'  => json_encode(['order_id' => $request->input('order_id')]),
+                'quantity' => 1,
+                'currency' => $request->input('currency'),
+                'amount' => $request->input('amount') * 100,
+                'email' => $orderAddress->email,
+                'metadata' => json_encode(['order_id' => $request->input('order_id')]),
             ]);
 
             if ($response['status']) {

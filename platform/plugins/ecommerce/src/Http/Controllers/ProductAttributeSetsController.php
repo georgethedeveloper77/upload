@@ -38,7 +38,8 @@ class ProductAttributeSetsController extends BaseController
     public function __construct(
         ProductAttributeSetInterface $productAttributeSetRepository,
         ProductCategoryInterface $productCategoryRepository
-    ) {
+    )
+    {
         $this->productAttributeSetRepository = $productAttributeSetRepository;
         $this->productCategoryRepository = $productCategoryRepository;
     }
@@ -85,7 +86,8 @@ class ProductAttributeSetsController extends BaseController
         ProductAttributeSetsRequest $request,
         StoreAttributeSetService $service,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $productAttributeSet = $this->productAttributeSetRepository->getModel();
 
         $productAttributeSet = $service->execute($request, $productAttributeSet);
@@ -133,7 +135,8 @@ class ProductAttributeSetsController extends BaseController
         ProductAttributeSetsRequest $request,
         StoreAttributeSetService $service,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $productAttributeSet = $this->productAttributeSetRepository->findOrFail($id);
 
         $service->execute($request, $productAttributeSet);

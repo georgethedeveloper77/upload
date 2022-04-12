@@ -16,7 +16,7 @@ class ShippingMethodRequest extends Request
     public function rules()
     {
         $rules = [
-            'name'  => 'required|max:120',
+            'name' => 'required|max:120',
             'order' => 'required|integer|min:0',
         ];
 

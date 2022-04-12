@@ -1,11 +1,11 @@
 @extends('core/base::layouts.master')
 @section('content')
     {!! Form::open() !!}
-        <div id="main-discount">
-            <div class="max-width-1200">
-                <discount-component currency="{{ get_application_currency()->symbol }}"></discount-component>
-            </div>
+    <div id="main-discount">
+        <div class="max-width-1200">
+            <discount-component currency="{{ get_application_currency()->symbol }}"></discount-component>
         </div>
+    </div>
     {!! Form::close() !!}
 @stop
 
@@ -15,7 +15,7 @@
 
         window.trans = {
             "Discount": "{{ trans('plugins/ecommerce::discount.discount') }}",
-        }
+        };
 
         $(document).ready(function () {
             $(document).on('click', 'body', function (e) {
@@ -28,7 +28,7 @@
         });
     </script>
     @php
-        Assets::addScripts(['form-validation']);
+        Assets::addScripts(['form-validation'])
     @endphp
     {!! JsValidator::formRequest(\Botble\Ecommerce\Http\Requests\DiscountRequest::class) !!}
 @endpush

@@ -2,9 +2,9 @@
 
 namespace Botble\ACL\Listeners;
 
+use Botble\ACL\Events\RoleAssignmentEvent;
 use Exception;
 use Illuminate\Support\Facades\Auth;
-use Botble\ACL\Events\RoleAssignmentEvent;
 
 class RoleAssignmentListener
 {

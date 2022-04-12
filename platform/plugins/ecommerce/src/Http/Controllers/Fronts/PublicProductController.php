@@ -22,6 +22,7 @@ use Botble\Ecommerce\Services\Products\GetProductService;
 use Botble\SeoHelper\SeoOpenGraph;
 use Botble\Slug\Repositories\Interfaces\SlugInterface;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -86,7 +87,8 @@ class PublicProductController
         ProductVariationInterface $productVariationRepository,
         ReviewInterface $reviewRepository,
         SlugInterface $slugRepository
-    ) {
+    )
+    {
         $this->productRepository = $productRepository;
         $this->productCategoryRepository = $productCategoryRepository;
         $this->productAttributeSetRepository = $productAttributeSet;
@@ -129,14 +131,14 @@ class PublicProductController
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function getProduct($slug)
     {
         $slug = $this->slugRepository->getFirstBy([
-            'key'            => $slug,
+            'key' => $slug,
             'reference_type' => Product::class,
-            'prefix'         => SlugHelper::getPrefix(Product::class),
+            'prefix' => SlugHelper::getPrefix(Product::class),
         ]);
 
         if (!$slug) {
@@ -144,7 +146,7 @@ class PublicProductController
         }
 
         $condition = [
-            'ec_products.id'     => $slug->reference_id,
+            'ec_products.id' => $slug->reference_id,
             'ec_products.status' => BaseStatusEnum::PUBLISHED,
         ];
 
@@ -154,8 +156,8 @@ class PublicProductController
 
         $product = get_products([
             'condition' => $condition,
-            'take'      => 1,
-            'with'      => [
+            'take' => 1,
+            'with' => [
                 'defaultProductAttributes',
                 'slugable',
                 'tags',
@@ -208,14 +210,14 @@ class PublicProductController
      * @param string $slug
      * @param Request $request
      * @param ProductTagInterface $tagRepository
-     * @return \Illuminate\Http\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function getProductTag($slug, Request $request, ProductTagInterface $tagRepository)
     {
         $slug = $this->slugRepository->getFirstBy([
-            'key'            => $slug,
+            'key' => $slug,
             'reference_type' => ProductTag::class,
-            'prefix'         => SlugHelper::getPrefix(ProductTag::class),
+            'prefix' => SlugHelper::getPrefix(ProductTag::class),
         ]);
 
         if (!$slug) {
@@ -223,7 +225,7 @@ class PublicProductController
         }
 
         $condition = [
-            'ec_product_categories.id'     => $slug->reference_id,
+            'ec_product_categories.id' => $slug->reference_id,
             'ec_product_categories.status' => BaseStatusEnum::PUBLISHED,
         ];
 
@@ -243,14 +245,14 @@ class PublicProductController
 
         $products = $this->productRepository->getProductByTags([
             'product_tag' => [
-                'by'       => 'id',
+                'by' => 'id',
                 'value_in' => [$tag->id],
             ],
-            'paginate'    => [
-                'per_page'      => (int)theme_option('number_of_products_per_page', 12),
+            'paginate' => [
+                'per_page' => (int)theme_option('number_of_products_per_page', 12),
                 'current_paged' => (int)$request->input('page', 1),
             ],
-            'with'        => [
+            'with' => [
                 'slugable',
                 'variations',
                 'productCollections',
@@ -283,18 +285,19 @@ class PublicProductController
      * @param Request $request
      * @param ProductCategoryInterface $categoryRepository
      * @param GetProductService $getProductService
-     * @return \Illuminate\Http\RedirectResponse|Response
+     * @return RedirectResponse|Response
      */
     public function getProductCategory(
         $slug,
         Request $request,
         ProductCategoryInterface $categoryRepository,
         GetProductService $getProductService
-    ) {
+    )
+    {
         $slug = $this->slugRepository->getFirstBy([
-            'key'            => $slug,
+            'key' => $slug,
             'reference_type' => ProductCategory::class,
-            'prefix'         => SlugHelper::getPrefix(ProductCategory::class),
+            'prefix' => SlugHelper::getPrefix(ProductCategory::class),
         ]);
 
         if (!$slug) {
@@ -302,7 +305,7 @@ class PublicProductController
         }
 
         $condition = [
-            'ec_product_categories.id'     => $slug->reference_id,
+            'ec_product_categories.id' => $slug->reference_id,
             'ec_product_categories.status' => BaseStatusEnum::PUBLISHED,
         ];
 
@@ -364,9 +367,9 @@ class PublicProductController
             $product = $this->productRepository->getProductVariations($id, [
                 'condition' => [
                     'ec_product_variations.id' => $variation->id,
-                    'ec_products.status'       => BaseStatusEnum::PUBLISHED,
+                    'ec_products.status' => BaseStatusEnum::PUBLISHED,
                 ],
-                'select'    => [
+                'select' => [
                     'ec_products.id',
                     'ec_products.name',
                     'ec_products.quantity',
@@ -379,7 +382,7 @@ class PublicProductController
                     'ec_products.description',
                     'original_products.images as original_images',
                 ],
-                'take'      => 1,
+                'take' => 1,
             ]);
 
             if ($product) {
@@ -404,21 +407,21 @@ class PublicProductController
 
         return $response
             ->setData([
-                'id'                         => $product->id,
-                'name'                       => $product->name,
-                'sku'                        => $product->sku,
-                'description'                => $product->description,
-                'slug'                       => $product->slug,
+                'id' => $product->id,
+                'name' => $product->name,
+                'sku' => $product->sku,
+                'description' => $product->description,
+                'slug' => $product->slug,
                 'with_storehouse_management' => $product->with_storehouse_management,
-                'quantity'                   => $product->quantity,
-                'is_out_of_stock'            => $product->isOutOfStock(),
-                'price'                      => $product->price,
-                'sale_price'                 => $product->front_sale_price,
-                'original_price'             => $product->original_price,
-                'image_with_sizes'           => $product->image_with_sizes,
-                'display_price'              => format_price($product->price),
-                'display_sale_price'         => format_price($product->front_sale_price),
-                'sale_percentage'            => get_sale_percentage($product->price, $product->front_sale_price),
+                'quantity' => $product->quantity,
+                'is_out_of_stock' => $product->isOutOfStock(),
+                'price' => $product->price,
+                'sale_price' => $product->front_sale_price,
+                'original_price' => $product->original_price,
+                'image_with_sizes' => $product->image_with_sizes,
+                'display_price' => format_price($product->price),
+                'display_sale_price' => format_price($product->front_sale_price),
+                'sale_percentage' => get_sale_percentage($product->price, $product->front_sale_price),
             ])
             ->setMessage(__(':number product(s) available', ['number' => ($product->with_storehouse_management && $product->quantity) ? $product->quantity : '> 10']));
     }
@@ -432,7 +435,7 @@ class PublicProductController
     {
         $exists = $this->reviewRepository->count([
             'customer_id' => auth('customer')->user()->getAuthIdentifier(),
-            'product_id'  => $request->input('product_id'),
+            'product_id' => $request->input('product_id'),
         ]);
 
         if ($exists > 0) {
@@ -464,14 +467,14 @@ class PublicProductController
      * @param string $slug
      * @param Request $request
      * @param GetProductService $getProductService
-     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|Response
+     * @return RedirectResponse|\Illuminate\Http\Response|Response
      */
     public function getBrand($slug, Request $request, GetProductService $getProductService)
     {
         $slug = $this->slugRepository->getFirstBy([
-            'key'            => $slug,
+            'key' => $slug,
             'reference_type' => Brand::class,
-            'prefix'         => SlugHelper::getPrefix(Brand::class),
+            'prefix' => SlugHelper::getPrefix(Brand::class),
         ]);
 
         if (!$slug) {

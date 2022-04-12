@@ -119,10 +119,12 @@ body[dir=rtl] {
     label {
         padding-left: 0;
         padding-right: 30px;
+
         &:before {
             left: auto;
             right: 0;
         }
+
         &:after {
             left: auto;
             right: 7px;

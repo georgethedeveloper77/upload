@@ -3,11 +3,11 @@
 namespace Botble\AuditLog\Tables;
 
 use Botble\AuditLog\Models\AuditHistory;
-use Illuminate\Support\Facades\Auth;
 use Botble\AuditLog\Repositories\Interfaces\AuditLogInterface;
 use Botble\Table\Abstracts\TableAbstract;
 use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class AuditLogTable extends TableAbstract
@@ -82,18 +82,18 @@ class AuditLogTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'audit_histories.id',
+            'id' => [
+                'name' => 'audit_histories.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'action'     => [
-                'name'  => 'audit_histories.action',
+            'action' => [
+                'name' => 'audit_histories.action',
                 'title' => trans('plugins/audit-log::history.action'),
                 'class' => 'text-left',
             ],
             'user_agent' => [
-                'name'  => 'audit_histories.user_agent',
+                'name' => 'audit_histories.user_agent',
                 'title' => trans('plugins/audit-log::history.user_agent'),
                 'class' => 'text-left',
             ],

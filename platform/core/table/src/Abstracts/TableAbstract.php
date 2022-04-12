@@ -259,57 +259,57 @@ abstract class TableAbstract extends DataTable
             ->columns($this->getColumns())
             ->ajax(['url' => $this->getAjaxUrl()])
             ->parameters([
-                'dom'          => $this->getDom(),
-                'buttons'      => $this->getBuilderParameters(),
+                'dom' => $this->getDom(),
+                'buttons' => $this->getBuilderParameters(),
                 'initComplete' => $this->htmlInitComplete(),
                 'drawCallback' => $this->htmlDrawCallback(),
-                'paging'       => true,
-                'searching'    => true,
-                'info'         => true,
-                'searchDelay'  => 350,
-                'bStateSave'   => $this->bStateSave,
-                'lengthMenu'   => Arr::sortRecursive([
+                'paging' => true,
+                'searching' => true,
+                'info' => true,
+                'searchDelay' => 350,
+                'bStateSave' => $this->bStateSave,
+                'lengthMenu' => Arr::sortRecursive([
                     array_values(array_unique(array_merge([10, 30, 50], [$this->pageLength, -1]))),
                     array_values(array_unique(array_merge([10, 30, 50],
                         [$this->pageLength, trans('core/base::tables.all')]))),
                 ]),
-                'pageLength'   => $this->pageLength,
-                'processing'   => true,
-                'serverSide'   => true,
-                'bServerSide'  => true,
+                'pageLength' => $this->pageLength,
+                'processing' => true,
+                'serverSide' => true,
+                'bServerSide' => true,
                 'bDeferRender' => true,
-                'bProcessing'  => true,
-                'language'     => [
-                    'aria'              => [
-                        'sortAscending'  => 'orderby asc',
+                'bProcessing' => true,
+                'language' => [
+                    'aria' => [
+                        'sortAscending' => 'orderby asc',
                         'sortDescending' => 'orderby desc',
-                        'paginate'       => [
-                            'next'     => trans('pagination.next'),
+                        'paginate' => [
+                            'next' => trans('pagination.next'),
                             'previous' => trans('pagination.previous'),
                         ],
                     ],
-                    'emptyTable'        => trans('core/base::tables.no_data'),
-                    'info'              => view('core/table::table-info')->render(),
-                    'infoEmpty'         => trans('core/base::tables.no_record'),
-                    'lengthMenu'        => Html::tag('span', '_MENU_', ['class' => 'dt-length-style'])->toHtml(),
-                    'search'            => '',
+                    'emptyTable' => trans('core/base::tables.no_data'),
+                    'info' => view('core/table::table-info')->render(),
+                    'infoEmpty' => trans('core/base::tables.no_record'),
+                    'lengthMenu' => Html::tag('span', '_MENU_', ['class' => 'dt-length-style'])->toHtml(),
+                    'search' => '',
                     'searchPlaceholder' => trans('core/table::table.search'),
-                    'zeroRecords'       => trans('core/base::tables.no_record'),
-                    'processing'        => Html::image(url('vendor/core/core/base/images/loading-spinner-blue.gif')),
-                    'paginate'          => [
-                        'next'     => trans('pagination.next'),
+                    'zeroRecords' => trans('core/base::tables.no_record'),
+                    'processing' => Html::image(url('vendor/core/core/base/images/loading-spinner-blue.gif')),
+                    'paginate' => [
+                        'next' => trans('pagination.next'),
                         'previous' => trans('pagination.previous'),
                     ],
-                    'infoFiltered'      => trans('core/table::table.filtered'),
+                    'infoFiltered' => trans('core/table::table.filtered'),
                 ],
-                'aaSorting'    => $this->useDefaultSorting ? [
+                'aaSorting' => $this->useDefaultSorting ? [
                     [
                         ($this->hasCheckbox ? $this->defaultSortColumn : 0),
                         'desc',
                     ],
                 ] : [],
                 'responsive' => true,
-                'autoWidth'  => false,
+                'autoWidth' => false,
             ]);
     }
 
@@ -357,28 +357,15 @@ abstract class TableAbstract extends DataTable
     {
         return [
             'operations' => [
-                'title'      => trans('core/base::tables.operations'),
-                'width'      => '134px',
-                'class'      => 'text-center',
-                'orderable'  => false,
+                'title' => trans('core/base::tables.operations'),
+                'width' => '134px',
+                'class' => 'text-center',
+                'orderable' => false,
                 'searchable' => false,
                 'exportable' => false,
-                'printable'  => false,
+                'printable' => false,
             ],
         ];
-    }
-
-    /**
-     * @param string|null $edit
-     * @param string|null $delete
-     * @param mixed $item
-     * @param string|null $extra
-     * @return string
-     * @throws Throwable
-     */
-    protected function getOperations(?string $edit, ?string $delete, $item, ?string $extra = null): string
-    {
-        return table_actions($edit, $delete, $item, $extra);
     }
 
     /**
@@ -388,28 +375,18 @@ abstract class TableAbstract extends DataTable
     {
         return [
             'checkbox' => [
-                'width'      => '10px',
-                'class'      => 'text-left no-sort',
-                'title'      => Form::input('checkbox', null, null, [
-                    'class'    => 'table-check-all',
+                'width' => '10px',
+                'class' => 'text-left no-sort',
+                'title' => Form::input('checkbox', null, null, [
+                    'class' => 'table-check-all',
                     'data-set' => '.dataTable .checkboxes',
                 ])->toHtml(),
-                'orderable'  => false,
+                'orderable' => false,
                 'searchable' => false,
                 'exportable' => false,
-                'printable'  => false,
+                'printable' => false,
             ],
         ];
-    }
-
-    /**
-     * @param int $id
-     * @return string
-     * @throws Throwable
-     */
-    protected function getCheckbox($id): string
-    {
-        return table_checkbox($id);
     }
 
     /**
@@ -490,9 +467,9 @@ abstract class TableAbstract extends DataTable
             } else {
                 $buttons[] = [
                     'className' => 'action-item',
-                    'text'      => Html::tag('span', $button['text'], [
+                    'text' => Html::tag('span', $button['text'], [
                         'data-action' => $key,
-                        'data-href'   => Arr::get($button, 'link'),
+                        'data-href' => Arr::get($button, 'link'),
                     ])->toHtml(),
                 ];
             }
@@ -502,7 +479,7 @@ abstract class TableAbstract extends DataTable
 
     /**
      * @return array
-     * @throws \Throwable
+     * @throws Throwable
      * @since 2.1
      */
     public function buttons()
@@ -522,8 +499,8 @@ abstract class TableAbstract extends DataTable
 
         return [
             [
-                'extend'  => 'collection',
-                'text'    => '<span>' . trans('core/base::forms.actions') . ' <span class="caret"></span></span>',
+                'extend' => 'collection',
+                'text' => '<span>' . trans('core/base::forms.actions') . ' <span class="caret"></span></span>',
                 'buttons' => $this->getActions(),
             ],
         ];
@@ -545,7 +522,7 @@ abstract class TableAbstract extends DataTable
         foreach ($this->actions() as $key => $action) {
             $actions[] = [
                 'className' => 'action-item',
-                'text'      => '<span data-action="' . $key . '" data-href="' . $action['link'] . '"> ' . $action['text'] . '</span>',
+                'text' => '<span data-action="' . $key . '" data-href="' . $action['link'] . '"> ' . $action['text'] . '</span>',
             ];
         }
         return $actions;
@@ -705,8 +682,8 @@ abstract class TableAbstract extends DataTable
         if ($this->getBulkChanges()) {
             $actions['bulk-change'] = view('core/table::bulk-changes', [
                 'bulk_changes' => $this->getBulkChanges(),
-                'class'        => get_class($this),
-                'url'          => $this->bulkChangeUrl,
+                'class' => get_class($this),
+                'url' => $this->bulkChangeUrl,
             ])->render();
         }
 
@@ -735,9 +712,9 @@ abstract class TableAbstract extends DataTable
             $requestFilters = [];
             foreach ($request->input('filter_columns') as $key => $item) {
                 $requestFilters[] = [
-                    'column'   => $item,
+                    'column' => $item,
                     'operator' => $request->input('filter_operators.' . $key),
-                    'value'    => $request->input('filter_values.' . $key),
+                    'value' => $request->input('filter_values.' . $key),
                 ];
             }
         }
@@ -810,8 +787,8 @@ abstract class TableAbstract extends DataTable
             $inputName = 'filter_values[]';
         }
         $attributes = [
-            'class'        => 'form-control input-value filter-column-value',
-            'placeholder'  => trans('core/table::table.value'),
+            'class' => 'form-control input-value filter-column-value',
+            'placeholder' => trans('core/table::table.value'),
             'autocomplete' => 'off',
         ];
 
@@ -909,9 +886,9 @@ abstract class TableAbstract extends DataTable
         $request = request();
         $requestFilters = [
             '-1' => [
-                'column'   => '',
+                'column' => '',
                 'operator' => '=',
-                'value'    => '',
+                'value' => '',
             ],
         ];
 
@@ -919,9 +896,9 @@ abstract class TableAbstract extends DataTable
             $requestFilters = [];
             foreach ($request->input('filter_columns', []) as $key => $item) {
                 $requestFilters[] = [
-                    'column'   => $item,
+                    'column' => $item,
                     'operator' => $request->input('filter_operators.' . $key),
-                    'value'    => $request->input('filter_values.' . $key),
+                    'value' => $request->input('filter_values.' . $key),
                 ];
             }
         }
@@ -935,6 +912,29 @@ abstract class TableAbstract extends DataTable
     public function getFilters(): array
     {
         return $this->getBulkChanges();
+    }
+
+    /**
+     * @param string|null $edit
+     * @param string|null $delete
+     * @param mixed $item
+     * @param string|null $extra
+     * @return string
+     * @throws Throwable
+     */
+    protected function getOperations(?string $edit, ?string $delete, $item, ?string $extra = null): string
+    {
+        return table_actions($edit, $delete, $item, $extra);
+    }
+
+    /**
+     * @param int $id
+     * @return string
+     * @throws Throwable
+     */
+    protected function getCheckbox($id): string
+    {
+        return table_checkbox($id);
     }
 
     /**
@@ -970,7 +970,7 @@ abstract class TableAbstract extends DataTable
     {
         if (!$permission || Auth::user()->hasPermission($permission)) {
             $actions['delete-many'] = view('core/table::partials.delete', [
-                'href'       => $url,
+                'href' => $url,
                 'data_class' => get_called_class(),
             ]);
         }

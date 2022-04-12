@@ -2,12 +2,14 @@
 
 namespace Botble\Contact\Providers;
 
+use Botble\Contact\Repositories\Interfaces\ContactInterface;
 use Html;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\ServiceProvider;
-use Botble\Contact\Repositories\Interfaces\ContactInterface;
 use Theme;
+use Throwable;
 
 class HookServiceProvider extends ServiceProvider
 {
@@ -17,7 +19,7 @@ class HookServiceProvider extends ServiceProvider
     protected $unreadContacts = [];
 
     /**
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function boot()
     {
@@ -37,7 +39,7 @@ class HookServiceProvider extends ServiceProvider
      * @param string $options
      * @return string
      *
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function registerTopHeaderNotification($options)
     {
@@ -55,10 +57,23 @@ class HookServiceProvider extends ServiceProvider
     }
 
     /**
+     * @throws BindingResolutionException
+     */
+    protected function setUnreadContacts(): Collection
+    {
+        if (!$this->unreadContacts) {
+            $this->unreadContacts = $this->app->make(ContactInterface::class)
+                ->getUnread(['id', 'name', 'email', 'phone', 'created_at']);
+        }
+
+        return $this->unreadContacts;
+    }
+
+    /**
      * @param int $number
      * @param string $menuId
      * @return string
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function getUnreadCount($number, $menuId)
     {
@@ -74,21 +89,8 @@ class HookServiceProvider extends ServiceProvider
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    protected function setUnreadContacts(): Collection
-    {
-        if (!$this->unreadContacts) {
-            $this->unreadContacts = $this->app->make(ContactInterface::class)
-                ->getUnread(['id', 'name', 'email', 'phone', 'created_at']);
-        }
-
-        return $this->unreadContacts;
-    }
-
-    /**
      * @return string
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function form($shortcode)
     {

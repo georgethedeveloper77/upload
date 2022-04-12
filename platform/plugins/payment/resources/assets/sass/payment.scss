@@ -161,14 +161,15 @@
 }
 
 .list-group {
-    .list-group-item+.list-group-item {
+    .list-group-item + .list-group-item {
         border-top-width: 1px;
     }
 
     .list-group-item {
         border-bottom: none;
+
         &:last-child {
-            border-bottom: 1px solid rgba(0,0,0,.125);
+            border-bottom: 1px solid rgba(0, 0, 0, .125);
         }
     }
 }

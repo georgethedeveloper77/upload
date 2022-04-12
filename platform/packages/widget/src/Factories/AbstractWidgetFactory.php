@@ -15,53 +15,47 @@ abstract class AbstractWidgetFactory
     use ViewExpressionTrait;
 
     /**
-     * Widget object to work with.
+     * The flag for not wrapping content in a special container.
      *
-     * @var AbstractWidget
+     * @var bool
      */
-    protected $widget;
-
-    /**
-     * Widget configuration array.
-     *
-     * @var array
-     */
-    protected $widgetConfig;
-
+    public static $skipWidgetContainer = false;
     /**
      * The name of the widget being called.
      *
      * @var string
      */
     public $widgetName;
-
     /**
      * Array of widget parameters excluding the first one (config).
      *
      * @var array
      */
     public $widgetParams;
-
     /**
      * Array of widget parameters including the first one (config).
      *
      * @var array
      */
     public $widgetFullParams;
-
     /**
      * Laravel application wrapper for better testability.
      *
      * @var ApplicationWrapperContract;
      */
     public $app;
-
     /**
-     * The flag for not wrapping content in a special container.
+     * Widget object to work with.
      *
-     * @var bool
+     * @var AbstractWidget
      */
-    public static $skipWidgetContainer = false;
+    protected $widget;
+    /**
+     * Widget configuration array.
+     *
+     * @var array
+     */
+    protected $widgetConfig;
 
     /**
      * Constructor.

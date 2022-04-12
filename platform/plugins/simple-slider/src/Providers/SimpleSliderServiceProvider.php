@@ -2,19 +2,19 @@
 
 namespace Botble\SimpleSlider\Providers;
 
-use Illuminate\Routing\Events\RouteMatched;
+use Botble\Base\Supports\Helper;
 use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Botble\SimpleSlider\Models\SimpleSlider;
 use Botble\SimpleSlider\Models\SimpleSliderItem;
+use Botble\SimpleSlider\Repositories\Caches\SimpleSliderCacheDecorator;
 use Botble\SimpleSlider\Repositories\Caches\SimpleSliderItemCacheDecorator;
 use Botble\SimpleSlider\Repositories\Eloquent\SimpleSliderItemRepository;
-use Botble\SimpleSlider\Repositories\Interfaces\SimpleSliderItemInterface;
-use Event;
-use Illuminate\Support\ServiceProvider;
-use Botble\SimpleSlider\Repositories\Caches\SimpleSliderCacheDecorator;
 use Botble\SimpleSlider\Repositories\Eloquent\SimpleSliderRepository;
 use Botble\SimpleSlider\Repositories\Interfaces\SimpleSliderInterface;
-use Botble\Base\Supports\Helper;
+use Botble\SimpleSlider\Repositories\Interfaces\SimpleSliderItemInterface;
+use Event;
+use Illuminate\Routing\Events\RouteMatched;
+use Illuminate\Support\ServiceProvider;
 use Language;
 
 class SimpleSliderServiceProvider extends ServiceProvider
@@ -46,12 +46,12 @@ class SimpleSliderServiceProvider extends ServiceProvider
 
         Event::listen(RouteMatched::class, function () {
             dashboard_menu()->registerItem([
-                'id'          => 'cms-plugins-simple-slider',
-                'priority'    => 100,
-                'parent_id'   => null,
-                'name'        => 'plugins/simple-slider::simple-slider.menu',
-                'icon'        => 'far fa-image',
-                'url'         => route('simple-slider.index'),
+                'id' => 'cms-plugins-simple-slider',
+                'priority' => 100,
+                'parent_id' => null,
+                'name' => 'plugins/simple-slider::simple-slider.menu',
+                'icon' => 'far fa-image',
+                'url' => route('simple-slider.index'),
                 'permissions' => ['simple-slider.index'],
             ]);
         });

@@ -1,1 +1,3 @@
-$(document).ready((function(){$("#rating").rating({size:"xs"})}));
+$(document).ready((function () {
+    $("#rating").rating({size: "xs"})
+}));

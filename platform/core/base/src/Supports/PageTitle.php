@@ -10,14 +10,6 @@ class PageTitle
     protected $title;
 
     /**
-     * @param string $title
-     */
-    public function setTitle(string $title)
-    {
-        $this->title = $title;
-    }
-
-    /**
      * @param bool $full
      * @return string
      */
@@ -32,5 +24,13 @@ class PageTitle
         }
 
         return $this->title . ' | ' . setting('admin_title', config('core.base.general.base_name'));
+    }
+
+    /**
+     * @param string $title
+     */
+    public function setTitle(string $title)
+    {
+        $this->title = $title;
     }
 }

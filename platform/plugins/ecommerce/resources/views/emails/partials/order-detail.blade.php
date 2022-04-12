@@ -17,9 +17,9 @@
 
         @foreach ($order->products as $orderProduct)
             @php
-                $product = get_products([
+                use Botble\Base\Enums\BaseStatusEnum;$product = get_products([
                         'condition' => [
-                        'ec_products.status' => \Botble\Base\Enums\BaseStatusEnum::PUBLISHED,
+                        'ec_products.status' => BaseStatusEnum::PUBLISHED,
                         'ec_products.id' => $orderProduct->product_id,
                     ],
                         'take' => 1,
@@ -43,7 +43,8 @@
                         @if (!empty($attributes))
                             (<small>
                                 @foreach ($attributes as $attribute)
-                                    {{ $attribute->attribute_set_title }}: {{ $attribute->title }}@if (!$loop->last), @endif
+                                    {{ $attribute->attribute_set_title }}: {{ $attribute->title }}@if (!$loop->last)
+                                        , @endif
                                 @endforeach
                             </small>)
                         @endif
@@ -52,7 +53,8 @@
                     @if (!empty($orderProduct->options) && is_array($orderProduct->options))
                         @foreach($orderProduct->options as $option)
                             @if (!empty($option['key']) && !empty($option['value']))
-                                <p class="mb-0"><small>{{ $option['key'] }}: <strong> {{ $option['value'] }}</strong></small></p>
+                                <p class="mb-0"><small>{{ $option['key'] }}:
+                                        <strong> {{ $option['value'] }}</strong></small></p>
                             @endif
                         @endforeach
                     @endif
@@ -124,6 +126,7 @@
                 {{ format_price($order->amount) }}
             </td>
         </tr>
-    </table><br>
+    </table>
+    <br>
 </div>
 

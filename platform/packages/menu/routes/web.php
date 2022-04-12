@@ -7,8 +7,8 @@ Route::group(['namespace' => 'Botble\Menu\Http\Controllers', 'middleware' => ['w
             Route::resource('', 'MenuController')->parameters(['' => 'menu']);
 
             Route::delete('items/destroy', [
-                'as'         => 'deletes',
-                'uses'       => 'MenuController@deletes',
+                'as' => 'deletes',
+                'uses' => 'MenuController@deletes',
                 'permission' => 'menus.destroy',
             ]);
         });

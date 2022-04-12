@@ -9,8 +9,10 @@
                     title="{{ $attribute->title }}">
                     <div class="custom-checkbox">
                         <label>
-                            <input class="product-filter-item" type="checkbox" name="attributes[]" value="{{ $attribute->id }}" {{ in_array($attribute->id, $selected) ? 'checked' : '' }}>
-                            <span style="{{ $attribute->image ? 'background-image: url(' . asset($attribute->image) . ');' : 'background-color: ' . $attribute->color . ';' }}"></span>
+                            <input class="product-filter-item" type="checkbox" name="attributes[]"
+                                   value="{{ $attribute->id }}" {{ in_array($attribute->id, $selected) ? 'checked' : '' }}>
+                            <span
+                                style="{{ $attribute->image ? 'background-image: url(' . asset($attribute->image) . ');' : 'background-color: ' . $attribute->color . ';' }}"></span>
                         </label>
                     </div>
                 </li>

@@ -3,6 +3,8 @@
 namespace Botble\Setting\Http\Controllers;
 
 use Assets;
+use Botble\Base\Http\Controllers\BaseController;
+use Botble\Base\Http\Responses\BaseHttpResponse;
 use Botble\Base\Supports\Core;
 use Botble\Base\Supports\Language;
 use Botble\Setting\Http\Requests\EmailTemplateRequest;
@@ -16,10 +18,8 @@ use EmailHandler;
 use Exception;
 use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\File;
-use Botble\Base\Http\Controllers\BaseController;
-use Botble\Base\Http\Responses\BaseHttpResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\View\View;
 use Throwable;
 
@@ -143,8 +143,8 @@ class SettingController extends BaseController
         $emailContent = get_setting_email_template_content($type, $module, $template);
         $emailSubject = get_setting_email_subject($type, $module, $template);
         $pluginData = [
-            'type'          => $type,
-            'name'          => $module,
+            'type' => $type,
+            'name' => $module,
             'template_file' => $template,
         ];
 
@@ -273,7 +273,7 @@ class SettingController extends BaseController
 
         $data = [
             'activated_at' => $activatedAt->format('M d Y'),
-            'licensed_to'  => setting('licensed_to'),
+            'licensed_to' => setting('licensed_to'),
         ];
 
         return $response->setMessage($result['message'])->setData($data);
@@ -312,7 +312,7 @@ class SettingController extends BaseController
 
             $data = [
                 'activated_at' => $activatedAt->format('M d Y'),
-                'licensed_to'  => $request->input('buyer'),
+                'licensed_to' => $request->input('buyer'),
             ];
 
             return $response->setMessage($result['message'])->setData($data);

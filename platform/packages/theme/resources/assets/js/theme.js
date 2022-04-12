@@ -1,6 +1,6 @@
 class ThemeManagement {
     init() {
-        $(document).on('click', '.btn-trigger-active-theme', event =>  {
+        $(document).on('click', '.btn-trigger-active-theme', event => {
             event.preventDefault();
             let _self = $(event.currentTarget);
             _self.addClass('button-loading');
@@ -11,7 +11,7 @@ class ThemeManagement {
                     'theme': _self.data('theme')
                 },
                 type: 'POST',
-                success: data =>  {
+                success: data => {
                     if (data.error) {
                         Botble.showError(data.message);
                     } else {
@@ -20,20 +20,20 @@ class ThemeManagement {
                     }
                     _self.removeClass('button-loading');
                 },
-                error: data =>  {
+                error: data => {
                     Botble.handleError(data);
                     _self.removeClass('button-loading');
                 }
             });
         });
 
-        $(document).on('click', '.btn-trigger-remove-theme', event =>  {
+        $(document).on('click', '.btn-trigger-remove-theme', event => {
             event.preventDefault();
             $('#confirm-remove-theme-button').data('theme', $(event.currentTarget).data('theme'));
             $('#remove-theme-modal').modal('show');
         });
 
-        $(document).on('click', '#confirm-remove-theme-button', event =>  {
+        $(document).on('click', '#confirm-remove-theme-button', event => {
             event.preventDefault();
             let _self = $(event.currentTarget);
             _self.addClass('button-loading');
@@ -41,7 +41,7 @@ class ThemeManagement {
             $.ajax({
                 url: route('theme.remove', {theme: _self.data('theme')}),
                 type: 'POST',
-                success: data =>  {
+                success: data => {
                     if (data.error) {
                         Botble.showError(data.message);
                     } else {
@@ -51,7 +51,7 @@ class ThemeManagement {
                     _self.removeClass('button-loading');
                     $('#remove-theme-modal').modal('hide');
                 },
-                error: data =>  {
+                error: data => {
                     Botble.handleError(data);
                     _self.removeClass('button-loading');
                     $('#remove-theme-modal').modal('hide');

@@ -6,11 +6,13 @@ use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Botble\Captcha\Captcha;
 use Botble\Captcha\CaptchaV3;
 use Botble\Captcha\Facades\CaptchaFacade;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\ServiceProvider;
+use Theme;
 
 class CaptchaServiceProvider extends ServiceProvider
 {
@@ -26,9 +28,9 @@ class CaptchaServiceProvider extends ServiceProvider
     public function register()
     {
         config([
-            'plugins.captcha.general.secret'     => setting('captcha_secret'),
-            'plugins.captcha.general.site_key'   => setting('captcha_site_key'),
-            'plugins.captcha.general.type'       => setting('captcha_type'),
+            'plugins.captcha.general.secret' => setting('captcha_secret'),
+            'plugins.captcha.general.site_key' => setting('captcha_site_key'),
+            'plugins.captcha.general.type' => setting('captcha_type'),
         ]);
 
         $this->app->singleton('captcha', function ($app) {
@@ -43,7 +45,7 @@ class CaptchaServiceProvider extends ServiceProvider
     }
 
     /**
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function boot()
     {
@@ -55,7 +57,7 @@ class CaptchaServiceProvider extends ServiceProvider
         $this->bootValidator();
 
         if (defined('THEME_MODULE_SCREEN_NAME') && setting('captcha_hide_badge')) {
-            \Theme::asset()->writeStyle('hide-recaptcha-badge', '.grecaptcha-badge { visibility: hidden; }');
+            Theme::asset()->writeStyle('hide-recaptcha-badge', '.grecaptcha-badge { visibility: hidden; }');
         }
 
         $this->app->booted(function () {

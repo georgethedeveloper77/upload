@@ -162,6 +162,14 @@ class ThumbnailService
     }
 
     /**
+     * @return string
+     */
+    public function getFileName()
+    {
+        return $this->fileName;
+    }
+
+    /**
      * @param string $fileName
      * @return ThumbnailService
      */
@@ -170,14 +178,6 @@ class ThumbnailService
         $this->fileName = $fileName;
 
         return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getFileName()
-    {
-        return $this->fileName;
     }
 
     /**

@@ -27,6 +27,7 @@ use OrderHelper;
 use Response;
 use RvMedia;
 use SeoHelper;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Theme;
 use Throwable;
 
@@ -71,7 +72,8 @@ class PublicController extends Controller
         AddressInterface $addressRepository,
         OrderInterface $orderRepository,
         OrderHistoryInterface $orderHistoryRepository
-    ) {
+    )
+    {
         $this->customerRepository = $customerRepository;
         $this->productRepository = $productRepository;
         $this->addressRepository = $addressRepository;
@@ -190,8 +192,8 @@ class PublicController extends Controller
             'condition' => [
                 'user_id' => auth('customer')->user()->getAuthIdentifier(),
             ],
-            'paginate'  => [
-                'per_page'      => 10,
+            'paginate' => [
+                'per_page' => 10,
                 'current_paged' => (int)$request->input('page'),
             ],
         ]);
@@ -212,7 +214,7 @@ class PublicController extends Controller
 
         $order = $this->orderRepository->getFirstBy(
             [
-                'id'      => $id,
+                'id' => $id,
                 'user_id' => auth('customer')->user()->getAuthIdentifier(),
             ],
             ['ec_orders.*'],
@@ -243,7 +245,7 @@ class PublicController extends Controller
     public function getCancelOder($id, BaseHttpResponse $response)
     {
         $order = $this->orderRepository->getFirstBy([
-            'id'      => $id,
+            'id' => $id,
             'user_id' => auth('customer')->user()->getAuthIdentifier(),
         ], ['*']);
 
@@ -268,10 +270,10 @@ class PublicController extends Controller
         }
 
         $this->orderHistoryRepository->createOrUpdate([
-            'action'      => 'cancel_order',
+            'action' => 'cancel_order',
             'description' => __('Order is cancelled by custom :customer',
                 ['customer' => auth('customer')->user()->name]),
-            'order_id'    => $order->id,
+            'order_id' => $order->id,
         ]);
 
         return $response->setMessage(trans('plugins/ecommerce::order.customer.messages.cancel_success'));
@@ -289,11 +291,11 @@ class PublicController extends Controller
             'condition' => [
                 'customer_id' => auth('customer')->user()->getAuthIdentifier(),
             ],
-            'order_by'  => [
+            'order_by' => [
                 'is_default' => 'DESC',
             ],
-            'paginate'  => [
-                'per_page'      => 10,
+            'paginate' => [
+                'per_page' => 10,
                 'current_paged' => (int)$request->input('page'),
             ],
         ]);
@@ -327,21 +329,21 @@ class PublicController extends Controller
     {
         if ($request->input('is_default') == 1) {
             $this->addressRepository->update([
-                'is_default'  => 1,
+                'is_default' => 1,
                 'customer_id' => auth('customer')->user()->getAuthIdentifier(),
             ], ['is_default' => 0]);
         }
 
         $request->merge([
             'customer_id' => auth('customer')->user()->getAuthIdentifier(),
-            'is_default'  => $request->input('is_default', 0),
+            'is_default' => $request->input('is_default', 0),
         ]);
 
         $address = $this->addressRepository->createOrUpdate($request->input());
 
         return $response
             ->setData([
-                'id'   => $address->id,
+                'id' => $address->id,
                 'html' => view('plugins/ecommerce::orders.partials.address-item',
                     compact('address'))->render(),
             ])
@@ -374,7 +376,7 @@ class PublicController extends Controller
     public function getDeleteAddress($id, BaseHttpResponse $response)
     {
         $this->addressRepository->deleteBy([
-            'id'          => $id,
+            'id' => $id,
             'customer_id' => auth('customer')->user()->getAuthIdentifier(),
         ]);
         return $response->setNextUrl(route('customer.address'))
@@ -392,19 +394,19 @@ class PublicController extends Controller
     {
         if ($request->input('is_default')) {
             $this->addressRepository->update([
-                'is_default'  => 1,
+                'is_default' => 1,
                 'customer_id' => auth('customer')->user()->getAuthIdentifier(),
             ], ['is_default' => 0]);
         }
 
         $address = $this->addressRepository->createOrUpdate($request->input(), [
-            'id'          => $id,
+            'id' => $id,
             'customer_id' => auth('customer')->user()->getAuthIdentifier(),
         ]);
 
         return $response
             ->setData([
-                'id'   => $address->id,
+                'id' => $address->id,
                 'html' => view('plugins/ecommerce::orders.partials.address-item', compact('address'))
                     ->render(),
             ])
@@ -414,7 +416,7 @@ class PublicController extends Controller
     /**
      * @param int $id
      * @param BaseHttpResponse $response
-     * @return BaseHttpResponse|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @return BaseHttpResponse|BinaryFileResponse
      * @throws BindingResolutionException
      */
     public function getPrintOrder($id, BaseHttpResponse $response)
@@ -430,7 +432,7 @@ class PublicController extends Controller
         $invoice = OrderHelper::generateInvoice($order);
 
         return response()->make(File::get($invoice), 200, [
-            'Content-Type'        => 'application/pdf',
+            'Content-Type' => 'application/pdf',
             'Content-Disposition' => 'attachment; filename="' . File::basename($invoice) . '"',
         ]);
     }

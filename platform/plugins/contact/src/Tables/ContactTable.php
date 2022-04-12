@@ -3,14 +3,14 @@
 namespace Botble\Contact\Tables;
 
 use BaseHelper;
+use Botble\Contact\Enums\ContactStatusEnum;
 use Botble\Contact\Exports\ContactExport;
 use Botble\Contact\Models\Contact;
-use Html;
-use Illuminate\Support\Facades\Auth;
-use Botble\Contact\Enums\ContactStatusEnum;
 use Botble\Contact\Repositories\Interfaces\ContactInterface;
 use Botble\Table\Abstracts\TableAbstract;
+use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
@@ -108,32 +108,32 @@ class ContactTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'contacts.id',
+            'id' => [
+                'name' => 'contacts.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'name'       => [
-                'name'  => 'contacts.name',
+            'name' => [
+                'name' => 'contacts.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
-            'email'      => [
-                'name'  => 'contacts.email',
+            'email' => [
+                'name' => 'contacts.email',
                 'title' => trans('plugins/contact::contact.tables.email'),
                 'class' => 'text-left',
             ],
-            'phone'      => [
-                'name'  => 'contacts.phone',
+            'phone' => [
+                'name' => 'contacts.phone',
                 'title' => trans('plugins/contact::contact.tables.phone'),
             ],
             'created_at' => [
-                'name'  => 'contacts.created_at',
+                'name' => 'contacts.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
-            'status'    => [
-                'name'  => 'contacts.status',
+            'status' => [
+                'name' => 'contacts.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
             ],
@@ -162,30 +162,30 @@ class ContactTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'contacts.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'contacts.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'contacts.email'      => [
-                'title'    => trans('core/base::tables.email'),
-                'type'     => 'text',
+            'contacts.email' => [
+                'title' => trans('core/base::tables.email'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'contacts.phone'      => [
-                'title'    => trans('plugins/contact::contact.sender_phone'),
-                'type'     => 'text',
+            'contacts.phone' => [
+                'title' => trans('plugins/contact::contact.sender_phone'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'contacts.status'    => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => ContactStatusEnum::labels(),
+            'contacts.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => ContactStatusEnum::labels(),
                 'validate' => 'required|' . Rule::in(ContactStatusEnum::values()),
             ],
             'contacts.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

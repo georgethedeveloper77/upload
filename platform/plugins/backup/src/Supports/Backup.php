@@ -2,14 +2,15 @@
 
 namespace Botble\Backup\Supports;
 
+use Botble\Base\Supports\PclZip as Zip;
 use Exception;
 use File;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\Process\Process;
 use ZipArchive;
-use Botble\Base\Supports\PclZip as Zip;
-use Illuminate\Filesystem\Filesystem;
 
 class Backup
 {
@@ -17,7 +18,7 @@ class Backup
     /**
      * The filesystem instance.
      *
-     * @var \Illuminate\Filesystem\Filesystem
+     * @var Filesystem
      */
     protected $file;
 
@@ -37,7 +38,7 @@ class Backup
 
     /**
      * @return array
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function createBackupFolder($name, $description = null): array
     {
@@ -53,14 +54,14 @@ class Backup
         }
 
         $data[$now] = [
-            'name'        => $name,
+            'name' => $name,
             'description' => $description,
-            'date'        => now()->toDateTimeString(),
+            'date' => now()->toDateTimeString(),
         ];
         save_file_data($file, $data);
 
         return [
-            'key'  => $now,
+            'key' => $now,
             'data' => $data[$now],
         ];
     }
@@ -90,7 +91,7 @@ class Backup
 
     /**
      * @return array|bool|mixed
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function getBackupList()
     {
@@ -176,7 +177,7 @@ class Backup
     /**
      * @param string $source
      * @return bool
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function backupFolder($source): bool
     {
@@ -208,7 +209,7 @@ class Backup
 
     /**
      * @param string $path
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function deleteFolderBackup($path): void
     {

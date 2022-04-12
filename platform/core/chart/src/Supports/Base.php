@@ -103,32 +103,6 @@ class Base
     }
 
     /**
-     * Return the array of this object
-     *
-     * @brief Array
-     *
-     * @return array
-     */
-    public function toArray()
-    {
-        $return = [];
-        foreach ($this as $property => $value) {
-            if ('__' == substr($property, 0,
-                    2) || '' === $value || empty($value) || (is_array($value) && empty($value))) {
-                continue;
-            }
-
-            if (in_array($property, $this->functions) && substr($value, 0, 8) == 'function') {
-                $value = '%' . $property . '%';
-            }
-
-            $return[$property] = $value;
-        }
-
-        return $return;
-    }
-
-    /**
      * Return the jSON encode of this chart
      *
      * @brief JSON
@@ -152,6 +126,32 @@ class Base
             ],
             $json
         );
+    }
+
+    /**
+     * Return the array of this object
+     *
+     * @brief Array
+     *
+     * @return array
+     */
+    public function toArray()
+    {
+        $return = [];
+        foreach ($this as $property => $value) {
+            if ('__' == substr($property, 0,
+                    2) || '' === $value || empty($value) || (is_array($value) && empty($value))) {
+                continue;
+            }
+
+            if (in_array($property, $this->functions) && substr($value, 0, 8) == 'function') {
+                $value = '%' . $property . '%';
+            }
+
+            $return[$property] = $value;
+        }
+
+        return $return;
     }
 
     /**

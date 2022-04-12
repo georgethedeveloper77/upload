@@ -1,4 +1,3 @@
-
 </td>
 </tr>
 <!--start space height -->
@@ -66,7 +65,8 @@
                                                                         </tr>
                                                                         <tr>
                                                                             <td style="font-size: 13px;line-height: 15px; text-align: center; font-family: Arial,Tahoma, Helvetica, sans-serif;color: #a7a9ac;font-weight: normal;border-collapse: collapse;">
-                                                                                © Copyright {{ date_year }}. All rights reserved.
+                                                                                © Copyright {{ date_year }}. All rights
+                                                                                reserved.
                                                                             </td>
                                                                         </tr>
                                                                         </tbody>

@@ -61,20 +61,6 @@ class ParallelSave extends ChunkSave
 
     /**
      * {@inheritDoc}
-     */
-    protected function getSavedChunksFiles()
-    {
-        $chunkFileName = preg_replace(
-            '/\\.[\\d]+\\.' . ChunkStorage::CHUNK_EXTENSION . '$/', '', $this->handler()->getChunkFileName()
-        );
-
-        return $this->chunkStorage->files(function ($file) use ($chunkFileName) {
-            return false === Str::contains($file, $chunkFileName);
-        });
-    }
-
-    /**
-     * {@inheritDoc}
      * @throws ChunkSaveException
      * @throws MissingChunkFilesException
      */
@@ -114,5 +100,19 @@ class ParallelSave extends ChunkSave
 
         // Build the chunk file instance
         $this->fullChunkFile = $this->createFullChunkFile($finalFilePath);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getSavedChunksFiles()
+    {
+        $chunkFileName = preg_replace(
+            '/\\.[\\d]+\\.' . ChunkStorage::CHUNK_EXTENSION . '$/', '', $this->handler()->getChunkFileName()
+        );
+
+        return $this->chunkStorage->files(function ($file) use ($chunkFileName) {
+            return false === Str::contains($file, $chunkFileName);
+        });
     }
 }

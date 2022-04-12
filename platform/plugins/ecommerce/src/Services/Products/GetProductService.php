@@ -34,16 +34,16 @@ class GetProductService
     public function getProduct(Request $request, $category = null, $brand = null, array $with = [])
     {
         $queryVar = [
-            'keyword'     => $request->input('q'),
-            'brands'      => (array)$request->input('brands', []),
-            'categories'  => (array)$request->input('categories', []),
-            'tags'        => (array)$request->input('tags', []),
+            'keyword' => $request->input('q'),
+            'brands' => (array)$request->input('brands', []),
+            'categories' => (array)$request->input('categories', []),
+            'tags' => (array)$request->input('tags', []),
             'collections' => (array)$request->input('collections', []),
-            'attributes'  => (array)$request->input('attributes', []),
-            'max_price'   => $request->input('max_price'),
-            'min_price'   => $request->input('min_price'),
-            'sort_by'     => $request->input('sort-by'),
-            'num'         => $request->input('num') ? (int)$request->input('num') : (int)theme_option('number_of_products_per_page',
+            'attributes' => (array)$request->input('attributes', []),
+            'max_price' => $request->input('max_price'),
+            'min_price' => $request->input('min_price'),
+            'sort_by' => $request->input('sort-by'),
+            'num' => $request->input('num') ? (int)$request->input('num') : (int)theme_option('number_of_products_per_page',
                 12),
         ];
 
@@ -96,7 +96,7 @@ class GetProductService
                 break;
             default:
                 $orderBy = [
-                    'ec_products.order'      => 'ASC',
+                    'ec_products.order' => 'ASC',
                     'ec_products.created_at' => 'DESC',
                 ];
                 break;
@@ -104,23 +104,23 @@ class GetProductService
 
         $products = $this->productRepository->filterProducts(
             [
-                'keyword'                => $queryVar['keyword'],
-                'min_price'              => $queryVar['min_price'],
-                'max_price'              => $queryVar['max_price'],
-                'categories'             => $queryVar['categories'],
-                'tags'                   => $queryVar['tags'],
-                'collections'            => $queryVar['collections'],
-                'brands'                 => $queryVar['brands'],
-                'attributes'             => $queryVar['attributes'],
+                'keyword' => $queryVar['keyword'],
+                'min_price' => $queryVar['min_price'],
+                'max_price' => $queryVar['max_price'],
+                'categories' => $queryVar['categories'],
+                'tags' => $queryVar['tags'],
+                'collections' => $queryVar['collections'],
+                'brands' => $queryVar['brands'],
+                'attributes' => $queryVar['attributes'],
                 'count_attribute_groups' => $countAttributeGroups,
-                'order_by'               => $orderBy,
+                'order_by' => $orderBy,
             ],
             [
                 'paginate' => [
-                    'per_page'      => $queryVar['num'],
+                    'per_page' => $queryVar['num'],
                     'current_paged' => (int)$request->query('page', 1),
                 ],
-                'with'     => $with,
+                'with' => $with,
             ]
         );
 

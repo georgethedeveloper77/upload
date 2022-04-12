@@ -4,12 +4,12 @@ namespace Botble\ACL\Tables;
 
 use BaseHelper;
 use Botble\ACL\Models\Role;
-use Html;
-use Illuminate\Support\Facades\Auth;
 use Botble\ACL\Repositories\Interfaces\RoleInterface;
 use Botble\ACL\Repositories\Interfaces\UserInterface;
 use Botble\Table\Abstracts\TableAbstract;
+use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
 
 class RoleTable extends TableAbstract
@@ -42,7 +42,8 @@ class RoleTable extends TableAbstract
         UrlGenerator $urlGenerator,
         RoleInterface $roleRepository,
         UserInterface $userRepository
-    ) {
+    )
+    {
         $this->repository = $roleRepository;
         $this->userRepository = $userRepository;
         $this->setOption('id', 'table-roles');
@@ -114,27 +115,27 @@ class RoleTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'          => [
-                'name'  => 'roles.id',
+            'id' => [
+                'name' => 'roles.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'name'        => [
-                'name'  => 'roles.name',
+            'name' => [
+                'name' => 'roles.name',
                 'title' => trans('core/base::tables.name'),
             ],
             'description' => [
-                'name'  => 'roles.description',
+                'name' => 'roles.description',
                 'title' => trans('core/base::tables.description'),
                 'class' => 'text-left',
             ],
-            'created_at'  => [
-                'name'  => 'roles.created_at',
+            'created_at' => [
+                'name' => 'roles.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
-            'created_by'  => [
-                'name'  => 'roles.created_by',
+            'created_by' => [
+                'name' => 'roles.created_by',
                 'title' => trans('core/acl::permissions.created_by'),
                 'width' => '100px',
             ],
@@ -166,8 +167,8 @@ class RoleTable extends TableAbstract
     {
         return [
             'roles.name' => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
         ];

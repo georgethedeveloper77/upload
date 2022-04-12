@@ -1,4 +1,4 @@
-@php $paystackStatus = get_payment_setting('status', PAYSTACK_PAYMENT_METHOD_NAME); @endphp
+@php $paystackStatus = get_payment_setting('status', PAYSTACK_PAYMENT_METHOD_NAME) @endphp
 <table class="table payment-method-item">
     <tbody>
     <tr class="border-pay-row">
@@ -73,34 +73,45 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="text-title-field" for="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_description">{{ __('Description') }}</label>
-                            <textarea class="next-input" name="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_description" id="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_description">{{ get_payment_setting('description', PAYSTACK_PAYMENT_METHOD_NAME, __('Payment with Paystack')) }}</textarea>
+                            <label class="text-title-field"
+                                   for="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_description">{{ __('Description') }}</label>
+                            <textarea class="next-input" name="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_description"
+                                      id="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_description">{{ get_payment_setting('description', PAYSTACK_PAYMENT_METHOD_NAME, __('Payment with Paystack')) }}</textarea>
                         </div>
 
                         <p class="payment-note">
-                            {{ trans('plugins/payment::payment.please_provide_information') }} <a target="_blank" href="https://paystack.com/">Paystack</a>:
+                            {{ trans('plugins/payment::payment.please_provide_information') }} <a target="_blank"
+                                                                                                  href="https://paystack.com/">Paystack</a>:
                         </p>
                         <div class="form-group">
-                            <label class="text-title-field" for="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_public">{{ __('Public Key') }}</label>
+                            <label class="text-title-field"
+                                   for="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_public">{{ __('Public Key') }}</label>
                             <input type="text" class="next-input"
-                                   name="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_public" id="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_public"
+                                   name="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_public"
+                                   id="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_public"
                                    value="{{ get_payment_setting('public', PAYSTACK_PAYMENT_METHOD_NAME) }}">
                         </div>
                         <div class="form-group">
-                            <label class="text-title-field" for="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_secret">{{ __('Secret Key') }}</label>
-                            <input type="password" class="next-input" placeholder="••••••••" id="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_secret"
+                            <label class="text-title-field"
+                                   for="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_secret">{{ __('Secret Key') }}</label>
+                            <input type="password" class="next-input" placeholder="••••••••"
+                                   id="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_secret"
                                    name="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_secret"
                                    value="{{ get_payment_setting('secret', PAYSTACK_PAYMENT_METHOD_NAME) }}">
                         </div>
                         <div class="form-group">
-                            <label class="text-title-field" for="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_merchant_email">{{ __('Merchant Email') }}</label>
-                            <input type="email" class="next-input" placeholder="{{ __('Email') }}" id="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_merchant_email"
+                            <label class="text-title-field"
+                                   for="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_merchant_email">{{ __('Merchant Email') }}</label>
+                            <input type="email" class="next-input" placeholder="{{ __('Email') }}"
+                                   id="{{ PAYSTACK_PAYMENT_METHOD_NAME }}_merchant_email"
                                    name="payment_{{ PAYSTACK_PAYMENT_METHOD_NAME }}_merchant_email"
                                    value="{{ get_payment_setting('merchant_email', PAYSTACK_PAYMENT_METHOD_NAME) }}">
                         </div>
 
                         <p class="payment-note">
-                            {{ __('You will need to set Callback URL on') }} <a href="https://dashboard.paystack.com/#/settings/developer">https://dashboard.paystack.com/#/settings/developer</a> {{ __('to') }} <strong><code>{{ route('paystack.payment.callback') }}</code></strong>
+                            {{ __('You will need to set Callback URL on') }} <a
+                                href="https://dashboard.paystack.com/#/settings/developer">https://dashboard.paystack.com/#/settings/developer</a> {{ __('to') }}
+                            <strong><code>{{ route('paystack.payment.callback') }}</code></strong>
                         </p>
                     </div>
                 </div>

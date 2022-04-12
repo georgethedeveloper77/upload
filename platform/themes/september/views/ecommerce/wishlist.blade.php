@@ -6,11 +6,11 @@
         <div class="customer-list-order">
             <table class="table table--orders">
                 <thead>
-                    <tr>
-                        <th>{{ __('Image') }}</th>
-                        <th>{{ __('Product') }}</th>
-                        <th></th>
-                    </tr>
+                <tr>
+                    <th>{{ __('Image') }}</th>
+                    <th>{{ __('Product') }}</th>
+                    <th></th>
+                </tr>
                 </thead>
                 <tbody>
                 @if (auth('customer')->check())
@@ -23,11 +23,16 @@
                                              style="max-height: 75px"
                                              src="{{ RvMedia::getImageUrl($item->product->image, 'thumb', false, RvMedia::getDefaultImage()) }}">
                                     </td>
-                                    <td><a href="{{ $item->product->original_product->url }}">{{ $item->product->name }}</a></td>
+                                    <td>
+                                        <a href="{{ $item->product->original_product->url }}">{{ $item->product->name }}</a>
+                                    </td>
 
                                     <td style="width: 300px">
-                                        <a class="btn--custom btn--rounded btn--outline btn--sm  js-remove-from-wishlist-button" href="{{ route('public.wishlist.remove', $item->product->id) }}">{{ __('Remove') }}</a>
-                                        <a class="btn--custom btn--rounded btn--outline btn--sm  add-to-cart-button" data-id="{{ $item->product->id }}" href="{{ route('public.cart.add-to-cart') }}">{{ __('Add to cart') }}</a>
+                                        <a class="btn--custom btn--rounded btn--outline btn--sm  js-remove-from-wishlist-button"
+                                           href="{{ route('public.wishlist.remove', $item->product->id) }}">{{ __('Remove') }}</a>
+                                        <a class="btn--custom btn--rounded btn--outline btn--sm  add-to-cart-button"
+                                           data-id="{{ $item->product->id }}"
+                                           href="{{ route('public.cart.add-to-cart') }}">{{ __('Add to cart') }}</a>
                                     </td>
                                 </tr>
                             @endif
@@ -41,7 +46,7 @@
                     @if (Cart::instance('wishlist')->count())
                         @foreach(Cart::instance('wishlist')->content() as $cartItem)
                             @php
-                                $item = app(\Botble\Ecommerce\Repositories\Interfaces\ProductInterface::class)->findById($cartItem->id);
+                                use Botble\Ecommerce\Repositories\Interfaces\ProductInterface;$item = app(ProductInterface::class)->findById($cartItem->id)
                             @endphp
                             @if (!empty($item))
                                 <tr>
@@ -53,8 +58,11 @@
                                     <td><a href="{{ $item->original_product->url }}">{{ $item->name }}</a></td>
 
                                     <td style="width: 300px">
-                                        <a class="btn--custom btn--rounded btn--outline btn--sm  js-remove-from-wishlist-button" href="{{ route('public.wishlist.remove', $item->id) }}">{{ __('Remove') }}</a>
-                                        <a class="btn--custom btn--rounded btn--outline btn--sm  add-to-cart-button" data-id="{{ $item->id }}" href="{{ route('public.cart.add-to-cart') }}">{{ __('Add to cart') }}</a>
+                                        <a class="btn--custom btn--rounded btn--outline btn--sm  js-remove-from-wishlist-button"
+                                           href="{{ route('public.wishlist.remove', $item->id) }}">{{ __('Remove') }}</a>
+                                        <a class="btn--custom btn--rounded btn--outline btn--sm  add-to-cart-button"
+                                           data-id="{{ $item->id }}"
+                                           href="{{ route('public.cart.add-to-cart') }}">{{ __('Add to cart') }}</a>
                                     </td>
                                 </tr>
                             @endif

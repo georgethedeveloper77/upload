@@ -27,6 +27,17 @@ class CropAvatar {
         };
     }
 
+    static isImageFile(file) {
+        if (file.type) {
+            return /^image\/\w+$/.test(file.type);
+        }
+        return /\.(jpg|jpeg|png|gif)$/.test(file);
+    }
+
+    static submitFail(errors) {
+        Botble.handleError(errors);
+    }
+
     init() {
         this.support.datauri = this.support.fileList && this.support.fileReader;
 
@@ -136,13 +147,6 @@ class CropAvatar {
         }
     }
 
-    static isImageFile(file) {
-        if (file.type) {
-            return /^image\/\w+$/.test(file.type);
-        }
-        return /\.(jpg|jpeg|png|gif)$/.test(file);
-    }
-
     read(file) {
         let _this = this,
             fileReader = new FileReader();
@@ -206,7 +210,7 @@ class CropAvatar {
                 _this.submitStart();
             },
 
-            success: data =>  {
+            success: data => {
                 _this.submitDone(data);
             },
 
@@ -257,10 +261,6 @@ class CropAvatar {
         } else {
             Botble.showError(data.message);
         }
-    }
-
-    static submitFail(errors) {
-        Botble.handleError(errors);
     }
 
     submitEnd() {

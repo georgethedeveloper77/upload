@@ -18,11 +18,11 @@ class PostRequest extends Request
     public function rules()
     {
         return [
-            'name'        => 'required|max:255',
+            'name' => 'required|max:255',
             'description' => 'max:400',
-            'categories'  => 'required',
+            'categories' => 'required',
             'format_type' => Rule::in(array_keys(PostFormat::getPostFormats(true))),
-            'status'      => Rule::in(BaseStatusEnum::values()),
+            'status' => Rule::in(BaseStatusEnum::values()),
         ];
     }
 }

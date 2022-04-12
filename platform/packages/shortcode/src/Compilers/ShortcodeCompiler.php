@@ -70,6 +70,121 @@ class ShortcodeCompiler
     }
 
     /**
+     * Render the current called shortcode.
+     *
+     * @param array $matches
+     * @return string
+     * @since 2.1
+     */
+    public function render($matches)
+    {
+        // Compile the shortcode
+        $compiled = $this->compileShortcode($matches);
+        $name = $compiled->getName();
+
+        // Render the shortcode through the callback
+        return call_user_func_array($this->getCallback($name), [
+            $compiled,
+            $compiled->getContent(),
+            $this,
+            $name,
+        ]);
+    }
+
+    /**
+     * Get Compiled Attributes.
+     *
+     * @param $matches
+     * @return mixed
+     * @since 2.1
+     */
+    protected function compileShortcode($matches)
+    {
+        // Set matches
+        $this->setMatches($matches);
+        // pars the attributes
+        $attributes = $this->parseAttributes($this->matches[3]);
+
+        // return shortcode instance
+        return new Shortcode(
+            $this->getName(),
+            $attributes,
+            $this->getContent()
+        );
+    }
+
+    /**
+     * Set the matches
+     *
+     * @param array $matches
+     * @since 2.1
+     */
+    protected function setMatches($matches = [])
+    {
+        $this->matches = $matches;
+    }
+
+    /**
+     * Parse the shortcode attributes
+     * @param $text
+     * @return array
+     * @since 2.1
+     */
+    protected function parseAttributes($text)
+    {
+        // decode attribute values
+        $text = htmlspecialchars_decode($text, ENT_QUOTES);
+
+        $attributes = [];
+        // attributes pattern
+        $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
+        // Match
+        if (preg_match_all($pattern, preg_replace('/[\x{00a0}\x{200b}]+/u', ' ', $text), $match, PREG_SET_ORDER)) {
+            foreach ($match as $item) {
+                if (!empty($item[1])) {
+                    $attributes[strtolower($item[1])] = stripcslashes($item[2]);
+                } elseif (!empty($item[3])) {
+                    $attributes[strtolower($item[3])] = stripcslashes($item[4]);
+                } elseif (!empty($item[5])) {
+                    $attributes[strtolower($item[5])] = stripcslashes($item[6]);
+                } elseif (isset($item[7]) && strlen($item[7])) {
+                    $attributes[] = stripcslashes($item[7]);
+                } elseif (isset($item[8])) {
+                    $attributes[] = stripcslashes($item[8]);
+                }
+            }
+        } else {
+            $attributes = ltrim($text);
+        }
+
+        // return attributes
+        return is_array($attributes) ? $attributes : [$attributes];
+    }
+
+    /**
+     * Return the shortcode name
+     *
+     * @return string
+     * @since 2.1
+     */
+    public function getName()
+    {
+        return $this->matches[2];
+    }
+
+    /**
+     * Return the shortcode content
+     *
+     * @return string
+     * @since 2.1
+     */
+    public function getContent()
+    {
+        // Compile the content, to support nested shortcode
+        return $this->compile($this->matches[5]);
+    }
+
+    /**
      * Compile the contents
      *
      * @param string $value
@@ -137,81 +252,27 @@ class ShortcodeCompiler
     }
 
     /**
-     * Render the current called shortcode.
-     *
-     * @param array $matches
-     * @return string
-     * @since 2.1
-     */
-    public function render($matches)
-    {
-        // Compile the shortcode
-        $compiled = $this->compileShortcode($matches);
-        $name = $compiled->getName();
-
-        // Render the shortcode through the callback
-        return call_user_func_array($this->getCallback($name), [
-            $compiled,
-            $compiled->getContent(),
-            $this,
-            $name,
-        ]);
-    }
-
-    /**
-     * Get Compiled Attributes.
-     *
-     * @param $matches
-     * @return mixed
-     * @since 2.1
-     */
-    protected function compileShortcode($matches)
-    {
-        // Set matches
-        $this->setMatches($matches);
-        // pars the attributes
-        $attributes = $this->parseAttributes($this->matches[3]);
-
-        // return shortcode instance
-        return new Shortcode(
-            $this->getName(),
-            $attributes,
-            $this->getContent()
-        );
-    }
-
-    /**
-     * Set the matches
-     *
-     * @param array $matches
-     * @since 2.1
-     */
-    protected function setMatches($matches = [])
-    {
-        $this->matches = $matches;
-    }
-
-    /**
-     * Return the shortcode name
+     * Get shortcode regex.
      *
      * @return string
      * @since 2.1
      */
-    public function getName()
+    protected function getRegex()
     {
-        return $this->matches[2];
+        $name = $this->getShortcodeNames();
+
+        return '\\[(\\[?)(' . $name . ')(?![\\w-])([^\\]\\/]*(?:\\/(?!\\])[^\\]\\/]*)*?)(?:(\\/)\\]|\\](?:([^\\[]*+(?:\\[(?!\\/\\2\\])[^\\[]*+)*+)\\[\\/\\2\\])?)(\\]?)';
     }
 
     /**
-     * Return the shortcode content
+     * Get shortcode names
      *
      * @return string
      * @since 2.1
      */
-    public function getContent()
+    public function getShortcodeNames()
     {
-        // Compile the content, to support nested shortcode
-        return $this->compile($this->matches[5]);
+        return join('|', array_map('preg_quote', array_keys($this->registered)));
     }
 
     /**
@@ -240,67 +301,6 @@ class ShortcodeCompiler
         }
 
         return $callback;
-    }
-
-    /**
-     * Parse the shortcode attributes
-     * @param $text
-     * @return array
-     * @since 2.1
-     */
-    protected function parseAttributes($text)
-    {
-        // decode attribute values
-        $text = htmlspecialchars_decode($text, ENT_QUOTES);
-
-        $attributes = [];
-        // attributes pattern
-        $pattern = '/(\w+)\s*=\s*"([^"]*)"(?:\s|$)|(\w+)\s*=\s*\'([^\']*)\'(?:\s|$)|(\w+)\s*=\s*([^\s\'"]+)(?:\s|$)|"([^"]*)"(?:\s|$)|(\S+)(?:\s|$)/';
-        // Match
-        if (preg_match_all($pattern, preg_replace('/[\x{00a0}\x{200b}]+/u', ' ', $text), $match, PREG_SET_ORDER)) {
-            foreach ($match as $item) {
-                if (!empty($item[1])) {
-                    $attributes[strtolower($item[1])] = stripcslashes($item[2]);
-                } elseif (!empty($item[3])) {
-                    $attributes[strtolower($item[3])] = stripcslashes($item[4]);
-                } elseif (!empty($item[5])) {
-                    $attributes[strtolower($item[5])] = stripcslashes($item[6]);
-                } elseif (isset($item[7]) && strlen($item[7])) {
-                    $attributes[] = stripcslashes($item[7]);
-                } elseif (isset($item[8])) {
-                    $attributes[] = stripcslashes($item[8]);
-                }
-            }
-        } else {
-            $attributes = ltrim($text);
-        }
-
-        // return attributes
-        return is_array($attributes) ? $attributes : [$attributes];
-    }
-
-    /**
-     * Get shortcode names
-     *
-     * @return string
-     * @since 2.1
-     */
-    public function getShortcodeNames()
-    {
-        return join('|', array_map('preg_quote', array_keys($this->registered)));
-    }
-
-    /**
-     * Get shortcode regex.
-     *
-     * @return string
-     * @since 2.1
-     */
-    protected function getRegex()
-    {
-        $name = $this->getShortcodeNames();
-
-        return '\\[(\\[?)(' . $name . ')(?![\\w-])([^\\]\\/]*(?:\\/(?!\\])[^\\]\\/]*)*?)(?:(\\/)\\]|\\](?:([^\\[]*+(?:\\[(?!\\/\\2\\])[^\\[]*+)*+)\\[\\/\\2\\])?)(\\]?)';
     }
 
     /**
@@ -339,22 +339,6 @@ class ShortcodeCompiler
     }
 
     /**
-     * Remove shortcode tag
-     *
-     * @param string $match
-     * @return string Content without shortcode tag.
-     * @since 2.1
-     */
-    protected function stripTag($match)
-    {
-        if ($match[1] == '[' && $match[6] == ']') {
-            return substr($match[0], 1, -1);
-        }
-
-        return $match[1] . $match[6];
-    }
-
-    /**
      * @return array
      */
     public function getRegistered()
@@ -369,5 +353,21 @@ class ShortcodeCompiler
     public function setAdminConfig(string $key, $html)
     {
         $this->registered[$key]['admin_config'] = $html;
+    }
+
+    /**
+     * Remove shortcode tag
+     *
+     * @param string $match
+     * @return string Content without shortcode tag.
+     * @since 2.1
+     */
+    protected function stripTag($match)
+    {
+        if ($match[1] == '[' && $match[6] == ']') {
+            return substr($match[0], 1, -1);
+        }
+
+        return $match[1] . $match[6];
     }
 }

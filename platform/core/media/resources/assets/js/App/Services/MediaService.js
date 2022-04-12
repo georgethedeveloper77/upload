@@ -13,6 +13,35 @@ export class MediaService {
         this.breadcrumbTemplate = $('#rv_media_breadcrumb_item').html();
     }
 
+    static refreshFilter() {
+        let $rvMediaContainer = $('.rv-media-container');
+        let viewIn = Helpers.getRequestParams().view_in;
+        if (viewIn !== 'all_media' && !Helpers.getRequestParams().folder_id) {
+            $('.rv-media-actions .btn:not([data-type="refresh"]):not(label)').addClass('disabled');
+            $rvMediaContainer.attr('data-allow-upload', 'false');
+        } else {
+            $('.rv-media-actions .btn:not([data-type="refresh"]):not(label)').removeClass('disabled');
+            $rvMediaContainer.attr('data-allow-upload', 'true');
+        }
+
+        $('.rv-media-actions .btn.js-rv-media-change-filter-group').removeClass('disabled');
+
+        let $empty_trash_btn = $('.rv-media-actions .btn[data-action="empty_trash"]');
+        if (viewIn === 'trash') {
+            $empty_trash_btn.removeClass('hidden').removeClass('disabled');
+            if (!_.size(Helpers.getItems())) {
+                $empty_trash_btn.addClass('hidden').addClass('disabled');
+            }
+        } else {
+            $empty_trash_btn.addClass('hidden');
+        }
+
+        ContextMenuService.destroyContext();
+        ContextMenuService.initContext();
+
+        $rvMediaContainer.attr('data-view-in', viewIn);
+    }
+
     getMedia(reload = false, is_popup = false, load_more_file = false) {
         if (typeof RV_MEDIA_CONFIG.pagination != 'undefined') {
             if (RV_MEDIA_CONFIG.pagination.in_process_get_media) {
@@ -60,7 +89,7 @@ export class MediaService {
             beforeSend: () => {
                 Helpers.showAjaxLoading();
             },
-            success: res =>  {
+            success: res => {
                 _self.MediaList.renderData(res.data, reload, load_more_file);
                 _self.renderBreadcrumbs(res.data.breadcrumbs);
                 MediaService.refreshFilter();
@@ -83,7 +112,7 @@ export class MediaService {
             complete: () => {
                 Helpers.hideAjaxLoading();
             },
-            error: data =>  {
+            error: data => {
                 MessageService.handleError(data);
             }
         });
@@ -107,34 +136,5 @@ export class MediaService {
             $breadcrumbContainer.append($(template));
         });
         $('.rv-media-container').attr('data-breadcrumb-count', _.size(breadcrumbItems));
-    }
-
-    static refreshFilter() {
-        let $rvMediaContainer = $('.rv-media-container');
-        let viewIn = Helpers.getRequestParams().view_in;
-        if (viewIn !== 'all_media' && !Helpers.getRequestParams().folder_id) {
-            $('.rv-media-actions .btn:not([data-type="refresh"]):not(label)').addClass('disabled');
-            $rvMediaContainer.attr('data-allow-upload', 'false');
-        } else {
-            $('.rv-media-actions .btn:not([data-type="refresh"]):not(label)').removeClass('disabled');
-            $rvMediaContainer.attr('data-allow-upload', 'true');
-        }
-
-        $('.rv-media-actions .btn.js-rv-media-change-filter-group').removeClass('disabled');
-
-        let $empty_trash_btn = $('.rv-media-actions .btn[data-action="empty_trash"]');
-        if (viewIn === 'trash') {
-            $empty_trash_btn.removeClass('hidden').removeClass('disabled');
-            if (!_.size(Helpers.getItems())) {
-                $empty_trash_btn.addClass('hidden').addClass('disabled');
-            }
-        } else {
-            $empty_trash_btn.addClass('hidden');
-        }
-
-        ContextMenuService.destroyContext();
-        ContextMenuService.initContext();
-
-        $rvMediaContainer.attr('data-view-in', viewIn);
     }
 }

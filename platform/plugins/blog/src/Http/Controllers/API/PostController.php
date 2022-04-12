@@ -4,14 +4,14 @@ namespace Botble\Blog\Http\Controllers\API;
 
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Base\Http\Responses\BaseHttpResponse;
-use Botble\Blog\Http\Resources\PostResource;
 use Botble\Blog\Http\Resources\ListPostResource;
+use Botble\Blog\Http\Resources\PostResource;
+use Botble\Blog\Models\Post;
 use Botble\Blog\Repositories\Interfaces\PostInterface;
 use Botble\Blog\Supports\FilterPost;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Botble\Blog\Models\Post;
 use SlugHelper;
 
 class PostController extends Controller

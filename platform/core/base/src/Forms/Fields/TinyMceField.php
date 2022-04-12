@@ -10,6 +10,18 @@ class TinyMceField extends FormField
 {
 
     /**
+     *{@inheritDoc}
+     */
+    public function render(array $options = [], $showLabel = true, $showField = true, $showError = true)
+    {
+        $options['class'] = Arr::get($options, 'class', '') . 'form-control editor-tinymce';
+        $options['id'] = Arr::get($options, 'id', $this->getName());
+        $options['rows'] = Arr::get($options, 'rows', 4);
+
+        return parent::render($options, $showLabel, $showField, $showError);
+    }
+
+    /**
      * {@inheritDoc}
      */
     protected function getTemplate()
@@ -20,17 +32,5 @@ class TinyMceField extends FormField
         ]);
 
         return 'core/base::forms.fields.tinymce';
-    }
-
-    /**
-     *{@inheritDoc}
-     */
-    public function render(array $options = [], $showLabel = true, $showField = true, $showError = true)
-    {
-        $options['class'] = Arr::get($options, 'class', '') . 'form-control editor-tinymce';
-        $options['id'] = Arr::get($options, 'id', $this->getName());
-        $options['rows'] = Arr::get($options, 'rows', 4);
-
-        return parent::render($options, $showLabel, $showField, $showError);
     }
 }

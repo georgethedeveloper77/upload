@@ -53,7 +53,8 @@ class HandleShippingFeeService
         ShippingRuleInterface $shippingRuleRepository,
         ProductInterface $productRepository,
         StoreLocatorInterface $storeLocatorRepository
-    ) {
+    )
+    {
         $this->shippingRepository = $shippingRepository;
         $this->addressRepository = $addressRepository;
         $this->shippingRuleRepository = $shippingRuleRepository;
@@ -157,12 +158,12 @@ class HandleShippingFeeService
                     ->first();
                 if ($ruleDetail) {
                     $result[] = [
-                        'name'  => $rule->name,
+                        'name' => $rule->name,
                         'price' => $rule->price + $ruleDetail->adjustment_price,
                     ];
                 } else {
                     $result[] = [
-                        'name'  => $rule->name,
+                        'name' => $rule->name,
                         'price' => $rule->price,
                     ];
                 }
@@ -206,12 +207,12 @@ class HandleShippingFeeService
                         ->first();
                     if ($ruleDetail) {
                         $result[$rule->id] = [
-                            'name'  => $rule->name,
+                            'name' => $rule->name,
                             'price' => $rule->price + $ruleDetail->adjustment_price,
                         ];
                     } else {
                         $result[$rule->id] = [
-                            'name'  => $rule->name,
+                            'name' => $rule->name,
                             'price' => $rule->price,
                         ];
                     }

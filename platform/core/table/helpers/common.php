@@ -1,5 +1,7 @@
 <?php
 
+use Botble\Base\Models\BaseModel;
+
 if (!function_exists('table_checkbox')) {
     /**
      * @param int $id
@@ -16,7 +18,7 @@ if (!function_exists('table_actions')) {
     /**
      * @param string $edit
      * @param string $delete
-     * @param \Botble\Base\Models\BaseModel $item
+     * @param BaseModel $item
      * @param string $extra
      * @return string
      * @throws Throwable

@@ -10,7 +10,8 @@
                     @foreach (Widget::getWidgets() as $widget)
                         <li data-id="{{ $widget->getId() }}">
                             <div class="widget-handle">
-                                <p class="widget-name">{{ $widget->getConfig()['name'] }} <span class="text-right"><i class="fa fa-caret-up"></i></span>
+                                <p class="widget-name">{{ $widget->getConfig()['name'] }} <span class="text-right"><i
+                                            class="fa fa-caret-up"></i></span>
                                 </p>
                             </div>
                             <div class="widget-content">
@@ -19,10 +20,12 @@
                                     {!! $widget->form() !!}
                                     <div class="widget-control-actions">
                                         <div class="float-left">
-                                            <button class="btn btn-danger widget-control-delete">{{ trans('packages/widget::widget.delete') }}</button>
+                                            <button
+                                                class="btn btn-danger widget-control-delete">{{ trans('packages/widget::widget.delete') }}</button>
                                         </div>
                                         <div class="float-right text-right">
-                                            <button class="btn btn-primary widget_save">{{ trans('core/base::forms.save') }}</button>
+                                            <button
+                                                class="btn btn-primary widget_save">{{ trans('core/base::forms.save') }}</button>
                                         </div>
                                         <div class="clearfix"></div>
                                     </div>

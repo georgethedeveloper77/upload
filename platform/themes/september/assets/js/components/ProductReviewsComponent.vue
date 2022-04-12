@@ -6,13 +6,13 @@
                 <div class="circle circle-2"></div>
             </div>
         </div>
-        <div class="block--review" v-if="!isLoading && data.length" v-for="item in data" :key="item.id">
+        <div :key="item.id" class="block--review" v-for="item in data" v-if="!isLoading && data.length">
             <div class="block__header">
-                <div class="block__image"><img :src="item.user_avatar" :alt="item.user_name" width="60" /></div>
+                <div class="block__image"><img :alt="item.user_name" :src="item.user_avatar" width="60"/></div>
                 <div class="block__info">
                     <div class="rating_wrap">
                         <div class="rating">
-                            <div class="product_rate" :style="{width: item.star * 20 + '%'}"></div>
+                            <div :style="{width: item.star * 20 + '%'}" class="product_rate"></div>
                         </div>
                     </div>
                     <p><strong>{{ item.user_name }}</strong> | {{ item.created_at }}</p>
@@ -27,17 +27,21 @@
             <nav>
                 <ul class="pagination">
                     <li class="page-item">
-                        <a @click="getData(meta.current_page > 1 ? meta.current_page - 1 : 1)" aria-hidden="true" rel="previous" aria-label="« Previous" class="page-link">‹</a>
+                        <a @click="getData(meta.current_page > 1 ? meta.current_page - 1 : 1)" aria-hidden="true"
+                           aria-label="« Previous" class="page-link" rel="previous">‹</a>
                     </li>
-                    <li v-for="n in meta.last_page" :class="n === meta.current_page ? 'page-item active': 'page-item'" v-if="Math.abs(n - meta.current_page) < 3 || n === meta.last_page || n === 1">
+                    <li :class="n === meta.current_page ? 'page-item active': 'page-item'" v-for="n in meta.last_page"
+                        v-if="Math.abs(n - meta.current_page) < 3 || n === meta.last_page || n === 1">
                         <span class="first-page" v-if="(n === 1 && Math.abs(n - meta.current_page) > 3)">...</span>
-                        <span v-if="n === meta.current_page" class="page-link">{{ n }}</span>
-                        <span class="last-page" v-if="n === meta.last_page && Math.abs(n - meta.current_page) > 3">...</span>
-                        <a v-if="n !== meta.current_page && !(n === 1 && Math.abs(n - meta.current_page) > 3) && !(n === meta.last_page && Math.abs(n - meta.current_page) > 3)" @click="getData(n)" class="page-link">{{ n }}</a>
+                        <span class="page-link" v-if="n === meta.current_page">{{ n }}</span>
+                        <span class="last-page"
+                              v-if="n === meta.last_page && Math.abs(n - meta.current_page) > 3">...</span>
+                        <a @click="getData(n)"
+                           class="page-link" v-if="n !== meta.current_page && !(n === 1 && Math.abs(n - meta.current_page) > 3) && !(n === meta.last_page && Math.abs(n - meta.current_page) > 3)">{{ n }}</a>
                     </li>
                     <li class="page-item">
-                        <a @click="getData(meta.current_page + 1)" rel="next"
-                           aria-label="Next »" class="page-link">›</a>
+                        <a @click="getData(meta.current_page + 1)" aria-label="Next »"
+                           class="page-link" rel="next">›</a>
                     </li>
                 </ul>
             </nav>
@@ -47,7 +51,7 @@
 
 <script>
     export default {
-        data: function() {
+        data: function () {
             return {
                 isLoading: true,
                 data: [],
@@ -62,7 +66,7 @@
             },
         },
         mounted() {
-          this.getData();
+            this.getData();
         },
         methods: {
             getData(page = 1) {

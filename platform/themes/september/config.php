@@ -35,8 +35,7 @@ return [
         // Listen on event before render a theme,
         // this event should call to assign some assets,
         // breadcrumb template.
-        'beforeRenderTheme' => function (Theme $theme)
-        {
+        'beforeRenderTheme' => function (Theme $theme) {
             $version = '1.0.15';
 
             // You may use this event to set up your assets.

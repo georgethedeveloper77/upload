@@ -41,12 +41,12 @@ class NewsletterServiceProvider extends ServiceProvider
 
         Event::listen(RouteMatched::class, function () {
             dashboard_menu()->registerItem([
-                'id'          => 'cms-plugins-newsletter',
-                'priority'    => 6,
-                'parent_id'   => null,
-                'name'        => 'plugins/newsletter::newsletter.name',
-                'icon'        => 'far fa-newspaper',
-                'url'         => route('newsletter.index'),
+                'id' => 'cms-plugins-newsletter',
+                'priority' => 6,
+                'parent_id' => null,
+                'name' => 'plugins/newsletter::newsletter.name',
+                'icon' => 'far fa-newspaper',
+                'url' => route('newsletter.index'),
                 'permissions' => ['newsletter.index'],
             ]);
 

@@ -3,8 +3,8 @@
 namespace Botble\Blog\Repositories\Eloquent;
 
 use Botble\Base\Enums\BaseStatusEnum;
-use Botble\Support\Repositories\Eloquent\RepositoriesAbstract;
 use Botble\Blog\Repositories\Interfaces\CategoryInterface;
+use Botble\Support\Repositories\Eloquent\RepositoriesAbstract;
 use Eloquent;
 
 class CategoryRepository extends RepositoriesAbstract implements CategoryInterface
@@ -32,7 +32,7 @@ class CategoryRepository extends RepositoriesAbstract implements CategoryInterfa
         $data = $this->model
             ->with(array_merge(['slugable'], $with))
             ->where([
-                'categories.status'      => BaseStatusEnum::PUBLISHED,
+                'categories.status' => BaseStatusEnum::PUBLISHED,
                 'categories.is_featured' => 1,
             ])
             ->select([
@@ -75,7 +75,7 @@ class CategoryRepository extends RepositoriesAbstract implements CategoryInterfa
     public function getCategoryById($id)
     {
         $data = $this->model->with('slugable')->where([
-            'categories.id'     => $id,
+            'categories.id' => $id,
             'categories.status' => BaseStatusEnum::PUBLISHED,
         ]);
 

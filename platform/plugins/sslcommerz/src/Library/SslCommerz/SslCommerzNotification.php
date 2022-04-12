@@ -2,6 +2,9 @@
 
 namespace Botble\SslCommerz\Library\SslCommerz;
 
+use Illuminate\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
+
 class SslCommerzNotification extends AbstractSslCommerz
 {
     /**
@@ -10,7 +13,7 @@ class SslCommerzNotification extends AbstractSslCommerz
     protected $data = [];
 
     /**
-     * @var array|\Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     * @var array|Repository|Application|mixed
      */
     protected $config = [];
 

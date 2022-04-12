@@ -4,6 +4,7 @@ namespace Botble\PluginManagement\Commands;
 
 use Botble\PluginManagement\Services\PluginService;
 use Illuminate\Console\Command;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 
 class PluginActivateAllCommand extends Command
 {
@@ -38,7 +39,7 @@ class PluginActivateAllCommand extends Command
 
     /**
      * @return boolean
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function handle()
     {

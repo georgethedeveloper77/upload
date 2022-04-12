@@ -76,50 +76,72 @@
                                                         @endphp
 
                                                         @if(!empty($product))
-                                                        <tr>
-                                                            <td data-title="{{ trans('plugins/ecommerce::products.delete') }}">
-                                                                <a title="{{ __('Delete product') }}" class="remove text-danger" href="{{ route('public.cart.remove', $cartItem->rowId) }}">
-                                                                    <i class="fa fa-times-circle" aria-hidden="true"></i>
-                                                                </a>
+                                                            <tr>
+                                                                <td data-title="{{ trans('plugins/ecommerce::products.delete') }}">
+                                                                    <a title="{{ __('Delete product') }}"
+                                                                       class="remove text-danger"
+                                                                       href="{{ route('public.cart.remove', $cartItem->rowId) }}">
+                                                                        <i class="fa fa-times-circle"
+                                                                           aria-hidden="true"></i>
+                                                                    </a>
 
-                                                            </td>
-                                                            <td class="product-thumbnail">
-                                                                <a href="{{ $product->url }}">
-                                                                    <img src="{{ $cartItem->options['image'] }}" alt="{{ $product->name }}" />
-                                                                </a>
-                                                            </td>
+                                                                </td>
+                                                                <td class="product-thumbnail">
+                                                                    <a href="{{ $product->url }}">
+                                                                        <img src="{{ $cartItem->options['image'] }}"
+                                                                             alt="{{ $product->name }}"/>
+                                                                    </a>
+                                                                </td>
 
-                                                            <td class="product-name" data-title="{{ __('Product Name') }}">
-                                                                <a href="{{ $product->url }}">{{ $product->name }}</a>
-                                                                <p style="margin-bottom: 0">
-                                                                    <span style="display: block;font-style: italic;color:#555555; font-size: .9em;">{{ $cartItem->options['attributes'] ?? '' }}</span>
-                                                                </p>
-                                                                @if (!empty($cartItem->options['extras']) && is_array($cartItem->options['extras']))
-                                                                    @foreach($cartItem->options['extras'] as $option)
-                                                                        @if (!empty($option['key']) && !empty($option['value']))
-                                                                            <p style="margin-bottom: 0;"><small>{{ $option['key'] }}: <strong> {{ $option['value'] }}</strong></small></p>
-                                                                        @endif
-                                                                    @endforeach
-                                                                @endif
-                                                            </td>
-                                                            <td class="product-price" data-title="{{ __('Unit Price') }}">
-                                                                <span class="product-price-amount amount"><span class="currency-sign">
+                                                                <td class="product-name"
+                                                                    data-title="{{ __('Product Name') }}">
+                                                                    <a href="{{ $product->url }}">{{ $product->name }}</a>
+                                                                    <p style="margin-bottom: 0">
+                                                                        <span
+                                                                            style="display: block;font-style: italic;color:#555555; font-size: .9em;">{{ $cartItem->options['attributes'] ?? '' }}</span>
+                                                                    </p>
+                                                                    @if (!empty($cartItem->options['extras']) && is_array($cartItem->options['extras']))
+                                                                        @foreach($cartItem->options['extras'] as $option)
+                                                                            @if (!empty($option['key']) && !empty($option['value']))
+                                                                                <p style="margin-bottom: 0;">
+                                                                                    <small>{{ $option['key'] }}:
+                                                                                        <strong> {{ $option['value'] }}</strong></small>
+                                                                                </p>
+                                                                            @endif
+                                                                        @endforeach
+                                                                    @endif
+                                                                </td>
+                                                                <td class="product-price"
+                                                                    data-title="{{ __('Unit Price') }}">
+                                                                <span class="product-price-amount amount"><span
+                                                                        class="currency-sign">
                                                                     {{ format_price($cartItem->price) }}
                                                                     </span>
-                                                                        <input type="hidden" name="items[{{ $key }}][rowId]" value="{{ $cartItem->rowId }}">
+                                                                        <input type="hidden"
+                                                                               name="items[{{ $key }}][rowId]"
+                                                                               value="{{ $cartItem->rowId }}">
                                                                 </span>
-                                                            </td>
-                                                            <td class="product-quantity" data-title="{{ __('Qty') }}">
-                                                                <div class="product-quantity">
-                                                                    <span data-value="+" class="quantity-btn quantityPlus"></span>
-                                                                    <input class="quantity input-lg" step="1" min="1" max="9" title="{{ __('Qty') }}" value="{{ $cartItem->qty }}" name="items[{{ $key }}][values][qty]" type="number" />
-                                                                    <span data-value="-" class="quantity-btn quantityMinus"></span>
-                                                                </div>
-                                                            </td>
-                                                            <td class="product-subtotal" data-title="{{ __('Subtotal') }}">
-                                                                <span class="amount">{{ format_price($cartItem->price * $cartItem->qty) }}</span>
-                                                            </td>
-                                                        </tr>
+                                                                </td>
+                                                                <td class="product-quantity"
+                                                                    data-title="{{ __('Qty') }}">
+                                                                    <div class="product-quantity">
+                                                                        <span data-value="+"
+                                                                              class="quantity-btn quantityPlus"></span>
+                                                                        <input class="quantity input-lg" step="1"
+                                                                               min="1" max="9" title="{{ __('Qty') }}"
+                                                                               value="{{ $cartItem->qty }}"
+                                                                               name="items[{{ $key }}][values][qty]"
+                                                                               type="number"/>
+                                                                        <span data-value="-"
+                                                                              class="quantity-btn quantityMinus"></span>
+                                                                    </div>
+                                                                </td>
+                                                                <td class="product-subtotal"
+                                                                    data-title="{{ __('Subtotal') }}">
+                                                                    <span
+                                                                        class="amount">{{ format_price($cartItem->price * $cartItem->qty) }}</span>
+                                                                </td>
+                                                            </tr>
                                                         @endif
                                                     @endforeach
                                                 @endif
@@ -135,8 +157,10 @@
                                                 </div>
                                             </div>
                                             <div class="col-md-6 text-right">
-                                                <button type="submit" class="btn btn-md btn-gray">{{ __('Update cart') }}</button>
-                                                <button type="submit" id="checkout" class="button-default" name="checkout">{{ __('Checkout') }}</button>
+                                                <button type="submit"
+                                                        class="btn btn-md btn-gray">{{ __('Update cart') }}</button>
+                                                <button type="submit" id="checkout" class="button-default"
+                                                        name="checkout">{{ __('Checkout') }}</button>
                                             </div>
                                         </div>
 
@@ -147,11 +171,13 @@
                                                 <div class="relate-product-block row">
                                                     <h3 style="text-align: center; width: 100%;">{{ __('Cross-selling products') }}</h3>
                                                     @php
-                                                        $crossSellProducts = array_slice($crossSellProducts, 0, 4);
+                                                        $crossSellProducts = array_slice($crossSellProducts, 0, 4)
                                                     @endphp
                                                     @if (!empty($crossSellProducts))
-                                                        <div class="container product-carousel" style="margin-top: 10px;">
-                                                            <div id="new-tranding" class="product-item-4 owl-carousel owl-theme nf-carousel-theme">
+                                                        <div class="container product-carousel"
+                                                             style="margin-top: 10px;">
+                                                            <div id="new-tranding"
+                                                                 class="product-item-4 owl-carousel owl-theme nf-carousel-theme">
                                                                 @foreach ($crossSellProducts as $crossId)
                                                                     {!! Theme::partial('product.product_simple', ['product' => get_product_by_id($crossId)]) !!}
                                                                 @endforeach
@@ -169,31 +195,39 @@
                                                             <tbody>
                                                             <tr class="cart-subtotal">
                                                                 <th>{{ __('Subtotal') }}</th>
-                                                                <td><span class="product-price-amount amount sub-total-text">
+                                                                <td><span
+                                                                        class="product-price-amount amount sub-total-text">
                                                                     {{ format_price(Cart::instance('cart')->rawSubTotal()) }}
                                                                     </span></td>
                                                             </tr>
 
                                                             <tr class="coupon-information @if (session('applied_coupon_code') == null) hidden @endif">
                                                                 <th>{{ __('Coupon code') }}</th>
-                                                                <td><span class="coupon-code-text">{{ session('applied_coupon_code') }}</span></td>
+                                                                <td><span
+                                                                        class="coupon-code-text">{{ session('applied_coupon_code') }}</span>
+                                                                </td>
                                                             </tr>
 
                                                             <tr class="discount-amount @if ($couponDiscountAmount == 0) hidden @endif">
                                                                 <th>{{ __('Discount') }}</th>
-                                                                <td><span class="total-discount-amount-text">{{ format_price($couponDiscountAmount) }}</span></td>
+                                                                <td><span
+                                                                        class="total-discount-amount-text">{{ format_price($couponDiscountAmount) }}</span>
+                                                                </td>
                                                             </tr>
 
                                                             @if ($promotionDiscountAmount)
                                                                 <tr class="discount-amount">
                                                                     <th>{{ __('Discount promotion') }}</th>
-                                                                    <td><span class="promotion-discount-amount-text">{{ format_price($promotionDiscountAmount) }}</span></td>
+                                                                    <td><span
+                                                                            class="promotion-discount-amount-text">{{ format_price($promotionDiscountAmount) }}</span>
+                                                                    </td>
                                                                 </tr>
                                                             @endif
 
                                                             <tr class="order-total">
                                                                 <th>{{ __('Total') }}</th>
-                                                                <td><span class="product-price-amount amount raw-total-text">
+                                                                <td><span
+                                                                        class="product-price-amount amount raw-total-text">
                                                                 {{ format_price(Cart::instance('cart')->rawTotal() - $promotionDiscountAmount - $couponDiscountAmount) }}
                                                             </span></td>
                                                             </tr>

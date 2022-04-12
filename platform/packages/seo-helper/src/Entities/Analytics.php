@@ -32,11 +32,9 @@ class Analytics implements AnalyticsContract
      *
      * @return string
      */
-    public function render()
+    public function __toString()
     {
-        return implode(PHP_EOL, array_filter([
-            $this->renderGoogleScript(),
-        ]));
+        return $this->render();
     }
 
     /**
@@ -44,9 +42,11 @@ class Analytics implements AnalyticsContract
      *
      * @return string
      */
-    public function __toString()
+    public function render()
     {
-        return $this->render();
+        return implode(PHP_EOL, array_filter([
+            $this->renderGoogleScript(),
+        ]));
     }
 
     /**

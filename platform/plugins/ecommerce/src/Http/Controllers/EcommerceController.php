@@ -82,7 +82,8 @@ class EcommerceController extends BaseController
         BaseHttpResponse $response,
         StoreCurrenciesService $service,
         SettingStore $settingStore
-    ) {
+    )
+    {
         foreach ($request->except(['_token', 'currencies', 'deleted_currencies', 'available_countries']) as $settingKey => $settingValue) {
             $settingStore->set(config('plugins.ecommerce.general.prefix') . $settingKey, $settingValue);
         }
@@ -146,7 +147,8 @@ class EcommerceController extends BaseController
         StoreLocatorRequest $request,
         BaseHttpResponse $response,
         SettingStore $settingStore
-    ) {
+    )
+    {
         $request->merge([
             'is_shipping_location' => $request->has('is_shipping_location'),
         ]);
@@ -158,11 +160,11 @@ class EcommerceController extends BaseController
 
             $settingStore
                 ->set([
-                    $prefix . 'store_phone'   => $locator->phone,
+                    $prefix . 'store_phone' => $locator->phone,
                     $prefix . 'store_address' => $locator->address,
                     $prefix . 'store_country' => $locator->country,
-                    $prefix . 'store_state'   => $locator->state,
-                    $prefix . 'store_city'    => $locator->city,
+                    $prefix . 'store_state' => $locator->state,
+                    $prefix . 'store_city' => $locator->city,
                 ])
                 ->save();
         }
@@ -178,7 +180,7 @@ class EcommerceController extends BaseController
     public function postCreateStoreLocator(StoreLocatorRequest $request, BaseHttpResponse $response)
     {
         $request->merge([
-            'is_primary'           => false,
+            'is_primary' => false,
             'is_shipping_location' => $request->has('is_shipping_location'),
         ]);
 

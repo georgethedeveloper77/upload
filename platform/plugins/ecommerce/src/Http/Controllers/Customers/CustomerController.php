@@ -254,7 +254,8 @@ class CustomerController extends BaseController
     public function postCreateCustomerWhenCreatingOrder(
         AddCustomerWhenCreateOrderRequest $request,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $request->merge(['password' => bcrypt(time())]);
         $customer = $this->customerRepository->createOrUpdate($request->input());
         $customer->avatar = (string)$customer->avatar_url;
@@ -263,7 +264,7 @@ class CustomerController extends BaseController
 
         $request->merge([
             'customer_id' => $customer->id,
-            'is_default'  => true,
+            'is_default' => true,
         ]);
 
         $address = $this->addressRepository->createOrUpdate($request->input());

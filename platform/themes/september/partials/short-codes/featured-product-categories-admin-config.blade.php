@@ -5,5 +5,6 @@
 
 <div class="form-group">
     <label class="control-label">Description</label>
-    <textarea name="description" data-shortcode-attribute="description" class="form-control" placeholder="Description" rows="3"></textarea>
+    <textarea name="description" data-shortcode-attribute="description" class="form-control" placeholder="Description"
+              rows="3"></textarea>
 </div>

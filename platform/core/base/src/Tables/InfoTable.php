@@ -72,13 +72,13 @@ class InfoTable extends TableAbstract
     public function columns()
     {
         return [
-            'name'         => [
-                'name'  => 'name',
+            'name' => [
+                'name' => 'name',
                 'title' => trans('core/base::system.package_name') . ' : ' . trans('core/base::system.version'),
                 'class' => 'text-left',
             ],
             'dependencies' => [
-                'name'  => 'dependencies',
+                'name' => 'dependencies',
                 'title' => trans('core/base::system.dependency_name') . ' : ' . trans('core/base::system.version'),
                 'class' => 'text-left',
             ],
@@ -91,14 +91,6 @@ class InfoTable extends TableAbstract
     public function buttons()
     {
         return [];
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    protected function getDom(): ?string
-    {
-        return "rt<'datatables__info_wrap'pli<'clearfix'>>";
     }
 
     /**
@@ -117,5 +109,13 @@ class InfoTable extends TableAbstract
     public function actions()
     {
         return [];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    protected function getDom(): ?string
+    {
+        return "rt<'datatables__info_wrap'pli<'clearfix'>>";
     }
 }

@@ -53,7 +53,7 @@ class HandleApplyCouponService
 
         if (empty($discount)) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('plugins/ecommerce::discount.invalid_coupon'),
             ];
         }
@@ -64,7 +64,7 @@ class HandleApplyCouponService
                 !in_array(auth('customer')->user()->getAuthIdentifier(), $discountCustomers)
             ) {
                 return [
-                    'error'   => true,
+                    'error' => true,
                     'message' => trans('plugins/ecommerce::discount.invalid_coupon'),
                 ];
             }
@@ -72,7 +72,7 @@ class HandleApplyCouponService
 
         if (!$discount->can_use_with_promotion && (float)Arr::get($sessionData, 'promotion_discount_amount')) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('plugins/ecommerce::discount.cannot_use_same_time_with_other_discount_program'),
             ];
         }
@@ -159,8 +159,8 @@ class HandleApplyCouponService
 
         return [
             'error' => false,
-            'data'  => [
-                'discount_amount'  => $couponDiscountAmount,
+            'data' => [
+                'discount_amount' => $couponDiscountAmount,
                 'is_free_shipping' => $isFreeShipping,
             ],
         ];
@@ -248,14 +248,14 @@ class HandleApplyCouponService
 
         $sessionData = [
             'shipping_amount' => $request->input('shipping_amount'),
-            'state'           => $request->input('state'),
+            'state' => $request->input('state'),
         ];
 
         $discount = $this->getCouponData($couponCode, $sessionData);
 
         if (empty($discount)) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('plugins/ecommerce::discount.invalid_coupon'),
             ];
         }
@@ -264,7 +264,7 @@ class HandleApplyCouponService
             $discountCustomers = $discount->customers()->pluck('customer_id')->all();
             if (!in_array($request->input('customer_id'), $discountCustomers)) {
                 return [
-                    'error'   => true,
+                    'error' => true,
                     'message' => trans('plugins/ecommerce::discount.invalid_coupon'),
                 ];
             }
@@ -272,7 +272,7 @@ class HandleApplyCouponService
 
         if (!$discount->can_use_with_promotion && Arr::get($sessionData, 'promotion_discount_amount')) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('plugins/ecommerce::discount.cannot_use_same_time_with_other_discount_program'),
             ];
         }
@@ -361,8 +361,8 @@ class HandleApplyCouponService
 
         return [
             'error' => false,
-            'data'  => [
-                'discount_amount'  => $couponDiscountAmount,
+            'data' => [
+                'discount_amount' => $couponDiscountAmount,
                 'is_free_shipping' => $isFreeShipping,
             ],
         ];

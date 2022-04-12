@@ -39,10 +39,12 @@
                         </div>
                     @endif
                     <div class="form-group">
-                        <input type="hidden" name="template_path" value="{{ get_setting_email_template_path($pluginData['name'], $pluginData['template_file']) }}">
+                        <input type="hidden" name="template_path"
+                               value="{{ get_setting_email_template_path($pluginData['name'], $pluginData['template_file']) }}">
                         <label class="text-title-field"
                                for="email_content">{{ trans('core/setting::setting.email.content') }}</label>
-                        <textarea id="mail-template-editor" name="email_content" class="form-control" style="overflow-y:scroll; height: 500px;">{{ $emailContent }}</textarea>
+                        <textarea id="mail-template-editor" name="email_content" class="form-control"
+                                  style="overflow-y:scroll; height: 500px;">{{ $emailContent }}</textarea>
                     </div>
                 </div>
             </div>
@@ -54,9 +56,12 @@
                 &nbsp;
             </div>
             <div class="flexbox-annotated-section-content">
-                <a href="{{ route('settings.email') }}" class="btn btn-secondary">{{ trans('core/setting::setting.email.back') }}</a>
-                <a class="btn btn-warning btn-trigger-reset-to-default" data-target="{{ route('setting.email.template.reset-to-default') }}">{{ trans('core/setting::setting.email.reset_to_default') }}</a>
-                <button class="btn btn-info" type="submit" name="submit">{{ trans('core/setting::setting.save_settings') }}</button>
+                <a href="{{ route('settings.email') }}"
+                   class="btn btn-secondary">{{ trans('core/setting::setting.email.back') }}</a>
+                <a class="btn btn-warning btn-trigger-reset-to-default"
+                   data-target="{{ route('setting.email.template.reset-to-default') }}">{{ trans('core/setting::setting.email.reset_to_default') }}</a>
+                <button class="btn btn-info" type="submit"
+                        name="submit">{{ trans('core/setting::setting.save_settings') }}</button>
             </div>
         </div>
     </div>

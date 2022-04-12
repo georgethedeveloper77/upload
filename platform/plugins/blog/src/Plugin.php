@@ -6,8 +6,8 @@ use Botble\Blog\Models\Category;
 use Botble\Blog\Models\Tag;
 use Botble\Dashboard\Repositories\Interfaces\DashboardWidgetInterface;
 use Botble\Menu\Repositories\Interfaces\MenuNodeInterface;
-use Schema;
 use Botble\PluginManagement\Abstracts\PluginOperationAbstract;
+use Schema;
 
 class Plugin extends PluginOperationAbstract
 {

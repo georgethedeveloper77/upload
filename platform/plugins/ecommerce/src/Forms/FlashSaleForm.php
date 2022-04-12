@@ -3,8 +3,8 @@
 namespace Botble\Ecommerce\Forms;
 
 use Assets;
-use Botble\Base\Forms\FormAbstract;
 use Botble\Base\Enums\BaseStatusEnum;
+use Botble\Base\Forms\FormAbstract;
 use Botble\Ecommerce\Http\Requests\FlashSaleRequest;
 use Botble\Ecommerce\Models\FlashSale;
 
@@ -28,35 +28,35 @@ class FlashSaleForm extends FormAbstract
             ->setValidatorClass(FlashSaleRequest::class)
             ->withCustomFields()
             ->add('name', 'text', [
-                'label'      => trans('core/base::forms.name'),
+                'label' => trans('core/base::forms.name'),
                 'label_attr' => ['class' => 'control-label required'],
-                'attr'       => [
-                    'placeholder'  => trans('core/base::forms.name_placeholder'),
+                'attr' => [
+                    'placeholder' => trans('core/base::forms.name_placeholder'),
                     'data-counter' => 120,
                 ],
             ])
             ->add('status', 'customSelect', [
-                'label'      => trans('core/base::tables.status'),
+                'label' => trans('core/base::tables.status'),
                 'label_attr' => ['class' => 'control-label required'],
-                'attr'       => [
+                'attr' => [
                     'class' => 'form-control select-full',
                 ],
-                'choices'    => BaseStatusEnum::labels(),
+                'choices' => BaseStatusEnum::labels(),
             ])
             ->add('end_date', 'text', [
-                'label'         => __('End date'),
-                'label_attr'    => ['class' => 'control-label required'],
-                'attr'          => [
-                    'class'            => 'form-control datepicker',
+                'label' => __('End date'),
+                'label_attr' => ['class' => 'control-label required'],
+                'attr' => [
+                    'class' => 'form-control datepicker',
                     'data-date-format' => 'yyyy/mm/dd',
                 ],
                 'default_value' => now()->addDay()->format('Y/m/d'),
             ])
             ->addMetaBoxes([
-                'products'    => [
-                    'title'          => trans('plugins/ecommerce::flash-sale.products'),
-                    'content'        => view('plugins/ecommerce::flash-sales.products', ['flashSale' => $this->getModel(), 'products' => $this->getModel()->id ? $this->getModel()->products : collect([])]),
-                    'priority'       => 0,
+                'products' => [
+                    'title' => trans('plugins/ecommerce::flash-sale.products'),
+                    'content' => view('plugins/ecommerce::flash-sales.products', ['flashSale' => $this->getModel(), 'products' => $this->getModel()->id ? $this->getModel()->products : collect([])]),
+                    'priority' => 0,
                 ],
             ])
             ->setBreakFieldPoint('status');

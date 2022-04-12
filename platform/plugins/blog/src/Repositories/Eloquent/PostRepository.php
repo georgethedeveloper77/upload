@@ -3,8 +3,8 @@
 namespace Botble\Blog\Repositories\Eloquent;
 
 use Botble\Base\Enums\BaseStatusEnum;
-use Botble\Support\Repositories\Eloquent\RepositoriesAbstract;
 use Botble\Blog\Repositories\Interfaces\PostInterface;
+use Botble\Support\Repositories\Eloquent\RepositoriesAbstract;
 use Eloquent;
 use Exception;
 use Illuminate\Database\Query\Builder;
@@ -19,7 +19,7 @@ class PostRepository extends RepositoriesAbstract implements PostInterface
     {
         $data = $this->model
             ->where([
-                'posts.status'      => BaseStatusEnum::PUBLISHED,
+                'posts.status' => BaseStatusEnum::PUBLISHED,
                 'posts.is_featured' => 1,
             ])
             ->limit($limit)
@@ -92,7 +92,7 @@ class PostRepository extends RepositoriesAbstract implements PostInterface
     {
         $data = $this->model
             ->where([
-                'posts.status'    => BaseStatusEnum::PUBLISHED,
+                'posts.status' => BaseStatusEnum::PUBLISHED,
                 'posts.author_id' => $authorId,
             ])
             ->with('slugable')

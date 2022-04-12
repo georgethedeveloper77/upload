@@ -7,7 +7,9 @@
                     @foreach ($products as $product)
                         <li>
                             <div class="product-item product-loop">
-                                <img src="{{ RvMedia::getImageUrl($product->image, 'thumb', false, RvMedia::getDefaultImage()) }}" alt="{{ $product->name }}" class="product-item-thumb">
+                                <img
+                                    src="{{ RvMedia::getImageUrl($product->image, 'thumb', false, RvMedia::getDefaultImage()) }}"
+                                    alt="{{ $product->name }}" class="product-item-thumb">
                                 <h3>{{ $product->name }}</h3>
                                 <span class="price">
                                     {!! the_product_price($product) !!}

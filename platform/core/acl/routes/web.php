@@ -25,8 +25,8 @@ Route::group(['namespace' => 'Botble\ACL\Http\Controllers', 'middleware' => ['we
 
         Route::group(['middleware' => 'auth'], function () {
             Route::get('logout', [
-                'as'         => 'access.logout',
-                'uses'       => 'Auth\LoginController@logout',
+                'as' => 'access.logout',
+                'uses' => 'Auth\LoginController@logout',
                 'permission' => false,
             ]);
         });
@@ -41,47 +41,47 @@ Route::group(['namespace' => 'Botble\ACL\Http\Controllers', 'middleware' => ['we
                 Route::resource('', 'UserController')->except(['edit', 'update'])->parameters(['' => 'users']);
 
                 Route::delete('items/destroy', [
-                    'as'         => 'deletes',
-                    'uses'       => 'UserController@deletes',
+                    'as' => 'deletes',
+                    'uses' => 'UserController@deletes',
                     'permission' => 'users.destroy',
                     'middleware' => 'preventDemo',
                 ]);
 
                 Route::post('update-profile/{id}', [
-                    'as'         => 'update-profile',
-                    'uses'       => 'UserController@postUpdateProfile',
+                    'as' => 'update-profile',
+                    'uses' => 'UserController@postUpdateProfile',
                     'permission' => false,
                     'middleware' => 'preventDemo',
                 ]);
 
                 Route::post('modify-profile-image/{id}', [
-                    'as'         => 'profile.image',
-                    'uses'       => 'UserController@postAvatar',
+                    'as' => 'profile.image',
+                    'uses' => 'UserController@postAvatar',
                     'permission' => false,
                 ]);
 
                 Route::post('change-password/{id}', [
-                    'as'         => 'change-password',
-                    'uses'       => 'UserController@postChangePassword',
+                    'as' => 'change-password',
+                    'uses' => 'UserController@postChangePassword',
                     'permission' => false,
                     'middleware' => 'preventDemo',
                 ]);
 
                 Route::get('profile/{id}', [
-                    'as'         => 'profile.view',
-                    'uses'       => 'UserController@getUserProfile',
+                    'as' => 'profile.view',
+                    'uses' => 'UserController@getUserProfile',
                     'permission' => false,
                 ]);
 
                 Route::get('make-super/{id}', [
-                    'as'         => 'make-super',
-                    'uses'       => 'UserController@makeSuper',
+                    'as' => 'make-super',
+                    'uses' => 'UserController@makeSuper',
                     'permission' => ACL_ROLE_SUPER_USER,
                 ]);
 
                 Route::get('remove-super/{id}', [
-                    'as'         => 'remove-super',
-                    'uses'       => 'UserController@removeSuper',
+                    'as' => 'remove-super',
+                    'uses' => 'UserController@removeSuper',
                     'permission' => ACL_ROLE_SUPER_USER,
                     'middleware' => 'preventDemo',
                 ]);
@@ -91,26 +91,26 @@ Route::group(['namespace' => 'Botble\ACL\Http\Controllers', 'middleware' => ['we
                 Route::resource('', 'RoleController')->parameters(['' => 'roles']);
 
                 Route::delete('items/destroy', [
-                    'as'         => 'deletes',
-                    'uses'       => 'RoleController@deletes',
+                    'as' => 'deletes',
+                    'uses' => 'RoleController@deletes',
                     'permission' => 'roles.destroy',
                 ]);
 
                 Route::get('duplicate/{id}', [
-                    'as'         => 'duplicate',
-                    'uses'       => 'RoleController@getDuplicate',
+                    'as' => 'duplicate',
+                    'uses' => 'RoleController@getDuplicate',
                     'permission' => 'roles.create',
                 ]);
 
                 Route::get('json', [
-                    'as'         => 'list.json',
-                    'uses'       => 'RoleController@getJson',
+                    'as' => 'list.json',
+                    'uses' => 'RoleController@getJson',
                     'permission' => 'roles.index',
                 ]);
 
                 Route::post('assign', [
-                    'as'         => 'assign',
-                    'uses'       => 'RoleController@postAssignMember',
+                    'as' => 'assign',
+                    'uses' => 'RoleController@postAssignMember',
                     'permission' => 'roles.edit',
                 ]);
             });

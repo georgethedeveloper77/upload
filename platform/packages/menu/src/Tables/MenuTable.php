@@ -3,13 +3,13 @@
 namespace Botble\Menu\Tables;
 
 use BaseHelper;
-use Botble\Menu\Models\Menu;
-use Html;
-use Illuminate\Support\Facades\Auth;
 use Botble\Base\Enums\BaseStatusEnum;
+use Botble\Menu\Models\Menu;
 use Botble\Menu\Repositories\Interfaces\MenuInterface;
 use Botble\Table\Abstracts\TableAbstract;
+use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
@@ -100,23 +100,23 @@ class MenuTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'menus.id',
+            'id' => [
+                'name' => 'menus.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
-            'name'       => [
-                'name'  => 'menus.name',
+            'name' => [
+                'name' => 'menus.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
             'created_at' => [
-                'name'  => 'menus.created_at',
+                'name' => 'menus.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
-            'status'     => [
-                'name'  => 'menus.status',
+            'status' => [
+                'name' => 'menus.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
             ],
@@ -147,20 +147,20 @@ class MenuTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'menus.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'menus.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'menus.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'menus.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|' . Rule::in(BaseStatusEnum::values()),
             ],
             'menus.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

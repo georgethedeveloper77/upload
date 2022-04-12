@@ -1,6 +1,6 @@
 @php
     SeoHelper::setTitle(__('404 - Not found'));
-    Theme::fire('beforeRenderTheme', app(\Botble\Theme\Contracts\Theme::class));
+    Theme::fire('beforeRenderTheme', app(\Botble\Theme\Contracts\Theme::class))
 @endphp
 
 {!! Theme::partial('header') !!}

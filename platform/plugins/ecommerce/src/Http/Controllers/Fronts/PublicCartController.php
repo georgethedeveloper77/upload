@@ -115,11 +115,11 @@ class PublicCartController extends Controller
 
         return $response
             ->setData([
-                'status'      => true,
-                'count'       => Cart::instance('cart')->count(),
+                'status' => true,
+                'count' => Cart::instance('cart')->count(),
                 'total_price' => format_price(Cart::instance('cart')->rawSubTotal()),
-                'content'     => $cartItems,
-                'next_url'    => $nextUrl,
+                'content' => $cartItems,
+                'next_url' => $nextUrl,
             ])
             ->setMessage(__('Added product :product to cart successfully!',
                 ['product' => $product->original_product->name]));
@@ -212,18 +212,18 @@ class PublicCartController extends Controller
             return $response
                 ->setError()
                 ->setData([
-                    'count'       => Cart::instance('cart')->count(),
+                    'count' => Cart::instance('cart')->count(),
                     'total_price' => format_price(Cart::instance('cart')->rawSubTotal()),
-                    'content'     => Cart::instance('cart')->content(),
+                    'content' => Cart::instance('cart')->content(),
                 ])
                 ->setMessage(__('One or all products are not enough quantity so cannot update!'));
         }
 
         return $response
             ->setData([
-                'count'       => Cart::instance('cart')->count(),
+                'count' => Cart::instance('cart')->count(),
                 'total_price' => format_price(Cart::instance('cart')->rawSubTotal()),
-                'content'     => Cart::instance('cart')->content(),
+                'content' => Cart::instance('cart')->content(),
             ])
             ->setMessage(__('Update cart successfully!'));
     }
@@ -247,9 +247,9 @@ class PublicCartController extends Controller
 
         return $response
             ->setData([
-                'count'       => Cart::instance('cart')->count(),
+                'count' => Cart::instance('cart')->count(),
                 'total_price' => format_price(Cart::instance('cart')->rawSubTotal()),
-                'content'     => Cart::instance('cart')->content(),
+                'content' => Cart::instance('cart')->content(),
             ])
             ->setMessage(__('Removed item from cart successfully!'));
     }

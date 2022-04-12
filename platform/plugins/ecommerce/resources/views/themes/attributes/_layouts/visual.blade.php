@@ -9,8 +9,11 @@
                     title="{{ $attribute->title }}">
                     <div class="custom-radio">
                         <label>
-                            <input class="form-control product-filter-item" type="radio" name="attribute_{{ $set->slug }}" value="{{ $attribute->id }}" {{ in_array($attribute->id, $selected) ? 'checked' : '' }}>
-                            <span style="{{ $attribute->image ? 'background-image: url(' . RvMedia::getImageUrl($attribute->image) . ');' : 'background-color: ' . $attribute->color . ';' }}"></span>
+                            <input class="form-control product-filter-item" type="radio"
+                                   name="attribute_{{ $set->slug }}"
+                                   value="{{ $attribute->id }}" {{ in_array($attribute->id, $selected) ? 'checked' : '' }}>
+                            <span
+                                style="{{ $attribute->image ? 'background-image: url(' . RvMedia::getImageUrl($attribute->image) . ');' : 'background-color: ' . $attribute->color . ';' }}"></span>
                         </label>
                     </div>
                 </li>

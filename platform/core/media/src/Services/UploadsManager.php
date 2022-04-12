@@ -38,11 +38,11 @@ class UploadsManager
     public function fileDetails($path)
     {
         return [
-            'filename'  => File::basename($path),
-            'url'       => $path,
+            'filename' => File::basename($path),
+            'url' => $path,
             'mime_type' => $this->fileMimeType($path),
-            'size'      => $this->fileSize($path),
-            'modified'  => $this->fileModified($path),
+            'size' => $this->fileSize($path),
+            'modified' => $this->fileModified($path),
         ];
     }
 

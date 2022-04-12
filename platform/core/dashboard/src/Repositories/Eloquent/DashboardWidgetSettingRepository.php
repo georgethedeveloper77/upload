@@ -2,9 +2,9 @@
 
 namespace Botble\Dashboard\Repositories\Eloquent;
 
-use Illuminate\Support\Facades\Auth;
 use Botble\Dashboard\Repositories\Interfaces\DashboardWidgetSettingInterface;
 use Botble\Support\Repositories\Eloquent\RepositoriesAbstract;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardWidgetSettingRepository extends RepositoriesAbstract implements DashboardWidgetSettingInterface
 {

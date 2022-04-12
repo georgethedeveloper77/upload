@@ -28,14 +28,6 @@ class DashboardWidget extends BaseModel
         'name',
     ];
 
-    /**
-     * @return hasMany
-     */
-    public function settings()
-    {
-        return $this->hasMany(DashboardWidgetSetting::class, 'widget_id', 'id');
-    }
-
     protected static function boot()
     {
         parent::boot();
@@ -43,5 +35,13 @@ class DashboardWidget extends BaseModel
         static::deleting(function (DashboardWidget $widget) {
             DashboardWidgetSetting::where('widget_id', $widget->id)->delete();
         });
+    }
+
+    /**
+     * @return hasMany
+     */
+    public function settings()
+    {
+        return $this->hasMany(DashboardWidgetSetting::class, 'widget_id', 'id');
     }
 }

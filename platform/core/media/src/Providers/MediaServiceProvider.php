@@ -76,8 +76,8 @@ class MediaServiceProvider extends ServiceProvider
         $setting = $this->app->make(SettingStore::class);
 
         $config->set([
-            'filesystems.default'         => $setting->get('media_driver', 'public'),
-            'filesystems.disks.s3.key'    => $setting
+            'filesystems.default' => $setting->get('media_driver', 'public'),
+            'filesystems.disks.s3.key' => $setting
                 ->get('media_aws_access_key_id', $config->get('filesystems.disks.s3.key')),
             'filesystems.disks.s3.secret' => $setting
                 ->get('media_aws_secret_key', $config->get('filesystems.disks.s3.secret')),
@@ -85,20 +85,20 @@ class MediaServiceProvider extends ServiceProvider
                 ->get('media_aws_default_region', $config->get('filesystems.disks.s3.region')),
             'filesystems.disks.s3.bucket' => $setting
                 ->get('media_aws_bucket', $config->get('filesystems.disks.s3.bucket')),
-            'filesystems.disks.s3.url'    => $setting
+            'filesystems.disks.s3.url' => $setting
                 ->get('media_aws_url', $config->get('filesystems.disks.s3.url')),
             'filesystems.disks.do_spaces' => [
-                'driver'     => 's3',
+                'driver' => 's3',
                 'visibility' => 'public',
-                'key'        => $setting->get('media_do_spaces_access_key_id'),
-                'secret'     => $setting->get('media_do_spaces_secret_key'),
-                'region'     => $setting->get('media_do_spaces_default_region'),
-                'bucket'     => $setting->get('media_do_spaces_bucket'),
-                'endpoint'   => $setting->get('media_do_spaces_endpoint'),
+                'key' => $setting->get('media_do_spaces_access_key_id'),
+                'secret' => $setting->get('media_do_spaces_secret_key'),
+                'region' => $setting->get('media_do_spaces_default_region'),
+                'bucket' => $setting->get('media_do_spaces_bucket'),
+                'endpoint' => $setting->get('media_do_spaces_endpoint'),
             ],
-            'core.media.media.chunk.enabled'       => (bool)$setting->get('media_chunk_enabled',
+            'core.media.media.chunk.enabled' => (bool)$setting->get('media_chunk_enabled',
                 $config->get('core.media.media.chunk.enabled')),
-            'core.media.media.chunk.chunk_size'    => (int)$setting->get('media_chunk_size',
+            'core.media.media.chunk.chunk_size' => (int)$setting->get('media_chunk_size',
                 $config->get('core.media.media.chunk.chunk_size')),
             'core.media.media.chunk.max_file_size' => (int)$setting->get('media_max_file_size',
                 $config->get('core.media.media.chunk.max_file_size')),
@@ -106,12 +106,12 @@ class MediaServiceProvider extends ServiceProvider
 
         Event::listen(RouteMatched::class, function () {
             dashboard_menu()->registerItem([
-                'id'          => 'cms-core-media',
-                'priority'    => 995,
-                'parent_id'   => null,
-                'name'        => 'core/media::media.menu_name',
-                'icon'        => 'far fa-images',
-                'url'         => route('media.index'),
+                'id' => 'cms-core-media',
+                'priority' => 995,
+                'parent_id' => null,
+                'name' => 'core/media::media.menu_name',
+                'icon' => 'far fa-images',
+                'url' => route('media.index'),
                 'permissions' => ['media.index'],
             ]);
         });

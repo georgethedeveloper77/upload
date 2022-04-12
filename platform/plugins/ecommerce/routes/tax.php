@@ -7,8 +7,8 @@ Route::group(['namespace' => 'Botble\Ecommerce\Http\Controllers', 'middleware' =
             Route::resource('', 'TaxController')->parameters(['' => 'tax']);
 
             Route::delete('items/destroy', [
-                'as'         => 'deletes',
-                'uses'       => 'TaxController@deletes',
+                'as' => 'deletes',
+                'uses' => 'TaxController@deletes',
                 'permission' => 'tax.destroy',
             ]);
         });
@@ -18,7 +18,7 @@ Route::group(['namespace' => 'Botble\Ecommerce\Http\Controllers', 'middleware' =
 Route::group(['namespace' => 'Botble\Ecommerce\Http\Controllers\Fronts', 'middleware' => ['web', 'core']], function () {
     Route::group(apply_filters(BASE_FILTER_GROUP_PUBLIC_ROUTE, []), function () {
         Route::get('tax/get-tax-amount', [
-            'as'   => 'public.tax.get-tax-amount',
+            'as' => 'public.tax.get-tax-amount',
             'uses' => 'PublicCheckoutController@getTaxAmount',
         ]);
     });

@@ -52,8 +52,8 @@ class AnalyticsClient
      * Query the Google Analytics Service with given parameters.
      *
      * @param string $viewId
-     * @param \DateTime $startDate
-     * @param \DateTime $endDate
+     * @param DateTime $startDate
+     * @param DateTime $endDate
      * @param string $metrics
      * @param array $others
      *
@@ -65,7 +65,8 @@ class AnalyticsClient
         DateTime $endDate,
         string $metrics,
         array $others = []
-    ) {
+    )
+    {
         $cacheName = $this->determineCacheName(func_get_args());
 
         if ($this->cacheLifeTimeInMinutes == 0) {

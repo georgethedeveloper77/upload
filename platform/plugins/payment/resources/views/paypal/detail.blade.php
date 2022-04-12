@@ -5,7 +5,8 @@
         {{ trans('plugins/payment::payment.details') }}:
         <strong>
             @foreach($payment->transactions as $transaction)
-                {{ $transaction->amount->total }} {{ $transaction->amount->currency }} @if (!empty($transaction->description)) ({{ $transaction->description }}) @endif
+                {{ $transaction->amount->total }} {{ $transaction->amount->currency }} @if (!empty($transaction->description))
+                    ({{ $transaction->description }}) @endif
             @endforeach
         </strong>
     </div>

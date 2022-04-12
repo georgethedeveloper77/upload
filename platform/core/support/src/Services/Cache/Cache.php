@@ -37,7 +37,7 @@ class Cache implements CacheInterface
         $this->cache = $cache;
         $this->cacheGroup = $cacheGroup;
         $this->config = !empty($config) ? $config : [
-            'cache_time'  => 3600,
+            'cache_time' => 3600,
             'stored_keys' => storage_path('cache_keys.json'),
         ];
     }

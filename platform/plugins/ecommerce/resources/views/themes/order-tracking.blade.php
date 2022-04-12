@@ -9,14 +9,18 @@
                 <div class="form__content">
                     <div class="form-group">
                         <label for="txt-order-id">{{ __('Order ID') }}<sup>*</sup></label>
-                        <input class="form-control" name="order_id" id="txt-order-id" type="text" value="{{ old('order_id', request()->input('order_id')) }}" placeholder="{{ __('Order ID') }}">
+                        <input class="form-control" name="order_id" id="txt-order-id" type="text"
+                               value="{{ old('order_id', request()->input('order_id')) }}"
+                               placeholder="{{ __('Order ID') }}">
                         @if ($errors->has('order_id'))
                             <span class="text-danger">{{ $errors->first('order_id') }}</span>
                         @endif
                     </div>
                     <div class="form-group">
                         <label for="txt-email">{{ __('Email Address') }}<sup>*</sup></label>
-                        <input class="form-control" name="email" id="txt-email" type="email" value="{{ old('email', request()->input('email')) }}" placeholder="{{ __('Please enter your email address') }}">
+                        <input class="form-control" name="email" id="txt-email" type="email"
+                               value="{{ old('email', request()->input('email')) }}"
+                               placeholder="{{ __('Please enter your email address') }}">
                         @if ($errors->has('email'))
                             <span class="text-danger">{{ $errors->first('email') }}</span>
                         @endif
@@ -36,18 +40,21 @@
                                 <strong>{{ get_order_code($order->id) }}</strong>
                             </p>
                             <p>
-                                <span>{{ __('Time') }}:</span> <strong>{{ $order->created_at->format('h:m d/m/Y') }}</strong>
+                                <span>{{ __('Time') }}:</span>
+                                <strong>{{ $order->created_at->format('h:m d/m/Y') }}</strong>
                             </p>
                             <p>
                                 <span>{{ __('Order status') }}:</span> <strong>{{ $order->status->label() }}</strong>
                             </p>
 
                             <p>
-                                <span>{{ __('Payment method') }}:</span> <strong> {{ $order->payment->payment_channel->label() }} </strong>
+                                <span>{{ __('Payment method') }}:</span>
+                                <strong> {{ $order->payment->payment_channel->label() }} </strong>
                             </p>
 
                             <p>
-                                <span>{{ __('Payment status') }}:</span> <strong>{{ $order->payment->status->label() }}</strong>
+                                <span>{{ __('Payment status') }}:</span>
+                                <strong>{{ $order->payment->status->label() }}</strong>
                             </p>
 
                         </div>
@@ -77,7 +84,8 @@
                             </p>
                             @if (EcommerceHelper::isZipCodeEnabled())
                                 <p>
-                                    <span>{{ __('Zip code') }}:</span> <strong> {{ $order->address->zip_code }} </strong>
+                                    <span>{{ __('Zip code') }}:</span>
+                                    <strong> {{ $order->address->zip_code }} </strong>
                                 </p>
                             @endif
                         </div>
@@ -100,9 +108,9 @@
                                 <tbody>
                                 @foreach($order->products as $key => $orderProduct)
                                     @php
-                                        $product = get_products([
+                                        use Botble\Base\Enums\BaseStatusEnum;$product = get_products([
                                             'condition' => [
-                                                'ec_products.status' => \Botble\Base\Enums\BaseStatusEnum::PUBLISHED,
+                                                'ec_products.status' => BaseStatusEnum::PUBLISHED,
                                                 'ec_products.id' => $orderProduct->product_id,
                                             ],
                                             'take' => 1,
@@ -116,13 +124,15 @@
                                                 'ec_products.end_date',
                                                 'ec_products.sku',
                                             ],
-                                        ]);
+                                        ])
 
                                     @endphp
                                     <tr>
                                         <td class="text-center">{{ $key + 1 }}</td>
                                         <td class="text-center">
-                                            <img src="{{ RvMedia::getImageUrl($product->image, 'thumb', false, RvMedia::getDefaultImage()) }}" width="50" alt="{{ $product->name }}"></td>
+                                            <img
+                                                src="{{ RvMedia::getImageUrl($product->image, 'thumb', false, RvMedia::getDefaultImage()) }}"
+                                                width="50" alt="{{ $product->name }}"></td>
                                         <td>
                                             {{ $product->name }} ({{ $product->sku }})
 
@@ -132,7 +142,8 @@
                                                         @php $attributes = get_product_attributes($product->id) @endphp
                                                         @if (!empty($attributes))
                                                             @foreach ($attributes as $attribute)
-                                                                {{ $attribute->attribute_set_title }}: {{ $attribute->title }}@if (!$loop->last), @endif
+                                                                {{ $attribute->attribute_set_title }}
+                                                                : {{ $attribute->title }}@if (!$loop->last), @endif
                                                             @endforeach
                                                         @endif
                                                     </small>
@@ -142,7 +153,8 @@
                                             @if (!empty($orderProduct->options) && is_array($orderProduct->options))
                                                 @foreach($orderProduct->options as $option)
                                                     @if (!empty($option['key']) && !empty($option['value']))
-                                                        <p style="margin-bottom: 0"><small>{{ $option['key'] }}: <strong> {{ $option['value'] }}</strong></small></p>
+                                                        <p style="margin-bottom: 0"><small>{{ $option['key'] }}:
+                                                                <strong> {{ $option['value'] }}</strong></small></p>
                                                     @endif
                                                 @endforeach
                                             @endif
@@ -161,15 +173,17 @@
                         </div>
 
                         <p>
-                            <span>{{ __('Shipping fee') }}:</span> <strong>  {{ format_price($order->shipping_amount, $order->currency_id) }} </strong>
+                            <span>{{ __('Shipping fee') }}:</span>
+                            <strong>  {{ format_price($order->shipping_amount, $order->currency_id) }} </strong>
                         </p>
 
                         <p>
-                            <span>{{ __('Total Amount') }}:</span> <strong> {{ format_price($order->amount, $order->currency_id) }} </strong>
+                            <span>{{ __('Total Amount') }}:</span>
+                            <strong> {{ format_price($order->amount, $order->currency_id) }} </strong>
                         </p>
                     </div>
-            @elseif (request()->input('order_id') || request()->input('email'))
-                <p class="text-center text-danger">{{ __('Order not found!') }}</p>
+                    @elseif (request()->input('order_id') || request()->input('email'))
+                        <p class="text-center text-danger">{{ __('Order not found!') }}</p>
             @endif
         </section>
     </div>

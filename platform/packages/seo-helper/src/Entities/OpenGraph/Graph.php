@@ -24,6 +24,33 @@ class Graph implements OpenGraphContract
     }
 
     /**
+     * Set site name property.
+     *
+     * @param string $siteName
+     *
+     * @return Graph
+     */
+    public function setSiteName($siteName)
+    {
+        return $this->addProperty('site_name', $siteName);
+    }
+
+    /**
+     * Add an open graph property.
+     *
+     * @param string $name
+     * @param string $content
+     *
+     * @return Graph
+     */
+    public function addProperty($name, $content)
+    {
+        $this->meta->add(compact('name', 'content'));
+
+        return $this;
+    }
+
+    /**
      * Set the open graph prefix.
      *
      * @param string $prefix
@@ -106,18 +133,6 @@ class Graph implements OpenGraphContract
     }
 
     /**
-     * Set site name property.
-     *
-     * @param string $siteName
-     *
-     * @return Graph
-     */
-    public function setSiteName($siteName)
-    {
-        return $this->addProperty('site_name', $siteName);
-    }
-
-    /**
      * Add many open graph properties.
      *
      * @param array $properties
@@ -132,18 +147,13 @@ class Graph implements OpenGraphContract
     }
 
     /**
-     * Add an open graph property.
+     * Render the tag.
      *
-     * @param string $name
-     * @param string $content
-     *
-     * @return Graph
+     * @return string
      */
-    public function addProperty($name, $content)
+    public function __toString()
     {
-        $this->meta->add(compact('name', 'content'));
-
-        return $this;
+        return $this->render();
     }
 
     /**
@@ -154,15 +164,5 @@ class Graph implements OpenGraphContract
     public function render()
     {
         return $this->meta->render();
-    }
-
-    /**
-     * Render the tag.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->render();
     }
 }

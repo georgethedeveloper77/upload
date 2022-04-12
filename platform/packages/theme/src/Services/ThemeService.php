@@ -9,6 +9,7 @@ use Botble\Setting\Supports\SettingStore;
 use Botble\Theme\Events\ThemeRemoveEvent;
 use Botble\Widget\Repositories\Interfaces\WidgetInterface;
 use Exception;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Arr;
 use Theme;
@@ -54,7 +55,8 @@ class ThemeService
         PluginService $pluginService,
         WidgetInterface $widgetRepository,
         SettingInterface $settingRepository
-    ) {
+    )
+    {
         $this->files = $files;
         $this->settingStore = $settingStore;
         $this->pluginService = $pluginService;
@@ -65,7 +67,7 @@ class ThemeService
     /**
      * @param string $theme
      * @return array
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function activate(string $theme): array
     {
@@ -77,7 +79,7 @@ class ThemeService
 
         if ($theme == Theme::getThemeName()) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('packages/theme::theme.theme_activated_already', ['name' => $theme]),
             ];
         }
@@ -95,7 +97,7 @@ class ThemeService
             }
         } catch (Exception $exception) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => $exception->getMessage(),
             ];
         }
@@ -109,7 +111,7 @@ class ThemeService
         Helper::clearCache();
 
         return [
-            'error'   => false,
+            'error' => false,
             'message' => trans('packages/theme::theme.active_success', ['name' => $theme]),
         ];
     }
@@ -124,20 +126,20 @@ class ThemeService
 
         if (!$this->files->isDirectory($location)) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('packages/theme::theme.theme_is_not_existed'),
             ];
         }
 
         if (!$this->files->exists($location . '/theme.json')) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('packages/theme::theme.missing_json_file'),
             ];
         }
 
         return [
-            'error'   => false,
+            'error' => false,
             'message' => trans('packages/theme::theme.theme_invalid'),
         ];
     }
@@ -179,7 +181,7 @@ class ThemeService
         }
 
         return [
-            'error'   => false,
+            'error' => false,
             'message' => trans('packages/theme::theme.published_assets_success', ['themes' => implode(', ', $themes)]),
         ];
     }
@@ -187,7 +189,7 @@ class ThemeService
     /**
      * @param string $theme
      * @return array
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
+     * @throws FileNotFoundException
      */
     public function remove(string $theme): array
     {
@@ -199,7 +201,7 @@ class ThemeService
 
         if (Theme::getThemeName() == $theme) {
             return [
-                'error'   => true,
+                'error' => true,
                 'message' => trans('packages/theme::theme.cannot_remove_theme', ['name' => $theme]),
             ];
         }
@@ -215,7 +217,7 @@ class ThemeService
         event(new ThemeRemoveEvent($theme));
 
         return [
-            'error'   => false,
+            'error' => false,
             'message' => trans('packages/theme::theme.theme_deleted', ['name' => $theme]),
         ];
     }
@@ -235,7 +237,7 @@ class ThemeService
         $this->files->deleteDirectory(public_path('themes/' . $theme));
 
         return [
-            'error'   => false,
+            'error' => false,
             'message' => trans('packages/theme::theme.removed_assets', ['name' => $theme]),
         ];
     }

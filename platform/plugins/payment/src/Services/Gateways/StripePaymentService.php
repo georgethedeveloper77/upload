@@ -40,13 +40,13 @@ class StripePaymentService extends StripePaymentAbstract
         $multiplier = StripeHelper::getStripeCurrencyMultiplier($this->currency);
 
         if ($multiplier > 1) {
-            $amount = (int) ($amount * $multiplier);
+            $amount = (int)($amount * $multiplier);
         }
 
         $charge = Charge::create([
-            'amount'      => $amount,
-            'currency'    => $this->currency,
-            'source'      => $this->token,
+            'amount' => $amount,
+            'currency' => $this->currency,
+            'source' => $this->token,
             'description' => $description,
         ]);
 
@@ -77,12 +77,12 @@ class StripePaymentService extends StripePaymentAbstract
         }
 
         $this->storeLocalPayment([
-            'amount'          => $this->amount,
-            'currency'        => $this->currency,
-            'charge_id'       => $chargeId,
-            'order_id'        => $request->input('order_id'),
+            'amount' => $this->amount,
+            'currency' => $this->currency,
+            'charge_id' => $chargeId,
+            'order_id' => $request->input('order_id'),
             'payment_channel' => PaymentMethodEnum::STRIPE,
-            'status'          => $paymentStatus,
+            'status' => $paymentStatus,
         ]);
 
         return true;

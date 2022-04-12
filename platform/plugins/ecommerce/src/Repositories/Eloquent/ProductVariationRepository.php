@@ -12,6 +12,37 @@ class ProductVariationRepository extends RepositoriesAbstract implements Product
     /**
      * {@inheritDoc}
      */
+    public function getVariationByAttributesOrCreate($configurableProductId, array $attributes)
+    {
+        $variation = $this->getVariationByAttributes($configurableProductId, $attributes);
+
+        if (!$variation) {
+            $variation = $this->create([
+                'configurable_product_id' => $configurableProductId,
+            ]);
+
+            foreach ($attributes as $attribute) {
+                ProductVariationItem::create([
+                    'attribute_id' => $attribute,
+                    'variation_id' => $variation->id,
+                ]);
+            }
+
+            return [
+                'variation' => $variation,
+                'created' => true,
+            ];
+        }
+
+        return [
+            'variation' => $variation,
+            'created' => false,
+        ];
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function getVariationByAttributes($configurableProductId, array $attributes)
     {
         $allRelatedVariations = $this->model
@@ -32,37 +63,6 @@ class ProductVariationRepository extends RepositoriesAbstract implements Product
             ->first();
 
         return $matchedVariation;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function getVariationByAttributesOrCreate($configurableProductId, array $attributes)
-    {
-        $variation = $this->getVariationByAttributes($configurableProductId, $attributes);
-
-        if (!$variation) {
-            $variation = $this->create([
-                'configurable_product_id' => $configurableProductId,
-            ]);
-
-            foreach ($attributes as $attribute) {
-                ProductVariationItem::create([
-                    'attribute_id' => $attribute,
-                    'variation_id' => $variation->id,
-                ]);
-            }
-
-            return [
-                'variation' => $variation,
-                'created'   => true,
-            ];
-        }
-
-        return [
-            'variation' => $variation,
-            'created'   => false,
-        ];
     }
 
     /**

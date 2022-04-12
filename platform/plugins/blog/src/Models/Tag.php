@@ -2,9 +2,9 @@
 
 namespace Botble\Blog\Models;
 
-use Botble\Base\Traits\EnumCastable;
 use Botble\Base\Enums\BaseStatusEnum;
 use Botble\Base\Models\BaseModel;
+use Botble\Base\Traits\EnumCastable;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Tag extends BaseModel
@@ -48,14 +48,6 @@ class Tag extends BaseModel
         'status' => BaseStatusEnum::class,
     ];
 
-    /**
-     * @return BelongsToMany
-     */
-    public function posts(): BelongsToMany
-    {
-        return $this->belongsToMany(Post::class, 'post_tags');
-    }
-
     protected static function boot()
     {
         parent::boot();
@@ -63,5 +55,13 @@ class Tag extends BaseModel
         self::deleting(function (Tag $tag) {
             $tag->posts()->detach();
         });
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function posts(): BelongsToMany
+    {
+        return $this->belongsToMany(Post::class, 'post_tags');
     }
 }

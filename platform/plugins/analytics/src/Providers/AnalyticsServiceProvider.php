@@ -5,11 +5,11 @@ namespace Botble\Analytics\Providers;
 use Botble\Analytics\Analytics;
 use Botble\Analytics\AnalyticsClient;
 use Botble\Analytics\AnalyticsClientFactory;
+use Botble\Analytics\Exceptions\InvalidConfiguration;
 use Botble\Analytics\Facades\AnalyticsFacade;
 use Botble\Base\Traits\LoadAndPublishDataTrait;
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider;
-use Botble\Analytics\Exceptions\InvalidConfiguration;
 
 class AnalyticsServiceProvider extends ServiceProvider
 {

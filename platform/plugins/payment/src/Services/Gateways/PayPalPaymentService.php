@@ -27,19 +27,19 @@ class PayPalPaymentService extends PayPalPaymentAbstract
         $amount = $request->input('amount');
 
         $data = [
-            'name'     => $request->input('name'),
+            'name' => $request->input('name'),
             'quantity' => 1,
-            'price'    => $amount,
-            'sku'      => null,
-            'type'     => PaymentMethodEnum::PAYPAL,
+            'price' => $amount,
+            'sku' => null,
+            'type' => PaymentMethodEnum::PAYPAL,
         ];
 
         $currency = $request->input('currency', config('plugins.payment.payment.currency'));
         $currency = strtoupper($currency);
 
         $queryParams = [
-            'type'     => PaymentMethodEnum::PAYPAL,
-            'amount'   => $amount,
+            'type' => PaymentMethodEnum::PAYPAL,
+            'amount' => $amount,
             'currency' => $currency,
             'order_id' => $request->input('order_id'),
         ];
@@ -73,12 +73,12 @@ class PayPalPaymentService extends PayPalPaymentAbstract
         $chargeId = $request->input('paymentId', Str::upper(Str::random(10)));
 
         $this->storeLocalPayment([
-            'amount'          => $request->input('amount'),
-            'currency'        => $request->input('currency'),
-            'charge_id'       => $chargeId,
-            'order_id'        => $request->input('order_id'),
+            'amount' => $request->input('amount'),
+            'currency' => $request->input('currency'),
+            'charge_id' => $chargeId,
+            'order_id' => $request->input('order_id'),
             'payment_channel' => PaymentMethodEnum::PAYPAL,
-            'status'          => $status,
+            'status' => $status,
         ]);
 
         return $chargeId;

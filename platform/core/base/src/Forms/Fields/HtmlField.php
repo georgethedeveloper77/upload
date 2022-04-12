@@ -9,22 +9,22 @@ class HtmlField extends FormField
     /**
      * {@inheritDoc}
      */
-    protected function getDefaults()
+    public function getAllAttributes()
     {
-        return [
-            'html'       => '',
-            'wrapper'    => false,
-            'label_show' => false,
-        ];
+        // No input allowed for html fields.
+        return [];
     }
 
     /**
      * {@inheritDoc}
      */
-    public function getAllAttributes()
+    protected function getDefaults()
     {
-        // No input allowed for html fields.
-        return [];
+        return [
+            'html' => '',
+            'wrapper' => false,
+            'label_show' => false,
+        ];
     }
 
     /**

@@ -5,12 +5,12 @@ namespace Botble\Ecommerce\Tables;
 use Auth;
 use BaseHelper;
 use Botble\Base\Enums\BaseStatusEnum;
+use Botble\Ecommerce\Models\FlashSale;
 use Botble\Ecommerce\Repositories\Interfaces\FlashSaleInterface;
 use Botble\Table\Abstracts\TableAbstract;
+use Html;
 use Illuminate\Contracts\Routing\UrlGenerator;
 use Yajra\DataTables\DataTables;
-use Botble\Ecommerce\Models\FlashSale;
-use Html;
 
 class FlashSaleTable extends TableAbstract
 {
@@ -99,22 +99,22 @@ class FlashSaleTable extends TableAbstract
     {
         return [
             'id' => [
-                'name'  => 'ec_flash_sales.id',
+                'name' => 'ec_flash_sales.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
             ],
             'name' => [
-                'name'  => 'ec_flash_sales.name',
+                'name' => 'ec_flash_sales.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
             'created_at' => [
-                'name'  => 'ec_flash_sales.created_at',
+                'name' => 'ec_flash_sales.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
             ],
             'status' => [
-                'name'  => 'ec_flash_sales.status',
+                'name' => 'ec_flash_sales.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
             ],
@@ -140,34 +140,34 @@ class FlashSaleTable extends TableAbstract
     }
 
     /**
+     * @return array
+     */
+    public function getFilters(): array
+    {
+        return $this->getBulkChanges();
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function getBulkChanges(): array
     {
         return [
             'ec_flash_sales.name' => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
             'ec_flash_sales.status' => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'ec_flash_sales.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
-    }
-
-    /**
-     * @return array
-     */
-    public function getFilters(): array
-    {
-        return $this->getBulkChanges();
     }
 }

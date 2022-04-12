@@ -58,7 +58,8 @@ class ShippingMethodController extends BaseController
         ShippingRuleInterface $shippingRuleRepository,
         OrderInterface $orderRepository,
         ShippingRuleItemInterface $shippingRuleItemRepository
-    ) {
+    )
+    {
         $this->shippingRepository = $shippingRepository;
         $this->shippingRuleRepository = $shippingRuleRepository;
         $this->orderRepository = $orderRepository;
@@ -118,8 +119,8 @@ class ShippingMethodController extends BaseController
     {
         $country = $request->input('region');
         $shipping = $this->shippingRepository->createOrUpdate([
-            'title'       => $country ? $country : trans('plugins/ecommerce::shipping.all'),
-            'country'     => $request->input('region') ?? null,
+            'title' => $country ? $country : trans('plugins/ecommerce::shipping.all'),
+            'country' => $request->input('region') ?? null,
             'currency_id' => get_application_currency_id(),
         ]);
 
@@ -146,11 +147,11 @@ class ShippingMethodController extends BaseController
         }
 
         $this->shippingRuleRepository->createOrUpdate([
-            'name'        => trans('plugins/ecommerce::shipping.delivery'),
-            'type'        => 'base_on_price',
-            'price'       => $price,
-            'from'        => $from,
-            'to'          => $to,
+            'name' => trans('plugins/ecommerce::shipping.delivery'),
+            'type' => 'base_on_price',
+            'price' => $price,
+            'from' => $from,
+            'to' => $to,
             'shipping_id' => $shipping->id,
         ]);
 
@@ -193,7 +194,7 @@ class ShippingMethodController extends BaseController
         }
 
         return $response->setMessage(trans('core/base::notices.delete_success_message'))->setData([
-            'count'       => $ruleCount,
+            'count' => $ruleCount,
             'shipping_id' => $rule->shipping_id,
         ]);
     }
@@ -215,9 +216,9 @@ class ShippingMethodController extends BaseController
             if (Arr::get($item, 'is_enabled', 0) == 0 || Arr::get($item, 'adjustment_price', 0) != 0) {
                 $this->shippingRuleItemRepository->createOrUpdate([
                     'shipping_rule_id' => $id,
-                    'city'             => $key,
+                    'city' => $key,
                     'adjustment_price' => Arr::get($item, 'adjustment_price', 0),
-                    'is_enabled'       => Arr::get($item, 'is_enabled', 0),
+                    'is_enabled' => Arr::get($item, 'is_enabled', 0),
                 ]);
             }
         }

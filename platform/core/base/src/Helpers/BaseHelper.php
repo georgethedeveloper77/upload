@@ -3,7 +3,8 @@
 namespace Botble\Base\Helpers;
 
 use Carbon\Carbon;
-use URL;
+use Illuminate\Config\Repository;
+use Illuminate\Contracts\Foundation\Application;
 
 class BaseHelper
 {
@@ -82,7 +83,7 @@ class BaseHelper
     }
 
     /**
-     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
+     * @return Repository|Application|mixed
      */
     public function getAdminPrefix(): string
     {
@@ -98,14 +99,6 @@ class BaseHelper
     }
 
     /**
-     * @return mixed
-     */
-    public function getHomepageId()
-    {
-        return theme_option('homepage_id', setting('show_on_front'));
-    }
-
-    /**
      * @param int $pageId
      * @return bool
      */
@@ -114,5 +107,13 @@ class BaseHelper
         $homepageId = $this->getHomepageId();
 
         return $pageId && $homepageId && $pageId == $homepageId;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHomepageId()
+    {
+        return theme_option('homepage_id', setting('show_on_front'));
     }
 }

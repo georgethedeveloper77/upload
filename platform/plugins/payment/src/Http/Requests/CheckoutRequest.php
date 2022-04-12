@@ -18,7 +18,7 @@ class CheckoutRequest extends Request
     {
         return [
             'payment_method' => 'required|' . Rule::in(PaymentMethodEnum::values()),
-            'amount'         => 'required|min:0',
+            'amount' => 'required|min:0',
         ];
     }
 }

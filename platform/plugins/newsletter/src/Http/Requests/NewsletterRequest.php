@@ -17,7 +17,7 @@ class NewsletterRequest extends Request
     public function rules()
     {
         $rules = [
-            'email'  => 'required|email|unique:newsletters',
+            'email' => 'required|email|unique:newsletters',
             'status' => Rule::in(NewsletterStatusEnum::values()),
         ];
 

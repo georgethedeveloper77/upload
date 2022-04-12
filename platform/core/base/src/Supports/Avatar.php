@@ -118,6 +118,36 @@ class Avatar
     }
 
     /**
+     * @param array $array
+     * @param string $default
+     * @return mixed
+     */
+    protected function getRandomElement(array $array, $default)
+    {
+        // Make it work for associative array
+        $array = array_values($array);
+
+        $name = $this->name;
+        if (strlen($name) === 0) {
+            $name = chr(rand(65, 90));
+        }
+
+        if (count($array) == 0) {
+            return $default;
+        }
+
+        $number = ord($name[0]);
+        $index = 1;
+        $charLength = strlen($name);
+        while ($index < $charLength) {
+            $number += ord($name[$index]);
+            $index++;
+        }
+
+        return $array[$number % count($array)];
+    }
+
+    /**
      * @param string $color
      * @return $this
      */
@@ -148,36 +178,6 @@ class Avatar
         $this->shape = $shape;
 
         return $this;
-    }
-
-    /**
-     * @param array $array
-     * @param string $default
-     * @return mixed
-     */
-    protected function getRandomElement(array $array, $default)
-    {
-        // Make it work for associative array
-        $array = array_values($array);
-
-        $name = $this->name;
-        if (strlen($name) === 0) {
-            $name = chr(rand(65, 90));
-        }
-
-        if (count($array) == 0) {
-            return $default;
-        }
-
-        $number = ord($name[0]);
-        $index = 1;
-        $charLength = strlen($name);
-        while ($index < $charLength) {
-            $number += ord($name[$index]);
-            $index++;
-        }
-
-        return $array[$number % count($array)];
     }
 
     /**

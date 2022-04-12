@@ -1,4 +1,4 @@
-@php $mollieStatus = get_payment_setting('status', MOLLIE_PAYMENT_METHOD_NAME); @endphp
+@php $mollieStatus = get_payment_setting('status', MOLLIE_PAYMENT_METHOD_NAME) @endphp
 <table class="table payment-method-item">
     <tbody>
     <tr class="border-pay-row">
@@ -72,16 +72,21 @@
                                    value="{{ get_payment_setting('name', MOLLIE_PAYMENT_METHOD_NAME, __('Online payment via Mollie')) }}">
                         </div>
                         <div class="form-group">
-                            <label class="text-title-field" for="payment_{{ MOLLIE_PAYMENT_METHOD_NAME }}_description">{{ __('Description') }}</label>
-                            <textarea class="next-input" name="payment_{{ MOLLIE_PAYMENT_METHOD_NAME }}_description" id="payment_{{ MOLLIE_PAYMENT_METHOD_NAME }}_description">{{ get_payment_setting('description', MOLLIE_PAYMENT_METHOD_NAME, __('Payment with Mollie')) }}</textarea>
+                            <label class="text-title-field"
+                                   for="payment_{{ MOLLIE_PAYMENT_METHOD_NAME }}_description">{{ __('Description') }}</label>
+                            <textarea class="next-input" name="payment_{{ MOLLIE_PAYMENT_METHOD_NAME }}_description"
+                                      id="payment_{{ MOLLIE_PAYMENT_METHOD_NAME }}_description">{{ get_payment_setting('description', MOLLIE_PAYMENT_METHOD_NAME, __('Payment with Mollie')) }}</textarea>
                         </div>
                         <p class="payment-note">
-                            {{ trans('plugins/payment::payment.please_provide_information') }} <a target="_blank" href="https://mollie.com">Mollie</a>:
+                            {{ trans('plugins/payment::payment.please_provide_information') }} <a target="_blank"
+                                                                                                  href="https://mollie.com">Mollie</a>:
                         </p>
                         <div class="form-group">
-                            <label class="text-title-field" for="{{ MOLLIE_PAYMENT_METHOD_NAME }}_api_key">{{ __('API Key') }}</label>
+                            <label class="text-title-field"
+                                   for="{{ MOLLIE_PAYMENT_METHOD_NAME }}_api_key">{{ __('API Key') }}</label>
                             <input type="text" class="next-input"
-                                   name="payment_{{ MOLLIE_PAYMENT_METHOD_NAME }}_api_key" id="{{ MOLLIE_PAYMENT_METHOD_NAME }}_api_key"
+                                   name="payment_{{ MOLLIE_PAYMENT_METHOD_NAME }}_api_key"
+                                   id="{{ MOLLIE_PAYMENT_METHOD_NAME }}_api_key"
                                    value="{{ get_payment_setting('api_key', MOLLIE_PAYMENT_METHOD_NAME) }}">
                         </div>
                     </div>

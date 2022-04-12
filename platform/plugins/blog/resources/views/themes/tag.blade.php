@@ -8,7 +8,9 @@
         @foreach ($posts as $post)
             <article>
                 <div>
-                    <a href="{{ $post->url }}"><img src="{{ RvMedia::getImageUrl($post->image, null, false, RvMedia::getDefaultImage()) }}" alt="{{ $post->name }}"></a>
+                    <a href="{{ $post->url }}"><img
+                            src="{{ RvMedia::getImageUrl($post->image, null, false, RvMedia::getDefaultImage()) }}"
+                            alt="{{ $post->name }}"></a>
                 </div>
                 <div>
                     <header>

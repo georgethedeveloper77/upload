@@ -52,14 +52,14 @@ class MollieController extends BaseController
         }
 
         $this->storeLocalPayment([
-            'amount'          => $result->amount->value,
-            'currency'        => $result->amount->currency,
-            'charge_id'       => $result->id,
+            'amount' => $result->amount->value,
+            'currency' => $result->amount->currency,
+            'charge_id' => $result->id,
             'payment_channel' => MOLLIE_PAYMENT_METHOD_NAME,
-            'status'          => $status,
-            'customer_id'     => auth('customer')->check() ? auth('customer')->user()->getAuthIdentifier() : null,
-            'payment_type'    => 'direct',
-            'order_id'        => $result->metadata->order_id,
+            'status' => $status,
+            'customer_id' => auth('customer')->check() ? auth('customer')->user()->getAuthIdentifier() : null,
+            'payment_type' => 'direct',
+            'order_id' => $result->metadata->order_id,
         ]);
 
         OrderHelper::processOrder($result->metadata->order_id, $result->id);

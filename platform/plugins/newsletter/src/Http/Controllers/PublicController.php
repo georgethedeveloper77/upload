@@ -89,7 +89,7 @@ class PublicController extends Controller
         }
 
         $newsletter = $this->newsletterRepository->getFirstBy([
-            'email'  => $email,
+            'email' => $email,
             'status' => NewsletterStatusEnum::SUBSCRIBED,
         ]);
 

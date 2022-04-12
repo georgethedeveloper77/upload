@@ -12,10 +12,13 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class ProductVariation extends BaseModel
 {
     /**
+     * @var bool
+     */
+    public $timestamps = false;
+    /**
      * @var string
      */
     protected $table = 'ec_product_variations';
-
     /**
      * @var array
      */
@@ -25,10 +28,34 @@ class ProductVariation extends BaseModel
         'is_default',
     ];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        self::deleted(function (ProductVariation $variation) {
+            $variation->productAttributes()->detach();
+
+            if ($variation->product) {
+                $variation->product->delete();
+                event(new DeletedContentEvent(PRODUCT_MODULE_SCREEN_NAME, request(), $variation->product));
+            }
+        });
+
+        self::updated(function (ProductVariation $variation) {
+            if ($variation->is_default) {
+                app(UpdateDefaultProductService::class)->execute($variation->product);
+            }
+        });
+    }
+
     /**
-     * @var bool
+     * @return BelongsToMany
      */
-    public $timestamps = false;
+    public function productAttributes()
+    {
+        return $this->belongsToMany(ProductAttribute::class, 'ec_product_variation_items', 'variation_id',
+            'attribute_id');
+    }
 
     /**
      * @return HasMany
@@ -52,34 +79,5 @@ class ProductVariation extends BaseModel
     public function configurableProduct()
     {
         return $this->belongsTo(Product::class, 'configurable_product_id')->withDefault();
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function productAttributes()
-    {
-        return $this->belongsToMany(ProductAttribute::class, 'ec_product_variation_items', 'variation_id',
-            'attribute_id');
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::deleted(function (ProductVariation $variation) {
-            $variation->productAttributes()->detach();
-
-            if ($variation->product) {
-                $variation->product->delete();
-                event(new DeletedContentEvent(PRODUCT_MODULE_SCREEN_NAME, request(), $variation->product));
-            }
-        });
-
-        self::updated(function (ProductVariation $variation) {
-            if ($variation->is_default) {
-                app(UpdateDefaultProductService::class)->execute($variation->product);
-            }
-        });
     }
 }

@@ -2,8 +2,8 @@
 
 namespace Botble\ACL\Listeners;
 
-use Exception;
 use Botble\ACL\Models\User;
+use Exception;
 use Illuminate\Auth\Events\Login;
 
 class LoginListener

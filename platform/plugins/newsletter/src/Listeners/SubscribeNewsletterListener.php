@@ -5,7 +5,9 @@ namespace Botble\Newsletter\Listeners;
 use Botble\Newsletter\Events\SubscribeNewsletterEvent;
 use EmailHandler;
 use Html;
+use Illuminate\Contracts\Filesystem\FileNotFoundException;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Throwable;
 use URL;
 
 class SubscribeNewsletterListener implements ShouldQueue
@@ -15,15 +17,15 @@ class SubscribeNewsletterListener implements ShouldQueue
      *
      * @param SubscribeNewsletterEvent $event
      * @return void
-     * @throws \Illuminate\Contracts\Filesystem\FileNotFoundException
-     * @throws \Throwable
+     * @throws FileNotFoundException
+     * @throws Throwable
      */
     public function handle(SubscribeNewsletterEvent $event)
     {
         $mailer = EmailHandler::setModule(NEWSLETTER_MODULE_SCREEN_NAME)
             ->setVariableValues([
-                'newsletter_name'             => $event->newsLetter->name ?? 'N/A',
-                'newsletter_email'            => $event->newsLetter->email,
+                'newsletter_name' => $event->newsLetter->name ?? 'N/A',
+                'newsletter_email' => $event->newsLetter->email,
                 'newsletter_unsubscribe_link' => Html::link(
                     URL::signedRoute('public.newsletter.unsubscribe',
                         ['email' => urlencode($event->newsLetter->email)]),

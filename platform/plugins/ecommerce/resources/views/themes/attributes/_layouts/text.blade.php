@@ -6,7 +6,8 @@
                 <li data-slug="{{ $attribute->slug }}" class="attribute-swatch-item">
                     <div class="custom-radio">
                         <label>
-                            <input class="product-filter-item" type="radio" name="attribute_{{ $set->slug }}" value="{{ $attribute->id }}" {{ in_array($attribute->id, $selected) ? 'checked' : '' }}>
+                            <input class="product-filter-item" type="radio" name="attribute_{{ $set->slug }}"
+                                   value="{{ $attribute->id }}" {{ in_array($attribute->id, $selected) ? 'checked' : '' }}>
                             <span>{{ $attribute->title }}</span>
                         </label>
                     </div>

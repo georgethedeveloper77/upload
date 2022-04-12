@@ -34,7 +34,8 @@ class RenderingSiteMapListener
         PostInterface $postRepository,
         CategoryInterface $categoryRepository,
         TagInterface $tagRepository
-    ) {
+    )
+    {
         $this->postRepository = $postRepository;
         $this->categoryRepository = $categoryRepository;
         $this->tagRepository = $tagRepository;

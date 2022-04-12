@@ -273,34 +273,35 @@
         'icon-zap-off',
         'icon-youtube',
     ];
-    Arr::set($attributes, 'class', Arr::get($attributes, 'class') . ' icon-select');
+    Arr::set($attributes, 'class', Arr::get($attributes, 'class') . ' icon-select')
 @endphp
 
 {!! Form::select($name, array_combine($icons, $icons), $value, $attributes) !!}
 
 @once
-    @push('header')
-        <link media="all" type="text/css" rel="stylesheet" href="{{ Theme::asset()->url('fonts/feather-font/css/iconfont.css') }}">
-        <script>
-            $(document).ready(function () {
-                $('.icon-select').each(function (index, el) {
-                    $(el).select2({
-                        templateResult: function (state) {
-                            if (!state.id) {
-                                return state.text;
-                            }
-                            return $('<span><i class="' + state.id + '"></i></span>&nbsp; ' + state.text + '</span>');
-                        },
-                        width: '100%',
-                        templateSelection: function (state) {
-                            if (!state.id) {
-                                return state.text;
-                            }
-                            return $('<span><i class="' + state.id + '"></i></span>&nbsp; ' + state.text + '</span>');
-                        },
-                    });
+@push('header')
+    <link media="all" type="text/css" rel="stylesheet"
+          href="{{ Theme::asset()->url('fonts/feather-font/css/iconfont.css') }}">
+    <script>
+        $(document).ready(function () {
+            $('.icon-select').each(function (index, el) {
+                $(el).select2({
+                    templateResult: function (state) {
+                        if (!state.id) {
+                            return state.text;
+                        }
+                        return $('<span><i class="' + state.id + '"></i></span>&nbsp; ' + state.text + '</span>');
+                    },
+                    width: '100%',
+                    templateSelection: function (state) {
+                        if (!state.id) {
+                            return state.text;
+                        }
+                        return $('<span><i class="' + state.id + '"></i></span>&nbsp; ' + state.text + '</span>');
+                    },
                 });
             });
-        </script>
-    @endpush
+        });
+    </script>
+@endpush
 @endonce

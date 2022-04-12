@@ -4,11 +4,12 @@ namespace Botble\Sitemap;
 
 use Carbon\Carbon;
 use DateTime;
-use Illuminate\View\Factory as ViewFactory;
 use Illuminate\Cache\Repository as CacheRepository;
-use Illuminate\Filesystem\Filesystem as Filesystem;
 use Illuminate\Config\Repository as ConfigRepository;
 use Illuminate\Contracts\Routing\ResponseFactory as ResponseFactory;
+use Illuminate\Filesystem\Filesystem as Filesystem;
+use Illuminate\Http\Response;
+use Illuminate\View\Factory as ViewFactory;
 
 class Sitemap
 {
@@ -66,7 +67,8 @@ class Sitemap
         Filesystem $file,
         ResponseFactory $response,
         ViewFactory $view
-    ) {
+    )
+    {
         $this->cache = $cache;
         $this->configRepository = $configRepository;
         $this->file = $file;
@@ -123,18 +125,19 @@ class Sitemap
         $videos = [],
         $googlenews = [],
         $alternates = []
-    ) {
+    )
+    {
         $params = [
-            'loc'          => $loc,
-            'lastmod'      => $lastmod,
-            'priority'     => $priority,
-            'freq'         => $freq,
-            'images'       => $images,
-            'title'        => $title,
+            'loc' => $loc,
+            'lastmod' => $lastmod,
+            'priority' => $priority,
+            'freq' => $freq,
+            'images' => $images,
+            'title' => $title,
             'translations' => $translations,
-            'videos'       => $videos,
-            'googlenews'   => $googlenews,
-            'alternates'   => $alternates,
+            'videos' => $videos,
+            'googlenews' => $googlenews,
+            'alternates' => $alternates,
         ];
 
         $this->addItem($params);
@@ -249,16 +252,16 @@ class Sitemap
         $googlenews['publication_date'] = isset($googlenews['publication_date']) ? $googlenews['publication_date'] : date('Y-m-d H:i:s');
 
         $this->model->setItems([
-            'loc'          => $loc,
-            'lastmod'      => $lastmod,
-            'priority'     => $priority,
-            'freq'         => $freq,
-            'images'       => $images,
-            'title'        => $title,
+            'loc' => $loc,
+            'lastmod' => $lastmod,
+            'priority' => $priority,
+            'freq' => $freq,
+            'images' => $images,
+            'title' => $title,
             'translations' => $translations,
-            'videos'       => $videos,
-            'googlenews'   => $googlenews,
-            'alternates'   => $alternates,
+            'videos' => $videos,
+            'googlenews' => $googlenews,
+            'alternates' => $alternates,
         ]);
     }
 
@@ -280,7 +283,7 @@ class Sitemap
      * @param string $format (options: xml, html, txt, ror-rss, ror-rdf, google-news)
      * @param string $style (path to custom xls style like '/styles/xsl/xml-sitemap.xsl')
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function render($format = 'xml')
     {
@@ -468,7 +471,7 @@ class Sitemap
     public function addSitemap($loc, $lastmod = null)
     {
         $this->model->setSitemaps([
-            'loc'     => $loc,
+            'loc' => $loc,
             'lastmod' => $lastmod,
         ]);
     }

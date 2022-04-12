@@ -6,7 +6,8 @@
                 <div class="col-md-3">
                     <div class="profile-sidebar">
 
-                        <form id="avatar-upload-form" enctype="multipart/form-data" action="javascript:void(0)" onsubmit="return false">
+                        <form id="avatar-upload-form" enctype="multipart/form-data" action="javascript:void(0)"
+                              onsubmit="return false">
                             <div class="avatar-upload-container">
                                 <div class="form-group">
                                     <div id="account-avatar">
@@ -33,27 +34,33 @@
                         <div class="profile-usermenu">
                             <ul class="list-group">
                                 <li class="list-group-item" style="display:none">
-                                    <a href="{{ route('customer.overview') }}" class="collection-item @if (Route::currentRouteName() == 'customer.overview') active @endif">{{ __('Overview') }}</a>
+                                    <a href="{{ route('customer.overview') }}"
+                                       class="collection-item @if (Route::currentRouteName() == 'customer.overview') active @endif">{{ __('Overview') }}</a>
                                     <i class="fa fa-user-circle-o float-right" aria-hidden="true"></i>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="{{ route('customer.edit-account') }}" class="collection-item @if (Route::currentRouteName() == 'customer.edit-account') active @endif">{{ __('Profile') }}</a>
+                                    <a href="{{ route('customer.edit-account') }}"
+                                       class="collection-item @if (Route::currentRouteName() == 'customer.edit-account') active @endif">{{ __('Profile') }}</a>
                                     <i class="fa fa-credit-card" aria-hidden="true"></i>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="{{ route('customer.orders') }}" class="collection-item @if (Route::currentRouteName() == 'customer.orders') active @endif">{{ __('Orders') }}</a>
+                                    <a href="{{ route('customer.orders') }}"
+                                       class="collection-item @if (Route::currentRouteName() == 'customer.orders') active @endif">{{ __('Orders') }}</a>
                                     <i class="fa fa-first-order" aria-hidden="true"></i>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="{{ route('customer.address') }}" class="collection-item @if (Route::currentRouteName() == 'customer.address') active @endif">{{ __('Address books') }}</a>
+                                    <a href="{{ route('customer.address') }}"
+                                       class="collection-item @if (Route::currentRouteName() == 'customer.address') active @endif">{{ __('Address books') }}</a>
                                     <i class="fa fa-book" aria-hidden="true"></i>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="{{ route('customer.change-password') }}" class="collection-item @if (Route::currentRouteName() == 'customer.change-password') active @endif">{{ __('Change password') }}</a>
+                                    <a href="{{ route('customer.change-password') }}"
+                                       class="collection-item @if (Route::currentRouteName() == 'customer.change-password') active @endif">{{ __('Change password') }}</a>
                                     <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                                 </li>
                                 <li class="list-group-item">
-                                    <a href="{{ route('customer.logout') }}" class="collection-item">{{ __('Logout') }}</a>
+                                    <a href="{{ route('customer.logout') }}"
+                                       class="collection-item">{{ __('Logout') }}</a>
                                     <i class="fa fa-sign-out" aria-hidden="true"></i>
 
                                 </li>
@@ -77,9 +84,11 @@
          aria-hidden="true">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
-                <form class="avatar-form" method="post" action="{{ route('customer.avatar') }}" enctype="multipart/form-data">
+                <form class="avatar-form" method="post" action="{{ route('customer.avatar') }}"
+                      enctype="multipart/form-data">
                     <div class="modal-header">
-                        <h4 class="modal-title" id="avatar-modal-label"><i class="til_img"></i><strong>{{ __('Profile Image') }}</strong></h4>
+                        <h4 class="modal-title" id="avatar-modal-label"><i
+                                class="til_img"></i><strong>{{ __('Profile Image') }}</strong></h4>
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
                     </div>
                     <div class="modal-body">
@@ -112,8 +121,10 @@
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button class="btn--custom btn--rounded btn--outline" type="button" data-dismiss="modal">{{ __('Close') }}</button>
-                        <button class="btn--custom btn--rounded btn--outline avatar-save" type="submit">{{ __('Save') }}</button>
+                        <button class="btn--custom btn--rounded btn--outline" type="button"
+                                data-dismiss="modal">{{ __('Close') }}</button>
+                        <button class="btn--custom btn--rounded btn--outline avatar-save"
+                                type="submit">{{ __('Save') }}</button>
                     </div>
                 </form>
             </div>

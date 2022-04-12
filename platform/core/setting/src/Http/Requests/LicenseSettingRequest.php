@@ -15,7 +15,7 @@ class LicenseSettingRequest extends Request
     {
         return [
             'purchase_code' => 'required',
-            'buyer'         => 'required',
+            'buyer' => 'required',
         ];
     }
 }

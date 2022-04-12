@@ -2,8 +2,8 @@
 
 namespace Botble\Contact\Repositories\Caches;
 
-use Botble\Support\Repositories\Caches\CacheAbstractDecorator;
 use Botble\Contact\Repositories\Interfaces\ContactInterface;
+use Botble\Support\Repositories\Caches\CacheAbstractDecorator;
 
 class ContactCacheDecorator extends CacheAbstractDecorator implements ContactInterface
 {

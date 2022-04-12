@@ -42,19 +42,6 @@ class Shortcode
     }
 
     /**
-     * Enable the shortcode
-     *
-     * @return Shortcode
-     * @since 2.1
-     */
-    public function enable()
-    {
-        $this->compiler->enable();
-
-        return $this;
-    }
-
-    /**
      * Disable the shortcode
      *
      * @return Shortcode
@@ -81,6 +68,19 @@ class Shortcode
 
         // return compiled contents
         return $this->compiler->compile($value);
+    }
+
+    /**
+     * Enable the shortcode
+     *
+     * @return Shortcode
+     * @since 2.1
+     */
+    public function enable()
+    {
+        $this->compiler->enable();
+
+        return $this;
     }
 
     /**

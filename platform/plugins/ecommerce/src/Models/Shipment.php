@@ -48,7 +48,7 @@ class Shipment extends BaseModel
      * @var array
      */
     protected $casts = [
-        'status'     => ShippingStatusEnum::class,
+        'status' => ShippingStatusEnum::class,
         'cod_status' => ShippingCodStatusEnum::class,
     ];
 

@@ -36,7 +36,8 @@ class ProductCategoryTable extends TableAbstract
         DataTables $table,
         UrlGenerator $urlGenerator,
         ProductCategoryInterface $productCategoryRepository
-    ) {
+    )
+    {
         $this->repository = $productCategoryRepository;
         $this->setOption('id', 'table-product-categories');
         parent::__construct($table, $urlGenerator);
@@ -116,31 +117,31 @@ class ProductCategoryTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
-                'name'  => 'ec_product_categories.id',
+            'id' => [
+                'name' => 'ec_product_categories.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
                 'class' => 'text-left',
             ],
-            'image'      => [
-                'name'  => 'ec_product_categories.image',
+            'image' => [
+                'name' => 'ec_product_categories.image',
                 'title' => trans('core/base::tables.image'),
                 'width' => '70px',
                 'class' => 'text-left',
             ],
-            'name'       => [
-                'name'  => 'ec_product_categories.name',
+            'name' => [
+                'name' => 'ec_product_categories.name',
                 'title' => trans('core/base::tables.name'),
                 'class' => 'text-left',
             ],
             'created_at' => [
-                'name'  => 'ec_product_categories.created_at',
+                'name' => 'ec_product_categories.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-left',
             ],
-            'status'     => [
-                'name'  => 'ec_product_categories.status',
+            'status' => [
+                'name' => 'ec_product_categories.status',
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
                 'class' => 'text-left',
@@ -173,20 +174,20 @@ class ProductCategoryTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'ec_product_categories.name'       => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'ec_product_categories.name' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'ec_product_categories.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'ec_product_categories.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'ec_product_categories.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

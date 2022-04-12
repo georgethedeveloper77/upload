@@ -32,15 +32,15 @@ class DashboardMenu
         }
 
         $defaultOptions = [
-            'id'          => '',
-            'priority'    => 99,
-            'parent_id'   => null,
-            'name'        => '',
-            'icon'        => null,
-            'url'         => '',
-            'children'    => [],
+            'id' => '',
+            'priority' => 99,
+            'parent_id' => null,
+            'name' => '',
+            'icon' => null,
+            'url' => '',
+            'children' => [],
             'permissions' => [],
-            'active'      => false,
+            'active' => false,
         ];
 
         $options = array_merge($defaultOptions, $options);

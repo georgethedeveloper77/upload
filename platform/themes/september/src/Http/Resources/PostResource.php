@@ -18,12 +18,12 @@ class PostResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'id'          => $this->id,
-            'name'        => $this->name,
-            'url'         => $this->url,
+            'id' => $this->id,
+            'name' => $this->name,
+            'url' => $this->url,
             'description' => Str::words($this->description, 35),
-            'image'       => RvMedia::getImageUrl($this->image, 'medium', false, RvMedia::getDefaultImage()),
-            'created_at'  => $this->created_at->format('d M, Y'),
+            'image' => RvMedia::getImageUrl($this->image, 'medium', false, RvMedia::getDefaultImage()),
+            'created_at' => $this->created_at->format('d M, Y'),
         ];
     }
 }

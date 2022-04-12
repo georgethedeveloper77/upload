@@ -28,7 +28,7 @@ class HookServiceProvider extends ServiceProvider
 
     /**
      * @param BaseModel $object
-     * @param null|string  $prefix
+     * @param null|string $prefix
      * @return null|string
      * @throws Throwable
      */

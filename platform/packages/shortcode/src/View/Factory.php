@@ -36,7 +36,8 @@ class Factory extends IlluminateViewFactory
         ViewFinderInterface $finder,
         Dispatcher $events,
         ShortcodeCompiler $shortcode
-    ) {
+    )
+    {
         parent::__construct($engines, $finder, $events);
         $this->shortcode = $shortcode;
     }

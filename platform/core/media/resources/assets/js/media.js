@@ -15,6 +15,14 @@ class MediaManagement {
         this.$body = $('body');
     }
 
+    static setupSecurity() {
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+    }
+
     init() {
         Helpers.resetPagination();
         this.setupLayout();
@@ -424,15 +432,6 @@ class MediaManagement {
             }
         });
     }
-
-    static setupSecurity() {
-        $.ajaxSetup({
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            }
-        });
-    }
-
 
     // Scroll get more media
     scrollGetMore() {

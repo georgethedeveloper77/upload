@@ -121,19 +121,19 @@ class OrderTable extends TableAbstract
     public function columns()
     {
         $columns = [
-            'id'              => [
-                'name'  => 'ec_orders.id',
+            'id' => [
+                'name' => 'ec_orders.id',
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
                 'class' => 'text-left',
             ],
-            'user_id'         => [
-                'name'  => 'ec_orders.user_id',
+            'user_id' => [
+                'name' => 'ec_orders.user_id',
                 'title' => trans('plugins/ecommerce::order.customer_label'),
                 'class' => 'text-left',
             ],
-            'amount'          => [
-                'name'  => 'ec_orders.amount',
+            'amount' => [
+                'name' => 'ec_orders.amount',
                 'title' => trans('plugins/ecommerce::order.amount'),
                 'class' => 'text-center',
             ],
@@ -141,7 +141,7 @@ class OrderTable extends TableAbstract
 
         if (EcommerceHelper::isTaxEnabled()) {
             $columns['tax_amount'] = [
-                'name'  => 'ec_orders.amount',
+                'name' => 'ec_orders.amount',
                 'title' => trans('plugins/ecommerce::order.tax_amount'),
                 'class' => 'text-center',
             ];
@@ -149,27 +149,27 @@ class OrderTable extends TableAbstract
 
         $columns += [
             'shipping_amount' => [
-                'name'  => 'ec_orders.shipping_amount',
+                'name' => 'ec_orders.shipping_amount',
                 'title' => trans('plugins/ecommerce::order.shipping_amount'),
                 'class' => 'text-center',
             ],
-            'payment_method'  => [
-                'name'  => 'ec_orders.id',
+            'payment_method' => [
+                'name' => 'ec_orders.id',
                 'title' => trans('plugins/ecommerce::order.payment_method'),
                 'class' => 'text-center',
             ],
-            'payment_status'  => [
-                'name'  => 'ec_orders.id',
+            'payment_status' => [
+                'name' => 'ec_orders.id',
                 'title' => trans('plugins/ecommerce::order.payment_status_label'),
                 'class' => 'text-center',
             ],
-            'status'          => [
-                'name'  => 'ec_orders.status',
+            'status' => [
+                'name' => 'ec_orders.status',
                 'title' => trans('core/base::tables.status'),
                 'class' => 'text-center',
             ],
-            'created_at'      => [
-                'name'  => 'ec_orders.created_at',
+            'created_at' => [
+                'name' => 'ec_orders.created_at',
                 'title' => trans('core/base::tables.created_at'),
                 'width' => '100px',
                 'class' => 'text-left',
@@ -203,15 +203,15 @@ class OrderTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'ec_orders.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => OrderStatusEnum::labels(),
+            'ec_orders.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => OrderStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', OrderStatusEnum::values()),
             ],
             'ec_orders.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

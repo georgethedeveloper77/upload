@@ -96,14 +96,14 @@ abstract class AbstractSslCommerz implements SslCommerzInterface
             if ($this->getApiUrl() != null && $this->getApiUrl() == 'https://securepay.sslcommerz.com') {
                 $response = json_encode([
                     'status' => 'SUCCESS',
-                    'data'   => $sslcz['GatewayPageURL'],
-                    'logo'   => $sslcz['storeLogo'],
+                    'data' => $sslcz['GatewayPageURL'],
+                    'logo' => $sslcz['storeLogo'],
                 ]);
             } else {
                 $response = json_encode([
                     'status' => 'success',
-                    'data'   => $sslcz['GatewayPageURL'],
-                    'logo'   => $sslcz['storeLogo'],
+                    'data' => $sslcz['GatewayPageURL'],
+                    'logo' => $sslcz['storeLogo'],
                 ]);
             }
         } else {

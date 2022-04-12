@@ -2,7 +2,9 @@
 
 namespace Botble\Captcha;
 
+use Botble\Theme\AssetContainer;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Arr;
 use Theme;
@@ -48,7 +50,7 @@ class CaptchaV3
      * @param string $clientIp
      * @param array $parameters
      * @return bool|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function verify($token, $clientIp, $parameters = [])
     {
@@ -56,7 +58,7 @@ class CaptchaV3
 
         $response = $client->request('POST', $this->origin . '/api/siteverify', [
             'form_params' => [
-                'secret'   => $this->secret,
+                'secret' => $this->secret,
                 'response' => $token,
                 'remoteip' => $clientIp,
             ],
@@ -112,7 +114,7 @@ class CaptchaV3
     }
 
     /**
-     * @return \Botble\Theme\AssetContainer
+     * @return AssetContainer
      */
     public function initJs($fieldId = null, $action = 'form')
     {

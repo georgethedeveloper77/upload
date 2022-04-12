@@ -21,7 +21,8 @@ if (!function_exists('get_page_by_slug')) {
      * @return mixed
      *
      */
-    function get_page_by_slug($slug) {
+    function get_page_by_slug($slug)
+    {
         return app(PageInterface::class)->getBySlug($slug, true);
     }
 }

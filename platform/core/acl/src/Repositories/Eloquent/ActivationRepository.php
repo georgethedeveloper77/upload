@@ -39,6 +39,16 @@ class ActivationRepository extends RepositoriesAbstract implements ActivationInt
     }
 
     /**
+     * Return a random string for an activation code.
+     *
+     * @return string
+     */
+    protected function generateActivationCode()
+    {
+        return Str::random(32);
+    }
+
+    /**
      * {@inheritDoc}
      */
     public function exists(User $user, $code = null)
@@ -60,6 +70,16 @@ class ActivationRepository extends RepositoriesAbstract implements ActivationInt
         }
 
         return $activation->first() ?: false;
+    }
+
+    /**
+     * Returns the expiration date.
+     *
+     * @return Carbon
+     */
+    protected function expires()
+    {
+        return now()->subSeconds($this->expires);
     }
 
     /**
@@ -86,28 +106,13 @@ class ActivationRepository extends RepositoriesAbstract implements ActivationInt
         }
 
         $activation->fill([
-            'completed'    => true,
+            'completed' => true,
             'completed_at' => now(),
         ]);
 
         $activation->save();
 
         return true;
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    public function completed(User $user)
-    {
-        $activation = $this
-            ->model
-            ->newQuery()
-            ->where('user_id', $user->getKey())
-            ->where('completed', true)
-            ->first();
-
-        return $activation ?: false;
     }
 
     /**
@@ -131,6 +136,21 @@ class ActivationRepository extends RepositoriesAbstract implements ActivationInt
     /**
      * {@inheritDoc}
      */
+    public function completed(User $user)
+    {
+        $activation = $this
+            ->model
+            ->newQuery()
+            ->where('user_id', $user->getKey())
+            ->where('completed', true)
+            ->first();
+
+        return $activation ?: false;
+    }
+
+    /**
+     * {@inheritDoc}
+     */
     public function removeExpired()
     {
         $expires = $this->expires();
@@ -141,25 +161,5 @@ class ActivationRepository extends RepositoriesAbstract implements ActivationInt
             ->where('completed', false)
             ->where('created_at', '<', $expires)
             ->delete();
-    }
-
-    /**
-     * Returns the expiration date.
-     *
-     * @return Carbon
-     */
-    protected function expires()
-    {
-        return now()->subSeconds($this->expires);
-    }
-
-    /**
-     * Return a random string for an activation code.
-     *
-     * @return string
-     */
-    protected function generateActivationCode()
-    {
-        return Str::random(32);
     }
 }

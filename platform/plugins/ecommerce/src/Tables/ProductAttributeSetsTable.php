@@ -35,7 +35,8 @@ class ProductAttributeSetsTable extends TableAbstract
         DataTables $table,
         UrlGenerator $urlGenerator,
         ProductAttributeSetInterface $productAttributeSetRepository
-    ) {
+    )
+    {
         $this->repository = $productAttributeSetRepository;
         $this->setOption('id', 'table-product-attribute-sets');
         parent::__construct($table, $urlGenerator);
@@ -104,20 +105,20 @@ class ProductAttributeSetsTable extends TableAbstract
     public function columns()
     {
         return [
-            'id'         => [
+            'id' => [
                 'title' => trans('core/base::tables.id'),
                 'width' => '20px',
                 'class' => 'text-center',
             ],
-            'title'      => [
+            'title' => [
                 'title' => trans('core/base::tables.title'),
                 'class' => 'text-left',
             ],
-            'slug'       => [
+            'slug' => [
                 'title' => trans('core/base::tables.slug'),
                 'class' => 'text-left',
             ],
-            'order'      => [
+            'order' => [
                 'title' => trans('core/base::tables.order'),
                 'class' => 'text-left',
             ],
@@ -126,7 +127,7 @@ class ProductAttributeSetsTable extends TableAbstract
                 'width' => '100px',
                 'class' => 'text-left',
             ],
-            'status'     => [
+            'status' => [
                 'title' => trans('core/base::tables.status'),
                 'width' => '100px',
                 'class' => 'text-left',
@@ -159,20 +160,20 @@ class ProductAttributeSetsTable extends TableAbstract
     public function getBulkChanges(): array
     {
         return [
-            'ec_product_attribute_sets.title'      => [
-                'title'    => trans('core/base::tables.name'),
-                'type'     => 'text',
+            'ec_product_attribute_sets.title' => [
+                'title' => trans('core/base::tables.name'),
+                'type' => 'text',
                 'validate' => 'required|max:120',
             ],
-            'ec_product_attribute_sets.status'     => [
-                'title'    => trans('core/base::tables.status'),
-                'type'     => 'select',
-                'choices'  => BaseStatusEnum::labels(),
+            'ec_product_attribute_sets.status' => [
+                'title' => trans('core/base::tables.status'),
+                'type' => 'select',
+                'choices' => BaseStatusEnum::labels(),
                 'validate' => 'required|in:' . implode(',', BaseStatusEnum::values()),
             ],
             'ec_product_attribute_sets.created_at' => [
                 'title' => trans('core/base::tables.created_at'),
-                'type'  => 'date',
+                'type' => 'date',
             ],
         ];
     }

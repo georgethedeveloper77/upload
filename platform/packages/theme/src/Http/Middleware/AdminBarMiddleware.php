@@ -114,23 +114,6 @@ class AdminBarMiddleware
     /**
      * @param string $content
      * @return $this
-     */
-    public function injectHeadContent(&$content)
-    {
-        $css = Html::style('vendor/core/packages/theme/css/admin-bar.css');
-        $pos = strripos($content, '</head>');
-        if (false !== $pos) {
-            $content = substr($content, 0, $pos) . $css . substr($content, $pos);
-        } else {
-            $content = $content . $css;
-        }
-
-        return $this;
-    }
-
-    /**
-     * @param string $content
-     * @return $this
      * @throws Throwable
      */
     public function injectAdminBarHtml(&$content)
@@ -141,6 +124,23 @@ class AdminBarMiddleware
             $content = substr($content, 0, $pos) . $html . substr($content, $pos);
         } else {
             $content = $content . $html;
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $content
+     * @return $this
+     */
+    public function injectHeadContent(&$content)
+    {
+        $css = Html::style('vendor/core/packages/theme/css/admin-bar.css');
+        $pos = strripos($content, '</head>');
+        if (false !== $pos) {
+            $content = substr($content, 0, $pos) . $css . substr($content, $pos);
+        } else {
+            $content = $content . $css;
         }
 
         return $this;

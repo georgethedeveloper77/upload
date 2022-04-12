@@ -9,6 +9,7 @@ use Botble\Contact\Repositories\Interfaces\ContactInterface;
 use EmailHandler;
 use Exception;
 use Illuminate\Routing\Controller;
+use Throwable;
 
 class PublicController extends Controller
 {
@@ -29,7 +30,7 @@ class PublicController extends Controller
      * @param ContactRequest $request
      * @param BaseHttpResponse $response
      * @return BaseHttpResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function postSendContact(ContactRequest $request, BaseHttpResponse $response)
     {
@@ -42,10 +43,10 @@ class PublicController extends Controller
 
             EmailHandler::setModule(CONTACT_MODULE_SCREEN_NAME)
                 ->setVariableValues([
-                    'contact_name'    => $contact->name ?? 'N/A',
+                    'contact_name' => $contact->name ?? 'N/A',
                     'contact_subject' => $contact->subject ?? 'N/A',
-                    'contact_email'   => $contact->email ?? 'N/A',
-                    'contact_phone'   => $contact->phone ?? 'N/A',
+                    'contact_email' => $contact->email ?? 'N/A',
+                    'contact_phone' => $contact->phone ?? 'N/A',
                     'contact_address' => $contact->address ?? 'N/A',
                     'contact_content' => $contact->content ?? 'N/A',
                 ])

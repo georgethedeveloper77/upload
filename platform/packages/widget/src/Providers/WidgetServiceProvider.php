@@ -63,8 +63,8 @@ class WidgetServiceProvider extends ServiceProvider
         $this->app->booted(function () {
 
             WidgetGroup::setGroup([
-                'id'          => 'primary_sidebar',
-                'name'        => trans('packages/widget::widget.primary_sidebar_name'),
+                'id' => 'primary_sidebar',
+                'name' => trans('packages/widget::widget.primary_sidebar_name'),
                 'description' => trans('packages/widget::widget.primary_sidebar_description'),
             ]);
 
@@ -85,12 +85,12 @@ class WidgetServiceProvider extends ServiceProvider
         Event::listen(RouteMatched::class, function () {
             dashboard_menu()
                 ->registerItem([
-                    'id'          => 'cms-core-widget',
-                    'priority'    => 3,
-                    'parent_id'   => 'cms-core-appearance',
-                    'name'        => 'packages/widget::widget.name',
-                    'icon'        => null,
-                    'url'         => route('widgets.index'),
+                    'id' => 'cms-core-widget',
+                    'priority' => 3,
+                    'parent_id' => 'cms-core-appearance',
+                    'name' => 'packages/widget::widget.name',
+                    'icon' => null,
+                    'url' => route('widgets.index'),
                     'permissions' => ['widgets.index'],
                 ]);
 

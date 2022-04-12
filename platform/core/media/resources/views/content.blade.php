@@ -2,7 +2,8 @@
     <div class="rv-media-wrapper">
         <input type="checkbox" id="media_aside_collapse" class="fake-click-event hidden">
         <input type="checkbox" id="media_details_collapse" class="fake-click-event hidden">
-        <aside class="rv-media-aside @if (config('core.media.media.sidebar_display') != 'vertical') rv-media-aside-hide-desktop @endif">
+        <aside
+            class="rv-media-aside @if (config('core.media.media.sidebar_display') != 'vertical') rv-media-aside-hide-desktop @endif">
             <label for="media_aside_collapse" class="collapse-sidebar">
                 <i class="fa fa-sign-out"></i>
             </label>
@@ -95,31 +96,37 @@
                         @if (config('core.media.media.sidebar_display') != 'vertical')
                             <div class="btn-group" role="group">
                                 <div class="dropdown">
-                                    <button class="btn btn-success dropdown-toggle js-rv-media-change-filter-group" type="button" data-toggle="dropdown">
-                                        <i class="fa fa-filter"></i> {{ trans('core/media::media.filter') }} <span class="js-rv-media-filter-current"></span>
+                                    <button class="btn btn-success dropdown-toggle js-rv-media-change-filter-group"
+                                            type="button" data-toggle="dropdown">
+                                        <i class="fa fa-filter"></i> {{ trans('core/media::media.filter') }} <span
+                                            class="js-rv-media-filter-current"></span>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#" class="js-rv-media-change-filter" data-type="filter" data-value="everything">
+                                            <a href="#" class="js-rv-media-change-filter" data-type="filter"
+                                               data-value="everything">
                                                 <i class="fa fa-recycle"></i> {{ trans('core/media::media.everything') }}
                                             </a>
                                         </li>
                                         @if (array_key_exists('image', config('core.media.media.mime_types', [])))
                                             <li>
-                                                <a href="#" class="js-rv-media-change-filter" data-type="filter" data-value="image">
+                                                <a href="#" class="js-rv-media-change-filter" data-type="filter"
+                                                   data-value="image">
                                                     <i class="fa fa-file-image"></i> {{ trans('core/media::media.image') }}
                                                 </a>
                                             </li>
                                         @endif
                                         @if (array_key_exists('video', config('core.media.media.mime_types', [])))
                                             <li>
-                                                <a href="#" class="js-rv-media-change-filter" data-type="filter" data-value="video">
+                                                <a href="#" class="js-rv-media-change-filter" data-type="filter"
+                                                   data-value="video">
                                                     <i class="fa fa-file-video"></i> {{ trans('core/media::media.video') }}
                                                 </a>
                                             </li>
                                         @endif
                                         <li>
-                                            <a href="#" class="js-rv-media-change-filter" data-type="filter" data-value="document">
+                                            <a href="#" class="js-rv-media-change-filter" data-type="filter"
+                                               data-value="document">
                                                 <i class="fa fa-file"></i> {{ trans('core/media::media.document') }}
                                             </a>
                                         </li>
@@ -129,27 +136,33 @@
 
                             <div class="btn-group" role="group">
                                 <div class="dropdown">
-                                    <button class="btn btn-success dropdown-toggle js-rv-media-change-filter-group" type="button" data-toggle="dropdown">
-                                        <i class="fa fa-eye"></i> {{ trans('core/media::media.view_in') }} <span class="js-rv-media-filter-current"></span>
+                                    <button class="btn btn-success dropdown-toggle js-rv-media-change-filter-group"
+                                            type="button" data-toggle="dropdown">
+                                        <i class="fa fa-eye"></i> {{ trans('core/media::media.view_in') }} <span
+                                            class="js-rv-media-filter-current"></span>
                                     </button>
                                     <ul class="dropdown-menu">
                                         <li>
-                                            <a href="#" class="js-rv-media-change-filter" data-type="view_in" data-value="all_media">
+                                            <a href="#" class="js-rv-media-change-filter" data-type="view_in"
+                                               data-value="all_media">
                                                 <i class="fa fa-globe"></i> {{ trans('core/media::media.all_media') }}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" class="js-rv-media-change-filter" data-type="view_in" data-value="trash">
+                                            <a href="#" class="js-rv-media-change-filter" data-type="view_in"
+                                               data-value="trash">
                                                 <i class="fa fa-trash"></i> {{ trans('core/media::media.trash') }}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" class="js-rv-media-change-filter" data-type="view_in" data-value="recent">
+                                            <a href="#" class="js-rv-media-change-filter" data-type="view_in"
+                                               data-value="recent">
                                                 <i class="fa fa-clock"></i> {{ trans('core/media::media.recent') }}
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" class="js-rv-media-change-filter" data-type="view_in" data-value="favorites">
+                                            <a href="#" class="js-rv-media-change-filter" data-type="view_in"
+                                               data-value="favorites">
                                                 <i class="fa fa-star"></i> {{ trans('core/media::media.favorites') }}
                                             </a>
                                         </li>
@@ -167,7 +180,8 @@
                     </div>
                     <div class="rv-media-search">
                         <form class="input-search-wrapper" action="" method="GET">
-                            <input type="text" class="form-control" placeholder="{{ trans('core/media::media.search_file_and_folder') }}">
+                            <input type="text" class="form-control"
+                                   placeholder="{{ trans('core/media::media.search_file_and_folder') }}">
                             <button class="btn btn-link" type="submit">
                                 <i class="fa fa-search"></i>
                             </button>
@@ -276,7 +290,8 @@
                 </div>
             </main>
             <footer class="rv-media-footer hidden">
-                <button type="button" class="btn btn-danger btn-lg js-insert-to-editor">{{ trans('core/media::media.insert') }}</button>
+                <button type="button"
+                        class="btn btn-danger btn-lg js-insert-to-editor">{{ trans('core/media::media.insert') }}</button>
             </footer>
         </div>
         <div class="rv-upload-progress hide-the-pane">
@@ -302,7 +317,8 @@
                         <h4 class="modal-title">
                             <i class="fab fa-windows"></i> {{ trans('core/media::media.coming_soon') }}
                         </h4>
-                        <button type="button" class="close" data-dismiss-modal="#modal_coming_soon" aria-label="{{ trans('core/media::media.close') }}">
+                        <button type="button" class="close" data-dismiss-modal="#modal_coming_soon"
+                                aria-label="{{ trans('core/media::media.close') }}">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
@@ -320,16 +336,19 @@
                         <h4 class="modal-title">
                             <i class="fab fa-windows"></i> {{ trans('core/media::media.create_folder') }}
                         </h4>
-                        <button type="button" class="close" data-dismiss-modal="#modal_add_folder" aria-label="{{ trans('core/media::media.close') }}">
+                        <button type="button" class="close" data-dismiss-modal="#modal_add_folder"
+                                aria-label="{{ trans('core/media::media.close') }}">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
                         <form class="rv-form form-add-folder">
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="{{ trans('core/media::media.folder_name') }}">
+                                <input type="text" class="form-control"
+                                       placeholder="{{ trans('core/media::media.folder_name') }}">
                                 <div class="input-group-prepend">
-                                    <button class="btn btn-success rv-btn-add-folder" type="submit">{{ trans('core/media::media.create') }}</button>
+                                    <button class="btn btn-success rv-btn-add-folder"
+                                            type="submit">{{ trans('core/media::media.create') }}</button>
                                 </div>
                             </div>
                         </form>
@@ -346,7 +365,8 @@
                             <h4 class="modal-title">
                                 <i class="fab fa-windows"></i> {{ trans('core/media::media.rename') }}
                             </h4>
-                            <button type="button" class="close" data-dismiss-modal="#modal_rename_items" aria-label="{{ trans('core/media::media.close') }}">
+                            <button type="button" class="close" data-dismiss-modal="#modal_rename_items"
+                                    aria-label="{{ trans('core/media::media.close') }}">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -355,8 +375,10 @@
                             <div class="modal-notice"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss-modal="#modal_rename_items">{{ trans('core/media::media.close') }}</button>
-                            <button type="submit" class="btn btn-primary">{{ trans('core/media::media.save_changes') }}</button>
+                            <button type="button" class="btn btn-secondary"
+                                    data-dismiss-modal="#modal_rename_items">{{ trans('core/media::media.close') }}</button>
+                            <button type="submit"
+                                    class="btn btn-primary">{{ trans('core/media::media.save_changes') }}</button>
                         </div>
                     </form>
                 </div>
@@ -370,7 +392,8 @@
                             <h4 class="modal-title">
                                 <i class="fab fa-windows"></i> {{ trans('core/media::media.move_to_trash') }}
                             </h4>
-                            <button type="button" class="close" data-dismiss-modal="#modal_trash_items" aria-label="{{ trans('core/media::media.close') }}">
+                            <button type="button" class="close" data-dismiss-modal="#modal_trash_items"
+                                    aria-label="{{ trans('core/media::media.close') }}">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -379,8 +402,10 @@
                             <div class="modal-notice"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger">{{ trans('core/media::media.confirm') }}</button>
-                            <button type="button" class="btn btn-primary" data-dismiss-modal="#modal_trash_items">{{ trans('core/media::media.close') }}</button>
+                            <button type="submit"
+                                    class="btn btn-danger">{{ trans('core/media::media.confirm') }}</button>
+                            <button type="button" class="btn btn-primary"
+                                    data-dismiss-modal="#modal_trash_items">{{ trans('core/media::media.close') }}</button>
                         </div>
                     </form>
                 </div>
@@ -394,7 +419,8 @@
                             <h4 class="modal-title">
                                 <i class="fab fa-windows"></i> {{ trans('core/media::media.confirm_delete') }}
                             </h4>
-                            <button type="button" class="close" data-dismiss-modal="#modal_delete_items" aria-label="{{ trans('core/media::media.close') }}">
+                            <button type="button" class="close" data-dismiss-modal="#modal_delete_items"
+                                    aria-label="{{ trans('core/media::media.close') }}">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -403,8 +429,10 @@
                             <div class="modal-notice"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger">{{ trans('core/media::media.confirm') }}</button>
-                            <button type="button" class="btn btn-primary" data-dismiss-modal="#modal_delete_items">{{ trans('core/media::media.close') }}</button>
+                            <button type="submit"
+                                    class="btn btn-danger">{{ trans('core/media::media.confirm') }}</button>
+                            <button type="button" class="btn btn-primary"
+                                    data-dismiss-modal="#modal_delete_items">{{ trans('core/media::media.close') }}</button>
                         </div>
                     </form>
                 </div>
@@ -418,7 +446,8 @@
                             <h4 class="modal-title">
                                 <i class="fab fa-windows"></i> {{ trans('core/media::media.empty_trash_title') }}
                             </h4>
-                            <button type="button" class="close" data-dismiss-modal="#modal_empty_trash" aria-label="{{ trans('core/media::media.close') }}">
+                            <button type="button" class="close" data-dismiss-modal="#modal_empty_trash"
+                                    aria-label="{{ trans('core/media::media.close') }}">
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
@@ -427,8 +456,10 @@
                             <div class="modal-notice"></div>
                         </div>
                         <div class="modal-footer">
-                            <button type="submit" class="btn btn-danger">{{ trans('core/media::media.confirm') }}</button>
-                            <button type="button" class="btn btn-primary" data-dismiss-modal="#modal_empty_trash">{{ trans('core/media::media.close') }}</button>
+                            <button type="submit"
+                                    class="btn btn-danger">{{ trans('core/media::media.confirm') }}</button>
+                            <button type="button" class="btn btn-primary"
+                                    data-dismiss-modal="#modal_empty_trash">{{ trans('core/media::media.close') }}</button>
                         </div>
                     </form>
                 </div>
@@ -453,7 +484,7 @@
 
 <script type="text/x-custom-template" id="rv_action_item">
     <li>
-        <a href="javascript:;" class="js-files-action" data-action="__action__">
+        <a href="javascript:" class="js-files-action" data-action="__action__">
             <i class="__icon__"></i> __name__
         </a>
     </li>
@@ -467,7 +498,8 @@
                 <h3>Drop files and folders here</h3>
                 <p>Or use the upload button above.</p>
             </li>
-            <li class="rv-media-list-title up-one-level js-up-one-level" title="{{ trans('core/media::media.up_level') }}">
+            <li class="rv-media-list-title up-one-level js-up-one-level"
+                title="{{ trans('core/media::media.up_level') }}">
                 <div class="custom-checkbox"></div>
                 <div class="rv-media-file-name">
                     <i class="fas fa-level-up-alt"></i>
@@ -503,7 +535,8 @@
 </script>
 
 <script type="text/x-custom-template" id="rv_media_items_list_element">
-    <li class="rv-media-list-title js-media-list-title js-context-menu" data-context="__type__" title="__name__" data-id="__id__">
+    <li class="rv-media-list-title js-media-list-title js-context-menu" data-context="__type__" title="__name__"
+        data-id="__id__">
         <div class="custom-checkbox">
             <label>
                 <input type="checkbox">

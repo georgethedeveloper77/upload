@@ -240,9 +240,9 @@ class AssetContainer
     {
         $types = [
             'script' => 'script',
-            'style'  => 'style',
-            'js'     => 'script',
-            'css'    => 'style',
+            'style' => 'style',
+            'js' => 'script',
+            'css' => 'style',
         ];
 
         if (array_key_exists($type, $types)) {

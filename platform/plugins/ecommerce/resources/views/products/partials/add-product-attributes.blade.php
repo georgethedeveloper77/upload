@@ -1,7 +1,8 @@
 @if ($productAttributeSets->count() > 0)
     <div class="add-new-product-attribute-wrap">
         <input type="hidden" name="is_added_attributes" id="is_added_attributes" value="0">
-        <a href="#" class="btn-trigger-add-attribute" data-toggle-text="{{ trans('plugins/ecommerce::products.form.cancel') }}">{{ trans('plugins/ecommerce::products.form.add_new_attributes') }}</a>
+        <a href="#" class="btn-trigger-add-attribute"
+           data-toggle-text="{{ trans('plugins/ecommerce::products.form.cancel') }}">{{ trans('plugins/ecommerce::products.form.add_new_attributes') }}</a>
         <p>{{ trans('plugins/ecommerce::products.form.add_new_attributes_description') }}</p>
         <div class="list-product-attribute-values-wrap hidden">
             <div class="product-select-attribute-item-template">
@@ -9,7 +10,8 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <div class="form-group">
-                                <label class="text-title-field">{{ trans('plugins/ecommerce::products.form.attribute_name') }}</label>
+                                <label
+                                    class="text-title-field">{{ trans('plugins/ecommerce::products.form.attribute_name') }}</label>
                                 <select class="next-input product-select-attribute-item">
                                     @foreach ($productAttributeSets as $item)
                                         <option value="{{ $item->id }}">
@@ -21,7 +23,8 @@
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <div class="form-group">
-                                <label class="text-title-field">{{ trans('plugins/ecommerce::products.form.value') }}</label>
+                                <label
+                                    class="text-title-field">{{ trans('plugins/ecommerce::products.form.value') }}</label>
                                 <div class="product-select-attribute-item-value-wrap">
 
                                 </div>
@@ -41,8 +44,11 @@
                 </div>
             </div>
             @foreach ($productAttributeSets as $attributeSet)
-                <div class="product-select-attribute-item-wrap-template product-select-attribute-item-value-wrap-{{ $attributeSet->id }}">
-                    <select class="next-input product-select-attribute-item-value product-select-attribute-item-value-id-{{ $attributeSet->id }}" data-set-id="{{ $attributeSet->id }}">
+                <div
+                    class="product-select-attribute-item-wrap-template product-select-attribute-item-value-wrap-{{ $attributeSet->id }}">
+                    <select
+                        class="next-input product-select-attribute-item-value product-select-attribute-item-value-id-{{ $attributeSet->id }}"
+                        data-set-id="{{ $attributeSet->id }}">
                         @foreach ($productAttributes->where('attribute_set_id', $attributeSet->id) as $attribute)
                             <option value="{{ $attribute->id }}">
                                 {{ $attribute->title }}
@@ -58,7 +64,8 @@
                     <div class="row">
                         <div class="col-md-4 col-sm-6">
                             <div class="form-group">
-                                <label class="text-title-field">{{ trans('plugins/ecommerce::products.form.attribute_name') }}</label>
+                                <label
+                                    class="text-title-field">{{ trans('plugins/ecommerce::products.form.attribute_name') }}</label>
                                 <select class="next-input product-select-attribute-item">
                                     @foreach ($productAttributeSets as $item)
                                         <option value="{{ $item->id }}">
@@ -70,12 +77,16 @@
                         </div>
                         <div class="col-md-4 col-sm-6">
                             <div class="form-group">
-                                <label class="text-title-field">{{ trans('plugins/ecommerce::products.form.value') }}</label>
+                                <label
+                                    class="text-title-field">{{ trans('plugins/ecommerce::products.form.value') }}</label>
                                 <div class="product-select-attribute-item-value-wrap">
                                     @php
-                                        $firstAttributeId = $productAttributeSets->first() ? $productAttributeSets->first()->id : 0;
+                                        $firstAttributeId = $productAttributeSets->first() ? $productAttributeSets->first()->id : 0
                                     @endphp
-                                    <select class="next-input product-select-attribute-item-value product-select-attribute-item-value-id-{{ $firstAttributeId }}"  name="added_attributes[{{ $firstAttributeId }}]" data-set-id="{{ $firstAttributeId }}">
+                                    <select
+                                        class="next-input product-select-attribute-item-value product-select-attribute-item-value-id-{{ $firstAttributeId }}"
+                                        name="added_attributes[{{ $firstAttributeId }}]"
+                                        data-set-id="{{ $firstAttributeId }}">
                                         @foreach ($productAttributes->where('attribute_set_id', $firstAttributeId) as $attribute)
                                             <option value="{{ $attribute->id }}">
                                                 {{ $attribute->title }}
@@ -98,9 +109,11 @@
                     </div>
                 </div>
             </div>
-            <a href="#" class="btn btn-secondary btn-trigger-add-attribute-item @if ($productAttributeSets->count() < 2) hidden @endif">{{ trans('plugins/ecommerce::products.form.add_more_attribute') }}</a>
+            <a href="#"
+               class="btn btn-secondary btn-trigger-add-attribute-item @if ($productAttributeSets->count() < 2) hidden @endif">{{ trans('plugins/ecommerce::products.form.add_more_attribute') }}</a>
             @if ($product && is_object($product) && $product->id)
-                <a href="#" class="btn btn-info btn-trigger-add-attribute-to-simple-product" data-target="{{ route('products.add-attribute-to-product', $product->id) }}">{{ trans('plugins/ecommerce::products.form.continue') }}</a>
+                <a href="#" class="btn btn-info btn-trigger-add-attribute-to-simple-product"
+                   data-target="{{ route('products.add-attribute-to-product', $product->id) }}">{{ trans('plugins/ecommerce::products.form.continue') }}</a>
             @endif
         </div>
     </div>

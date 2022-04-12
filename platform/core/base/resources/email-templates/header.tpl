@@ -78,7 +78,8 @@
                                                                 <tbody>
                                                                 <tr>
                                                                     <td style="padding:15px;border-collapse:collapse; height: 70px; line-height: 70px">
-                                                                        <a href="{{ site_url }}" style="color: #fff; text-decoration: none !important;"
+                                                                        <a href="{{ site_url }}"
+                                                                           style="color: #fff; text-decoration: none !important;"
                                                                            target="_blank">
                                                                             <img title="Logo"
                                                                                  src="{{ site_logo }}"
@@ -110,7 +111,9 @@
                                                                    style="border-spacing: 0;">
                                                                 <tbody>
                                                                 <tr>
-                                                                    <td style="font-size: 13px;line-height: 22px;color: #FFF;padding: 15px;font-weight: normal;text-align: center;font-family: Tahoma, Helvetica, Arial, sans-serif;border-collapse: collapse;"><span style="display: inline-block; height: 70px; line-height: 70px;">{{ date_time }}</span></td>
+                                                                    <td style="font-size: 13px;line-height: 22px;color: #FFF;padding: 15px;font-weight: normal;text-align: center;font-family: Tahoma, Helvetica, Arial, sans-serif;border-collapse: collapse;">
+                                                                        <span style="display: inline-block; height: 70px; line-height: 70px;">{{ date_time }}</span>
+                                                                    </td>
                                                                 </tr>
                                                                 </tbody>
                                                             </table>

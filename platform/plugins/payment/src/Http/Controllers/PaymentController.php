@@ -19,6 +19,7 @@ use Botble\Payment\Services\Gateways\StripePaymentService;
 use Botble\Payment\Tables\PaymentTable;
 use Botble\Setting\Supports\SettingStore;
 use Exception;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -74,7 +75,8 @@ class PaymentController extends Controller
         CodPaymentService $codPaymentService,
         BankTransferPaymentService $bankTransferPaymentService,
         PaymentInterface $paymentRepository
-    ) {
+    )
+    {
         $this->payPalService = $payPalService;
 
         $this->stripePaymentService = $stripePaymentService;
@@ -146,7 +148,7 @@ class PaymentController extends Controller
 
     /**
      * @param CheckoutRequest $request
-     * @return \Illuminate\Contracts\Foundation\Application|RedirectResponse|Redirector
+     * @return Application|RedirectResponse|Redirector
      */
     public function postCheckout(CheckoutRequest $request)
     {
@@ -156,11 +158,11 @@ class PaymentController extends Controller
         $currency = strtoupper($currency);
 
         $data = [
-            'error'    => false,
-            'message'  => false,
-            'amount'   => $request->input('amount'),
+            'error' => false,
+            'message' => false,
+            'amount' => $request->input('amount'),
             'currency' => $currency,
-            'type'     => $request->input('payment_method'),
+            'type' => $request->input('payment_method'),
         ];
 
         switch ($request->input('payment_method')) {
@@ -220,7 +222,8 @@ class PaymentController extends Controller
         PayPalPaymentCallbackRequest $request,
         PayPalPaymentService $palPaymentService,
         BaseHttpResponse $response
-    ) {
+    )
+    {
         $palPaymentService->afterMakePayment($request);
 
         return $response

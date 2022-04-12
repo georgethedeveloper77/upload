@@ -23,9 +23,9 @@ if (!function_exists('get_product_price')) {
 
         $priceInfo = [
             'start_date' => null,
-            'end_date'   => null,
-            'price'      => null,
-            'old_price'  => null,
+            'end_date' => null,
+            'price' => null,
+            'old_price' => null,
         ];
 
         if ($saleType == 'default') {

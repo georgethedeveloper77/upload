@@ -8,6 +8,7 @@ use Botble\Base\Traits\EnumCastable;
 use Botble\Payment\Enums\PaymentMethodEnum;
 use Botble\Payment\Enums\PaymentStatusEnum;
 use Html;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Payment extends BaseModel
 {
@@ -43,11 +44,11 @@ class Payment extends BaseModel
      */
     protected $casts = [
         'payment_channel' => PaymentMethodEnum::class,
-        'status'          => PaymentStatusEnum::class,
+        'status' => PaymentStatusEnum::class,
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {

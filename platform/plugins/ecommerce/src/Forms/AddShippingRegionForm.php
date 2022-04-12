@@ -20,22 +20,22 @@ class AddShippingRegionForm extends FormAbstract
             ->setTitle(trans('plugins/ecommerce::shipping.add_shipping_region'))
             ->setValidatorClass(AddShippingRegionRequest::class)
             ->add('region', 'select', [
-                'label'      => trans('plugins/ecommerce::shipping.country'),
+                'label' => trans('plugins/ecommerce::shipping.country'),
                 'label_attr' => [
                     'class' => 'control-label required',
                 ],
-                'choices'    => [],
+                'choices' => [],
             ])
             ->add('close', 'button', [
                 'label' => trans('core/base::forms.cancel'),
-                'attr'  => [
-                    'class'               => 'btn btn-warning',
+                'attr' => [
+                    'class' => 'btn btn-warning',
                     'data-fancybox-close' => true,
                 ],
             ])
             ->add('submit', 'submit', [
                 'label' => trans('core/base::forms.save'),
-                'attr'  => [
+                'attr' => [
                     'class' => 'btn btn-info float-right',
                 ],
             ]);
